@@ -5,19 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerAttackingScript : MonoBehaviour
 {
-    [SerializeField] Slider attackSlider; // Reference to the UI Slider
-    [SerializeField] Transform leftEnemy;
-    [SerializeField] Transform centerEnemy;
-    [SerializeField] Transform rightEnemy;
-   // [SerializeField] float attackRange = 2f; // Range within which an attack can hit
+    [SerializeField] Slider attackSlider; // Reference to the UI Slider for selecting attack positions
+    [SerializeField] Transform leftEnemy; // Reference to the left enemy spawn point
+    [SerializeField] Transform centerEnemy; // Reference to the center enemy spawn point
+    [SerializeField] Transform rightEnemy; // Reference to the right enemy spawn point
 
-    private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right
-    private bool isRoundActive = true; // Track if the round is active
-
-
+    private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right (initial position is center)
+    private bool isRoundActive = true; // Track if the current round is active
 
     private void OnEnable()
     {
+        // Subscribe to the "OnStartNewRound" event
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StartListening("OnStartNewRound", StartNewRound);
@@ -30,6 +28,7 @@ public class PlayerAttackingScript : MonoBehaviour
 
     private void OnDisable()
     {
+        // Unsubscribe from the "OnStartNewRound" event to avoid memory leaks
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StopListening("OnStartNewRound", StartNewRound);
@@ -38,12 +37,13 @@ public class PlayerAttackingScript : MonoBehaviour
 
     void Start()
     {
+        // Initialize the attack slider
         if (attackSlider != null)
         {
-            attackSlider.minValue = 0;
-            attackSlider.maxValue = 2;
-            attackSlider.wholeNumbers = true;
-            attackSlider.value = 1; // Start at the center
+            attackSlider.minValue = 0; // Slider's minimum value corresponds to the left position
+            attackSlider.maxValue = 2; // Slider's maximum value corresponds to the right position
+            attackSlider.wholeNumbers = true; // Slider can only have whole number values
+            attackSlider.value = 1; // Set the initial slider position to center
         }
     }
 
@@ -51,33 +51,61 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (attackSlider != null)
         {
+            // Update the selected position based on the slider's value
             selectedPosition = Mathf.RoundToInt(attackSlider.value);
+
+            // Handle slider movement using arrow keys
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                MoveSlider(-1); // Move the slider one position to the left
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                MoveSlider(1); // Move the slider one position to the right
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) // Press Space to attack
+        // Handle melee attack input
+        if (Input.GetKeyDown(KeyCode.A)) // Press 'A' to attack with melee
         {
-            Attack();
+            Attack("melee");
         }
 
-        // Check if all enemies are destroyed and if the round is active
+        // Handle magic attack input
+        if (Input.GetKeyDown(KeyCode.D)) // Press 'D' to attack with magic
+        {
+            Attack("magic");
+        }
+
+        // Check if all enemies are destroyed and the round is still active
         if (isRoundActive && AllEnemiesDestroyed())
         {
             OnAllEnemiesDestroyed();
         }
     }
 
-    public void Attack()
+    void MoveSlider(int direction)
     {
+        if (attackSlider != null)
+        {
+            // Adjust the slider's value, clamped within the minimum and maximum range
+            attackSlider.value = Mathf.Clamp(attackSlider.value + direction, attackSlider.minValue, attackSlider.maxValue);
+        }
+    }
+
+    public void Attack(string attackType)
+    {
+        // Determine which enemy to attack based on the selected position
         switch (selectedPosition)
         {
-            case 0:
-                AttackEnemy(leftEnemy);
+            case 0: // Left position
+                AttackEnemy(leftEnemy, attackType);
                 break;
-            case 1:
-                AttackEnemy(centerEnemy);
+            case 1: // Center position
+                AttackEnemy(centerEnemy, attackType);
                 break;
-            case 2:
-                AttackEnemy(rightEnemy);
+            case 2: // Right position
+                AttackEnemy(rightEnemy, attackType);
                 break;
             default:
                 Debug.LogError("Invalid slider position");
@@ -85,13 +113,19 @@ public class PlayerAttackingScript : MonoBehaviour
         }
     }
 
-    void AttackEnemy(Transform enemy)
+    void AttackEnemy(Transform enemy, string attackType)
     {
         if (enemy != null)
         {
+            // Loop through all child objects of the enemy (e.g., individual enemy units)
             foreach (Transform child in enemy)
             {
-                Destroy(child.gameObject); // Destroy each child GameObject
+                // Check if the child has an EnemyParent component and can be hit by the specified attack type
+                EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
+                if (enemyComponent != null && enemyComponent.CanBeHitBy(attackType))
+                {
+                    enemyComponent.TakeDamage(); // Apply damage to the enemy
+                }
             }
         }
         else
@@ -102,6 +136,7 @@ public class PlayerAttackingScript : MonoBehaviour
 
     bool AllEnemiesDestroyed()
     {
+        // Check if all enemy spawn points are null or their game objects have been destroyed
         return (leftEnemy == null || leftEnemy.gameObject == null) &&
                (centerEnemy == null || centerEnemy.gameObject == null) &&
                (rightEnemy == null || rightEnemy.gameObject == null);
@@ -109,13 +144,12 @@ public class PlayerAttackingScript : MonoBehaviour
 
     void OnAllEnemiesDestroyed()
     {
-        isRoundActive = false; // Prevent the event from being repeatedly triggered
-        EventManager.Instance.TriggerEvent("OnKilledAllEnemies");
+        isRoundActive = false; // Mark the round as inactive
+        EventManager.Instance.TriggerEvent("OnKilledAllEnemies"); // Trigger an event for when all enemies are destroyed
     }
 
     void StartNewRound()
     {
-        isRoundActive = false; // Reset round state when starting a new round
+        isRoundActive = false; // Reset the round state when a new round starts
     }
 }
-

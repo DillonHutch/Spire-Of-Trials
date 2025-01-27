@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2888150111293655168}
   - component: {fileID: 7883396469972388568}
-  - component: {fileID: -28118528059298521}
+  - component: {fileID: 6395460297414654372}
   m_Layer: 0
   m_Name: monster
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-28118528059298521
+--- !u!114 &6395460297414654372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,13 +94,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6875418910693198597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f113e11a27a204a8757bd8484c3412, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fd5d6a4d2eadad4895ce9078a5cf9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dodgeSlider: {fileID: 0}
+  maxHealth: 6
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   windUpColor: {r: 0, g: 0, b: 1, a: 1}
-  attackColor: {r: 1, g: 0, b: 1, a: 1}
+  attackColor: {r: 0.028630018, g: 1, b: 0, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   attackIntervalMin: 2
   attackIntervalMax: 5
   windUpTime: 1
+  canBeHitByMelee: 0
+  canBeHitByMagic: 1

@@ -9,7 +9,7 @@ public class SpawnPoint : MonoBehaviour
     {
         LEFT = 0,
         MIDDLE = 1,
-        RIGHT = 3
+        RIGHT = 2
     }
 
 

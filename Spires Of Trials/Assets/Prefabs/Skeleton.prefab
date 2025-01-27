@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4851959165305672182}
   - component: {fileID: 7118021183028757176}
-  - component: {fileID: 1597396796501021288}
+  - component: {fileID: 2389747372085521689}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1597396796501021288
+--- !u!114 &2389747372085521689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,12 +94,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5956038672238996150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37f113e11a27a204a8757bd8484c3412, type: 3}
+  m_Script: {fileID: 11500000, guid: c53881976cf376e459d4585c2b770d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 3
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   windUpColor: {r: 0, g: 0, b: 1, a: 1}
-  attackColor: {r: 1, g: 0, b: 1, a: 1}
+  attackColor: {r: 0, g: 1, b: 0.29015136, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
   attackIntervalMin: 2
   attackIntervalMax: 5
   windUpTime: 1
+  canBeHitByMelee: 1
+  canBeHitByMagic: 1
