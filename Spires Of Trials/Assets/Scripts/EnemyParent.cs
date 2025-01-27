@@ -3,55 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyParent : MonoBehaviour
+public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] Slider dodgeSlider; // Reference to the player's dodge slider
-    [SerializeField] List<GameObject> enemies; // List of all enemy GameObjects
-    [SerializeField] Color normalColor = Color.white; // Default color
-    [SerializeField] Color windUpColor = Color.blue; // Color for wind-up state
-    [SerializeField] Color attackColor = Color.magenta; // Color for attack state
-    [SerializeField] float attackIntervalMin = 2f; // Minimum time between attacks
-    [SerializeField] float attackIntervalMax = 5f; // Maximum time between attacks
-    [SerializeField] float windUpTime = 1f; // Time the enemy winds up before attacking
+    private Slider dodgeSlider; // Reference to the player's dodge slider
+    [SerializeField] private Color normalColor = Color.white; // Default color
+    [SerializeField] private Color windUpColor = Color.blue; // Color for wind-up state
+    [SerializeField] private Color attackColor = Color.magenta; // Color for attack state
+    [SerializeField] private float attackIntervalMin = 2f; // Minimum time between attacks
+    [SerializeField] private float attackIntervalMax = 5f; // Maximum time between attacks
+    [SerializeField] private float windUpTime = 1f; // Time the enemy winds up before attacking
 
-    private GameObject currentAttackingEnemy; // The enemy currently attacking
+    private SpriteRenderer spriteRenderer;
     private Coroutine attackCoroutine;
 
-    void Start()
+
+    int enemyAttackPosition;
+
+    private void Start()
     {
+
+
+        enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
+
+        dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider").GetComponent<Slider>();
+
+        // Ensure the SpriteRenderer component is present
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            Debug.LogError("Enemy is missing a SpriteRenderer!");
+            return;
+        }
+
+        // Ensure the dodge slider is assigned
         if (dodgeSlider == null)
         {
             Debug.LogError("Dodge slider is not assigned!");
             return;
         }
 
-        if (enemies.Count == 0)
-        {
-            Debug.LogError("No enemies assigned!");
-            return;
-        }
-
-        // Start the enemy attack loop
-        attackCoroutine = StartCoroutine(EnemyAttackLoop());
+        // Start the attack behavior
+        attackCoroutine = StartCoroutine(AttackLoop());
     }
 
-    IEnumerator EnemyAttackLoop()
+    private IEnumerator AttackLoop()
     {
         while (true)
         {
             // Wait for a random interval before the next attack
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
-
-            // Randomly pick one enemy to attack
-            currentAttackingEnemy = enemies[Random.Range(0, enemies.Count)];
-            SpriteRenderer spriteRenderer = currentAttackingEnemy.GetComponent<SpriteRenderer>();
-
-            if (spriteRenderer == null)
-            {
-                Debug.LogError("Enemy is missing a SpriteRenderer!");
-                continue;
-            }
 
             // Wind-up phase (change to wind-up color)
             spriteRenderer.color = windUpColor;
@@ -60,15 +61,13 @@ public class EnemyParent : MonoBehaviour
             // Attack phase (change to attack color)
             spriteRenderer.color = attackColor;
 
-            // Wait a brief moment to make the attack color visible
+            // Simulate attack with a brief moment to show the attack color
             float attackDisplayTime = 0.5f; // Duration to show attack color
             yield return new WaitForSeconds(attackDisplayTime);
 
-            // Determine the enemy's attack position (0 = Left, 1 = Center, 2 = Right)
-            int enemyAttackPosition = enemies.IndexOf(currentAttackingEnemy);
-
-            // Check if the player's dodge position matches the enemy's attack position
-            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+            // Determine if the player dodged the attack
+            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value); // Player's dodge position
+            
 
             if (playerDodgePosition == enemyAttackPosition)
             {
@@ -85,14 +84,12 @@ public class EnemyParent : MonoBehaviour
         }
     }
 
-
-    private void OnDestroy()
+    private void OnDisable()
     {
+        // Stop the attack loop when the enemy is disabled
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
         }
     }
 }
-
-

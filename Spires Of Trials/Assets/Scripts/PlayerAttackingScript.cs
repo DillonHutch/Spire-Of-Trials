@@ -9,13 +9,35 @@ public class PlayerAttackingScript : MonoBehaviour
     [SerializeField] Transform leftEnemy;
     [SerializeField] Transform centerEnemy;
     [SerializeField] Transform rightEnemy;
-    [SerializeField] float attackRange = 2f; // Range within which an attack can hit
+   // [SerializeField] float attackRange = 2f; // Range within which an attack can hit
 
     private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right
+    private bool isRoundActive = true; // Track if the round is active
+
+
+
+    private void OnEnable()
+    {
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.StartListening("OnStartNewRound", StartNewRound);
+        }
+        else
+        {
+            Debug.LogError("EventManager instance is null. Ensure it is present in the scene.");
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.StopListening("OnStartNewRound", StartNewRound);
+        }
+    }
 
     void Start()
     {
-        // Ensure the slider is set up properly
         if (attackSlider != null)
         {
             attackSlider.minValue = 0;
@@ -35,6 +57,12 @@ public class PlayerAttackingScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) // Press Space to attack
         {
             Attack();
+        }
+
+        // Check if all enemies are destroyed and if the round is active
+        if (isRoundActive && AllEnemiesDestroyed())
+        {
+            OnAllEnemiesDestroyed();
         }
     }
 
@@ -61,13 +89,33 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (enemy != null)
         {
-            
-          enemy.gameObject.SetActive(false);
-
+            foreach (Transform child in enemy)
+            {
+                Destroy(child.gameObject); // Destroy each child GameObject
+            }
         }
         else
         {
-            Debug.LogWarning("Enemy transform is not assigned.");
+            Debug.LogWarning("Enemy transform is not assigned or is null.");
         }
     }
+
+    bool AllEnemiesDestroyed()
+    {
+        return (leftEnemy == null || leftEnemy.gameObject == null) &&
+               (centerEnemy == null || centerEnemy.gameObject == null) &&
+               (rightEnemy == null || rightEnemy.gameObject == null);
+    }
+
+    void OnAllEnemiesDestroyed()
+    {
+        isRoundActive = false; // Prevent the event from being repeatedly triggered
+        EventManager.Instance.TriggerEvent("OnKilledAllEnemies");
+    }
+
+    void StartNewRound()
+    {
+        isRoundActive = false; // Reset round state when starting a new round
+    }
 }
+
