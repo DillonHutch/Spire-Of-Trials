@@ -1,11 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerAttackingScript : MonoBehaviour
 {
     [SerializeField] Slider attackSlider; // Reference to the UI Slider for selecting attack positions
+    [SerializeField] Slider meleeCooldownSlider; // Slider for melee cooldown
+    [SerializeField] Slider rangeCooldownSlider; // Slider for range cooldown
+    [SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
+
     [SerializeField] Transform leftEnemy; // Reference to the left enemy spawn point
     [SerializeField] Transform centerEnemy; // Reference to the center enemy spawn point
     [SerializeField] Transform rightEnemy; // Reference to the right enemy spawn point
@@ -13,9 +16,16 @@ public class PlayerAttackingScript : MonoBehaviour
     private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right (initial position is center)
     private bool isRoundActive = true; // Track if the current round is active
 
+    private float meleeCooldown = .4f; // Cooldown duration for melee attacks
+    private float rangeCooldown = .4f; // Cooldown duration for range attacks
+    private float magicCooldown = .4f; // Cooldown duration for magic attacks
+
+    private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
+    private float rangeCooldownTimer = 0f; // Current cooldown timer for range
+    private float magicCooldownTimer = 0f; // Current cooldown timer for magic
+
     private void OnEnable()
     {
-        // Subscribe to the "OnStartNewRound" event
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StartListening("OnStartNewRound", StartNewRound);
@@ -28,7 +38,6 @@ public class PlayerAttackingScript : MonoBehaviour
 
     private void OnDisable()
     {
-        // Unsubscribe from the "OnStartNewRound" event to avoid memory leaks
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StopListening("OnStartNewRound", StartNewRound);
@@ -40,44 +49,57 @@ public class PlayerAttackingScript : MonoBehaviour
         // Initialize the attack slider
         if (attackSlider != null)
         {
-            attackSlider.minValue = 0; // Slider's minimum value corresponds to the left position
-            attackSlider.maxValue = 2; // Slider's maximum value corresponds to the right position
-            attackSlider.wholeNumbers = true; // Slider can only have whole number values
-            attackSlider.value = 1; // Set the initial slider position to center
+            attackSlider.minValue = 0;
+            attackSlider.maxValue = 2;
+            attackSlider.wholeNumbers = true;
+            attackSlider.value = 1;
         }
+
+        // Initialize cooldown sliders
+        InitializeCooldownSlider(meleeCooldownSlider, meleeCooldown);
+        InitializeCooldownSlider(rangeCooldownSlider, rangeCooldown);
+        InitializeCooldownSlider(magicCooldownSlider, magicCooldown);
     }
 
     void Update()
     {
+        HandleCooldownTimers();
+
         if (attackSlider != null)
         {
-            // Update the selected position based on the slider's value
             selectedPosition = Mathf.RoundToInt(attackSlider.value);
 
-            // Handle slider movement using arrow keys
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                MoveSlider(-1); // Move the slider one position to the left
+                MoveSlider(-1);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                MoveSlider(1); // Move the slider one position to the right
+                MoveSlider(1);
             }
         }
 
         // Handle melee attack input
-        if (Input.GetKeyDown(KeyCode.A)) // Press 'A' to attack with melee
+        if (Input.GetKeyDown(KeyCode.A) && meleeCooldownTimer <= 0f)
         {
             Attack("melee");
+            StartCooldown(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
+        }
+
+        // Handle range attack input
+        if (Input.GetKeyDown(KeyCode.S) && rangeCooldownTimer <= 0f)
+        {
+            Attack("range");
+            StartCooldown(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
         }
 
         // Handle magic attack input
-        if (Input.GetKeyDown(KeyCode.D)) // Press 'D' to attack with magic
+        if (Input.GetKeyDown(KeyCode.D) && magicCooldownTimer <= 0f)
         {
             Attack("magic");
+            StartCooldown(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
         }
 
-        // Check if all enemies are destroyed and the round is still active
         if (isRoundActive && AllEnemiesDestroyed())
         {
             OnAllEnemiesDestroyed();
@@ -88,23 +110,21 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (attackSlider != null)
         {
-            // Adjust the slider's value, clamped within the minimum and maximum range
             attackSlider.value = Mathf.Clamp(attackSlider.value + direction, attackSlider.minValue, attackSlider.maxValue);
         }
     }
 
     public void Attack(string attackType)
     {
-        // Determine which enemy to attack based on the selected position
         switch (selectedPosition)
         {
-            case 0: // Left position
+            case 0:
                 AttackEnemy(leftEnemy, attackType);
                 break;
-            case 1: // Center position
+            case 1:
                 AttackEnemy(centerEnemy, attackType);
                 break;
-            case 2: // Right position
+            case 2:
                 AttackEnemy(rightEnemy, attackType);
                 break;
             default:
@@ -117,14 +137,12 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (enemy != null)
         {
-            // Loop through all child objects of the enemy (e.g., individual enemy units)
             foreach (Transform child in enemy)
             {
-                // Check if the child has an EnemyParent component and can be hit by the specified attack type
                 EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
                 if (enemyComponent != null && enemyComponent.CanBeHitBy(attackType))
                 {
-                    enemyComponent.TakeDamage(); // Apply damage to the enemy
+                    enemyComponent.TakeDamage();
                 }
             }
         }
@@ -134,9 +152,43 @@ public class PlayerAttackingScript : MonoBehaviour
         }
     }
 
+    void HandleCooldownTimers()
+    {
+        UpdateCooldownSlider(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
+        UpdateCooldownSlider(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
+        UpdateCooldownSlider(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
+    }
+
+    void InitializeCooldownSlider(Slider slider, float maxCooldown)
+    {
+        if (slider != null)
+        {
+            slider.minValue = 0;
+            slider.maxValue = maxCooldown;
+            slider.value = 100; // Start empty
+        }
+    }
+
+    void StartCooldown(Slider slider, ref float timer, float duration)
+    {
+        if (slider != null)
+        {
+            timer = duration;
+            slider.value = 0; // Reset to empty
+        }
+    }
+
+    void UpdateCooldownSlider(Slider slider, ref float timer, float maxCooldown)
+    {
+        if (slider != null && timer > 0f)
+        {
+            timer -= Time.deltaTime;
+            slider.value = Mathf.Clamp(maxCooldown - timer, 0f, slider.maxValue); // Fill up as cooldown progresses
+        }
+    }
+
     bool AllEnemiesDestroyed()
     {
-        // Check if all enemy spawn points are null or their game objects have been destroyed
         return (leftEnemy == null || leftEnemy.gameObject == null) &&
                (centerEnemy == null || centerEnemy.gameObject == null) &&
                (rightEnemy == null || rightEnemy.gameObject == null);
@@ -144,12 +196,12 @@ public class PlayerAttackingScript : MonoBehaviour
 
     void OnAllEnemiesDestroyed()
     {
-        isRoundActive = false; // Mark the round as inactive
-        EventManager.Instance.TriggerEvent("OnKilledAllEnemies"); // Trigger an event for when all enemies are destroyed
+        isRoundActive = false;
+        EventManager.Instance.TriggerEvent("OnKilledAllEnemies");
     }
 
     void StartNewRound()
     {
-        isRoundActive = false; // Reset the round state when a new round starts
+        isRoundActive = true;
     }
 }

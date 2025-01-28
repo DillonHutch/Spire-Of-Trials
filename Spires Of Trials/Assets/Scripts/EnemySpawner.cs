@@ -29,10 +29,11 @@ public class EnemySpawner : MonoBehaviour
             // Check if all enemies are destroyed
             if (AllEnemiesDestroyed() && !isSpawning)
             {
+                EventManager.Instance.TriggerEvent("healDamageEvent", 1);
                 Debug.Log("All enemies destroyed. Starting new spawn cycle.");
                 yield return StartCoroutine(SpawnEnemies());
             }
-            yield return new WaitForSeconds(1f); // Check periodically
+            yield return new WaitForSeconds(.5f); // Check periodically
         }
     }
 
@@ -84,6 +85,8 @@ public class EnemySpawner : MonoBehaviour
     {
         // Remove any null references (destroyed enemies) from the list
         spawnedEnemies.RemoveAll(enemy => enemy == null);
+
+        
 
         // If the list is empty, all enemies are destroyed
         return spawnedEnemies.Count == 0;

@@ -14,10 +14,11 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Color attackColor = Color.magenta; // Color for attack state
     [SerializeField] private Color damageColor = Color.red; // Color when taking damage
     private float attackIntervalMin = 1f; // Minimum time between attacks
-    private float attackIntervalMax = 2f; // Maximum time between attacks
+    private float attackIntervalMax = 1.5f; // Maximum time between attacks
     private float windUpTime = .5f; // Time the enemy winds up before attacking
     [SerializeField] bool canBeHitByMelee = true;
     [SerializeField] bool canBeHitByMagic = false;
+    [SerializeField] bool canBeHitByRange = false;
 
     private SpriteRenderer spriteRenderer;
     private Coroutine attackCoroutine;
@@ -82,7 +83,7 @@ public class EnemyParent : MonoBehaviour
             if (playerDodgePosition == enemyAttackPosition)
             {
                 Debug.Log("Player hit by attack!");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 10);
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             }
             else
             {
@@ -103,6 +104,8 @@ public class EnemyParent : MonoBehaviour
                 return canBeHitByMelee;
             case "magic":
                 return canBeHitByMagic;
+            case "range":
+                return canBeHitByRange;
             default:
                 return false;
         }

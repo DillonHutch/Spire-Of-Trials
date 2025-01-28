@@ -102,8 +102,6 @@ MonoBehaviour:
   windUpColor: {r: 0, g: 0, b: 1, a: 1}
   attackColor: {r: 0.028630018, g: 1, b: 0, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
-  attackIntervalMin: 2
-  attackIntervalMax: 5
-  windUpTime: 1
   canBeHitByMelee: 0
-  canBeHitByMagic: 1
+  canBeHitByMagic: 0
+  canBeHitByRange: 1
