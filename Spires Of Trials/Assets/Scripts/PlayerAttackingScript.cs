@@ -83,6 +83,7 @@ public class PlayerAttackingScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && meleeCooldownTimer <= 0f)
         {
             Attack("melee");
+            AudioManager.instance.PlayOneShot( FMODEvents.instance.meleeAttack, this.transform.position);
             StartCooldown(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
         }
 

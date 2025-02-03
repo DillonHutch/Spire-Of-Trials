@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{981fee60-f1ef-4b4b-9091-c93ff54ec3f9}">
+		<property name="name">
+			<value>SFX</value>
+		</property>
+		<relationship name="folder">
+			<destination>{763010a2-3410-4e5c-9c68-ad78727b0823}</destination>
+		</relationship>
+	</object>
+</objects>
