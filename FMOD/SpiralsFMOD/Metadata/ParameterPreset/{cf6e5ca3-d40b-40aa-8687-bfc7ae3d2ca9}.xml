@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{cf6e5ca3-d40b-40aa-8687-bfc7ae3d2ca9}">
+		<property name="name">
+			<value>HoMAdaptive</value>
+		</property>
+		<relationship name="folder">
+			<destination>{6fb97ca4-31d0-4b0a-b0c1-e100ae38eb7c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{f0cfecf3-ba1f-4923-836c-4f955ffbd1bf}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{f0cfecf3-ba1f-4923-836c-4f955ffbd1bf}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>HoMSlow</value>
+			<value>HoMFast</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

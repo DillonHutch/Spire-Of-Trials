@@ -1,31 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9134972698431803306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/HallOfMirrorsMusic/Music
-  m_EditorClassIdentifier: 
-  Name: Music
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 403884887
-    data2: 3264929694
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Ruins
-  - Mirrors
-  Exists: 1
 --- !u!114 &-8385834267472912259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41,10 +15,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638741997870056456
+  lastModified: 638742052537308985
   FileSizes:
   - Name: Desktop
-    Value: 4583904
+    Value: 6346432
   Exists: 1
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
@@ -61,10 +35,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638741997869651350
+  lastModified: 638742047646791378
   FileSizes:
   - Name: Desktop
-    Value: 1120
+    Value: 1226
   Exists: 1
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
@@ -108,11 +82,120 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638741997869641344
+  lastModified: 638742047646781389
   FileSizes:
   - Name: Desktop
     Value: 1486
   Exists: 1
+--- !u!114 &-2247300635573903760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/CombatMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/CombatMusic
+  Guid:
+    Data1: 342785058
+    Data2: 1261055159
+    Data3: -849000789
+    Data4: 1610854805
+  Banks:
+  - {fileID: -8385834267472912259}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 49807514505027848}
+  - {fileID: -2087814211097515909}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2087814211097515909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/CombatMusic/Music
+  m_EditorClassIdentifier: 
+  Name: Music
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 403884887
+    data2: 3264929694
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Garden
+  - Mirrors
+  Exists: 1
+--- !u!114 &-987652458637119345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/AdaptiveHoMMusic/HoMAdaptive
+  m_EditorClassIdentifier: 
+  Name: HoMAdaptive
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2016049694
+    data2: 4182848206
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - HoMSlow
+  - HoMFast
+  Exists: 1
+--- !u!114 &-449759682193202729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/AdaptiveHoMMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/AdaptiveHoMMusic
+  Guid:
+    Data1: -348878433
+    Data2: 1195352573
+    Data3: -1491318112
+    Data4: 646350794
+  Banks:
+  - {fileID: -8385834267472912259}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -987652458637119345}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 332832
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,14 +216,41 @@ MonoBehaviour:
   - {fileID: 3830511604902927485}
   EditorEvents:
   - {fileID: -4617588377743754878}
-  - {fileID: 5951419620259272971}
+  - {fileID: -2247300635573903760}
+  - {fileID: -449759682193202729}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638741997870056456
+  cacheTime: 638742052537308985
   cacheVersion: 131618
+--- !u!114 &49807514505027848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/CombatMusic/HoMAdaptive
+  m_EditorClassIdentifier: 
+  Name: HoMAdaptive
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2016049694
+    data2: 4182848206
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - HoMSlow
+  - HoMFast
+  Exists: 1
 --- !u!114 &3830511604902927485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,34 +271,6 @@ MonoBehaviour:
   - Name: Desktop
     Value: 19744
   Exists: 1
---- !u!114 &5951419620259272971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/HallOfMirrorsMusic
-  m_EditorClassIdentifier: 
-  Path: event:/Music/HallOfMirrorsMusic
-  Guid:
-    Data1: 342785058
-    Data2: 1261055159
-    Data3: -849000789
-    Data4: 1610854805
-  Banks:
-  - {fileID: -8385834267472912259}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -9134972698431803306}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
 --- !u!114 &8747005220439572358
 MonoBehaviour:
   m_ObjectHideFlags: 0

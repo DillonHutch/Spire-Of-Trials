@@ -68,8 +68,17 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusic(MusicEnum music)
     {
+        if (!musicEventInstance.isValid())
+        {
+            Debug.LogError("SetMusic called but musicEventInstance is not valid!");
+            return;
+        }
+
+        Debug.Log($"Setting music parameter: {music}");
         musicEventInstance.setParameterByName("Music", (float)music);
     }
+
+
 
 
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
@@ -81,11 +90,25 @@ public class AudioManager : MonoBehaviour
     void InitializeMusic(EventReference musicReference)
     {
         if (musicEventInstance.isValid())
+        {
+            Debug.Log("Music event already initialized.");
             return; // Avoid reinitializing if already playing
+        }
 
-        musicEventInstance = CreateInstance(musicReference);
-        musicEventInstance.start();
+        // Ensure the event is created properly
+        musicEventInstance = RuntimeManager.CreateInstance(musicReference);
+
+        if (musicEventInstance.isValid())
+        {
+            Debug.Log("Music event initialized successfully.");
+            musicEventInstance.start();
+        }
+        else
+        {
+            Debug.LogError("Failed to initialize music event.");
+        }
     }
+
 
 
 
@@ -112,11 +135,16 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (instance == this)
+        if (instance == this && FMODEvents.instance != null)
         {
             InitializeMusic(FMODEvents.instance.music);
         }
+        else
+        {
+            Debug.LogError("FMODEvents.instance is null!");
+        }
     }
+
 
 
     // Update is called once per frame
@@ -127,4 +155,11 @@ public class AudioManager : MonoBehaviour
         sfxBus.setVolume(sfxVolume);
         ambianceBus.setVolume(ambianceVolume);
     }
+
+
+    public EventInstance GetCurrentMusicInstance()
+    {
+        return musicEventInstance;
+    }
+
 }
