@@ -1,5 +1,31 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9134972698431803306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/HallOfMirrorsMusic/Music
+  m_EditorClassIdentifier: 
+  Name: Music
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 403884887
+    data2: 3264929694
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Ruins
+  - Mirrors
+  Exists: 1
 --- !u!114 &-8385834267472912259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,10 +41,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638741949986921677
+  lastModified: 638741997870056456
   FileSizes:
   - Name: Desktop
-    Value: 4583680
+    Value: 4583904
   Exists: 1
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
@@ -35,7 +61,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638741949959267757
+  lastModified: 638741997869651350
   FileSizes:
   - Name: Desktop
     Value: 1120
@@ -82,7 +108,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638741949959251757
+  lastModified: 638741997869641344
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -107,68 +133,14 @@ MonoBehaviour:
   - {fileID: 3830511604902927485}
   EditorEvents:
   - {fileID: -4617588377743754878}
-  - {fileID: 3044058638696284923}
+  - {fileID: 5951419620259272971}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638741949987121647
+  cacheTime: 638741997870056456
   cacheVersion: 131618
---- !u!114 &3044058638696284923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/HallofMirrorsMusic
-  m_EditorClassIdentifier: 
-  Path: event:/Music/HallofMirrorsMusic
-  Guid:
-    Data1: -1788559733
-    Data2: 1170573339
-    Data3: -644263796
-    Data4: 21289810
-  Banks:
-  - {fileID: -8385834267472912259}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 3392557151767800136}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &3392557151767800136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/HallofMirrorsMusic/Music
-  m_EditorClassIdentifier: 
-  Name: Music
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 403884887
-    data2: 3264929694
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Ruins
-  - Mirrors
-  Exists: 1
 --- !u!114 &3830511604902927485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +161,34 @@ MonoBehaviour:
   - Name: Desktop
     Value: 19744
   Exists: 1
+--- !u!114 &5951419620259272971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/HallOfMirrorsMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/HallOfMirrorsMusic
+  Guid:
+    Data1: 342785058
+    Data2: 1261055159
+    Data3: -849000789
+    Data4: 1610854805
+  Banks:
+  - {fileID: -8385834267472912259}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -9134972698431803306}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8747005220439572358
 MonoBehaviour:
   m_ObjectHideFlags: 0

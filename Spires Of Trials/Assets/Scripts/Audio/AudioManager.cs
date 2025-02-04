@@ -13,6 +13,9 @@ public class AudioManager : MonoBehaviour
     public float masterVolume = 1;
     [Range(0, 1)]
 
+    public float ambianceVolume = 1;
+    [Range(0, 1)]
+
     public float musicVolume = 1;
     [Range(0, 1)]
     public float sfxVolume = 1;
@@ -22,6 +25,8 @@ public class AudioManager : MonoBehaviour
     private Bus masterBus;
 
     private Bus musicBus;
+
+    private Bus ambianceBus;
 
     private Bus sfxBus;
 
@@ -55,6 +60,7 @@ public class AudioManager : MonoBehaviour
         eventInstances = new List<EventInstance>();
 
         masterBus = RuntimeManager.GetBus("bus:/");
+        ambianceBus = RuntimeManager.GetBus("bus:/Ambiance");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
@@ -119,5 +125,6 @@ public class AudioManager : MonoBehaviour
         masterBus.setVolume(masterVolume);
         musicBus.setVolume(musicVolume);
         sfxBus.setVolume(sfxVolume);
+        ambianceBus.setVolume(ambianceVolume);
     }
 }

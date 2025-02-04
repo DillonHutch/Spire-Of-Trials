@@ -80,7 +80,7 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
         // Handle melee attack input
-        if (Input.GetKeyDown(KeyCode.A) && meleeCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.Q) && meleeCooldownTimer <= 0f)
         {
             Attack("melee");
             AudioManager.instance.PlayOneShot( FMODEvents.instance.meleeAttack, this.transform.position);
@@ -88,14 +88,14 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
         // Handle range attack input
-        if (Input.GetKeyDown(KeyCode.S) && rangeCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.W) && rangeCooldownTimer <= 0f)
         {
             Attack("range");
             StartCooldown(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
         }
 
         // Handle magic attack input
-        if (Input.GetKeyDown(KeyCode.D) && magicCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.E) && magicCooldownTimer <= 0f)
         {
             Attack("magic");
             StartCooldown(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
