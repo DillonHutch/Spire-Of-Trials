@@ -16,7 +16,7 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Color damageColor = Color.red;
 
     private float attackIntervalMin = .1f;
-    private float attackIntervalMax = .8f;
+    private float attackIntervalMax = .5f;
     private float windUpTime = .5f;
 
     [SerializeField] bool canBeHitByMelee = true;

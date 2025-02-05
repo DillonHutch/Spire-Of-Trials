@@ -1,6 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
 
 public class PlayerAttackingScript : MonoBehaviour
 {
@@ -23,6 +25,13 @@ public class PlayerAttackingScript : MonoBehaviour
     private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
     private float rangeCooldownTimer = 0f; // Current cooldown timer for range
     private float magicCooldownTimer = 0f; // Current cooldown timer for magic
+
+
+    private EventInstance currentMusic;
+    private List<float> attackTimestamps = new List<float>(); // Stores attack times
+    private float attackWindow = 3f; // Time window to track attack speed
+    private float highSpeedThreshold = 2; // Attacks per window to trigger fast music
+
 
     private void OnEnable()
     {
@@ -59,11 +68,27 @@ public class PlayerAttackingScript : MonoBehaviour
         InitializeCooldownSlider(meleeCooldownSlider, meleeCooldown);
         InitializeCooldownSlider(rangeCooldownSlider, rangeCooldown);
         InitializeCooldownSlider(magicCooldownSlider, magicCooldown);
+
+        // Get Music Instance
+        StartCoroutine(WaitForMusicInstance());
+    }
+
+    IEnumerator WaitForMusicInstance()
+    {
+        yield return new WaitUntil(() => AudioManager.instance != null);
+        AudioManager.instance.SetMusic(MusicEnum.Ruins);
+        currentMusic = AudioManager.instance.GetCurrentMusicInstance();
+
+        if (currentMusic.isValid())
+        {
+            currentMusic.setParameterByName("HoMAdaptive", 0);
+        }
     }
 
     void Update()
     {
         HandleCooldownTimers();
+        UpdateAttackSpeed();
 
         if (attackSlider != null)
         {
@@ -85,6 +110,7 @@ public class PlayerAttackingScript : MonoBehaviour
             Attack("melee");
             AudioManager.instance.PlayOneShot( FMODEvents.instance.meleeAttack, this.transform.position);
             StartCooldown(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
+            RegisterAttack();
         }
 
         // Handle range attack input
@@ -93,6 +119,7 @@ public class PlayerAttackingScript : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, this.transform.position);
             Attack("range");
             StartCooldown(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
+            RegisterAttack();
         }
 
         // Handle magic attack input
@@ -101,6 +128,7 @@ public class PlayerAttackingScript : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, this.transform.position);
             Attack("magic");
             StartCooldown(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
+            RegisterAttack();
         }
 
         if (isRoundActive && AllEnemiesDestroyed())
@@ -222,5 +250,29 @@ public class PlayerAttackingScript : MonoBehaviour
     void StartNewRound()
     {
         isRoundActive = true;
+    }
+
+
+    void RegisterAttack()
+    {
+        attackTimestamps.Add(Time.time);
+    }
+
+    void UpdateAttackSpeed()
+    {
+        float currentTime = Time.time;
+        attackTimestamps.RemoveAll(t => t < currentTime - attackWindow);
+        float attackRate = attackTimestamps.Count / attackWindow;
+
+        if (attackRate >= highSpeedThreshold)
+        {
+            currentMusic.setParameterByName("HoMAdaptive", 1); // Speed up music
+            Debug.LogWarning("music speed up");
+        }
+        else
+        {
+            currentMusic.setParameterByName("HoMAdaptive", 0); // Normal speed
+            //Debug.LogWarning("music speed down");
+        }
     }
 }
