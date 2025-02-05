@@ -7,5 +7,6 @@ public enum MusicEnum
     Ruins = 1,
     Garden = 2,
     Mirror = 3,
+    Sanctum = 4
    
 }
