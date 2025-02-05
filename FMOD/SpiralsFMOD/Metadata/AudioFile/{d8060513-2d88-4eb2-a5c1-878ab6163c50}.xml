@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d8060513-2d88-4eb2-a5c1-878ab6163c50}">
+		<property name="assetPath">
+			<value>Music/intra.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>58.247999999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ae24a987-3421-4f34-af69-a5fe526423e9}</destination>
+		</relationship>
+	</object>
+</objects>

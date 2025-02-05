@@ -3,7 +3,9 @@
 
 public enum MusicEnum
 {
-    Garden = 0,
-    Mirror = 1,
+    Title = 0,
+    Ruins = 1,
+    Garden = 2,
+    Mirror = 3,
    
 }

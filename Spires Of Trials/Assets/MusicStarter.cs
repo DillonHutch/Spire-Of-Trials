@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using FMOD.Studio;
 
-public class TempMusicScript : MonoBehaviour
+public class MusicStarter : MonoBehaviour
 {
     private EventInstance currentMusic;
 
@@ -18,7 +17,7 @@ public class TempMusicScript : MonoBehaviour
         yield return new WaitUntil(() => AudioManager.instance != null);
 
         // Ensure music is set
-        AudioManager.instance.SetMusic(MusicEnum.Ruins);
+        AudioManager.instance.SetMusic(MusicEnum.Title);
 
         // Get the current music instance
         currentMusic = AudioManager.instance.GetCurrentMusicInstance();
@@ -28,7 +27,7 @@ public class TempMusicScript : MonoBehaviour
             Debug.Log("Successfully retrieved valid music instance.");
             currentMusic.setParameterByName("HoMAdaptive", 0);
 
-           
+
 
         }
         else
@@ -37,24 +36,9 @@ public class TempMusicScript : MonoBehaviour
         }
     }
 
-
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            currentMusic.setParameterByName("HoMAdaptive", 0);
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            currentMusic.setParameterByName("HoMAdaptive", 1);
-        }
-        else if (Input.GetKeyDown(KeyCode.C))
-        {
-            AudioManager.instance.SetMusic(MusicEnum.Garden);
-        }
-        else if (Input.GetKeyDown(KeyCode.V))
-        {
-            AudioManager.instance.SetMusic(MusicEnum.Mirror);
-        }
+        
     }
 }
