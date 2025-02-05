@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CountdownTimer : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class CountdownTimer : MonoBehaviour
         {
             timeRemaining = 0;
             countdownText.text = "Time's Up!";
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

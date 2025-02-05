@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{eb34899f-a1fd-473f-a04a-1ca7ca878626}">
 		<property name="name">
-			<value>AdaptiveHoMMusic</value>
+			<value>AdaptiveHoMMusicBase_NOTUSED</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>

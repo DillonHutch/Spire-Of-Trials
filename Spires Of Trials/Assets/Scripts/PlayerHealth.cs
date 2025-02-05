@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] int maxHealth = 3;
+    int maxHealth = 3;
     private int currentHealth;
 
 
@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void Heal(int amount)
+     void Heal(int amount)
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -63,7 +63,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player has died!");
+        //Debug.LogWarning("Player has died!");
         EventManager.Instance.TriggerEvent("OnPlayerDied");
+        Heal(maxHealth);
+        SceneManager.LoadScene("MainMenu");
     }
 }

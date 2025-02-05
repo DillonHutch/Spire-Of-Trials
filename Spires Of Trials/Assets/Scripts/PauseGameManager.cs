@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseGameManager : MonoBehaviour
 {
@@ -50,5 +51,12 @@ public class PauseGameManager : MonoBehaviour
         Time.timeScale = 1f; // Resume the game
         pausePanel.SetActive(false);
         volumePanel.SetActive(false); // Ensure volume panel is also closed
+    }
+
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f; // Resume the game
     }
 }

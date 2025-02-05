@@ -15,10 +15,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638743111401508061
+  lastModified: 638743674287996510
   FileSizes:
   - Name: Desktop
-    Value: 7867456
+    Value: 8333408
   Exists: 1
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638743611841003971
+  lastModified: 638743674267918102
   FileSizes:
   - Name: Desktop
-    Value: 1332
+    Value: 1344
   Exists: 1
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
@@ -82,10 +82,36 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638743611840903231
+  lastModified: 638743674267908102
   FileSizes:
   - Name: Desktop
     Value: 1486
+  Exists: 1
+--- !u!114 &-2873991134635602717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/AdaptiveHoMMusicBase_NOTUSED/HoMAdaptive
+  m_EditorClassIdentifier: 
+  Name: HoMAdaptive
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2016049694
+    data2: 4182848206
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - HoMSlow
+  - HoMFast
   Exists: 1
 --- !u!114 &-2247300635573903760
 MonoBehaviour:
@@ -144,60 +170,6 @@ MonoBehaviour:
   - Garden
   - Mirrors
   Exists: 1
---- !u!114 &-987652458637119345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/AdaptiveHoMMusic/HoMAdaptive
-  m_EditorClassIdentifier: 
-  Name: HoMAdaptive
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 2016049694
-    data2: 4182848206
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - HoMSlow
-  - HoMFast
-  Exists: 1
---- !u!114 &-449759682193202729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/AdaptiveHoMMusic
-  m_EditorClassIdentifier: 
-  Path: event:/Music/AdaptiveHoMMusic
-  Guid:
-    Data1: -348878433
-    Data2: 1195352573
-    Data3: -1491318112
-    Data4: 646350794
-  Banks:
-  - {fileID: -8385834267472912259}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -987652458637119345}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 332832
 --- !u!114 &-162973357311304557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,15 +218,15 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -4617588377743754878}
   - {fileID: -2247300635573903760}
-  - {fileID: -449759682193202729}
   - {fileID: 3550397977258303237}
   - {fileID: -162973357311304557}
+  - {fileID: 287775435814578406}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638743670154408291
+  cacheTime: 638743674287996510
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -282,6 +254,34 @@ MonoBehaviour:
   - HoMSlow
   - HoMFast
   Exists: 1
+--- !u!114 &287775435814578406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/AdaptiveHoMMusicBase_NOTUSED
+  m_EditorClassIdentifier: 
+  Path: event:/Music/AdaptiveHoMMusicBase_NOTUSED
+  Guid:
+    Data1: -348878433
+    Data2: 1195352573
+    Data3: -1491318112
+    Data4: 646350794
+  Banks:
+  - {fileID: -8385834267472912259}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2873991134635602717}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 332832
 --- !u!114 &3550397977258303237
 MonoBehaviour:
   m_ObjectHideFlags: 0
