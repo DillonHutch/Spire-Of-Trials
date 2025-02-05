@@ -80,7 +80,7 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
         // Handle melee attack input
-        if (Input.GetKeyDown(KeyCode.Q) && meleeCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.A) && meleeCooldownTimer <= 0f)
         {
             Attack("melee");
             AudioManager.instance.PlayOneShot( FMODEvents.instance.meleeAttack, this.transform.position);
@@ -88,7 +88,7 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
         // Handle range attack input
-        if (Input.GetKeyDown(KeyCode.W) && rangeCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.D) && rangeCooldownTimer <= 0f)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, this.transform.position);
             Attack("range");
@@ -96,7 +96,7 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
         // Handle magic attack input
-        if (Input.GetKeyDown(KeyCode.E) && magicCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.S) && magicCooldownTimer <= 0f)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, this.transform.position);
             Attack("magic");
@@ -117,23 +117,39 @@ public class PlayerAttackingScript : MonoBehaviour
         }
     }
 
+
     public void Attack(string attackType)
     {
-        switch (selectedPosition)
+        switch (attackType)
         {
-            case 0:
-                AttackEnemy(leftEnemy, attackType);
+            case "melee":
+                AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
                 break;
-            case 1:
-                AttackEnemy(centerEnemy, attackType);
+            case "range":
+                int rangeTarget = (selectedPosition == 0) ? 2 : (selectedPosition == 2) ? 0 : -1;
+                if (rangeTarget != -1) AttackEnemy(GetEnemyAtPosition(rangeTarget), attackType);
                 break;
-            case 2:
-                AttackEnemy(rightEnemy, attackType);
+            case "magic":
+                if (selectedPosition != 1)
+                {
+                    AttackEnemy(centerEnemy, attackType);
+                }
                 break;
             default:
-                Debug.LogError("Invalid slider position");
+                Debug.LogError("Invalid attack type");
                 break;
         }
+    }
+
+    private Transform GetEnemyAtPosition(int position)
+    {
+        return position switch
+        {
+            0 => leftEnemy,
+            1 => centerEnemy,
+            2 => rightEnemy,
+            _ => null,
+        };
     }
 
     void AttackEnemy(Transform enemy, string attackType)

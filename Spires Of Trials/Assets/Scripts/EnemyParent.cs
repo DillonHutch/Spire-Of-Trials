@@ -131,9 +131,10 @@ public class EnemyParent : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
-        dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
+        
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         Destroy(gameObject);
+        dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
     }
 
     private void OnDisable()
