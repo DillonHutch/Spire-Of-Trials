@@ -105,7 +105,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 possibleEnemies.Add(enemy);
             }
-            else if (enemyTag == "Zombie" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+            else if (enemyTag == "Zombie" && ( positionIndex == 1))
             {
                 possibleEnemies.Add(enemy);
             }

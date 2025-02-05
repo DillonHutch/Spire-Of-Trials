@@ -106,11 +106,11 @@ public class EnemyParent : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (isAttacking)
-        {
-            Debug.Log("Enemy cannot be damaged while attacking.");
-            return;
-        }
+        //if (isAttacking)
+        //{
+        //    Debug.Log("Enemy cannot be damaged while attacking.");
+        //    return;
+        //}
 
         currentHealth -= 1;
         StartCoroutine(FlashDamage());
@@ -131,6 +131,7 @@ public class EnemyParent : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
+        dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         Destroy(gameObject);
     }
