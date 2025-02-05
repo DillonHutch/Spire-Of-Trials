@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c482d0ab39dec049a97388400be6e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 2
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   windUpColor: {r: 0, g: 0, b: 1, a: 1}
   attackColor: {r: 0, g: 1, b: 0.033422947, a: 1}

@@ -13,6 +13,12 @@ public class FMODEvents : MonoBehaviour
     [field: Header("MeleeAttack")]
     [field: SerializeField] public EventReference meleeAttack { get; set; }
 
+    [field: Header("RangeAttack")]
+    [field: SerializeField] public EventReference rangeAttack { get; set; }
+
+    [field: Header("MagicAttack")]
+    [field: SerializeField] public EventReference magicAttack { get; set; }
+
 
 
 

@@ -16,9 +16,9 @@ public class PlayerAttackingScript : MonoBehaviour
     private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right (initial position is center)
     private bool isRoundActive = true; // Track if the current round is active
 
-    private float meleeCooldown = .4f; // Cooldown duration for melee attacks
-    private float rangeCooldown = .4f; // Cooldown duration for range attacks
-    private float magicCooldown = .4f; // Cooldown duration for magic attacks
+    private float meleeCooldown = .2f; // Cooldown duration for melee attacks
+    private float rangeCooldown = .2f; // Cooldown duration for range attacks
+    private float magicCooldown = .2f; // Cooldown duration for magic attacks
 
     private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
     private float rangeCooldownTimer = 0f; // Current cooldown timer for range
@@ -90,6 +90,7 @@ public class PlayerAttackingScript : MonoBehaviour
         // Handle range attack input
         if (Input.GetKeyDown(KeyCode.W) && rangeCooldownTimer <= 0f)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, this.transform.position);
             Attack("range");
             StartCooldown(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
         }
@@ -97,6 +98,7 @@ public class PlayerAttackingScript : MonoBehaviour
         // Handle magic attack input
         if (Input.GetKeyDown(KeyCode.E) && magicCooldownTimer <= 0f)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, this.transform.position);
             Attack("magic");
             StartCooldown(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
         }

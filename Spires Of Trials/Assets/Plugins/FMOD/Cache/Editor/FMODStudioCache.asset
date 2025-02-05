@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638742047646791378
+  lastModified: 638743611841003971
   FileSizes:
   - Name: Desktop
-    Value: 1226
+    Value: 1332
   Exists: 1
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
@@ -82,7 +82,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638742047646781389
+  lastModified: 638743611840903231
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -198,6 +198,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 332832
+--- !u!114 &-162973357311304557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/RangeAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/RangeAttack
+  Guid:
+    Data1: 1842996102
+    Data2: 1202685749
+    Data3: -1473086317
+    Data4: -43980521
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,12 +247,14 @@ MonoBehaviour:
   - {fileID: -4617588377743754878}
   - {fileID: -2247300635573903760}
   - {fileID: -449759682193202729}
+  - {fileID: 3550397977258303237}
+  - {fileID: -162973357311304557}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638743111401508061
+  cacheTime: 638743614009754797
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -253,6 +282,33 @@ MonoBehaviour:
   - HoMSlow
   - HoMFast
   Exists: 1
+--- !u!114 &3550397977258303237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/MagicAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/MagicAttack
+  Guid:
+    Data1: 1865828205
+    Data2: 1325582525
+    Data3: 710322833
+    Data4: 322657141
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3830511604902927485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,10 +324,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638741949987121647
+  lastModified: 638743614009754797
   FileSizes:
   - Name: Desktop
-    Value: 19744
+    Value: 37184
   Exists: 1
 --- !u!114 &8747005220439572358
 MonoBehaviour:

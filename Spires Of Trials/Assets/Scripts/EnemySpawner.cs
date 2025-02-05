@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> spawnLocations; // List of spawn locations
     [SerializeField] private List<GameObject> enemyPrefabs; // List of enemy prefabs
     [SerializeField] private float spawnChance = 0.5f; // Chance for each location to spawn an enemy
+    [SerializeField] private TextMeshProUGUI roundText; // Reference to TextMeshPro UI
 
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to track spawned enemies
-    private bool isSpawning = false; // To prevent multiple spawn calls simultaneously
+    private bool isSpawning = false; // Prevents multiple spawn calls simultaneously
+    private int roundCounter = 0; // Start at Round 1
 
     private void Start()
     {
@@ -19,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        UpdateRoundUI(); // Initialize the round counter text
         StartCoroutine(CheckAndSpawnEnemies());
     }
 
@@ -31,9 +35,13 @@ public class EnemySpawner : MonoBehaviour
             {
                 EventManager.Instance.TriggerEvent("healDamageEvent", 1);
                 Debug.Log("All enemies destroyed. Starting new spawn cycle.");
+
+                roundCounter++; // Increment round counter
+                UpdateRoundUI(); // Update the round counter in UI
+
                 yield return StartCoroutine(SpawnEnemies());
             }
-            yield return new WaitForSeconds(.5f); // Check periodically
+            yield return new WaitForSeconds(0.5f); // Check periodically
         }
     }
 
@@ -42,7 +50,6 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = true;
         bool atLeastOneSpawned = false;
 
-        // Keep running the loop until at least one enemy is spawned
         while (!atLeastOneSpawned)
         {
             for (int i = 0; i < spawnLocations.Count; i++)
@@ -69,7 +76,6 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
 
-            // If no enemy was spawned, retry the loop after a short delay
             if (!atLeastOneSpawned)
             {
                 Debug.Log("No enemies spawned, retrying...");
@@ -83,12 +89,19 @@ public class EnemySpawner : MonoBehaviour
 
     private bool AllEnemiesDestroyed()
     {
-        // Remove any null references (destroyed enemies) from the list
         spawnedEnemies.RemoveAll(enemy => enemy == null);
-
-        
-
-        // If the list is empty, all enemies are destroyed
         return spawnedEnemies.Count == 0;
+    }
+
+    private void UpdateRoundUI()
+    {
+        if (roundText != null)
+        {
+            roundText.text = roundCounter.ToString();
+        }
+        else
+        {
+            Debug.LogWarning("Round UI Text is not assigned!");
+        }
     }
 }

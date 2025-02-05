@@ -58,6 +58,20 @@ MonoBehaviour:
       Data3: -1316590688
       Data4: 573251824
     Path: event:/SFX/MeleeAttack
+  <rangeAttack>k__BackingField:
+    Guid:
+      Data1: 1842996102
+      Data2: 1202685749
+      Data3: -1473086317
+      Data4: -43980521
+    Path: event:/SFX/RangeAttack
+  <magicAttack>k__BackingField:
+    Guid:
+      Data1: 1865828205
+      Data2: 1325582525
+      Data3: 710322833
+      Data4: 322657141
+    Path: event:/SFX/MagicAttack
 --- !u!1 &5313083338162673164
 GameObject:
   m_ObjectHideFlags: 0
