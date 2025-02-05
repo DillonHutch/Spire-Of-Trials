@@ -5,17 +5,20 @@ using UnityEngine.UI;
 
 public class EnemyParent : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 3; // Maximum health for the enemy
+    [SerializeField] private int maxHealth = 3;
     private int currentHealth;
 
-    private Slider dodgeSlider; // Reference to the player's dodge slider
-    [SerializeField] private Color normalColor = Color.white; // Default color
-    [SerializeField] private Color windUpColor = Color.blue; // Color for wind-up state
-    [SerializeField] private Color attackColor = Color.magenta; // Color for attack state
-    [SerializeField] private Color damageColor = Color.red; // Color when taking damage
-    private float attackIntervalMin = 1f; // Minimum time between attacks
-    private float attackIntervalMax = 1.5f; // Maximum time between attacks
-    private float windUpTime = .5f; // Time the enemy winds up before attacking
+    private Slider dodgeSlider;
+    private DodgeBarHighlighter dodgeBarHighlighter; // Reference to the highlighter
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color windUpColor = Color.blue;
+    [SerializeField] private Color attackColor = Color.magenta;
+    [SerializeField] private Color damageColor = Color.red;
+
+    private float attackIntervalMin = .1f;
+    private float attackIntervalMax = .8f;
+    private float windUpTime = .5f;
+
     [SerializeField] bool canBeHitByMelee = true;
     [SerializeField] bool canBeHitByMagic = false;
     [SerializeField] bool canBeHitByRange = false;
@@ -23,64 +26,53 @@ public class EnemyParent : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Coroutine attackCoroutine;
 
-    private bool isAttacking = false; // Flag to prevent damage during attack phase
+    private bool isAttacking = false;
 
-    int enemyAttackPosition;
+    protected int enemyAttackPosition;
 
-    private void Start()
+    protected virtual void Start()
     {
-        currentHealth = maxHealth; // Set the current health to the maximum at the start
-
+        currentHealth = maxHealth;
         enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
 
         dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider").GetComponent<Slider>();
+        dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>(); // Get the highlighter
 
-        // Ensure the SpriteRenderer component is present
         spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            Debug.LogError("Enemy is missing a SpriteRenderer!");
-            return;
-        }
 
-        // Ensure the dodge slider is assigned
-        if (dodgeSlider == null)
-        {
-            Debug.LogError("Dodge slider is not assigned!");
-            return;
-        }
-
-        // Start the attack behavior
         attackCoroutine = StartCoroutine(AttackLoop());
+    }
+
+    protected virtual int GetAttackPosition()
+    {
+        return enemyAttackPosition; // Default behavior: Attack its own position
     }
 
     private IEnumerator AttackLoop()
     {
         while (true)
         {
-
-
-            // Wait for a random interval before the next attack
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
-            isAttacking = true; // Set attacking flag
+            isAttacking = true;
 
-            // Wind-up phase (change to wind-up color)
+            int attackPosition = GetAttackPosition();
+
+            // **Highlight attack position**
+            if (dodgeBarHighlighter != null)
+            {
+                dodgeBarHighlighter.HighlightPosition(attackPosition);
+            }
+
             spriteRenderer.color = windUpColor;
             yield return new WaitForSeconds(windUpTime);
 
-            // Attack phase (change to attack color)
-
             spriteRenderer.color = attackColor;
+            yield return new WaitForSeconds(0.1f);
 
-            // Simulate attack with a brief moment to show the attack color
-            float attackDisplayTime = 0.1f; // Duration to show attack color
-            yield return new WaitForSeconds(attackDisplayTime);
+            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
 
-            // Determine if the player dodged the attack
-            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value); // Player's dodge position
-
-            if (playerDodgePosition == enemyAttackPosition)
+            if (playerDodgePosition == attackPosition)
             {
                 Debug.Log("Player hit by attack!");
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
@@ -90,9 +82,14 @@ public class EnemyParent : MonoBehaviour
                 Debug.Log("Player dodged the attack!");
             }
 
-            // Reset the enemy color back to normal
+            // **Clear only this enemy's highlight**
+            if (dodgeBarHighlighter != null)
+            {
+                dodgeBarHighlighter.ClearHighlight(attackPosition);
+            }
+
             spriteRenderer.color = normalColor;
-            isAttacking = false; // Reset attacking flag
+            isAttacking = false;
         }
     }
 
@@ -100,14 +97,10 @@ public class EnemyParent : MonoBehaviour
     {
         switch (attackType)
         {
-            case "melee":
-                return canBeHitByMelee;
-            case "magic":
-                return canBeHitByMagic;
-            case "range":
-                return canBeHitByRange;
-            default:
-                return false;
+            case "melee": return canBeHitByMelee;
+            case "magic": return canBeHitByMagic;
+            case "range": return canBeHitByRange;
+            default: return false;
         }
     }
 
@@ -120,8 +113,6 @@ public class EnemyParent : MonoBehaviour
         }
 
         currentHealth -= 1;
-
-        // Flash red when taking damage
         StartCoroutine(FlashDamage());
 
         if (currentHealth <= 0)
@@ -132,29 +123,20 @@ public class EnemyParent : MonoBehaviour
 
     private IEnumerator FlashDamage()
     {
-        spriteRenderer.color = damageColor; // Change to damage color
-        yield return new WaitForSeconds(.1f); // Wait for 1 second
-        spriteRenderer.color = normalColor; // Revert to normal color
+        spriteRenderer.color = damageColor;
+        yield return new WaitForSeconds(.1f);
+        spriteRenderer.color = normalColor;
     }
 
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
-
-        // Clean up the enemy
-        if (attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-        }
+        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         Destroy(gameObject);
     }
 
     private void OnDisable()
     {
-        // Stop the attack loop when the enemy is disabled
-        if (attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-        }
+        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
     }
 }

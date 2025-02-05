@@ -58,17 +58,23 @@ public class EnemySpawner : MonoBehaviour
 
                 if (randomValue <= spawnChance)
                 {
-                    atLeastOneSpawned = true;
+                    GameObject enemyToSpawn = SelectEnemyForPosition(i);
 
-                    // Randomly select an enemy prefab
-                    GameObject enemyToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+                    if (enemyToSpawn != null)
+                    {
+                        atLeastOneSpawned = true;
 
-                    // Spawn the enemy and make it a child of the spawn location
-                    GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
-                    spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                        // Spawn the enemy and make it a child of the spawn location
+                        GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
+                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
-                    spawnedEnemies.Add(spawnedEnemy); // Add to the tracking list
-                    Debug.Log($"Spawned {enemyToSpawn.name} at {spawnLocations[i].name}");
+                        spawnedEnemies.Add(spawnedEnemy); // Add to the tracking list
+                        Debug.Log($"Spawned {enemyToSpawn.tag} at {spawnLocations[i].name}");
+                    }
+                    else
+                    {
+                        Debug.Log($"No valid enemy to spawn at {spawnLocations[i].name}");
+                    }
                 }
                 else
                 {
@@ -86,6 +92,37 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("At least one enemy spawned. Spawning complete.");
         isSpawning = false;
     }
+
+    private GameObject SelectEnemyForPosition(int positionIndex)
+    {
+        List<GameObject> possibleEnemies = new List<GameObject>();
+
+        foreach (GameObject enemy in enemyPrefabs)
+        {
+            string enemyTag = enemy.tag; // Get the enemy's tag
+
+            if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+            {
+                possibleEnemies.Add(enemy);
+            }
+            else if (enemyTag == "Zombie" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+            {
+                possibleEnemies.Add(enemy);
+            }
+            else if (enemyTag == "Monster" && (positionIndex == 0 || positionIndex == 2))
+            {
+                possibleEnemies.Add(enemy);
+            }
+        }
+
+        if (possibleEnemies.Count > 0)
+        {
+            return possibleEnemies[Random.Range(0, possibleEnemies.Count)];
+        }
+
+        return null;
+    }
+
 
     private bool AllEnemiesDestroyed()
     {
