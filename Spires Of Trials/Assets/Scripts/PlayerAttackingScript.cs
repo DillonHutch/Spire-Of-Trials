@@ -187,9 +187,14 @@ public class PlayerAttackingScript : MonoBehaviour
             foreach (Transform child in enemy)
             {
                 EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
+                MiniBoss miniBossComponent = child.GetComponent<MiniBoss>();
                 if (enemyComponent != null && enemyComponent.CanBeHitBy(attackType))
                 {
                     enemyComponent.TakeDamage();
+                    
+                }else if(miniBossComponent != null && miniBossComponent.CanBeHitBy(attackType))
+                {
+                    miniBossComponent.TakeDamage();
                 }
             }
         }
