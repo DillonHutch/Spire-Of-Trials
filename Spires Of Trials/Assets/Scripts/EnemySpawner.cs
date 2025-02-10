@@ -8,18 +8,23 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> spawnLocations; // List of spawn locations
     [SerializeField] private List<GameObject> enemyPrefabs; // List of enemy prefabs
+    [SerializeField] private GameObject miniBossPrefab; // Reference to MiniBoss prefab
     [SerializeField] private float spawnChance = 0.5f; // Chance for each location to spawn an enemy
     [SerializeField] private TextMeshProUGUI roundText; // Reference to TextMeshPro UI
 
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to track spawned enemies
     private bool isSpawning = false; // Prevents multiple spawn calls simultaneously
     private int roundCounter = 0; // Start at Round 1
+    private bool bossSpawned = false; // Ensures the boss spawns only once
+
+
+    private int miniBossSpawnNumber = 2;
 
     private void Start()
     {
-        if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0)
+        if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
         {
-            Debug.LogError("Spawn locations or enemy prefabs are not assigned!");
+            Debug.LogError("Spawn locations, enemy prefabs, or MiniBoss prefab not assigned!");
             return;
         }
 
@@ -31,7 +36,6 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            // Check if all enemies are destroyed
             if (AllEnemiesDestroyed() && !isSpawning)
             {
                 EventManager.Instance.TriggerEvent("healDamageEvent", 1);
@@ -40,11 +44,41 @@ public class EnemySpawner : MonoBehaviour
                 roundCounter++; // Increment round counter
                 UpdateRoundUI(); // Update the round counter in UI
 
-                yield return StartCoroutine(SpawnEnemies());
+                if (roundCounter == miniBossSpawnNumber && !bossSpawned)
+                {
+                    yield return StartCoroutine(SpawnMiniBoss()); // Spawn the boss
+                }
+                else if (roundCounter < miniBossSpawnNumber)
+                {
+                    yield return StartCoroutine(SpawnEnemies()); // Continue normal spawning
+                }
             }
             yield return new WaitForSeconds(0.5f); // Check periodically
         }
     }
+
+    private IEnumerator SpawnMiniBoss()
+    {
+        isSpawning = true;
+        bossSpawned = true; // Ensure the boss only spawns once
+
+        Debug.Log("Spawning MiniBoss!");
+
+        // Choose a random spawn location
+        GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
+
+        // Instantiate the MiniBoss as a child of the spawn location
+        GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
+        miniBoss.transform.SetParent(bossSpawnLocation.transform, true); // Set parent while maintaining world position
+
+        spawnedEnemies.Add(miniBoss); // Add to tracking list
+
+        Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
+
+        isSpawning = false;
+        yield return null;
+    }
+
 
     private IEnumerator SpawnEnemies()
     {
@@ -106,7 +140,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 possibleEnemies.Add(enemy);
             }
-            else if (enemyTag == "Zombie" && ( positionIndex == 1))
+            else if (enemyTag == "Zombie" && (positionIndex == 1))
             {
                 possibleEnemies.Add(enemy);
             }
@@ -123,7 +157,6 @@ public class EnemySpawner : MonoBehaviour
 
         return null;
     }
-
 
     private bool AllEnemiesDestroyed()
     {
@@ -145,8 +178,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if(roundCounter == 25)
+        if (bossSpawned && AllEnemiesDestroyed())
         {
+            Debug.Log("MiniBoss defeated. Loading WinScreen.");
             SceneManager.LoadScene("WinScreen");
         }
     }

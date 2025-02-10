@@ -36,20 +36,55 @@ public class MiniBoss : MonoBehaviour
 
     private bool isAttacking = false;
 
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
         currentHealth = maxHealth;
 
-        dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider").GetComponent<Slider>();
+        dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider")?.GetComponent<Slider>();
         dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        ChangeAttackMode(); // Initialize attack mode
+        if (dodgeSlider == null || dodgeBarHighlighter == null)
+        {
+            Debug.LogError("DodgeSlider or DodgeBarHighlighter is missing!");
+        }
+
+        // Dynamically find the spawn positions using tags
+        leftSpawn = GameObject.FindWithTag("LeftSpawn")?.transform;
+        centerSpawn = GameObject.FindWithTag("MiddleSpawn")?.transform;
+        rightSpawn = GameObject.FindWithTag("RightSpawn")?.transform;
+
+        // Ensure all spawn points exist
+        if (leftSpawn == null || centerSpawn == null || rightSpawn == null)
+        {
+            Debug.LogError("MiniBoss spawn positions are not properly set! Check your tags.");
+            return;
+        }
+
+        Debug.Log("MiniBoss has spawned and initialized spawn positions.");
+
+        // Force position on spawn before anything else
+        ChangeAttackMode();
+        transform.position = currentParent.position; // Ensure instant snap
+
+        // Start attacking
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+        }
         attackCoroutine = StartCoroutine(AttackLoop());
     }
 
+
     private void ChangeAttackMode()
     {
+        if (!gameObject.activeInHierarchy) return; // Prevent running if object is disabled
+
         int mode = Random.Range(0, 3);
         currentMode = (AttackMode)mode;
 
@@ -80,20 +115,22 @@ public class MiniBoss : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"MiniBoss changed to {currentMode} mode at {currentParent.name}");
+        Debug.Log($"MiniBoss changed to {currentMode} mode at {currentParent?.name}");
     }
+
 
     private IEnumerator AttackLoop()
     {
         while (true)
         {
+            if (!gameObject.activeInHierarchy) yield break; // Stop if the object is disabled
+
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
             isAttacking = true;
 
             int attackPosition = GetAttackPosition();
 
-            // Highlight attack position
             if (dodgeBarHighlighter != null)
             {
                 dodgeBarHighlighter.HighlightPosition(attackPosition);
@@ -106,14 +143,13 @@ public class MiniBoss : MonoBehaviour
             if (playerDodgePosition == attackPosition)
             {
                 Debug.Log("Player hit by MiniBoss attack!");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 2); // Hits harder
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 2);
             }
             else
             {
                 Debug.Log("Player dodged MiniBoss attack!");
             }
 
-            // Clear highlight
             if (dodgeBarHighlighter != null)
             {
                 dodgeBarHighlighter.ClearHighlight(attackPosition);
@@ -121,8 +157,7 @@ public class MiniBoss : MonoBehaviour
 
             isAttacking = false;
 
-            // Change attack mode after each attack
-            ChangeAttackMode();
+            ChangeAttackMode(); // Change attack mode after attacking
         }
     }
 
@@ -131,14 +166,11 @@ public class MiniBoss : MonoBehaviour
         switch (currentMode)
         {
             case AttackMode.Red:
-                return Mathf.Clamp(GetPositionIndex(currentParent), 0, 2); // Attack position in front
-
+                return Mathf.Clamp(GetPositionIndex(currentParent), 0, 2);
             case AttackMode.Blue:
-                return (Random.value > 0.5f) ? 0 : 2; // 50/50 attack pos 0 or 2
-
+                return (Random.value > 0.5f) ? 0 : 2;
             case AttackMode.Green:
-                return (GetPositionIndex(currentParent) == 0) ? 2 : 0; // Attack two away
-
+                return (GetPositionIndex(currentParent) == 0) ? 2 : 0;
             default:
                 return 1;
         }
@@ -146,13 +178,13 @@ public class MiniBoss : MonoBehaviour
 
     public bool CanBeHitBy(string attackType)
     {
-        switch (attackType)
+        return attackType switch
         {
-            case "melee": return canBeHitByMelee;
-            case "magic": return canBeHitByMagic;
-            case "range": return canBeHitByRange;
-            default: return false;
-        }
+            "melee" => canBeHitByMelee,
+            "magic" => canBeHitByMagic,
+            "range" => canBeHitByRange,
+            _ => false,
+        };
     }
 
     public void TakeDamage()
@@ -196,14 +228,15 @@ public class MiniBoss : MonoBehaviour
         if (newParent != null)
         {
             currentParent = newParent;
-            transform.SetParent(currentParent);
-            transform.localPosition = Vector3.zero; // Ensures correct alignment
+            transform.position = currentParent.position; // Snap directly to new position
+            transform.SetParent(currentParent); // Ensure no unintended hierarchy issues
         }
     }
 
+
     private Transform GetRandomSpawn(params Transform[] positions)
     {
-        return positions[Random.Range(0, positions.Length)];
+        return positions.Length > 0 ? positions[Random.Range(0, positions.Length)] : null;
     }
 
     private int GetPositionIndex(Transform position)
@@ -211,6 +244,6 @@ public class MiniBoss : MonoBehaviour
         if (position == leftSpawn) return 0;
         if (position == centerSpawn) return 1;
         if (position == rightSpawn) return 2;
-        return 1; // Default to center if unknown
+        return 1;
     }
 }
