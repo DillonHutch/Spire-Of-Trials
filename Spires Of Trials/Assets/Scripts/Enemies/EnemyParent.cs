@@ -19,20 +19,23 @@ public class EnemyParent : MonoBehaviour
     private Color meleeColor = Color.red;
     private Color magicColor = Color.blue;
     private Color rangeColor = Color.green;
+    private Color heavyColor = Color.yellow;
 
     private float attackIntervalMin = .1f;
     private float attackIntervalMax = .5f;
     private float windUpTime = .5f;
+    private float attackDropDistance = 1f;
+    private float windUpRiseDistance = 0.5f;
+    private float movementSpeed = 10f;
 
+    private Vector3 originalPosition;
     private SpriteRenderer spriteRenderer;
     private Coroutine attackCoroutine;
     private bool isAttacking = false;
 
     protected int enemyAttackPosition;
-
-    // Attack sequence handling
     private List<string> attackSequence = new List<string>();
-    private int currentSequenceIndex = 0; // Track current progress
+    private int currentSequenceIndex = 0;
 
     protected virtual void Start()
     {
@@ -43,6 +46,7 @@ public class EnemyParent : MonoBehaviour
         dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalPosition = transform.position;
 
         DefineAttackSequence();
         UpdateColor();
@@ -69,9 +73,6 @@ public class EnemyParent : MonoBehaviour
         }
     }
 
-
-    private Color heavyColor = Color.yellow; // Define color
-
     private void UpdateColor()
     {
         if (currentSequenceIndex >= attackSequence.Count) return;
@@ -88,12 +89,11 @@ public class EnemyParent : MonoBehaviour
             case "range":
                 spriteRenderer.color = rangeColor;
                 break;
-            case "heavy": // New heavy attack color
+            case "heavy":
                 spriteRenderer.color = heavyColor;
                 break;
         }
     }
-
 
     protected virtual int GetAttackPosition()
     {
@@ -115,14 +115,12 @@ public class EnemyParent : MonoBehaviour
                 dodgeBarHighlighter.HighlightPosition(attackPosition);
             }
 
-            //spriteRenderer.color = windUpColor;
-            yield return new WaitForSeconds(windUpTime);
+            yield return MoveEnemy(transform.position + Vector3.up * windUpRiseDistance, movementSpeed);
 
-            //spriteRenderer.color = attackColor;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(windUpTime);
+            yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
 
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-
             if (playerDodgePosition == attackPosition)
             {
                 Debug.Log("Player hit by attack!");
@@ -138,8 +136,18 @@ public class EnemyParent : MonoBehaviour
                 dodgeBarHighlighter.ClearHighlight(attackPosition);
             }
 
+            yield return MoveEnemy(originalPosition, movementSpeed);
             UpdateColor();
             isAttacking = false;
+        }
+    }
+
+    private IEnumerator MoveEnemy(Vector3 targetPosition, float speed)
+    {
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            yield return null;
         }
     }
 
@@ -167,11 +175,9 @@ public class EnemyParent : MonoBehaviour
         }
     }
 
-
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
-
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         Destroy(gameObject);
         dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
