@@ -19,7 +19,8 @@ public class FMODEvents : MonoBehaviour
     [field: Header("MagicAttack")]
     [field: SerializeField] public EventReference magicAttack { get; set; }
 
-
+    [field: Header("HeavyAttck")]
+    [field: SerializeField] public EventReference heavyAttack { get; set; }
 
 
 

@@ -72,6 +72,13 @@ MonoBehaviour:
       Data3: 710322833
       Data4: 322657141
     Path: event:/SFX/MagicAttack
+  <heavyAttack>k__BackingField:
+    Guid:
+      Data1: 1432483817
+      Data2: 1074791645
+      Data3: -1546933610
+      Data4: -1934797339
+    Path: event:/SFX/HeavyAttck
 --- !u!1 &5313083338162673164
 GameObject:
   m_ObjectHideFlags: 0

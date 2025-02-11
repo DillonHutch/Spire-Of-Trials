@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b0947391-9f89-4b49-9ae1-6c5043ae4664}">
+		<property name="assetPath">
+			<value>SFX/HeavySoundEffect.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.64791383219954646</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ae24a987-3421-4f34-af69-a5fe526423e9}</destination>
+		</relationship>
+	</object>
+</objects>

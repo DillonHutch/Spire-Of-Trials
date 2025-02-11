@@ -116,7 +116,7 @@ public class PlayerAttackingScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W) && heavyCooldownTimer <= 0f) // Assuming 'F' is the key for heavy attack
         {
-            //AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, this.transform.position);
             Attack("heavy");
             StartCooldown(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
             RegisterAttack();
