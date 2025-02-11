@@ -154,14 +154,16 @@ public class PlayerAttackingScript : MonoBehaviour
                 AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
                 break;
             case "range":
-                int rangeTarget = (selectedPosition == 0) ? 2 : (selectedPosition == 2) ? 0 : -1;
-                if (rangeTarget != -1) AttackEnemy(GetEnemyAtPosition(rangeTarget), attackType);
+                //int rangeTarget = (selectedPosition == 0) ? 2 : (selectedPosition == 2) ? 0 : -1;
+                //if (rangeTarget != -1) AttackEnemy(GetEnemyAtPosition(rangeTarget), attackType);
+                AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
                 break;
             case "magic":
-                if (selectedPosition != 1)
-                {
-                    AttackEnemy(centerEnemy, attackType);
-                }
+                //if (selectedPosition != 1)
+                //{
+                //    AttackEnemy(centerEnemy, attackType);
+                //}
+                AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
                 break;
             default:
                 Debug.LogError("Invalid attack type");
