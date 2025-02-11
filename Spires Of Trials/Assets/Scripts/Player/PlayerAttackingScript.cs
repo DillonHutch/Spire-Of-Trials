@@ -188,13 +188,14 @@ public class PlayerAttackingScript : MonoBehaviour
             {
                 EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
                 MiniBoss miniBossComponent = child.GetComponent<MiniBoss>();
-                if (enemyComponent != null && enemyComponent.CanBeHitBy(attackType))
+
+                if (enemyComponent != null)
                 {
-                    enemyComponent.TakeDamage();
-                    
-                }else if(miniBossComponent != null && miniBossComponent.CanBeHitBy(attackType))
+                    enemyComponent.TakeDamage(attackType);
+                }
+                else if (miniBossComponent != null)
                 {
-                    miniBossComponent.TakeDamage();
+                    //miniBossComponent.TakeDamage(attackType);
                 }
             }
         }

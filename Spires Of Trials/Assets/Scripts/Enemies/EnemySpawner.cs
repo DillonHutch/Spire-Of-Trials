@@ -17,8 +17,9 @@ public class EnemySpawner : MonoBehaviour
     private int roundCounter = 0; // Start at Round 1
     private bool bossSpawned = false; // Ensures the boss spawns only once
 
+    //novo.co
 
-    private int miniBossSpawnNumber = 10;
+    private int miniBossSpawnNumber = 20;
 
     private void Start()
     {

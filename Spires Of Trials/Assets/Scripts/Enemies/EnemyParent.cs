@@ -9,26 +9,30 @@ public class EnemyParent : MonoBehaviour
     private int currentHealth;
 
     private Slider dodgeSlider;
-    private DodgeBarHighlighter dodgeBarHighlighter; // Reference to the highlighter
+    private DodgeBarHighlighter dodgeBarHighlighter;
+
     [SerializeField] private Color normalColor = Color.white;
     [SerializeField] private Color windUpColor = Color.blue;
     [SerializeField] private Color attackColor = Color.magenta;
     [SerializeField] private Color damageColor = Color.red;
 
+    private Color meleeColor = Color.red;
+    private Color magicColor = Color.blue;
+    private Color rangeColor = Color.green;
+
     private float attackIntervalMin = .1f;
     private float attackIntervalMax = .5f;
     private float windUpTime = .5f;
 
-    [SerializeField] bool canBeHitByMelee = true;
-    [SerializeField] bool canBeHitByMagic = false;
-    [SerializeField] bool canBeHitByRange = false;
-
     private SpriteRenderer spriteRenderer;
     private Coroutine attackCoroutine;
-
     private bool isAttacking = false;
 
     protected int enemyAttackPosition;
+
+    // Attack sequence handling
+    private List<string> attackSequence = new List<string>();
+    private int currentSequenceIndex = 0; // Track current progress
 
     protected virtual void Start()
     {
@@ -36,16 +40,58 @@ public class EnemyParent : MonoBehaviour
         enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
 
         dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider").GetComponent<Slider>();
-        dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>(); // Get the highlighter
+        dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        DefineAttackSequence();
+        UpdateColor();
 
         attackCoroutine = StartCoroutine(AttackLoop());
     }
 
+    private void DefineAttackSequence()
+    {
+        // Define attack sequences for different enemy types
+        switch (gameObject.tag) // Use tags to differentiate enemy types
+        {
+            case "Skeleton":
+                attackSequence = new List<string> { "melee", "range" };
+                break;
+            case "Zombie":
+                attackSequence = new List<string> { "magic", "range" };
+                break;
+            case "Monster":
+                attackSequence = new List<string> { "range", "melee" };
+                break;
+            default:
+                attackSequence = new List<string> { "melee" }; // Default case
+                break;
+        }
+    }
+
+    private void UpdateColor()
+    {
+        if (currentSequenceIndex >= attackSequence.Count) return;
+
+        string nextAttack = attackSequence[currentSequenceIndex];
+        switch (nextAttack)
+        {
+            case "melee":
+                spriteRenderer.color = meleeColor;
+                break;
+            case "magic":
+                spriteRenderer.color = magicColor;
+                break;
+            case "range":
+                spriteRenderer.color = rangeColor;
+                break;
+        }
+    }
+
     protected virtual int GetAttackPosition()
     {
-        return enemyAttackPosition; // Default behavior: Attack its own position
+        return enemyAttackPosition;
     }
 
     private IEnumerator AttackLoop()
@@ -58,16 +104,15 @@ public class EnemyParent : MonoBehaviour
 
             int attackPosition = GetAttackPosition();
 
-            // **Highlight attack position**
             if (dodgeBarHighlighter != null)
             {
                 dodgeBarHighlighter.HighlightPosition(attackPosition);
             }
 
-            spriteRenderer.color = windUpColor;
+            //spriteRenderer.color = windUpColor;
             yield return new WaitForSeconds(windUpTime);
 
-            spriteRenderer.color = attackColor;
+            //spriteRenderer.color = attackColor;
             yield return new WaitForSeconds(0.1f);
 
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
@@ -82,56 +127,45 @@ public class EnemyParent : MonoBehaviour
                 Debug.Log("Player dodged the attack!");
             }
 
-            // **Clear only this enemy's highlight**
             if (dodgeBarHighlighter != null)
             {
                 dodgeBarHighlighter.ClearHighlight(attackPosition);
             }
 
-            spriteRenderer.color = normalColor;
+            UpdateColor();
             isAttacking = false;
         }
     }
 
-    public bool CanBeHitBy(string attackType)
+    public void TakeDamage(string attackType)
     {
-        switch (attackType)
+        if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
         {
-            case "melee": return canBeHitByMelee;
-            case "magic": return canBeHitByMagic;
-            case "range": return canBeHitByRange;
-            default: return false;
+            currentSequenceIndex++;
+            Debug.Log($"{gameObject.name} hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
+
+            if (currentSequenceIndex >= attackSequence.Count)
+            {
+                Die();
+            }
+            else
+            {
+                UpdateColor();
+            }
         }
-    }
-
-    public void TakeDamage()
-    {
-        //if (isAttacking)
-        //{
-        //    Debug.Log("Enemy cannot be damaged while attacking.");
-        //    return;
-        //}
-
-        currentHealth -= 1;
-        StartCoroutine(FlashDamage());
-
-        if (currentHealth <= 0)
+        else
         {
-            Die();
+            // Reset sequence if hit incorrectly
+            Debug.Log($"{gameObject.name} hit incorrectly! Resetting sequence.");
+            currentSequenceIndex = 0;
+            UpdateColor();
         }
-    }
-
-    private IEnumerator FlashDamage()
-    {
-        spriteRenderer.color = damageColor;
-        yield return new WaitForSeconds(.1f);
-        spriteRenderer.color = normalColor;
     }
 
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
-        
+
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         Destroy(gameObject);
         dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
