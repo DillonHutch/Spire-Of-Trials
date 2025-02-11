@@ -16,6 +16,7 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Color attackColor = Color.magenta;
     [SerializeField] private Color damageColor = Color.red;
 
+
     private Color meleeColor = Color.red;
     private Color magicColor = Color.blue;
     private Color rangeColor = Color.green;
@@ -65,7 +66,7 @@ public class EnemyParent : MonoBehaviour
                 attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
                 break;
             case "Monster":
-                attackSequence = new List<string> { "range", "heavy", "melee", "melee" };
+                attackSequence = new List<string> { "range", "heavy", "melee", "magic" };
                 break;
             default:
                 attackSequence = new List<string> { "melee" };
@@ -123,12 +124,12 @@ public class EnemyParent : MonoBehaviour
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (playerDodgePosition == attackPosition)
             {
-                Debug.Log("Player hit by attack!");
+                //Debug.Log("Player hit by attack!");
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             }
             else
             {
-                Debug.Log("Player dodged the attack!");
+               // Debug.Log("Player dodged the attack!");
             }
 
             if (dodgeBarHighlighter != null)
@@ -178,13 +179,27 @@ public class EnemyParent : MonoBehaviour
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
+
+        // Ensure the highlight is cleared before destroying
+        if (dodgeBarHighlighter != null)
+        {
+            dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
+        }
+
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         Destroy(gameObject);
-        dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
     }
+
 
     private void OnDisable()
     {
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+
+        // Ensure highlight is cleared when the object is disabled
+        if (dodgeBarHighlighter != null)
+        {
+            dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
+        }
     }
+
 }

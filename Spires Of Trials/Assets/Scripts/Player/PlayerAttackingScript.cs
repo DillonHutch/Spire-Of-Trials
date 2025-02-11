@@ -208,7 +208,7 @@ public class PlayerAttackingScript : MonoBehaviour
                 }
                 else if (miniBossComponent != null)
                 {
-                    //miniBossComponent.TakeDamage(attackType);
+                    miniBossComponent.TakeDamage(attackType);
                 }
             }
         }

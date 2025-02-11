@@ -28,20 +28,33 @@ public class DodgeBarHighlighter : MonoBehaviour
         // Reset all highlights first
         for (int i = 0; i < positionHighlights.Length; i++)
         {
-            if (activePositions.Contains(i))
+            float alpha = activePositions.Contains(i) ? 1f : 0f;
+
+            // Update main Image
+            SetImageAlpha(positionHighlights[i], alpha);
+
+            // Update child SpriteRenderers
+            foreach (SpriteRenderer childSprite in positionHighlights[i].GetComponentsInChildren<SpriteRenderer>(true))
             {
-                positionHighlights[i].color = new Color(positionHighlights[i].color.r,
-                                                        positionHighlights[i].color.g,
-                                                        positionHighlights[i].color.b,
-                                                        1); // Fully visible
+                SetSpriteAlpha(childSprite, alpha);
             }
-            else
-            {
-                positionHighlights[i].color = new Color(positionHighlights[i].color.r,
-                                                        positionHighlights[i].color.g,
-                                                        positionHighlights[i].color.b,
-                                                        0); // Fully transparent
-            }
+        }
+    }
+
+    private void SetImageAlpha(Image img, float alpha)
+    {
+        if (img != null)
+        {
+            img.color = new Color(img.color.r, img.color.g, img.color.b, alpha);
+        }
+    }
+
+    private void SetSpriteAlpha(SpriteRenderer sprite, float alpha)
+    {
+        if (sprite != null)
+        {
+            Color color = sprite.color;
+            sprite.color = new Color(color.r, color.g, color.b, alpha);
         }
     }
 }

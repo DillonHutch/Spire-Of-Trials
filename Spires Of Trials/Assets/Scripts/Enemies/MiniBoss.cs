@@ -1,40 +1,50 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MiniBoss : MonoBehaviour
 {
-    private enum AttackMode { Red, Blue, Green }
-    private AttackMode currentMode;
-
     [SerializeField] private int maxHealth = 10;
     private int currentHealth;
 
     private Slider dodgeSlider;
     private DodgeBarHighlighter dodgeBarHighlighter;
 
-    [SerializeField] private Color redColor = Color.red;
-    [SerializeField] private Color blueColor = Color.blue;
-    [SerializeField] private Color greenColor = Color.green;
-    [SerializeField] private Color damageColor = Color.magenta;
+    private Color meleeColor = Color.red;
+    private Color magicColor = Color.blue;
+    private Color rangeColor = Color.green;
+    private Color heavyColor = Color.yellow;
 
     [SerializeField] private Transform leftSpawn;
     [SerializeField] private Transform centerSpawn;
     [SerializeField] private Transform rightSpawn;
 
+    private Transform player;
     private SpriteRenderer spriteRenderer;
     private Coroutine attackCoroutine;
-
     private Transform currentParent;
-    private bool canBeHitByMelee = false;
-    private bool canBeHitByMagic = false;
-    private bool canBeHitByRange = false;
-
-    private float attackIntervalMin = 1f;
-    private float attackIntervalMax = 2f;
-    private float windUpTime = 0.5f;
-
     private bool isAttacking = false;
+
+    private float attackIntervalMin = .3f;
+    private float attackIntervalMax = .3f;
+    private float windUpTime = .6f;
+    private float movementSpeed = 10f;
+    private float windUpRiseDistance = 1f;
+    private float attackDropDistance = 1f;
+
+    private List<string> attackSequence = new List<string>
+    {
+        "melee", "magic", "range", "heavy",
+        "magic", "melee", "range", "heavy", "melee", "magic",
+        "range", "heavy", "melee", "range", "magic", "heavy",
+        "melee", "magic", "range", "heavy", "magic", "melee",
+        "range", "heavy", "melee", "magic", "range", "heavy",
+        "magic", "melee", "range", "heavy"
+    };
+
+    private int currentSequenceIndex = 0;
+    private Vector3 originalPosition;
 
     private void Awake()
     {
@@ -44,22 +54,14 @@ public class MiniBoss : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-
         dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider")?.GetComponent<Slider>();
         dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
-        if (dodgeSlider == null || dodgeBarHighlighter == null)
-        {
-            Debug.LogError("DodgeSlider or DodgeBarHighlighter is missing!");
-        }
-
-        // Dynamically find the spawn positions using tags
         leftSpawn = GameObject.FindWithTag("LeftSpawn")?.transform;
         centerSpawn = GameObject.FindWithTag("MiddleSpawn")?.transform;
         rightSpawn = GameObject.FindWithTag("RightSpawn")?.transform;
 
-        // Ensure all spawn points exist
         if (leftSpawn == null || centerSpawn == null || rightSpawn == null)
         {
             Debug.LogError("MiniBoss spawn positions are not properly set! Check your tags.");
@@ -68,11 +70,9 @@ public class MiniBoss : MonoBehaviour
 
         Debug.Log("MiniBoss has spawned and initialized spawn positions.");
 
-        // Force position on spawn before anything else
-        ChangeAttackMode();
-        transform.position = currentParent.position; // Ensure instant snap
+        SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
+        UpdateColor();
 
-        // Start attacking
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
@@ -80,67 +80,69 @@ public class MiniBoss : MonoBehaviour
         attackCoroutine = StartCoroutine(AttackLoop());
     }
 
-
-    private void ChangeAttackMode()
+    private void UpdateColor()
     {
-        if (!gameObject.activeInHierarchy) return; // Prevent running if object is disabled
+        if (currentSequenceIndex >= attackSequence.Count) return;
 
-        int mode = Random.Range(0, 3);
-        currentMode = (AttackMode)mode;
-
-        switch (currentMode)
+        string nextAttack = attackSequence[currentSequenceIndex];
+        switch (nextAttack)
         {
-            case AttackMode.Red:
-                spriteRenderer.color = redColor;
-                canBeHitByMelee = true;
-                canBeHitByMagic = false;
-                canBeHitByRange = false;
-                SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
+            case "melee":
+                spriteRenderer.color = meleeColor;
                 break;
-
-            case AttackMode.Blue:
-                spriteRenderer.color = blueColor;
-                canBeHitByMelee = false;
-                canBeHitByMagic = true;
-                canBeHitByRange = false;
-                SetNewParent(centerSpawn); // Always in the center
+            case "magic":
+                spriteRenderer.color = magicColor;
                 break;
-
-            case AttackMode.Green:
-                spriteRenderer.color = greenColor;
-                canBeHitByMelee = false;
-                canBeHitByMagic = false;
-                canBeHitByRange = true;
-                SetNewParent(GetRandomSpawn(leftSpawn, rightSpawn)); // Only left or right
+            case "range":
+                spriteRenderer.color = rangeColor;
+                break;
+            case "heavy":
+                spriteRenderer.color = heavyColor;
                 break;
         }
-
-        Debug.Log($"MiniBoss changed to {currentMode} mode at {currentParent?.name}");
     }
-
 
     private IEnumerator AttackLoop()
     {
         while (true)
         {
-            if (!gameObject.activeInHierarchy) yield break; // Stop if the object is disabled
+
+           
 
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
             isAttacking = true;
 
-            int attackPosition = GetAttackPosition();
+            // Get the player's current dodge position
+            // Move MiniBoss to a random spawn point before attacking
+            Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+            SetNewParent(randomSpawn);
+
+            yield return new WaitForSeconds(0.3f); // Small delay before attacking
+
+            // Get the player's current dodge position
+            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+            Transform targetPosition = GetSpawnFromIndex(playerDodgePosition);
+
+            if (targetPosition != null)
+            {
+                //SetNewParent(targetPosition);
+            }
+
 
             if (dodgeBarHighlighter != null)
             {
-                dodgeBarHighlighter.HighlightPosition(attackPosition);
+                dodgeBarHighlighter.HighlightPosition(playerDodgePosition);
             }
 
-            yield return new WaitForSeconds(windUpTime);
+            yield return new WaitForSeconds(windUpTime); // Wind-up delay before attack
 
-            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+            // Attack drop-down effect
+            yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
 
-            if (playerDodgePosition == attackPosition)
+            // Check if the player is still in the same position
+            int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+            if (updatedPlayerDodgePosition == playerDodgePosition)
             {
                 Debug.Log("Player hit by MiniBoss attack!");
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 2);
@@ -152,63 +154,59 @@ public class MiniBoss : MonoBehaviour
 
             if (dodgeBarHighlighter != null)
             {
-                dodgeBarHighlighter.ClearHighlight(attackPosition);
+                dodgeBarHighlighter.ClearHighlight(playerDodgePosition);
             }
 
             isAttacking = false;
-
-            ChangeAttackMode(); // Change attack mode after attacking
+            UpdateColor();
         }
     }
 
-    private int GetAttackPosition()
+
+
+    private Transform GetSpawnFromIndex(int index)
     {
-        switch (currentMode)
+        switch (index)
         {
-            case AttackMode.Red:
-                return Mathf.Clamp(GetPositionIndex(currentParent), 0, 2);
-            case AttackMode.Blue:
-                return (Random.value > 0.5f) ? 0 : 2;
-            case AttackMode.Green:
-                return (GetPositionIndex(currentParent) == 0) ? 2 : 0;
-            default:
-                return 1;
+            case 0: return leftSpawn;
+            case 1: return centerSpawn;
+            case 2: return rightSpawn;
+            default: return centerSpawn;
         }
     }
 
-    public bool CanBeHitBy(string attackType)
+
+    private IEnumerator MoveEnemy(Vector3 targetPosition, float speed)
     {
-        return attackType switch
+        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
-            "melee" => canBeHitByMelee,
-            "magic" => canBeHitByMagic,
-            "range" => canBeHitByRange,
-            _ => false,
-        };
-    }
-
-    public void TakeDamage()
-    {
-        if (isAttacking)
-        {
-            Debug.Log("MiniBoss cannot be damaged while attacking.");
-            return;
-        }
-
-        currentHealth -= 1;
-        StartCoroutine(FlashDamage());
-
-        if (currentHealth <= 0)
-        {
-            Die();
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            yield return null;
         }
     }
 
-    private IEnumerator FlashDamage()
+    public void TakeDamage(string attackType)
     {
-        spriteRenderer.color = damageColor;
-        yield return new WaitForSeconds(.1f);
-        ChangeAttackMode(); // Change mode on damage
+        if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
+        {
+            currentSequenceIndex++;
+            Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
+
+            if (currentSequenceIndex >= attackSequence.Count)
+            {
+                Die();
+            }
+            else
+            {
+                UpdateColor();
+            }
+        }
+        else
+        {
+            Debug.Log("MiniBoss hit incorrectly! Resetting sequence.");
+            currentSequenceIndex = 0;
+            UpdateColor();
+        }
     }
 
     private void Die()
@@ -228,15 +226,24 @@ public class MiniBoss : MonoBehaviour
         if (newParent != null)
         {
             currentParent = newParent;
-            transform.position = currentParent.position; // Snap directly to new position
-            transform.SetParent(currentParent); // Ensure no unintended hierarchy issues
+            transform.position = currentParent.position;
+            transform.SetParent(currentParent);
         }
     }
-
 
     private Transform GetRandomSpawn(params Transform[] positions)
     {
         return positions.Length > 0 ? positions[Random.Range(0, positions.Length)] : null;
+    }
+
+    private Transform GetPlayerPosition()
+    {
+        return player.position.x < centerSpawn.position.x ? leftSpawn : (player.position.x > centerSpawn.position.x ? rightSpawn : centerSpawn);
+    }
+
+    private int GetAttackPosition()
+    {
+        return GetPositionIndex(currentParent);
     }
 
     private int GetPositionIndex(Transform position)

@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     //novo.co
 
-    private int miniBossSpawnNumber = 20;
+    private int miniBossSpawnNumber = 2;
 
     private void Start()
     {
