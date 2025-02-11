@@ -52,23 +52,25 @@ public class EnemyParent : MonoBehaviour
 
     private void DefineAttackSequence()
     {
-        // Define attack sequences for different enemy types
-        switch (gameObject.tag) // Use tags to differentiate enemy types
+        switch (gameObject.tag)
         {
             case "Skeleton":
-                attackSequence = new List<string> { "melee", "range" };
+                attackSequence = new List<string> { "melee", "range", "heavy", "melee" };
                 break;
             case "Zombie":
-                attackSequence = new List<string> { "magic", "range" };
+                attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
                 break;
             case "Monster":
-                attackSequence = new List<string> { "range", "melee" };
+                attackSequence = new List<string> { "range", "heavy", "melee", "melee" };
                 break;
             default:
-                attackSequence = new List<string> { "melee" }; // Default case
+                attackSequence = new List<string> { "melee" };
                 break;
         }
     }
+
+
+    private Color heavyColor = Color.yellow; // Define color
 
     private void UpdateColor()
     {
@@ -86,8 +88,12 @@ public class EnemyParent : MonoBehaviour
             case "range":
                 spriteRenderer.color = rangeColor;
                 break;
+            case "heavy": // New heavy attack color
+                spriteRenderer.color = heavyColor;
+                break;
         }
     }
+
 
     protected virtual int GetAttackPosition()
     {
@@ -155,12 +161,12 @@ public class EnemyParent : MonoBehaviour
         }
         else
         {
-            // Reset sequence if hit incorrectly
             Debug.Log($"{gameObject.name} hit incorrectly! Resetting sequence.");
             currentSequenceIndex = 0;
             UpdateColor();
         }
     }
+
 
     protected virtual void Die()
     {

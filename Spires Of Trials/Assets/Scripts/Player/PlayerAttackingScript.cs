@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FMOD.Studio;
+using Unity.VisualScripting;
 
 public class PlayerAttackingScript : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class PlayerAttackingScript : MonoBehaviour
     [SerializeField] Slider meleeCooldownSlider; // Slider for melee cooldown
     [SerializeField] Slider rangeCooldownSlider; // Slider for range cooldown
     [SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
+    [SerializeField] Slider heavyCooldownSlider; // Slider for heavy attack cooldown
+
+
 
     [SerializeField] Transform leftEnemy; // Reference to the left enemy spawn point
     [SerializeField] Transform centerEnemy; // Reference to the center enemy spawn point
@@ -18,14 +22,17 @@ public class PlayerAttackingScript : MonoBehaviour
     private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right (initial position is center)
     private bool isRoundActive = true; // Track if the current round is active
 
-    private float meleeCooldown = .2f; // Cooldown duration for melee attacks
-    private float rangeCooldown = .2f; // Cooldown duration for range attacks
-    private float magicCooldown = .2f; // Cooldown duration for magic attacks
+
+    private float meleeCooldown = .8f; // Cooldown duration for melee attacks
+    private float rangeCooldown = .8f; // Cooldown duration for range attacks
+    private float magicCooldown = .8f; // Cooldown duration for magic attacks
 
     private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
     private float rangeCooldownTimer = 0f; // Current cooldown timer for range
     private float magicCooldownTimer = 0f; // Current cooldown timer for magic
 
+    private float heavyCooldown = 1.2f; // Cooldown duration for heavy attacks
+    private float heavyCooldownTimer = 0f; // Current cooldown timer for heavy
 
     private EventInstance currentMusic;
     private List<float> attackTimestamps = new List<float>(); // Stores attack times
@@ -68,6 +75,8 @@ public class PlayerAttackingScript : MonoBehaviour
         InitializeCooldownSlider(meleeCooldownSlider, meleeCooldown);
         InitializeCooldownSlider(rangeCooldownSlider, rangeCooldown);
         InitializeCooldownSlider(magicCooldownSlider, magicCooldown);
+        InitializeCooldownSlider(heavyCooldownSlider, heavyCooldown);
+
 
         // Get Music Instance
         StartCoroutine(WaitForMusicInstance());
@@ -103,6 +112,16 @@ public class PlayerAttackingScript : MonoBehaviour
                 MoveSlider(1);
             }
         }
+
+
+        if (Input.GetKeyDown(KeyCode.W) && heavyCooldownTimer <= 0f) // Assuming 'F' is the key for heavy attack
+        {
+            //AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, this.transform.position);
+            Attack("heavy");
+            StartCooldown(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
+            RegisterAttack();
+        }
+
 
         // Handle melee attack input
         if (Input.GetKeyDown(KeyCode.A) && meleeCooldownTimer <= 0f)
@@ -151,18 +170,9 @@ public class PlayerAttackingScript : MonoBehaviour
         switch (attackType)
         {
             case "melee":
-                AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
-                break;
             case "range":
-                //int rangeTarget = (selectedPosition == 0) ? 2 : (selectedPosition == 2) ? 0 : -1;
-                //if (rangeTarget != -1) AttackEnemy(GetEnemyAtPosition(rangeTarget), attackType);
-                AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
-                break;
             case "magic":
-                //if (selectedPosition != 1)
-                //{
-                //    AttackEnemy(centerEnemy, attackType);
-                //}
+            case "heavy": // Add heavy attack type
                 AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
                 break;
             default:
@@ -170,6 +180,7 @@ public class PlayerAttackingScript : MonoBehaviour
                 break;
         }
     }
+
 
     private Transform GetEnemyAtPosition(int position)
     {
@@ -212,6 +223,8 @@ public class PlayerAttackingScript : MonoBehaviour
         UpdateCooldownSlider(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
         UpdateCooldownSlider(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
         UpdateCooldownSlider(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
+        UpdateCooldownSlider(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
+
     }
 
     void InitializeCooldownSlider(Slider slider, float maxCooldown)
