@@ -8,6 +8,9 @@ TagManager:
   - Zombie
   - Skeleton
   - Monster
+  - LeftSpawn
+  - RightSpawn
+  - MiddleSpawn
   layers:
   - Default
   - TransparentFX

@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     private bool bossSpawned = false; // Ensures the boss spawns only once
 
 
-    private int miniBossSpawnNumber = 2;
+    private int miniBossSpawnNumber = 10;
 
     private void Start()
     {
@@ -64,6 +64,8 @@ public class EnemySpawner : MonoBehaviour
 
         Debug.Log("Spawning MiniBoss!");
 
+
+        AudioManager.instance.SetMusic(MusicEnum.Sanctum);
         // Choose a random spawn location
         GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
 
