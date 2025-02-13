@@ -3518,6 +3518,7 @@ RectTransform:
   - {fileID: 309118215}
   - {fileID: 931438611}
   - {fileID: 233812588}
+  - {fileID: 1073488042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4740,7 +4741,7 @@ GameObject:
   - component: {fileID: 1073488044}
   - component: {fileID: 1073488043}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: highlighpanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4753,15 +4754,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1073488041}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.4305}
-  m_LocalScale: {x: 0.9237329, y: 0.9237329, z: 0.9237329}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.430481}
+  m_LocalScale: {x: 0.92373294, y: 0.92373294, z: 0.92373294}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1872677280}
   - {fileID: 547538179}
   - {fileID: 633261825}
-  m_Father: {fileID: 1136349227}
+  m_Father: {fileID: 809801836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5060,7 +5061,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1136349224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5135,8 +5136,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1073488042}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
