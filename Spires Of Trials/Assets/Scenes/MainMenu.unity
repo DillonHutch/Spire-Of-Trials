@@ -255,11 +255,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "A - Melee attack (attacks same space)\n\nW - Magic Attack (attacks middle
-    if you are on sides)\n\nD - Range Attack (attacks opposite side you are on)\n\nLeft
-    Arrow - Move Dodge Left\n\nRight Arrow - Move Dodge Right \n\n\nHit enemies with
-    correct weapon: - Skeletons: Weak to Melee - Zombies: Weak to Magic -Monster:Weak
-    to Range"
+  m_text: "W - Yellow Attack\nA - Red attack \nS - Blue attack\nD - Green Attack
+    \n\nLeft Arrow - Move Dodge Left\nRight Arrow - Move Dodge Right \n\nHit enemies
+    with correct color. Each enemy has a unique pattern. Memorize it to kill them
+    faster. Make sure to dodge away in time to not get hit "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -286,8 +285,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 33.38
+  m_fontSizeBase: 33.38
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -322,7 +321,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -492.0274, y: -263.33887, z: -436.58752, w: -336.10327}
+  m_margin: {x: -492.0274, y: -263.33887, z: -325.55127, w: -278.99884}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1605,7 +1604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -3.566, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 65.28, y: -22.559998}
+  m_AnchoredPosition: {x: 65.27997, y: -22.559998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &297523825
@@ -6432,7 +6431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -82.66, y: 26.169998}
+  m_AnchoredPosition: {x: -82.65997, y: 26.169983}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1613210599
@@ -6842,7 +6841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -3.566, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -75.72, y: -22.559998}
+  m_AnchoredPosition: {x: -75.72003, y: -22.559998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1712711309
@@ -6973,7 +6972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3688354, y: 0.98809814}
+  m_AnchoredPosition: {x: -2.3688965, y: 0.98809814}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1752156013
@@ -8402,7 +8401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -82.66, y: 51.86}
+  m_AnchoredPosition: {x: -82.65997, y: 51.859985}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2128987754
