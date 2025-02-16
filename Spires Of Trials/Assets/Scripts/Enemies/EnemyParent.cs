@@ -22,8 +22,8 @@ public class EnemyParent : MonoBehaviour
     private Color rangeColor = Color.green;
     private Color heavyColor = Color.yellow;
 
-    private float attackIntervalMin = .1f;
-    private float attackIntervalMax = .5f;
+    private float attackIntervalMin = 1f;
+    private float attackIntervalMax = 1.5f;
     private float windUpTime = .5f;
     private float attackDropDistance = 1f;
     private float windUpRiseDistance = 0.5f;
@@ -124,13 +124,14 @@ public class EnemyParent : MonoBehaviour
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (playerDodgePosition == attackPosition)
             {
-                //Debug.Log("Player hit by attack!");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, this.transform.position);
             }
             else
             {
-               // Debug.Log("Player dodged the attack!");
+                Debug.Log("Player failed to block! Taking damage.");
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             }
+
 
             if (dodgeBarHighlighter != null)
             {

@@ -22,6 +22,9 @@ public class FMODEvents : MonoBehaviour
     [field: Header("HeavyAttck")]
     [field: SerializeField] public EventReference heavyAttack { get; set; }
 
+    [field: Header("Shield")]
+    [field: SerializeField] public EventReference shieldBlock { get; set; }
+
 
 
     public static FMODEvents instance { get; private set; }

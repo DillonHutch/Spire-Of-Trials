@@ -79,6 +79,13 @@ MonoBehaviour:
       Data3: -1546933610
       Data4: -1934797339
     Path: event:/SFX/HeavyAttck
+  <shieldBlock>k__BackingField:
+    Guid:
+      Data1: -1445398018
+      Data2: 1074700936
+      Data3: 161254038
+      Data4: -76466610
+    Path: event:/SFX/SheildBlock
 --- !u!1 &5313083338162673164
 GameObject:
   m_ObjectHideFlags: 0

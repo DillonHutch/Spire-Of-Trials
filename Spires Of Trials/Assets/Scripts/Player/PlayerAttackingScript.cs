@@ -13,6 +13,8 @@ public class PlayerAttackingScript : MonoBehaviour
     [SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
     [SerializeField] Slider heavyCooldownSlider; // Slider for heavy attack cooldown
 
+    [SerializeField] private GameObject forwardSprite; // Forward-facing sprite
+    [SerializeField] private GameObject sideSprite; // Side-facing sprite (default left)
 
 
     [SerializeField] Transform leftEnemy; // Reference to the left enemy spawn point
@@ -99,22 +101,27 @@ public class PlayerAttackingScript : MonoBehaviour
         HandleCooldownTimers();
         UpdateAttackSpeed();
 
-        if (attackSlider != null)
+        // Dodge movement using A and D keys
+        if (Input.GetKey(KeyCode.A))
         {
-            selectedPosition = Mathf.RoundToInt(attackSlider.value);
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                MoveSlider(-1);
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                MoveSlider(1);
-            }
+            attackSlider.value = 0; // Move to left (dodge left)
+            ShowSideSprite(facingLeft: true);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            attackSlider.value = 2; // Move to right (dodge right)
+            ShowSideSprite(facingLeft: false);
+        }
+        else
+        {
+            attackSlider.value = 1; // Return to center
+            ShowForwardSprite();
         }
 
+        selectedPosition = Mathf.RoundToInt(attackSlider.value);
 
-        if (Input.GetKeyDown(KeyCode.W) && heavyCooldownTimer <= 0f) // Assuming 'F' is the key for heavy attack
+        // Attacks using arrow keys
+        if (Input.GetKeyDown(KeyCode.UpArrow) && heavyCooldownTimer <= 0f)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, this.transform.position);
             Attack("heavy");
@@ -122,18 +129,15 @@ public class PlayerAttackingScript : MonoBehaviour
             RegisterAttack();
         }
 
-
-        // Handle melee attack input
-        if (Input.GetKeyDown(KeyCode.A) && meleeCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && meleeCooldownTimer <= 0f)
         {
             Attack("melee");
-            AudioManager.instance.PlayOneShot( FMODEvents.instance.meleeAttack, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.meleeAttack, this.transform.position);
             StartCooldown(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
             RegisterAttack();
         }
 
-        // Handle range attack input
-        if (Input.GetKeyDown(KeyCode.D) && rangeCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && rangeCooldownTimer <= 0f)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, this.transform.position);
             Attack("range");
@@ -141,8 +145,7 @@ public class PlayerAttackingScript : MonoBehaviour
             RegisterAttack();
         }
 
-        // Handle magic attack input
-        if (Input.GetKeyDown(KeyCode.S) && magicCooldownTimer <= 0f)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && magicCooldownTimer <= 0f)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, this.transform.position);
             Attack("magic");
@@ -155,6 +158,30 @@ public class PlayerAttackingScript : MonoBehaviour
             OnAllEnemiesDestroyed();
         }
     }
+
+
+    void ShowForwardSprite()
+    {
+        forwardSprite.SetActive(true);
+        sideSprite.SetActive(false);
+    }
+
+    void ShowSideSprite(bool facingLeft)
+    {
+        forwardSprite.SetActive(false);
+        sideSprite.SetActive(true);
+
+        if (facingLeft)
+        {
+            sideSprite.transform.localScale = new Vector3(1, 1, 1); // Normal scale
+        }
+        else
+        {
+            sideSprite.transform.localScale = new Vector3(-1, 1, 1); // Mirrored scale to face right
+        }
+    }
+
+
 
     void MoveSlider(int direction)
     {

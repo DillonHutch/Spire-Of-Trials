@@ -26,8 +26,8 @@ public class MiniBoss : MonoBehaviour
     private Transform currentParent;
     private bool isAttacking = false;
 
-    private float attackIntervalMin = .3f;
-    private float attackIntervalMax = .3f;
+    private float attackIntervalMin = 1f;
+    private float attackIntervalMax = 1f;
     private float windUpTime = .6f;
     private float movementSpeed = 10f;
     private float windUpRiseDistance = 1f;
@@ -122,7 +122,22 @@ public class MiniBoss : MonoBehaviour
 
             // Get the player's current dodge position
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-            Transform targetPosition = GetSpawnFromIndex(playerDodgePosition);
+            int miniBossTargetPos = 0;
+
+            if(playerDodgePosition == 0)
+            {
+                miniBossTargetPos = Random.Range(1, 3);
+
+            }else if(playerDodgePosition == 1)
+            {
+                miniBossTargetPos = Random.Range(0, 2) * 2;
+            }
+            else
+            {
+                miniBossTargetPos = Random.Range(0, 2);
+            }
+
+            Transform targetPosition = GetSpawnFromIndex(miniBossTargetPos);
 
             if (targetPosition != null)
             {
@@ -132,7 +147,7 @@ public class MiniBoss : MonoBehaviour
 
             if (dodgeBarHighlighter != null)
             {
-                dodgeBarHighlighter.HighlightPosition(playerDodgePosition);
+                dodgeBarHighlighter.HighlightPosition(miniBossTargetPos);
             }
 
             yield return new WaitForSeconds(windUpTime); // Wind-up delay before attack
@@ -141,20 +156,22 @@ public class MiniBoss : MonoBehaviour
             yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
 
             // Check if the player is still in the same position
+            // Check if the player is still in the same position
             int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-            if (updatedPlayerDodgePosition == playerDodgePosition)
+            if (updatedPlayerDodgePosition == miniBossTargetPos)
             {
-                Debug.Log("Player hit by MiniBoss attack!");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 2);
+                Debug.Log("Player successfully blocked the MiniBoss attack!");
             }
             else
             {
-                Debug.Log("Player dodged MiniBoss attack!");
+                Debug.Log("Player failed to block! Taking damage from MiniBoss.");
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 2);
             }
+
 
             if (dodgeBarHighlighter != null)
             {
-                dodgeBarHighlighter.ClearHighlight(playerDodgePosition);
+                dodgeBarHighlighter.ClearHighlight(miniBossTargetPos);
             }
 
             isAttacking = false;
