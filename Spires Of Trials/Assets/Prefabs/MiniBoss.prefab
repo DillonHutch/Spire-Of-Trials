@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8339948725572877709}
   - component: {fileID: 6635005880129979391}
   - component: {fileID: 3421233994606946310}
+  - component: {fileID: -1293869529360626323}
   m_Layer: 0
   m_Name: MiniBoss
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: bdb4b1494d93c3a4ebfe04871199a164, type: 3}
+  m_Sprite: {fileID: -8243962163837043605, guid: 9f7fb13ae4c56d94e928dbc3d6bdeda9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,3 +102,24 @@ MonoBehaviour:
   leftSpawn: {fileID: 0}
   centerSpawn: {fileID: 0}
   rightSpawn: {fileID: 0}
+--- !u!95 &-1293869529360626323
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4726993917202153387}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d63f0e57b73851d43a019e9671a17ef6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

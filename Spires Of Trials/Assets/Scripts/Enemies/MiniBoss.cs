@@ -153,7 +153,7 @@ public class MiniBoss : MonoBehaviour
             yield return new WaitForSeconds(windUpTime); // Wind-up delay before attack
 
             // Attack drop-down effect
-            yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
+           // yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
 
             // Check if the player is still in the same position
             // Check if the player is still in the same position

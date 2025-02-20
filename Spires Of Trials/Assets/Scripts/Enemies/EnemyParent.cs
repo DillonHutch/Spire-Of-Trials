@@ -38,6 +38,9 @@ public class EnemyParent : MonoBehaviour
     private List<string> attackSequence = new List<string>();
     private int currentSequenceIndex = 0;
 
+    private Animator animator;
+
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;
@@ -53,6 +56,9 @@ public class EnemyParent : MonoBehaviour
         UpdateColor();
 
         attackCoroutine = StartCoroutine(AttackLoop());
+
+        animator = this.GetComponent<Animator>();
+
     }
 
     private void DefineAttackSequence()
@@ -116,10 +122,14 @@ public class EnemyParent : MonoBehaviour
                 dodgeBarHighlighter.HighlightPosition(attackPosition);
             }
 
-            yield return MoveEnemy(transform.position + Vector3.up * windUpRiseDistance, movementSpeed);
+            animator.SetBool("IsWinding", true);
+
 
             yield return new WaitForSeconds(windUpTime);
-            yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
+
+
+            animator.SetBool("IsWinding", false);
+            animator.SetBool("IsAttacking", true);
 
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (playerDodgePosition == attackPosition)
@@ -138,9 +148,14 @@ public class EnemyParent : MonoBehaviour
                 dodgeBarHighlighter.ClearHighlight(attackPosition);
             }
 
-            yield return MoveEnemy(originalPosition, movementSpeed);
-            UpdateColor();
+            //yield return MoveEnemy(originalPosition, movementSpeed);
+            //UpdateColor();
+
+            yield return new WaitForSeconds(.1f);
+
             isAttacking = false;
+            animator.SetBool("IsAttacking", false);
+
         }
     }
 

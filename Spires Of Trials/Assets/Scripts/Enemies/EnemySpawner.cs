@@ -104,6 +104,24 @@ public class EnemySpawner : MonoBehaviour
 
                         // Spawn the enemy and make it a child of the spawn location
                         GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
+
+                        if(spawnedEnemy.tag == "Monster")
+                        {
+
+                            Vector3 spawnLocation;
+                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+
+                            spawnLocation = spawnedEnemy.transform.position;
+                            spawnLocation.x -= 3.5f;
+
+                            spawnedEnemy.transform.position = spawnLocation;
+
+
+                        }
+                        else
+                        {
+                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                        }
                         spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
                         spawnedEnemies.Add(spawnedEnemy); // Add to the tracking list
