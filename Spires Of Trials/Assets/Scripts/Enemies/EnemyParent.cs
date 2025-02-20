@@ -28,8 +28,8 @@ public class EnemyParent : MonoBehaviour
     private Color rangeColor = Color.green;
     private Color heavyColor = Color.yellow;
 
-    private float attackIntervalMin = 1f;
-    private float attackIntervalMax = 1.5f;
+    private float attackIntervalMin = 2f;
+    private float attackIntervalMax = 2.5f;
     private float windUpTime = .5f;
     private float attackDropDistance = 1f;
     private float windUpRiseDistance = 0.5f;
@@ -52,6 +52,8 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Sprite rangeSprite;
     [SerializeField] private Sprite heavySprite;
     private SpriteRenderer attackIndicatorRenderer;
+
+  
 
 
     Image leftFlash;
@@ -161,61 +163,65 @@ public class EnemyParent : MonoBehaviour
         {
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
-            isAttacking = true;
 
-            int attackPosition = GetAttackPosition();
-            FlashScreen(attackPosition);
-
-
-            // If it's a Goblin and attacking position 2, flip the sprite
-            if (gameObject.tag == "Goblin")
-            {
-                if (attackPosition == 2)
-                {
-                    transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                }
-            }
-
-            if (dodgeBarHighlighter != null)
-            {
-                dodgeBarHighlighter.HighlightPosition(attackPosition);
-            }
-
-            animator.SetBool("IsWinding", true);
-            StartCoroutine(BlinkFlash(attackPosition, windUpTime));
-            yield return new WaitForSeconds(windUpTime);
-
-
-
-            animator.SetBool("IsWinding", false);
-            animator.SetBool("IsAttacking", true);
-
-            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-            if (playerDodgePosition == attackPosition)
-            {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, this.transform.position);
-            }
-            else
-            {
-                Debug.Log("Player failed to block! Taking damage.");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            }
-
-            if (dodgeBarHighlighter != null)
-            {
-                dodgeBarHighlighter.ClearHighlight(attackPosition);
-            }
-
-            yield return new WaitForSeconds(.1f);
-
-            isAttacking = false;
-            animator.SetBool("IsAttacking", false);
+            // Request to attack
+            EnemyAttackQueue.RequestAttack(this);
         }
     }
+
+    public void StartAttack()
+    {
+        StartCoroutine(PerformAttack());
+    }
+
+    private IEnumerator PerformAttack()
+    {
+        isAttacking = true;
+
+        int attackPosition = GetAttackPosition();
+        FlashScreen(attackPosition);
+
+        if (gameObject.tag == "Goblin")
+        {
+            if (attackPosition == 2)
+               spriteRenderer.flipX = true;
+            else
+                spriteRenderer.flipX = false;
+        }
+
+        if (dodgeBarHighlighter != null)
+            dodgeBarHighlighter.HighlightPosition(attackPosition);
+
+        animator.SetBool("IsWinding", true);
+        StartCoroutine(BlinkFlash(attackPosition, windUpTime));
+        yield return new WaitForSeconds(windUpTime);
+
+        animator.SetBool("IsWinding", false);
+        animator.SetBool("IsAttacking", true);
+
+        int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+        if (playerDodgePosition == attackPosition)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, this.transform.position);
+        else
+        {
+            Debug.Log("Player failed to block! Taking damage.");
+            EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+        }
+
+        if (dodgeBarHighlighter != null)
+            dodgeBarHighlighter.ClearHighlight(attackPosition);
+
+        yield return new WaitForSeconds(.1f);
+
+        isAttacking = false;
+        animator.SetBool("IsAttacking", false);
+
+        // Notify manager that the attack finished
+        EnemyAttackQueue.AttackFinished(this);
+    }
+
+
+
 
     private IEnumerator BlinkFlash(int attackPosition, float duration)
     {
@@ -313,20 +319,39 @@ public class EnemyParent : MonoBehaviour
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         }
 
+        // Ensure the flash is cleared
+        ClearFlashScreen();
+
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+
+        // Notify manager that this enemy is no longer attacking (if needed)
+        EnemyAttackQueue.AttackFinished(this);
+
         Destroy(gameObject);
     }
+
 
 
     private void OnDisable()
     {
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
-        // Ensure highlight is cleared when the object is disabled
+        // Ensure the highlight and flash are cleared
         if (dodgeBarHighlighter != null)
         {
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         }
+
+        ClearFlashScreen();
     }
+
+    private void ClearFlashScreen()
+    {
+        if (leftFlash != null) leftFlash.color = new Color(leftFlash.color.r, leftFlash.color.g, leftFlash.color.b, 0);
+        if (middleFlash != null) middleFlash.color = new Color(middleFlash.color.r, middleFlash.color.g, middleFlash.color.b, 0);
+        if (rightFlash != null) rightFlash.color = new Color(rightFlash.color.r, rightFlash.color.g, rightFlash.color.b, 0);
+    }
+
+
 
 }

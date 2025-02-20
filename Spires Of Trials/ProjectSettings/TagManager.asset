@@ -13,6 +13,9 @@ TagManager:
   - MiddleSpawn
   - Goblin
   - Slime
+  - LeftFlash
+  - MiddleFlash
+  - RightFlash
   layers:
   - Default
   - TransparentFX

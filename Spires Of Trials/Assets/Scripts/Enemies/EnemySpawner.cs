@@ -21,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
 
     //novo.co
 
-    private int miniBossSpawnNumber = 2;
+    private int miniBossSpawnNumber = 10;
 
     private void Start()
     {
@@ -123,9 +123,18 @@ public class EnemySpawner : MonoBehaviour
                                 spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
                                 spriteRenderer.flipX = true;
 
+                             
+
                                 spawnLocation.x += 7f;
 
                                 spawnedEnemy.transform.position = spawnLocation;
+
+                                if (spawnedEnemy.transform.childCount > 0)
+                                {
+                                    Transform childIcon = spawnedEnemy.transform.GetChild(0);
+                                    childIcon.localPosition = new Vector3(-3.5f, .62f, 0); // Move the icon beneath the slime
+                                }
+
                             }
                         }
                         else
