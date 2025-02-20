@@ -33,6 +33,9 @@ public class MiniBoss : MonoBehaviour
     private float windUpRiseDistance = 1f;
     private float attackDropDistance = 1f;
 
+
+    private Animator animator;
+
     private List<string> attackSequence = new List<string>
     {
         "melee", "magic", "range", "heavy",
@@ -78,6 +81,8 @@ public class MiniBoss : MonoBehaviour
             StopCoroutine(attackCoroutine);
         }
         attackCoroutine = StartCoroutine(AttackLoop());
+
+        animator = this.GetComponent<Animator>();
     }
 
     private void UpdateColor()
@@ -118,7 +123,12 @@ public class MiniBoss : MonoBehaviour
             Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
             SetNewParent(randomSpawn);
 
+            animator.SetBool("IsWinding", true);
+
             yield return new WaitForSeconds(0.3f); // Small delay before attacking
+
+            animator.SetBool("IsWinding", false);
+            animator.SetBool("IsAttacking", true);
 
             // Get the player's current dodge position
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
@@ -175,7 +185,12 @@ public class MiniBoss : MonoBehaviour
             }
 
             isAttacking = false;
-            UpdateColor();
+            // UpdateColor();
+
+            yield return new WaitForSeconds(.1f);
+
+            isAttacking = false;
+            animator.SetBool("IsAttacking", false);
         }
     }
 
