@@ -11,6 +11,8 @@ TagManager:
   - LeftSpawn
   - RightSpawn
   - MiddleSpawn
+  - Goblin
+  - Slime
   layers:
   - Default
   - TransparentFX

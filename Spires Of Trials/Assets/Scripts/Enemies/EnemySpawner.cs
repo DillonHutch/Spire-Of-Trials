@@ -17,6 +17,8 @@ public class EnemySpawner : MonoBehaviour
     private int roundCounter = 0; // Start at Round 1
     private bool bossSpawned = false; // Ensures the boss spawns only once
 
+    SpriteRenderer spriteRenderer;
+
     //novo.co
 
     private int miniBossSpawnNumber = 2;
@@ -105,9 +107,8 @@ public class EnemySpawner : MonoBehaviour
                         // Spawn the enemy and make it a child of the spawn location
                         GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
 
-                        if(spawnedEnemy.tag == "Monster")
+                        if (spawnedEnemy.tag == "Slime")
                         {
-
                             Vector3 spawnLocation;
                             spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
@@ -116,13 +117,23 @@ public class EnemySpawner : MonoBehaviour
 
                             spawnedEnemy.transform.position = spawnLocation;
 
+                            // Flip the y-scale if it's in position 0
+                            if (i == 0)
+                            {
+                                spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
+                                spriteRenderer.flipX = true;
 
+                                spawnLocation.x += 7f;
+
+                                spawnedEnemy.transform.position = spawnLocation;
+                            }
                         }
                         else
                         {
                             spawnedEnemy.transform.parent = spawnLocations[i].transform;
                         }
-                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
+
+                        //spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
                         spawnedEnemies.Add(spawnedEnemy); // Add to the tracking list
                         Debug.Log($"Spawned {enemyToSpawn.tag} at {spawnLocations[i].name}");
@@ -161,13 +172,16 @@ public class EnemySpawner : MonoBehaviour
             {
                 possibleEnemies.Add(enemy);
             }
-            else if (enemyTag == "Zombie" && (positionIndex == 1))
+            else if (enemyTag == "Goblin" && (positionIndex == 1))
             {
                 possibleEnemies.Add(enemy);
             }
-            else if (enemyTag == "Monster" && (positionIndex == 0 || positionIndex == 2))
+            else if (enemyTag == "Slime" && (positionIndex == 0 || positionIndex == 2))
             {
+
                 possibleEnemies.Add(enemy);
+
+
             }
         }
 

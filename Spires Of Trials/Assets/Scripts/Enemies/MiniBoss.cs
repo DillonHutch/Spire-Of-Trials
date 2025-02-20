@@ -36,6 +36,19 @@ public class MiniBoss : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] private GameObject attackIndicator; // Assign in Inspector
+    [SerializeField] private Sprite meleeSprite;
+    [SerializeField] private Sprite magicSprite;
+    [SerializeField] private Sprite rangeSprite;
+    [SerializeField] private Sprite heavySprite;
+    private SpriteRenderer attackIndicatorRenderer;
+
+    private Image leftFlash;
+    private Image middleFlash;
+    private Image rightFlash;
+    private float flashDuration = 0.2f;
+
+
     private List<string> attackSequence = new List<string>
     {
         "melee", "magic", "range", "heavy",
@@ -56,6 +69,17 @@ public class MiniBoss : MonoBehaviour
 
     private void Start()
     {
+
+        leftFlash = GameObject.FindGameObjectWithTag("LeftFlash")?.GetComponent<Image>();
+        middleFlash = GameObject.FindGameObjectWithTag("MiddleFlash")?.GetComponent<Image>();
+        rightFlash = GameObject.FindGameObjectWithTag("RightFlash")?.GetComponent<Image>();
+
+        if (leftFlash == null || middleFlash == null || rightFlash == null)
+        {
+            Debug.LogError("One or more flash UI elements not found! Ensure they have the correct tags.");
+        }
+
+
         currentHealth = maxHealth;
         dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider")?.GetComponent<Slider>();
         dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
@@ -76,6 +100,21 @@ public class MiniBoss : MonoBehaviour
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
         UpdateColor();
 
+        if (attackIndicator != null)
+        {
+            attackIndicatorRenderer = attackIndicator.GetComponent<SpriteRenderer>();
+            if (attackIndicatorRenderer == null)
+            {
+                Debug.LogError($"SpriteRenderer missing on {attackIndicator.name}. Please add one.");
+            }
+        }
+        else
+        {
+            Debug.LogError($"attackIndicator is not assigned for {gameObject.name}. Assign it in the Inspector.");
+        }
+
+
+
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
@@ -88,32 +127,39 @@ public class MiniBoss : MonoBehaviour
     private void UpdateColor()
     {
         if (currentSequenceIndex >= attackSequence.Count) return;
+        if (attackIndicatorRenderer == null)
+        {
+            Debug.LogError($"{gameObject.name}: attackIndicatorRenderer is NULL. Ensure attackIndicator has a SpriteRenderer.");
+            return;
+        }
 
         string nextAttack = attackSequence[currentSequenceIndex];
         switch (nextAttack)
         {
             case "melee":
-                spriteRenderer.color = meleeColor;
+                attackIndicatorRenderer.sprite = meleeSprite;
                 break;
             case "magic":
-                spriteRenderer.color = magicColor;
+                attackIndicatorRenderer.sprite = magicSprite;
                 break;
             case "range":
-                spriteRenderer.color = rangeColor;
+                attackIndicatorRenderer.sprite = rangeSprite;
                 break;
             case "heavy":
-                spriteRenderer.color = heavyColor;
+                attackIndicatorRenderer.sprite = heavySprite;
                 break;
         }
     }
+
 
     private IEnumerator AttackLoop()
     {
         while (true)
         {
 
-           
 
+            // Get the player's current dodge position
+            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
             isAttacking = true;
@@ -125,20 +171,13 @@ public class MiniBoss : MonoBehaviour
 
             animator.SetBool("IsWinding", true);
 
-            yield return new WaitForSeconds(0.3f); // Small delay before attacking
-
-            animator.SetBool("IsWinding", false);
-            animator.SetBool("IsAttacking", true);
-
-            // Get the player's current dodge position
-            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+            // Determine the attack position BEFORE calling BlinkFlash
             int miniBossTargetPos = 0;
-
-            if(playerDodgePosition == 0)
+            if (playerDodgePosition == 0)
             {
                 miniBossTargetPos = Random.Range(1, 3);
-
-            }else if(playerDodgePosition == 1)
+            }
+            else if (playerDodgePosition == 1)
             {
                 miniBossTargetPos = Random.Range(0, 2) * 2;
             }
@@ -146,6 +185,18 @@ public class MiniBoss : MonoBehaviour
             {
                 miniBossTargetPos = Random.Range(0, 2);
             }
+
+            // Now that miniBossTargetPos is defined, we can call BlinkFlash
+            StartCoroutine(BlinkFlash(miniBossTargetPos, windUpTime));
+
+            yield return new WaitForSeconds(0.3f); // Small delay before attacking
+
+            animator.SetBool("IsWinding", false);
+            animator.SetBool("IsAttacking", true);
+
+
+           
+           
 
             Transform targetPosition = GetSpawnFromIndex(miniBossTargetPos);
 
@@ -170,7 +221,7 @@ public class MiniBoss : MonoBehaviour
             int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (updatedPlayerDodgePosition == miniBossTargetPos)
             {
-                Debug.Log("Player successfully blocked the MiniBoss attack!");
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, this.transform.position);
             }
             else
             {
@@ -193,6 +244,33 @@ public class MiniBoss : MonoBehaviour
             animator.SetBool("IsAttacking", false);
         }
     }
+
+    private IEnumerator BlinkFlash(int attackPosition, float duration)
+    {
+        Image flashPanel = null;
+
+        switch (attackPosition)
+        {
+            case 0: flashPanel = leftFlash; break;
+            case 1: flashPanel = middleFlash; break;
+            case 2: flashPanel = rightFlash; break;
+        }
+
+        if (flashPanel == null) yield break;
+
+        float blinkInterval = 0.2f; // Adjust for faster/slower blinking
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.5f);
+            yield return new WaitForSeconds(blinkInterval);
+            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval * 2;
+        }
+    }
+
 
 
 

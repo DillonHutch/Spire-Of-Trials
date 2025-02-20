@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,11 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Color windUpColor = Color.blue;
     [SerializeField] private Color attackColor = Color.magenta;
     [SerializeField] private Color damageColor = Color.red;
+
+ 
+
+    private float flashDuration = 0.2f;
+
 
 
     private Color meleeColor = Color.red;
@@ -40,9 +46,30 @@ public class EnemyParent : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] private GameObject attackIndicator; // Assign in Inspector (e.g., an empty GameObject with a SpriteRenderer)
+    [SerializeField] private Sprite meleeSprite;
+    [SerializeField] private Sprite magicSprite;
+    [SerializeField] private Sprite rangeSprite;
+    [SerializeField] private Sprite heavySprite;
+    private SpriteRenderer attackIndicatorRenderer;
+
+
+    Image leftFlash;
+    Image rightFlash;
+    Image middleFlash;
 
     protected virtual void Start()
     {
+
+        leftFlash = GameObject.FindGameObjectWithTag("LeftFlash")?.GetComponent<Image>();
+        middleFlash = GameObject.FindGameObjectWithTag("MiddleFlash")?.GetComponent<Image>();
+        rightFlash = GameObject.FindGameObjectWithTag("RightFlash")?.GetComponent<Image>();
+
+        if (leftFlash == null || middleFlash == null || rightFlash == null)
+        {
+            Debug.LogError("One or more flash UI elements not found! Ensure they have the correct tags.");
+        }
+
         currentHealth = maxHealth;
         enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
 
@@ -52,14 +79,28 @@ public class EnemyParent : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalPosition = transform.position;
 
+        animator = GetComponent<Animator>();
+
+        // Ensure attackIndicator is properly set up
+        if (attackIndicator != null)
+        {
+            attackIndicatorRenderer = attackIndicator.GetComponent<SpriteRenderer>();
+            if (attackIndicatorRenderer == null)
+            {
+                Debug.LogError($"SpriteRenderer missing on {attackIndicator.name}. Please add one.");
+            }
+        }
+        else
+        {
+            Debug.LogError($"attackIndicator is not assigned for {gameObject.name}. Assign it in the Inspector.");
+        }
+
         DefineAttackSequence();
         UpdateColor();
 
         attackCoroutine = StartCoroutine(AttackLoop());
-
-        animator = this.GetComponent<Animator>();
-
     }
+
 
     private void DefineAttackSequence()
     {
@@ -68,10 +109,10 @@ public class EnemyParent : MonoBehaviour
             case "Skeleton":
                 attackSequence = new List<string> { "melee", "range", "heavy", "melee" };
                 break;
-            case "Zombie":
+            case "Goblin":
                 attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
                 break;
-            case "Monster":
+            case "Slime":
                 attackSequence = new List<string> { "range", "heavy", "melee", "magic" };
                 break;
             default:
@@ -83,24 +124,31 @@ public class EnemyParent : MonoBehaviour
     private void UpdateColor()
     {
         if (currentSequenceIndex >= attackSequence.Count) return;
+        if (attackIndicatorRenderer == null)
+        {
+            Debug.LogError($"{gameObject.name}: attackIndicatorRenderer is NULL. Ensure attackIndicator has a SpriteRenderer.");
+            return;
+        }
 
         string nextAttack = attackSequence[currentSequenceIndex];
         switch (nextAttack)
         {
             case "melee":
-                spriteRenderer.color = meleeColor;
+                attackIndicatorRenderer.sprite = meleeSprite;
                 break;
             case "magic":
-                spriteRenderer.color = magicColor;
+                attackIndicatorRenderer.sprite = magicSprite;
                 break;
             case "range":
-                spriteRenderer.color = rangeColor;
+                attackIndicatorRenderer.sprite = rangeSprite;
                 break;
             case "heavy":
-                spriteRenderer.color = heavyColor;
+                attackIndicatorRenderer.sprite = heavySprite;
                 break;
         }
     }
+
+
 
     protected virtual int GetAttackPosition()
     {
@@ -116,6 +164,21 @@ public class EnemyParent : MonoBehaviour
             isAttacking = true;
 
             int attackPosition = GetAttackPosition();
+            FlashScreen(attackPosition);
+
+
+            // If it's a Goblin and attacking position 2, flip the sprite
+            if (gameObject.tag == "Goblin")
+            {
+                if (attackPosition == 2)
+                {
+                    transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                }
+            }
 
             if (dodgeBarHighlighter != null)
             {
@@ -123,9 +186,9 @@ public class EnemyParent : MonoBehaviour
             }
 
             animator.SetBool("IsWinding", true);
-
-
+            StartCoroutine(BlinkFlash(attackPosition, windUpTime));
             yield return new WaitForSeconds(windUpTime);
+
 
 
             animator.SetBool("IsWinding", false);
@@ -142,22 +205,70 @@ public class EnemyParent : MonoBehaviour
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             }
 
-
             if (dodgeBarHighlighter != null)
             {
                 dodgeBarHighlighter.ClearHighlight(attackPosition);
             }
 
-            //yield return MoveEnemy(originalPosition, movementSpeed);
-            //UpdateColor();
-
             yield return new WaitForSeconds(.1f);
 
             isAttacking = false;
             animator.SetBool("IsAttacking", false);
-
         }
     }
+
+    private IEnumerator BlinkFlash(int attackPosition, float duration)
+    {
+        Image flashPanel = null;
+        switch (attackPosition)
+        {
+            case 0: flashPanel = leftFlash; break;
+            case 1: flashPanel = middleFlash; break;
+            case 2: flashPanel = rightFlash; break;
+        }
+
+        if (flashPanel == null) yield break;
+
+        float blinkInterval = 0.2f; // Adjust for faster/slower blinking
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.2f);
+            yield return new WaitForSeconds(blinkInterval);
+            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
+            yield return new WaitForSeconds(blinkInterval);
+            elapsedTime += blinkInterval * 2;
+        }
+    }
+
+
+    private void FlashScreen(int attackPosition)
+    {
+        Image flashPanel = null;
+
+        switch (attackPosition)
+        {
+            case 0: flashPanel = leftFlash; break;
+            case 1: flashPanel = middleFlash; break;
+            case 2: flashPanel = rightFlash; break;
+        }
+
+        if (flashPanel != null)
+        {
+            StartCoroutine(FlashEffect(flashPanel));
+        }
+    }
+
+    private IEnumerator FlashEffect(Image panel)
+    {
+        Color originalColor = panel.color;
+        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.2f); // Half opacity
+        yield return new WaitForSeconds(flashDuration);
+        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0); // Reset transparency
+    }
+
+
 
     private IEnumerator MoveEnemy(Vector3 targetPosition, float speed)
     {
