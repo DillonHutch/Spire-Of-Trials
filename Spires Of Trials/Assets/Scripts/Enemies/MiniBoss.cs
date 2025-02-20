@@ -122,6 +122,8 @@ public class MiniBoss : MonoBehaviour
         attackCoroutine = StartCoroutine(AttackLoop());
 
         animator = this.GetComponent<Animator>();
+
+        UpdateColor();
     }
 
     private void UpdateColor()
@@ -138,15 +140,19 @@ public class MiniBoss : MonoBehaviour
         {
             case "melee":
                 attackIndicatorRenderer.sprite = meleeSprite;
+                animator.SetFloat("AttackType", 0f);
                 break;
             case "magic":
                 attackIndicatorRenderer.sprite = magicSprite;
+                animator.SetFloat("AttackType", .33f);
                 break;
             case "range":
                 attackIndicatorRenderer.sprite = rangeSprite;
+                animator.SetFloat("AttackType", .66f);
                 break;
             case "heavy":
                 attackIndicatorRenderer.sprite = heavySprite;
+                animator.SetFloat("AttackType", 1f);
                 break;
         }
     }
@@ -169,7 +175,7 @@ public class MiniBoss : MonoBehaviour
             Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
             SetNewParent(randomSpawn);
 
-            animator.SetBool("IsWinding", true);
+            animator.SetTrigger("WindUp");
 
             // Determine the attack position BEFORE calling BlinkFlash
             int miniBossTargetPos = 0;
@@ -191,8 +197,8 @@ public class MiniBoss : MonoBehaviour
 
             yield return new WaitForSeconds(0.3f); // Small delay before attacking
 
-            animator.SetBool("IsWinding", false);
-            animator.SetBool("IsAttacking", true);
+
+            animator.SetTrigger("Attack");
 
 
            
@@ -236,12 +242,12 @@ public class MiniBoss : MonoBehaviour
             }
 
             isAttacking = false;
-            // UpdateColor();
+            UpdateColor();
 
             yield return new WaitForSeconds(.1f);
 
             isAttacking = false;
-            animator.SetBool("IsAttacking", false);
+            animator.SetTrigger("ReturnToIdle");
         }
     }
 
