@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attack
+  m_Name: Wind Up Green
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -7245907514130694414, guid: 9f7fb13ae4c56d94e928dbc3d6bdeda9, type: 3}
+      value: {fileID: -1018728308264692865, guid: 9f7fb13ae4c56d94e928dbc3d6bdeda9, type: 3}
     - time: 0.1
-      value: {fileID: -7245907514130694414, guid: 9f7fb13ae4c56d94e928dbc3d6bdeda9, type: 3}
+      value: {fileID: -1018728308264692865, guid: 9f7fb13ae4c56d94e928dbc3d6bdeda9, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212

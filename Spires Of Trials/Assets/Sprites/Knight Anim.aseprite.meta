@@ -11,6 +11,21 @@ ScriptedImporter:
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
+      name: Attack Green
+    second: {fileID: 7400000, guid: 9edb35247851f6c4e8a79ed423f26ed1, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Attack Red
+    second: {fileID: 7400000, guid: 312cc23e84fb322459dae230c60c7daf, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Attack Yellow
+    second: {fileID: 7400000, guid: 4cc2ca6517db4fd468935ce9c17b5b07, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
       name: Idle Blue
     second: {fileID: 7400000, guid: 8b4ab1a9d57fec342918e6c069ebd21f, type: 2}
   - first:
@@ -33,6 +48,26 @@ ScriptedImporter:
       assembly: UnityEngine.AnimationModule
       name: Wind Up
     second: {fileID: 7400000, guid: 0f40d67a771b37546927e13b49500e87, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Wind Up Blue
+    second: {fileID: 7400000, guid: 58ddc2170bfacb744b3673116ad61494, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Wind Up Green
+    second: {fileID: 7400000, guid: 5414e1d2f5830de4d8c480d79dcbc3f2, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Wind Up Red
+    second: {fileID: 7400000, guid: 94d6f96291c971947bd438fdc2677bba, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Wind Up Yellow
+    second: {fileID: 7400000, guid: 7bc42b601fcf84a44a8dd831602991e2, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -127,7 +162,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638756555067666760
+  platformSettingsDirtyTick: 638757333320395999
   textureAssetName: 
   singleSpriteImportData:
   - name: 

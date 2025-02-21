@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -162,22 +162,16 @@ public class MiniBoss : MonoBehaviour
     {
         while (true)
         {
-
-
-            // Get the player's current dodge position
             int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
             yield return new WaitForSeconds(waitTime);
             isAttacking = true;
 
-            // Get the player's current dodge position
             // Move MiniBoss to a random spawn point before attacking
             Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
             SetNewParent(randomSpawn);
-
             animator.SetTrigger("WindUp");
 
-            // Determine the attack position BEFORE calling BlinkFlash
             int miniBossTargetPos = 0;
             if (playerDodgePosition == 0)
             {
@@ -192,38 +186,19 @@ public class MiniBoss : MonoBehaviour
                 miniBossTargetPos = Random.Range(0, 2);
             }
 
-            // Now that miniBossTargetPos is defined, we can call BlinkFlash
             StartCoroutine(BlinkFlash(miniBossTargetPos, windUpTime));
 
-            yield return new WaitForSeconds(0.3f); // Small delay before attacking
+            yield return new WaitForSeconds(windUpTime - 0.15f); // Almost the full wind-up duration
 
+         
 
+            // Trigger attack AFTER Last Flash has completed
             animator.SetTrigger("Attack");
 
+            // Ensure the Last Flash happens BEFORE Attack
+            yield return StartCoroutine(LastFlash(miniBossTargetPos, 0.15f));
 
-           
-           
-
-            Transform targetPosition = GetSpawnFromIndex(miniBossTargetPos);
-
-            if (targetPosition != null)
-            {
-                //SetNewParent(targetPosition);
-            }
-
-
-            if (dodgeBarHighlighter != null)
-            {
-                dodgeBarHighlighter.HighlightPosition(miniBossTargetPos);
-            }
-
-            yield return new WaitForSeconds(windUpTime); // Wind-up delay before attack
-
-            // Attack drop-down effect
-           // yield return MoveEnemy(transform.position - Vector3.up * attackDropDistance, movementSpeed);
-
-            // Check if the player is still in the same position
-            // Check if the player is still in the same position
+            // Now check if the player successfully blocked
             int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (updatedPlayerDodgePosition == miniBossTargetPos)
             {
@@ -234,7 +209,6 @@ public class MiniBoss : MonoBehaviour
                 Debug.Log("Player failed to block! Taking damage from MiniBoss.");
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 2);
             }
-
 
             if (dodgeBarHighlighter != null)
             {
@@ -251,10 +225,30 @@ public class MiniBoss : MonoBehaviour
         }
     }
 
+
+
+    private IEnumerator LastFlash(int attackPosition, float duration)
+    {
+        Image flashPanel = null;
+        switch (attackPosition)
+        {
+            case 0: flashPanel = leftFlash; break;
+            case 1: flashPanel = middleFlash; break;
+            case 2: flashPanel = rightFlash; break;
+        }
+
+        if (flashPanel == null) yield break;
+
+        // Strong final flash effect
+        flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.6f); // Brighter flash
+        yield return new WaitForSeconds(duration);
+        flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
+    }
+
+
     private IEnumerator BlinkFlash(int attackPosition, float duration)
     {
         Image flashPanel = null;
-
         switch (attackPosition)
         {
             case 0: flashPanel = leftFlash; break;
@@ -269,11 +263,37 @@ public class MiniBoss : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.5f);
+            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.2f);
             yield return new WaitForSeconds(blinkInterval);
             flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
             yield return new WaitForSeconds(blinkInterval);
             elapsedTime += blinkInterval * 2;
+        }
+    }
+
+    private IEnumerator FlashEffect(Image panel)
+    {
+        Color originalColor = panel.color;
+        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.2f); // Half opacity
+        yield return new WaitForSeconds(flashDuration);
+        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0); // Reset transparency
+    }
+
+
+    private void FlashScreen(int attackPosition)
+    {
+        Image flashPanel = null;
+
+        switch (attackPosition)
+        {
+            case 0: flashPanel = leftFlash; break;
+            case 1: flashPanel = middleFlash; break;
+            case 2: flashPanel = rightFlash; break;
+        }
+
+        if (flashPanel != null)
+        {
+            StartCoroutine(FlashEffect(flashPanel));
         }
     }
 
