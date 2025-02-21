@@ -25,9 +25,9 @@ public class PlayerAttackingScript : MonoBehaviour
     private bool isRoundActive = true; // Track if the current round is active
 
 
-    private float meleeCooldown = .8f; // Cooldown duration for melee attacks
-    private float rangeCooldown = .8f; // Cooldown duration for range attacks
-    private float magicCooldown = .8f; // Cooldown duration for magic attacks
+    private float meleeCooldown = .1f; // Cooldown duration for melee attacks
+    private float rangeCooldown = .1f; // Cooldown duration for range attacks
+    private float magicCooldown = .1f; // Cooldown duration for magic attacks
 
     private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
     private float rangeCooldownTimer = 0f; // Current cooldown timer for range
