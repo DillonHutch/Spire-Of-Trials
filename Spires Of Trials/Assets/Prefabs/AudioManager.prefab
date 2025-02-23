@@ -51,6 +51,13 @@ MonoBehaviour:
       Data3: -849000789
       Data4: 1610854805
     Path: event:/Music/CombatMusic
+  <ambience>k__BackingField:
+    Guid:
+      Data1: -1351969888
+      Data2: 1172109973
+      Data3: 712928955
+      Data4: -1961683807
+    Path: event:/Ambience/RuinsAmbiance
   <meleeAttack>k__BackingField:
     Guid:
       Data1: 148696050

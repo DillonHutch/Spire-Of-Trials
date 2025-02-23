@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8669372602413151282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambience/RuinsAmbiance
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/RuinsAmbiance
+  Guid:
+    Data1: -1351969888
+    Data2: 1172109973
+    Data3: 712928955
+    Data4: -1961683807
+  Banks:
+  - {fileID: 8747005220439572358}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 82766
 --- !u!114 &-8385834267472912259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,10 +62,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638753177061447609
+  lastModified: 638757350405053258
   FileSizes:
   - Name: Desktop
-    Value: 1428
+    Value: 1480
   Exists: 1
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
@@ -82,7 +109,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638753177061427405
+  lastModified: 638757350404892019
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -278,12 +305,13 @@ MonoBehaviour:
   - {fileID: 287775435814578406}
   - {fileID: -1162848138560153866}
   - {fileID: -2051294763545766897}
+  - {fileID: -8669372602413151282}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638753179192508896
+  cacheTime: 638757355488940190
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -401,8 +429,8 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Ambiance.bank
   Name: Ambiance
   StudioPath: bank:/Ambiance
-  lastModified: 638741935697294806
+  lastModified: 638757355488940190
   FileSizes:
   - Name: Desktop
-    Value: 494
+    Value: 1031872
   Exists: 1

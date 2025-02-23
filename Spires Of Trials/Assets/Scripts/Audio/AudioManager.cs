@@ -22,6 +22,9 @@ public class AudioManager : MonoBehaviour
     [Range(0, 1)]
 
 
+   private EventInstance ambienceEvent;
+
+
     private Bus masterBus;
 
     private Bus musicBus;
@@ -37,6 +40,8 @@ public class AudioManager : MonoBehaviour
 
 
     private EventInstance musicEventInstance;
+
+
 
 
 
@@ -84,6 +89,13 @@ public class AudioManager : MonoBehaviour
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
+    }
+
+
+    void InitializeAmbience(EventReference ambienceReference)
+    {
+        ambienceEvent = CreateInstance(ambienceReference);
+        ambienceEvent.start();
     }
 
 
@@ -138,6 +150,7 @@ public class AudioManager : MonoBehaviour
         if (instance == this && FMODEvents.instance != null)
         {
             InitializeMusic(FMODEvents.instance.music);
+            InitializeAmbience(FMODEvents.instance.ambience);
         }
         else
         {

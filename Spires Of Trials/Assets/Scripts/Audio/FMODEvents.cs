@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using System.Runtime.InteropServices;
 
 public class FMODEvents : MonoBehaviour
 {
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; set; }
+
+    [field: Header("Ambience")]
+    [field: SerializeField] public EventReference ambience { get; set; }
 
 
     [field: Header("MeleeAttack")]
