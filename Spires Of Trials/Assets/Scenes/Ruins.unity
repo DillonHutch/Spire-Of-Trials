@@ -8311,6 +8311,7 @@ MonoBehaviour:
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
+  miniBossSpawnNumber: 10
 --- !u!1 &1955808337
 GameObject:
   m_ObjectHideFlags: 0
