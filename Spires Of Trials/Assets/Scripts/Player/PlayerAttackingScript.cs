@@ -13,6 +13,11 @@ public class PlayerAttackingScript : MonoBehaviour
     [SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
     [SerializeField] Slider heavyCooldownSlider; // Slider for heavy attack cooldown
 
+
+    [SerializeField] GameObject leftSheild;
+    [SerializeField] GameObject rightSheild;
+    [SerializeField] GameObject middleSheild;
+
     [SerializeField] private GameObject forwardSprite; // Forward-facing sprite
     [SerializeField] private GameObject sideSprite; // Side-facing sprite (default left)
 
@@ -41,6 +46,8 @@ public class PlayerAttackingScript : MonoBehaviour
     private float attackWindow = 3f; // Time window to track attack speed
     private float highSpeedThreshold = 2; // Attacks per window to trigger fast music
 
+   [SerializeField] SpriteRenderer sideSpriteRenderer;
+
 
     private void OnEnable()
     {
@@ -64,6 +71,9 @@ public class PlayerAttackingScript : MonoBehaviour
 
     void Start()
     {
+
+        
+
         // Initialize the attack slider
         if (attackSlider != null)
         {
@@ -106,16 +116,25 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             attackSlider.value = 0; // Move to left (dodge left)
             ShowSideSprite(facingLeft: true);
+            leftSheild.SetActive(true);
+            rightSheild.SetActive(false);
+            middleSheild.SetActive(false);
         }
         else if (Input.GetKey(KeyCode.D))
         {
             attackSlider.value = 2; // Move to right (dodge right)
             ShowSideSprite(facingLeft: false);
+            leftSheild.SetActive(false);
+            rightSheild.SetActive(true);
+            middleSheild.SetActive(false);
         }
         else
         {
             attackSlider.value = 1; // Return to center
             ShowForwardSprite();
+            leftSheild.SetActive(false);
+            rightSheild.SetActive(false);
+            middleSheild.SetActive(true);
         }
 
         selectedPosition = Mathf.RoundToInt(attackSlider.value);
@@ -173,11 +192,11 @@ public class PlayerAttackingScript : MonoBehaviour
 
         if (facingLeft)
         {
-            sideSprite.transform.localScale = new Vector3(1, 1, 1); // Normal scale
+            sideSpriteRenderer.flipX = false;
         }
         else
         {
-            sideSprite.transform.localScale = new Vector3(-1, 1, 1); // Mirrored scale to face right
+            sideSpriteRenderer.flipX = true;
         }
     }
 
