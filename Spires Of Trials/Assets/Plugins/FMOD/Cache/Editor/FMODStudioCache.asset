@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638753176283557440
+  lastModified: 638760828026159369
   FileSizes:
   - Name: Desktop
-    Value: 10420832
+    Value: 12551104
   Exists: 1
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
@@ -184,7 +184,7 @@ MonoBehaviour:
   Name: Music
   StudioPath: 
   Min: 0
-  Max: 4
+  Max: 5
   Default: 0
   ID:
     data1: 403884887
@@ -197,6 +197,7 @@ MonoBehaviour:
   - Garden
   - Mirrors
   - Sanctum
+  - KnightBoss
   Exists: 1
 --- !u!114 &-2051294763545766897
 MonoBehaviour:
@@ -311,7 +312,7 @@ MonoBehaviour:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638757355488940190
+  cacheTime: 638760828026159369
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
