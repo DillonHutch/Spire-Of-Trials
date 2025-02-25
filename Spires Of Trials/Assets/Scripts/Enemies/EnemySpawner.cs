@@ -68,7 +68,7 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("Spawning MiniBoss!");
 
 
-        AudioManager.instance.SetMusic(MusicEnum.Sanctum);
+        AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
         // Choose a random spawn location
         GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
 

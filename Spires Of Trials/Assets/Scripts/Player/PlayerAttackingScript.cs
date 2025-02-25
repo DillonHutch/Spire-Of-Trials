@@ -33,12 +33,11 @@ public class PlayerAttackingScript : MonoBehaviour
     private float meleeCooldown = .1f; // Cooldown duration for melee attacks
     private float rangeCooldown = .1f; // Cooldown duration for range attacks
     private float magicCooldown = .1f; // Cooldown duration for magic attacks
+    private float heavyCooldown = .1f; // Cooldown duration for heavy attacks
 
     private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
     private float rangeCooldownTimer = 0f; // Current cooldown timer for range
     private float magicCooldownTimer = 0f; // Current cooldown timer for magic
-
-    private float heavyCooldown = 1.2f; // Cooldown duration for heavy attacks
     private float heavyCooldownTimer = 0f; // Current cooldown timer for heavy
 
     private EventInstance currentMusic;
