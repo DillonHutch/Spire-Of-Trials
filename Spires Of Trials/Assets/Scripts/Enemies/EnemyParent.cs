@@ -31,9 +31,9 @@ public class EnemyParent : MonoBehaviour
     private float attackIntervalMin = 2f;
     private float attackIntervalMax = 2.5f;
     private float windUpTime = .5f;
-    private float attackDropDistance = 1f;
-    private float windUpRiseDistance = 0.5f;
-    private float movementSpeed = 10f;
+    //private float attackDropDistance = 1f;
+    //private float windUpRiseDistance = 0.5f;
+    //private float movementSpeed = 10f;
 
     private Vector3 originalPosition;
     private SpriteRenderer spriteRenderer;

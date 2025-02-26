@@ -29,9 +29,9 @@ public class MiniBoss : MonoBehaviour
     private float attackIntervalMin = 1f;
     private float attackIntervalMax = 1f;
     private float windUpTime = .6f;
-    private float movementSpeed = 10f;
-    private float windUpRiseDistance = 1f;
-    private float attackDropDistance = 1f;
+    //private float movementSpeed = 10f;
+    //private float windUpRiseDistance = 1f;
+    //private float attackDropDistance = 1f;
 
 
     private Animator animator;
