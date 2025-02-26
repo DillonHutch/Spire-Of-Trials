@@ -131,7 +131,7 @@ public class MiniBoss : MonoBehaviour
         if (currentSequenceIndex >= attackSequence.Count) return;
         if (attackIndicatorRenderer == null)
         {
-            Debug.LogError($"{gameObject.name}: attackIndicatorRenderer is NULL. Ensure attackIndicator has a SpriteRenderer.");
+           // Debug.LogError($"{gameObject.name}: attackIndicatorRenderer is NULL. Ensure attackIndicator has a SpriteRenderer.");
             return;
         }
 
