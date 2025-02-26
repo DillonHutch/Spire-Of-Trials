@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5ce8252297247d344b2e253a3977fbdd
+guid: a6e8f78a29174194daff5710afaf3c25
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 64
+    spritePixelsToUnits: 100
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638761192253334502
+  platformSettingsDirtyTick: 638761484087935654
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: RuneButtons
+  - name: Button
     originalName: 
-    pivot: {x: 0.5, y: -0.17605633}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 142
-      height: 142
-    spriteID: efd26d58815236d4ba17bf34c5681d90
+      width: 344
+      height: 108
+    spriteID: bdb9eab784d1d754ea8db7cbed86ae52
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,20 +144,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1876858543
-    name: RuneButtons
+    guid: 1253176790
+    name: Button
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: RuneButtons
+    - name: Button
       frameIndex: 0
       cellRect:
-        x: 25
-        y: 25
-        width: 142
-        height: 142
-      spriteId: efd26d58815236d4ba17bf34c5681d90
+        x: 0
+        y: 0
+        width: 344
+        height: 108
+      spriteId: bdb9eab784d1d754ea8db7cbed86ae52
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -188,4 +188,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 192, y: 192}
+  canvasSize: {x: 344, y: 108}
