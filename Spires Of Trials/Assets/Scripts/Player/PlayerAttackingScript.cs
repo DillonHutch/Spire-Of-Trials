@@ -8,10 +8,10 @@ using Unity.VisualScripting;
 public class PlayerAttackingScript : MonoBehaviour
 {
     [SerializeField] Slider attackSlider; // Reference to the UI Slider for selecting attack positions
-    [SerializeField] Slider meleeCooldownSlider; // Slider for melee cooldown
-    [SerializeField] Slider rangeCooldownSlider; // Slider for range cooldown
-    [SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
-    [SerializeField] Slider heavyCooldownSlider; // Slider for heavy attack cooldown
+    //[SerializeField] Slider meleeCooldownSlider; // Slider for melee cooldown
+    //[SerializeField] Slider rangeCooldownSlider; // Slider for range cooldown
+    //[SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
+    //[SerializeField] Slider heavyCooldownSlider; // Slider for heavy attack cooldown
 
 
     [SerializeField] GameObject leftSheild;
@@ -83,10 +83,10 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
         // Initialize cooldown sliders
-        InitializeCooldownSlider(meleeCooldownSlider, meleeCooldown);
-        InitializeCooldownSlider(rangeCooldownSlider, rangeCooldown);
-        InitializeCooldownSlider(magicCooldownSlider, magicCooldown);
-        InitializeCooldownSlider(heavyCooldownSlider, heavyCooldown);
+        //InitializeCooldownSlider(meleeCooldownSlider, meleeCooldown);
+        //InitializeCooldownSlider(rangeCooldownSlider, rangeCooldown);
+        //InitializeCooldownSlider(magicCooldownSlider, magicCooldown);
+        //InitializeCooldownSlider(heavyCooldownSlider, heavyCooldown);
 
 
         // Get Music Instance
@@ -143,7 +143,7 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, this.transform.position);
             Attack("heavy");
-            StartCooldown(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
+            //StartCooldown(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
             RegisterAttack();
         }
 
@@ -151,7 +151,7 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             Attack("melee");
             AudioManager.instance.PlayOneShot(FMODEvents.instance.meleeAttack, this.transform.position);
-            StartCooldown(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
+            //StartCooldown(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
             RegisterAttack();
         }
 
@@ -159,7 +159,7 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, this.transform.position);
             Attack("range");
-            StartCooldown(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
+            //StartCooldown(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
             RegisterAttack();
         }
 
@@ -167,7 +167,7 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, this.transform.position);
             Attack("magic");
-            StartCooldown(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
+            //StartCooldown(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
             RegisterAttack();
         }
 
@@ -265,10 +265,10 @@ public class PlayerAttackingScript : MonoBehaviour
 
     void HandleCooldownTimers()
     {
-        UpdateCooldownSlider(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
-        UpdateCooldownSlider(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
-        UpdateCooldownSlider(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
-        UpdateCooldownSlider(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
+        //UpdateCooldownSlider(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
+        //UpdateCooldownSlider(rangeCooldownSlider, ref rangeCooldownTimer, rangeCooldown);
+        //UpdateCooldownSlider(magicCooldownSlider, ref magicCooldownTimer, magicCooldown);
+        //UpdateCooldownSlider(heavyCooldownSlider, ref heavyCooldownTimer, heavyCooldown);
 
     }
 
