@@ -39,7 +39,7 @@ public class FMODEvents : MonoBehaviour
         if (instance != null)
         {
 
-            Debug.LogError("Found more than one fmod events");
+            //Debug.LogError("Found more than one fmod events");
 
         }
 
