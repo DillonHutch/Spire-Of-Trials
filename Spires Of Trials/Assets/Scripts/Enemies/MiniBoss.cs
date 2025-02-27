@@ -360,9 +360,7 @@ public class MiniBoss : MonoBehaviour
             currentSequenceIndex++;
             Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
-
-   
-
+            StartCoroutine(FlashRed()); // Trigger red flash on correct hit
 
             if (currentSequenceIndex >= attackSequence.Count)
             {
@@ -382,8 +380,34 @@ public class MiniBoss : MonoBehaviour
 
         if (healthBar != null)
             healthBar.value = attackSequence.Count - currentSequenceIndex; // Decrease as attacks land
-
     }
+
+    private IEnumerator FlashRed()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            SpriteRenderer iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
+
+            Color iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
+
+            // Flash red
+            spriteRenderer.color = Color.red;
+            if (iconRenderer != null)
+                iconRenderer.color = Color.red;
+
+            yield return new WaitForSeconds(0.2f);
+
+            // Ensure it returns to the correct color after flashing
+            if (spriteRenderer != null)
+                spriteRenderer.color = originalColor;
+
+            if (iconRenderer != null)
+                iconRenderer.color = iconOriginalColor;
+        }
+    }
+
+
 
     private void Die()
     {

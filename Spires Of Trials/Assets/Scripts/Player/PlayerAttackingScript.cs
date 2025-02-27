@@ -250,12 +250,13 @@ public class PlayerAttackingScript : MonoBehaviour
                 if (enemyComponent != null)
                 {
                     enemyComponent.TakeDamage(attackType);
-                    StartCoroutine(FlashRed(enemyComponent.GetComponent<SpriteRenderer>()));
+
+                    //StartCoroutine(FlashRed(enemyComponent.GetComponent<SpriteRenderer>()));
                 }
                 else if (miniBossComponent != null)
                 {
                     miniBossComponent.TakeDamage(attackType);
-                    StartCoroutine(FlashRed(miniBossComponent.GetComponent<SpriteRenderer>()));
+                    //StartCoroutine(FlashRed(miniBossComponent.GetComponent<SpriteRenderer>()));
                 }
                 
                 
@@ -267,21 +268,21 @@ public class PlayerAttackingScript : MonoBehaviour
         }
     }
 
-    IEnumerator FlashRed(SpriteRenderer sprite)
-    {
-        if (sprite != null)
-        {
-            Color originalColor = sprite.color;
-            sprite.color = Color.red;
-            yield return new WaitForSeconds(0.2f);
+    //IEnumerator FlashRed(SpriteRenderer sprite)
+    //{
+    //    if (sprite != null)
+    //    {
+    //        Color originalColor = sprite.color;
+    //        sprite.color = Color.red;
+    //        yield return new WaitForSeconds(0.2f);
 
-            // Ensure the color resets even if multiple hits happen quickly
-            if (sprite != null)
-            {
-                sprite.color = originalColor;
-            }
-        }
-    }
+    //        // Ensure the color resets even if multiple hits happen quickly
+    //        if (sprite != null)
+    //        {
+    //            sprite.color = originalColor;
+    //        }
+    //    }
+    //}
 
 
 

@@ -364,8 +364,7 @@ public class EnemyParent : MonoBehaviour
             currentSequenceIndex++;
             Debug.Log($"{gameObject.name} hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
-         
-
+            StartCoroutine(FlashRed()); // Trigger red flash
 
             if (currentSequenceIndex >= attackSequence.Count)
             {
@@ -384,9 +383,35 @@ public class EnemyParent : MonoBehaviour
                 healthBar.value = 0; // Reset on incorrect hit
             UpdateColor();
         }
-
- 
     }
+
+    private IEnumerator FlashRed()
+    {
+        if (spriteRenderer != null)
+        {
+            Color originalColor = spriteRenderer.color;
+            SpriteRenderer iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
+
+            Color iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
+
+            // Flash red
+            spriteRenderer.color = Color.red;
+            if (iconRenderer != null)
+                iconRenderer.color = Color.red;
+
+            yield return new WaitForSeconds(0.2f);
+
+            // Ensure it returns to the correct color after flashing
+            if (spriteRenderer != null)
+                spriteRenderer.color = originalColor;
+
+            if (iconRenderer != null)
+                iconRenderer.color = iconOriginalColor;
+        }
+    }
+
+
+
 
 
     protected virtual void Die()
