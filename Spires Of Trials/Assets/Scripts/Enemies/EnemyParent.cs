@@ -142,7 +142,7 @@ public class EnemyParent : MonoBehaviour
         switch (gameObject.tag)
         {
             case "Skeleton":
-                attackSequence = new List<string> { "melee", "melee", "range", "melee" };
+                attackSequence = new List<string> { "melee", "heavy", "range", "magic" };
                 break;
             case "Goblin":
                 attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
