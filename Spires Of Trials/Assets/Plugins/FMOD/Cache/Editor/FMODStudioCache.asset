@@ -74,6 +74,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6078690931414929007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SlimeWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SlimeWindUp
+  Guid:
+    Data1: 571970934
+    Data2: 1204274767
+    Data3: 1878377097
+    Data4: 524133972
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +166,33 @@ MonoBehaviour:
     Data2: 1322054689
     Data3: 1967567753
     Data4: -1672752554
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3724979697605840433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SkeletonWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SkeletonWindUp
+  Guid:
+    Data1: -1305002328
+    Data2: 1186967271
+    Data3: 830270880
+    Data4: -570401753
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -334,6 +388,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-343850513165908480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/GoblinWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/GoblinWindUp
+  Guid:
+    Data1: -991004106
+    Data2: 1322054689
+    Data3: 1967567753
+    Data4: -1672752554
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-162973357311304557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,12 +469,12 @@ MonoBehaviour:
   - {fileID: -1162848138560153866}
   - {fileID: -2051294763545766897}
   - {fileID: -8669372602413151282}
-  - {fileID: -2119584590161902802}
-  - {fileID: -3919416569881902564}
-  - {fileID: 2736528152502921916}
-  - {fileID: -8171597359191496895}
-  - {fileID: 5645940961067155302}
-  - {fileID: 6764697856713243361}
+  - {fileID: 6508568627568475173}
+  - {fileID: -343850513165908480}
+  - {fileID: 1193128878835185884}
+  - {fileID: -6078690931414929007}
+  - {fileID: -3724979697605840433}
+  - {fileID: 8268199626674060905}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
@@ -455,6 +536,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 332832
+--- !u!114 &1193128878835185884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SkeletonAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SkeletonAttack
+  Guid:
+    Data1: -1931319991
+    Data2: 1265760969
+    Data3: -434437188
+    Data4: -1834143756
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2736528152502921916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,7 +664,61 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6508568627568475173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/GoblinAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/GoblinAttack
+  Guid:
+    Data1: 1416357682
+    Data2: 1317695844
+    Data3: 1514639237
+    Data4: -1566498779
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &6764697856713243361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SlimeAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SlimeAttack
+  Guid:
+    Data1: 1993721054
+    Data2: 1142015801
+    Data3: 736670095
+    Data4: 1959380680
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8268199626674060905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
