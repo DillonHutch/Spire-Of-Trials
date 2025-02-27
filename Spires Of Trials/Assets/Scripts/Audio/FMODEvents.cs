@@ -29,6 +29,24 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Shield")]
     [field: SerializeField] public EventReference shieldBlock { get; set; }
 
+    [field: Header("GobAtk")]
+    [field: SerializeField] public EventReference gobAtk { get; set; }
+
+    [field: Header("GobWU")]
+    [field: SerializeField] public EventReference gobWU { get; set; }
+
+    [field: Header("SkeAtk")]
+    [field: SerializeField] public EventReference skeAtk { get; set; }
+
+    [field: Header("SkeWU")]
+    [field: SerializeField] public EventReference skeWU { get; set; }
+
+    [field: Header("SlimeAtk")]
+    [field: SerializeField] public EventReference slimeAtk { get; set; }
+
+    [field: Header("SlimeWU")]
+    [field: SerializeField] public EventReference slimeWU { get; set; }
+
 
 
     public static FMODEvents instance { get; private set; }

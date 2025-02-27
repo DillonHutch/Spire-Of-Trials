@@ -250,11 +250,15 @@ public class PlayerAttackingScript : MonoBehaviour
                 if (enemyComponent != null)
                 {
                     enemyComponent.TakeDamage(attackType);
+                    StartCoroutine(FlashRed(enemyComponent.GetComponent<SpriteRenderer>()));
                 }
                 else if (miniBossComponent != null)
                 {
                     miniBossComponent.TakeDamage(attackType);
+                    StartCoroutine(FlashRed(miniBossComponent.GetComponent<SpriteRenderer>()));
                 }
+                
+                
             }
         }
         else
@@ -262,6 +266,24 @@ public class PlayerAttackingScript : MonoBehaviour
             Debug.LogWarning("Enemy transform is not assigned or is null.");
         }
     }
+
+    IEnumerator FlashRed(SpriteRenderer sprite)
+    {
+        if (sprite != null)
+        {
+            Color originalColor = sprite.color;
+            sprite.color = Color.red;
+            yield return new WaitForSeconds(0.2f);
+
+            // Ensure the color resets even if multiple hits happen quickly
+            if (sprite != null)
+            {
+                sprite.color = originalColor;
+            }
+        }
+    }
+
+
 
     void HandleCooldownTimers()
     {

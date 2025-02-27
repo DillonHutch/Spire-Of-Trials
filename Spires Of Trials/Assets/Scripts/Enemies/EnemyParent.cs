@@ -17,7 +17,14 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Color attackColor = Color.magenta;
     [SerializeField] private Color damageColor = Color.red;
 
- 
+    
+    [SerializeField] Slider healthBar;
+    private Transform healthBarTransform;
+    [SerializeField] private Image healthBarFill; // Assign the Fill Image in Inspector
+    [SerializeField] private Gradient healthGradient; // Create a Gradient in Inspector
+
+
+
 
     private float flashDuration = 0.2f;
 
@@ -60,6 +67,9 @@ public class EnemyParent : MonoBehaviour
     Image rightFlash;
     Image middleFlash;
 
+
+
+
     protected virtual void Start()
     {
 
@@ -101,7 +111,30 @@ public class EnemyParent : MonoBehaviour
         UpdateColor();
 
         attackCoroutine = StartCoroutine(AttackLoop());
+
+
+
+
+
+        healthBar.maxValue = attackSequence.Count;
+        healthBar.value = attackSequence.Count; // Start full
+
+
     }
+
+
+    private void Update()
+    {
+        if (healthBar != null)
+        {
+            healthBar.value = attackSequence.Count - currentSequenceIndex; // Update health value
+
+            // Apply gradient based on current health
+            float healthPercentage = healthBar.value / healthBar.maxValue;
+            healthBarFill.color = healthGradient.Evaluate(healthPercentage);
+        }
+    }
+
 
 
     private void DefineAttackSequence()
@@ -109,13 +142,13 @@ public class EnemyParent : MonoBehaviour
         switch (gameObject.tag)
         {
             case "Skeleton":
-                attackSequence = new List<string> { "melee", "range", "heavy", "melee" };
+                attackSequence = new List<string> { "melee", "melee", "range", "melee" };
                 break;
             case "Goblin":
                 attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
                 break;
             case "Slime":
-                attackSequence = new List<string> { "range", "heavy", "melee", "magic" };
+                attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
                 break;
             default:
                 attackSequence = new List<string> { "melee" };
@@ -194,10 +227,16 @@ public class EnemyParent : MonoBehaviour
 
         animator.SetBool("IsWinding", true);
         StartCoroutine(BlinkFlash(attackPosition, windUpTime));
+
+        WindUpSound();
+
         yield return new WaitForSeconds(windUpTime);
 
         animator.SetBool("IsWinding", false);
         animator.SetBool("IsAttacking", true);
+
+
+        AttackSound();
 
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
         if (playerDodgePosition == attackPosition)
@@ -218,6 +257,39 @@ public class EnemyParent : MonoBehaviour
 
         // Notify manager that the attack finished
         EnemyAttackQueue.AttackFinished(this);
+    }
+
+
+    void WindUpSound()
+    {
+        if(this.gameObject.tag == "Goblin")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.gobWU, transform.position);
+        }
+        else if(this.gameObject.tag == "Skeleton")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.skeWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Slime")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeWU, transform.position);
+        }
+    }
+
+    void AttackSound()
+    {
+        if (this.gameObject.tag == "Goblin")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.gobAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Skeleton")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.skeAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Slime")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeAtk, transform.position);
+        }
     }
 
 
@@ -292,6 +364,9 @@ public class EnemyParent : MonoBehaviour
             currentSequenceIndex++;
             Debug.Log($"{gameObject.name} hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
+         
+
+
             if (currentSequenceIndex >= attackSequence.Count)
             {
                 Die();
@@ -305,13 +380,22 @@ public class EnemyParent : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} hit incorrectly! Resetting sequence.");
             currentSequenceIndex = 0;
+            if (healthBar != null)
+                healthBar.value = 0; // Reset on incorrect hit
             UpdateColor();
         }
+
+ 
     }
+
 
     protected virtual void Die()
     {
         Debug.Log($"{gameObject.name} died!");
+
+        if (healthBar != null)
+            Destroy(this.healthBar.gameObject); // Remove health bar
+
 
         // Ensure the highlight is cleared before destroying
         if (dodgeBarHighlighter != null)
