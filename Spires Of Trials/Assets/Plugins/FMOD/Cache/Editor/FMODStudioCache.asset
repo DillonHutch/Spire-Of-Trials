@@ -42,11 +42,38 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638762589084024686
+  lastModified: 638762672507311308
   FileSizes:
   - Name: Desktop
     Value: 12542784
   Exists: 1
+--- !u!114 &-8203754507938053636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/PlayerHit
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/PlayerHit
+  Guid:
+    Data1: -383150919
+    Data2: 1337889044
+    Data3: -851742583
+    Data4: 1216106596
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-8171597359191496895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,10 +143,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638762579313008960
+  lastModified: 638762672484162187
   FileSizes:
   - Name: Desktop
-    Value: 1768
+    Value: 1808
   Exists: 1
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
@@ -217,7 +244,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638762579312993391
+  lastModified: 638762672484152154
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -475,12 +502,13 @@ MonoBehaviour:
   - {fileID: -6078690931414929007}
   - {fileID: -3724979697605840433}
   - {fileID: 8268199626674060905}
+  - {fileID: -8203754507938053636}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638762589084024686
+  cacheTime: 638762674250251635
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -632,10 +660,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638762579317714068
+  lastModified: 638762674250251635
   FileSizes:
   - Name: Desktop
-    Value: 99232
+    Value: 103296
   Exists: 1
 --- !u!114 &5645940961067155302
 MonoBehaviour:

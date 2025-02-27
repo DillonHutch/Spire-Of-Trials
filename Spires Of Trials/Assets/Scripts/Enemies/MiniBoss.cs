@@ -54,7 +54,9 @@ public class MiniBoss : MonoBehaviour
     [SerializeField] private Image healthBarFill; // Assign the Fill Image in Inspector
     [SerializeField] private Gradient healthGradient; // Create a Gradient in Inspector
 
-
+    Color originalColor;
+    SpriteRenderer iconRenderer;
+    Color iconOriginalColor;
 
 
 
@@ -62,10 +64,12 @@ public class MiniBoss : MonoBehaviour
     private List<string> attackSequence = new List<string>
     {
         "melee", "magic", "range", "heavy",
-        "magic", "melee", "range", "heavy", "melee", "magic",
-        "range", "heavy", "melee", "range", "magic", "heavy",
-        "melee", "magic", "range", "heavy", "magic", "melee",
-        "range", "heavy", "melee", "magic", "range", "heavy",
+        "magic", "melee", "range", "heavy", 
+        "melee", "magic", "range", "heavy",
+        "melee", "range", "magic", "heavy",
+        "melee", "magic", "range", "heavy", 
+        "magic", "melee", "range", "heavy", 
+        "melee", "magic", "range", "heavy",
         "magic", "melee", "range", "heavy"
     };
 
@@ -79,6 +83,9 @@ public class MiniBoss : MonoBehaviour
 
     private void Start()
     {
+        iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
+        originalColor = spriteRenderer.color;
+        iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
 
         leftFlash = GameObject.FindGameObjectWithTag("LeftFlash")?.GetComponent<Image>();
         middleFlash = GameObject.FindGameObjectWithTag("MiddleFlash")?.GetComponent<Image>();
@@ -239,7 +246,8 @@ public class MiniBoss : MonoBehaviour
             else
             {
                 Debug.Log("Player failed to block! Taking damage from MiniBoss.");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 2);
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, this.transform.position);
             }
 
             if (dodgeBarHighlighter != null)
@@ -254,6 +262,13 @@ public class MiniBoss : MonoBehaviour
 
             isAttacking = false;
             animator.SetTrigger("ReturnToIdle");
+
+            // Ensure it returns to the correct color after flashing
+            if (spriteRenderer != null)
+                spriteRenderer.color = originalColor;
+
+            if (iconRenderer != null)
+                iconRenderer.color = iconOriginalColor;
         }
     }
 
@@ -355,13 +370,27 @@ public class MiniBoss : MonoBehaviour
 
     public void TakeDamage(string attackType)
     {
+        int phaseSize = 4; // Each phase consists of 4 attacks
+        int totalPhases = attackSequence.Count / phaseSize;
+
+        int currentPhase = currentSequenceIndex / phaseSize; // Determine which phase the player is in
+        int phaseStartIndex = currentPhase * phaseSize; // Start of the current phase
+        int phaseEndIndex = phaseStartIndex + phaseSize; // End of the current phase
+
         if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
         {
             currentSequenceIndex++;
             Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
-            StartCoroutine(FlashRed()); // Trigger red flash on correct hit
+            StartCoroutine(FlashRed()); // Flash effect on hit
 
+            // If phase is completed, move to the next phase
+            if (currentSequenceIndex >= phaseEndIndex)
+            {
+                Debug.Log($"Phase {currentPhase + 1} completed!");
+            }
+
+            // If all phases are completed, defeat the miniboss
             if (currentSequenceIndex >= attackSequence.Count)
             {
                 Die();
@@ -373,24 +402,26 @@ public class MiniBoss : MonoBehaviour
         }
         else
         {
-            Debug.Log("MiniBoss hit incorrectly! Resetting sequence.");
-            currentSequenceIndex = 0;
+            Debug.Log("MiniBoss hit incorrectly! Resetting current phase.");
+
+            // Reset only the current phase, not the entire sequence
+            currentSequenceIndex = phaseStartIndex;
             UpdateColor();
         }
 
         if (healthBar != null)
-            healthBar.value = attackSequence.Count - currentSequenceIndex; // Decrease as attacks land
+        {
+            healthBar.value = attackSequence.Count - currentSequenceIndex; // Update health display
+        }
     }
 
     private IEnumerator FlashRed()
     {
         if (spriteRenderer != null)
         {
-            Color originalColor = spriteRenderer.color;
-            SpriteRenderer iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
+           
 
-            Color iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
-
+         
             // Flash red
             spriteRenderer.color = Color.red;
             if (iconRenderer != null)

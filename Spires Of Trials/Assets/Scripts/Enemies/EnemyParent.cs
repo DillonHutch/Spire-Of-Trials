@@ -211,8 +211,21 @@ public class EnemyParent : MonoBehaviour
     {
         isAttacking = true;
 
+
+
         int attackPosition = GetAttackPosition();
         FlashScreen(attackPosition);
+
+        // Retrieve the correct flash panel
+        Image flashPanel = null;
+        switch (attackPosition)
+        {
+            case 0: flashPanel = leftFlash; break;
+            case 1: flashPanel = middleFlash; break;
+            case 2: flashPanel = rightFlash; break;
+        }
+
+      
 
         if (gameObject.tag == "Goblin")
         {
@@ -236,6 +249,12 @@ public class EnemyParent : MonoBehaviour
         animator.SetBool("IsAttacking", true);
 
 
+        // Ensure the panel exists before calling FinalFlashEffect
+        if (flashPanel != null)
+        {
+            StartCoroutine(FinalFlashEffect(flashPanel)); // Trigger brighter final flash
+        }
+
         AttackSound();
 
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
@@ -245,6 +264,7 @@ public class EnemyParent : MonoBehaviour
         {
             Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, this.transform.position);
         }
 
         if (dodgeBarHighlighter != null)
@@ -334,9 +354,23 @@ public class EnemyParent : MonoBehaviour
 
         if (flashPanel != null)
         {
-            StartCoroutine(FlashEffect(flashPanel));
+            StartCoroutine(FlashEffect(flashPanel)); // Regular warning flash
         }
     }
+
+    private IEnumerator FinalFlashEffect(Image panel)
+    {
+        Color originalColor = panel.color;
+
+        // Brighter flash (Higher Alpha)
+        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
+        yield return new WaitForSeconds(0.1f);
+
+        // Return to normal
+        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
+    }
+
+
 
     private IEnumerator FlashEffect(Image panel)
     {

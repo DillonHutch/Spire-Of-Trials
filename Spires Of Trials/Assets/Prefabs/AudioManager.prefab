@@ -135,6 +135,13 @@ MonoBehaviour:
       Data3: 1878377097
       Data4: 524133972
     Path: event:/SFX/SlimeWindUp
+  <playerHit>k__BackingField:
+    Guid:
+      Data1: -383150919
+      Data2: 1337889044
+      Data3: -851742583
+      Data4: 1216106596
+    Path: event:/SFX/PlayerHit
 --- !u!1 &5313083338162673164
 GameObject:
   m_ObjectHideFlags: 0

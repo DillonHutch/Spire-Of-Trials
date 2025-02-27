@@ -47,6 +47,9 @@ public class FMODEvents : MonoBehaviour
     [field: Header("SlimeWU")]
     [field: SerializeField] public EventReference slimeWU { get; set; }
 
+    [field: Header("PlayerHit")]
+    [field: SerializeField] public EventReference playerHit { get; set; }
+
 
 
     public static FMODEvents instance { get; private set; }
