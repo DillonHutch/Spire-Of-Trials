@@ -123,20 +123,28 @@ public class EnemySpawner : MonoBehaviour
                                 spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
                                 spriteRenderer.flipX = true;
 
-                             
-
                                 spawnLocation.x += 7f;
-
                                 spawnedEnemy.transform.position = spawnLocation;
 
                                 if (spawnedEnemy.transform.childCount > 0)
                                 {
                                     Transform childIcon = spawnedEnemy.transform.GetChild(0);
-                                    childIcon.localPosition = new Vector3(-3.5f, .62f, 0); // Move the icon beneath the slime
+                                    childIcon.localPosition = new Vector3(-3.5f, 0.62f, 0); // Move the icon beneath the slime
                                 }
 
+                                // **Find and adjust the Canvas**
+                                Canvas slimeCanvas = spawnedEnemy.GetComponentInChildren<Canvas>();
+                                if (slimeCanvas != null)
+                                {
+                                    RectTransform canvasTransform = slimeCanvas.GetComponent<RectTransform>();
+                                    if (canvasTransform != null)
+                                    {
+                                        canvasTransform.localPosition = new Vector3(1916.1f, canvasTransform.localPosition.y, 0); // Adjust Canvas position
+                                    }
+                                }
                             }
                         }
+
                         else
                         {
                             spawnedEnemy.transform.parent = spawnLocations[i].transform;

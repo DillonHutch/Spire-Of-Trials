@@ -49,6 +49,16 @@ public class MiniBoss : MonoBehaviour
     private float flashDuration = 0.2f;
 
 
+    [SerializeField] Slider healthBar;
+    private Transform healthBarTransform;
+    [SerializeField] private Image healthBarFill; // Assign the Fill Image in Inspector
+    [SerializeField] private Gradient healthGradient; // Create a Gradient in Inspector
+
+
+
+
+
+
     private List<string> attackSequence = new List<string>
     {
         "melee", "magic", "range", "heavy",
@@ -124,7 +134,25 @@ public class MiniBoss : MonoBehaviour
         animator = this.GetComponent<Animator>();
 
         UpdateColor();
+
+
+        healthBar.maxValue = attackSequence.Count;
+        healthBar.value = attackSequence.Count; // Start full
+
     }
+
+    private void Update()
+    {
+        if (healthBar != null)
+        {
+            healthBar.value = attackSequence.Count - currentSequenceIndex; // Update health value
+
+            // Apply gradient based on current health
+            float healthPercentage = healthBar.value / healthBar.maxValue;
+            healthBarFill.color = healthGradient.Evaluate(healthPercentage);
+        }
+    }
+
 
     private void UpdateColor()
     {
@@ -188,12 +216,16 @@ public class MiniBoss : MonoBehaviour
 
             StartCoroutine(BlinkFlash(miniBossTargetPos, windUpTime));
 
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.skeWU, transform.position);
+
             yield return new WaitForSeconds(windUpTime - 0.15f); // Almost the full wind-up duration
 
          
 
             // Trigger attack AFTER Last Flash has completed
             animator.SetTrigger("Attack");
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.skeAtk, transform.position);
 
             // Ensure the Last Flash happens BEFORE Attack
             yield return StartCoroutine(LastFlash(miniBossTargetPos, 0.15f));
@@ -328,6 +360,10 @@ public class MiniBoss : MonoBehaviour
             currentSequenceIndex++;
             Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
+
+   
+
+
             if (currentSequenceIndex >= attackSequence.Count)
             {
                 Die();
@@ -343,6 +379,10 @@ public class MiniBoss : MonoBehaviour
             currentSequenceIndex = 0;
             UpdateColor();
         }
+
+        if (healthBar != null)
+            healthBar.value = attackSequence.Count - currentSequenceIndex; // Decrease as attacks land
+
     }
 
     private void Die()
