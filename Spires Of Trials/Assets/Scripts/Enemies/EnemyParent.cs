@@ -73,6 +73,8 @@ public class EnemyParent : MonoBehaviour
     protected virtual void Start()
     {
 
+        StartCoroutine(MonitorColorReset()); // Start monitoring color resets
+
         leftFlash = GameObject.FindGameObjectWithTag("LeftFlash")?.GetComponent<Image>();
         middleFlash = GameObject.FindGameObjectWithTag("MiddleFlash")?.GetComponent<Image>();
         rightFlash = GameObject.FindGameObjectWithTag("RightFlash")?.GetComponent<Image>();
@@ -121,6 +123,28 @@ public class EnemyParent : MonoBehaviour
 
 
     }
+
+    private IEnumerator MonitorColorReset()
+    {
+        SpriteRenderer iconRenderer = transform.childCount > 0 ? transform.GetChild(0).GetComponent<SpriteRenderer>() : null;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f); // Adjust check frequency as needed
+
+            if (spriteRenderer.color != normalColor && !isAttacking)
+            {
+                spriteRenderer.color = normalColor;
+            }
+
+            if (iconRenderer != null && iconRenderer.color != normalColor && !isAttacking)
+            {
+                iconRenderer.color = normalColor;
+            }
+        }
+    }
+
+
 
 
     private void Update()
@@ -211,12 +235,9 @@ public class EnemyParent : MonoBehaviour
     {
         isAttacking = true;
 
-
-
         int attackPosition = GetAttackPosition();
         FlashScreen(attackPosition);
 
-        // Retrieve the correct flash panel
         Image flashPanel = null;
         switch (attackPosition)
         {
@@ -225,14 +246,9 @@ public class EnemyParent : MonoBehaviour
             case 2: flashPanel = rightFlash; break;
         }
 
-      
-
         if (gameObject.tag == "Goblin")
         {
-            if (attackPosition == 2)
-               spriteRenderer.flipX = true;
-            else
-                spriteRenderer.flipX = false;
+            spriteRenderer.flipX = attackPosition == 2;
         }
 
         if (dodgeBarHighlighter != null)
@@ -248,11 +264,9 @@ public class EnemyParent : MonoBehaviour
         animator.SetBool("IsWinding", false);
         animator.SetBool("IsAttacking", true);
 
-
-        // Ensure the panel exists before calling FinalFlashEffect
         if (flashPanel != null)
         {
-            StartCoroutine(FinalFlashEffect(flashPanel)); // Trigger brighter final flash
+            StartCoroutine(FinalFlashEffect(flashPanel));
         }
 
         AttackSound();
@@ -270,14 +284,17 @@ public class EnemyParent : MonoBehaviour
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.ClearHighlight(attackPosition);
 
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(0.1f);
 
         isAttacking = false;
         animator.SetBool("IsAttacking", false);
 
+   
+
         // Notify manager that the attack finished
         EnemyAttackQueue.AttackFinished(this);
     }
+
 
 
     void WindUpSound()
