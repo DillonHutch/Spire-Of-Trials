@@ -2,11 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class PlayerHealth : MonoBehaviour
 {
-    int maxHealth = 3;
+    [SerializeField] private int maxHealth = 3;
     private int currentHealth;
 
+    [SerializeField] private SpriteRenderer[] spriteRenderers; // Assign sprites in Inspector
+    private Color originalColor;
+    private float flashDuration = 0.2f; // Time player stays red
+
+    private void Awake()
+    {
+        if (spriteRenderers.Length > 0)
+        {
+            originalColor = spriteRenderers[0].color; // Store original color from first sprite
+        }
+    }
 
     private void OnEnable()
     {
@@ -33,8 +45,6 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
-
-        // Notify UI about initial health
         EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
     }
 
@@ -43,8 +53,12 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        // Notify UI about health change
         EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
+
+        if (spriteRenderers.Length > 0)
+        {
+            StartCoroutine(FlashRed());
+        }
 
         if (currentHealth <= 0)
         {
@@ -52,18 +66,31 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-     void Heal(int amount)
+    private IEnumerator FlashRed()
+    {
+        foreach (var sprite in spriteRenderers)
+        {
+            sprite.color = Color.red;
+        }
+
+        yield return new WaitForSeconds(flashDuration);
+
+        foreach (var sprite in spriteRenderers)
+        {
+            sprite.color = originalColor;
+        }
+    }
+
+    void Heal(int amount)
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        // Notify UI about health change
         EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
     }
 
     private void Die()
     {
-        //Debug.LogWarning("Player has died!");
         EventManager.Instance.TriggerEvent("OnPlayerDied");
         Heal(maxHealth);
         SceneManager.LoadScene("MainMenu");

@@ -284,6 +284,9 @@ public class EnemyParent : MonoBehaviour
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.ClearHighlight(attackPosition);
 
+        animator.SetBool("IsWinding", false);
+        animator.SetBool("IsAttacking", true);
+
         yield return new WaitForSeconds(0.1f);
 
         isAttacking = false;
