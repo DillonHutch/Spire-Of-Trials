@@ -178,6 +178,19 @@ public class PlayerAttackingScript : MonoBehaviour
     }
 
 
+    void SetAlpha(SpriteRenderer sr, float alpha)
+    {
+   
+            if (sr != null)
+            {
+                Color color = sr.color;
+                color.a = alpha;
+                sr.color = color;
+            }       
+    }
+
+
+
     void ShowForwardSprite()
     {
         forwardSprite.SetActive(true);

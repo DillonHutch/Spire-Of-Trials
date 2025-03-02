@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,7 +37,7 @@ public class EnemyParent : MonoBehaviour
 
     private float attackIntervalMin = 2f;
     private float attackIntervalMax = 2.5f;
-    private float windUpTime = .5f;
+    private float windUpTime = 1f;
     //private float attackDropDistance = 1f;
     //private float windUpRiseDistance = 0.5f;
     //private float movementSpeed = 10f;
@@ -60,13 +60,11 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private Sprite heavySprite;
     private SpriteRenderer attackIndicatorRenderer;
 
-  
 
 
-    Image leftFlash;
-    Image rightFlash;
-    Image middleFlash;
-
+   private SpriteRenderer leftAttackSprite;
+   private SpriteRenderer centerAttackSprite;
+   private SpriteRenderer rightAttackSprite;
 
 
 
@@ -75,14 +73,10 @@ public class EnemyParent : MonoBehaviour
 
         StartCoroutine(MonitorColorReset()); // Start monitoring color resets
 
-        leftFlash = GameObject.FindGameObjectWithTag("LeftFlash")?.GetComponent<Image>();
-        middleFlash = GameObject.FindGameObjectWithTag("MiddleFlash")?.GetComponent<Image>();
-        rightFlash = GameObject.FindGameObjectWithTag("RightFlash")?.GetComponent<Image>();
+        leftAttackSprite = GameObject.FindGameObjectWithTag("LeftFlash").GetComponent<SpriteRenderer>();
+        centerAttackSprite = GameObject.FindGameObjectWithTag("MiddleFlash").GetComponent<SpriteRenderer>();
+        rightAttackSprite = GameObject.FindGameObjectWithTag("RightFlash").GetComponent<SpriteRenderer>();
 
-        if (leftFlash == null || middleFlash == null || rightFlash == null)
-        {
-            Debug.LogError("One or more flash UI elements not found! Ensure they have the correct tags.");
-        }
 
         currentHealth = maxHealth;
         enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
@@ -207,6 +201,26 @@ public class EnemyParent : MonoBehaviour
         }
     }
 
+    private IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
+
+        Color originalColor = attackSprite.color;
+        attackSprite.enabled = true; // Ensure it's visible
+
+        for (int i = 0; i < 3; i++) // Flash 3 times
+        {
+            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f); // Set opacity to 0.5
+            yield return new WaitForSeconds(0.15f);
+            attackSprite.color = originalColor; // Reset to original color
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        attackSprite.enabled = false; // Hide after flashing
+    }
+
+
+
 
 
     protected virtual int GetAttackPosition()
@@ -236,15 +250,14 @@ public class EnemyParent : MonoBehaviour
         isAttacking = true;
 
         int attackPosition = GetAttackPosition();
-        FlashScreen(attackPosition);
+        SpriteRenderer attackSprite = null;
 
-        Image flashPanel = null;
-        switch (attackPosition)
-        {
-            case 0: flashPanel = leftFlash; break;
-            case 1: flashPanel = middleFlash; break;
-            case 2: flashPanel = rightFlash; break;
-        }
+        if (attackPosition == 0) attackSprite = leftAttackSprite;
+        else if (attackPosition == 1) attackSprite = centerAttackSprite;
+        else if (attackPosition == 2) attackSprite = rightAttackSprite;
+
+        if (attackSprite != null)
+            StartCoroutine(FlashAttackIndicator(attackSprite));
 
         if (gameObject.tag == "Goblin")
         {
@@ -254,49 +267,68 @@ public class EnemyParent : MonoBehaviour
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.HighlightPosition(attackPosition);
 
+        // Ensure the animation starts correctly
         animator.SetBool("IsWinding", true);
-        StartCoroutine(BlinkFlash(attackPosition, windUpTime));
+        animator.SetBool("IsAttacking", false); // Ensure it's false before the attack
 
         WindUpSound();
 
         yield return new WaitForSeconds(windUpTime);
 
-        animator.SetBool("IsWinding", false);
-        animator.SetBool("IsAttacking", true);
 
-        if (flashPanel != null)
-        {
-            StartCoroutine(FinalFlashEffect(flashPanel));
-        }
+
+        // Make sure the wind-up animation stops and attack animation starts
+        animator.SetBool("IsWinding", false);
+        animator.SetBool("IsAttacking", true); // Explicitly setting attack animation here
 
         AttackSound();
 
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
         if (playerDodgePosition == attackPosition)
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, transform.position);
         else
         {
             Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
         }
 
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.ClearHighlight(attackPosition);
 
-        animator.SetBool("IsWinding", false);
-        animator.SetBool("IsAttacking", true);
-
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f); // Give time for the attack animation to play
 
         isAttacking = false;
-        animator.SetBool("IsAttacking", false);
+        animator.SetBool("IsAttacking", false); // Explicitly resetting attack animation
 
-   
+        // Ensure attack indicator is turned off after the attack ends
+        if (attackSprite != null)
+            attackSprite.enabled = false; // This guarantees that the sprite is turned off
+
+        // **Final bright flash effect before attack lands**
+        if (attackSprite != null)
+            StartCoroutine(FinalBrightFlash(attackSprite));
 
         // Notify manager that the attack finished
         EnemyAttackQueue.AttackFinished(this);
     }
+
+    private IEnumerator FinalBrightFlash(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
+
+        Color originalColor = attackSprite.color;
+
+        attackSprite.enabled = true; // Ensure it's visible
+
+        // Bright flash effect (full opacity, bright white tint)
+        attackSprite.color = new Color(originalColor.r, originalColor.b, originalColor.g, 1f); // White and fully opaque
+        yield return new WaitForSeconds(0.1f);
+
+        // Return to original color
+        attackSprite.color = originalColor;
+    }
+
 
 
 
@@ -331,76 +363,6 @@ public class EnemyParent : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeAtk, transform.position);
         }
     }
-
-
-
-
-    private IEnumerator BlinkFlash(int attackPosition, float duration)
-    {
-        Image flashPanel = null;
-        switch (attackPosition)
-        {
-            case 0: flashPanel = leftFlash; break;
-            case 1: flashPanel = middleFlash; break;
-            case 2: flashPanel = rightFlash; break;
-        }
-
-        if (flashPanel == null) yield break;
-
-        float blinkInterval = 0.2f; // Adjust for faster/slower blinking
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.2f);
-            yield return new WaitForSeconds(blinkInterval);
-            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
-            yield return new WaitForSeconds(blinkInterval);
-            elapsedTime += blinkInterval * 2;
-        }
-    }
-
-
-    private void FlashScreen(int attackPosition)
-    {
-        Image flashPanel = null;
-
-        switch (attackPosition)
-        {
-            case 0: flashPanel = leftFlash; break;
-            case 1: flashPanel = middleFlash; break;
-            case 2: flashPanel = rightFlash; break;
-        }
-
-        if (flashPanel != null)
-        {
-            StartCoroutine(FlashEffect(flashPanel)); // Regular warning flash
-        }
-    }
-
-    private IEnumerator FinalFlashEffect(Image panel)
-    {
-        Color originalColor = panel.color;
-
-        // Brighter flash (Higher Alpha)
-        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
-        yield return new WaitForSeconds(0.1f);
-
-        // Return to normal
-        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0);
-    }
-
-
-
-    private IEnumerator FlashEffect(Image panel)
-    {
-        Color originalColor = panel.color;
-        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.2f); // Half opacity
-        yield return new WaitForSeconds(flashDuration);
-        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0); // Reset transparency
-    }
-
-
 
     private IEnumerator MoveEnemy(Vector3 targetPosition, float speed)
     {
@@ -472,9 +434,20 @@ public class EnemyParent : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} died!");
 
-        if (healthBar != null)
-            Destroy(this.healthBar.gameObject); // Remove health bar
+        // Ensure the attack indicator is turned off before destruction
+        if (attackIndicatorRenderer != null)
+        {
+            attackIndicatorRenderer.enabled = false;
+        }
 
+        // Ensure attack sprites are disabled if they were being used
+        if (leftAttackSprite != null) leftAttackSprite.enabled = false;
+        if (centerAttackSprite != null) centerAttackSprite.enabled = false;
+        if (rightAttackSprite != null) rightAttackSprite.enabled = false;
+
+        // Ensure health bar is destroyed
+        if (healthBar != null)
+            Destroy(this.healthBar.gameObject);
 
         // Ensure the highlight is cleared before destroying
         if (dodgeBarHighlighter != null)
@@ -482,14 +455,13 @@ public class EnemyParent : MonoBehaviour
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         }
 
-        // Ensure the flash is cleared
-        ClearFlashScreen();
-
+        // Stop any attack coroutine that might still be running
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
-        // Notify manager that this enemy is no longer attacking (if needed)
+        // Notify manager that this enemy is no longer attacking
         EnemyAttackQueue.AttackFinished(this);
 
+        // Destroy the enemy game object
         Destroy(gameObject);
     }
 
@@ -505,15 +477,10 @@ public class EnemyParent : MonoBehaviour
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         }
 
-        ClearFlashScreen();
+       
     }
 
-    private void ClearFlashScreen()
-    {
-        if (leftFlash != null) leftFlash.color = new Color(leftFlash.color.r, leftFlash.color.g, leftFlash.color.b, 0);
-        if (middleFlash != null) middleFlash.color = new Color(middleFlash.color.r, middleFlash.color.g, middleFlash.color.b, 0);
-        if (rightFlash != null) rightFlash.color = new Color(rightFlash.color.r, rightFlash.color.g, rightFlash.color.b, 0);
-    }
+  
 
 
 
