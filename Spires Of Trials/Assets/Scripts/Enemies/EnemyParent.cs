@@ -66,16 +66,23 @@ public class EnemyParent : MonoBehaviour
    private SpriteRenderer centerAttackSprite;
    private SpriteRenderer rightAttackSprite;
 
-
+   
 
     protected virtual void Start()
     {
+       
+        GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
+        GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
+        GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
+
+            
+
+        leftAttackSprite = leftObj != null ? leftObj.GetComponent<SpriteRenderer>() : null;
+        centerAttackSprite = centerObj != null ? centerObj.GetComponent<SpriteRenderer>() : null;
+        rightAttackSprite = rightObj != null ? rightObj.GetComponent<SpriteRenderer>() : null;
 
         StartCoroutine(MonitorColorReset()); // Start monitoring color resets
 
-        leftAttackSprite = GameObject.FindGameObjectWithTag("LeftFlash").GetComponent<SpriteRenderer>();
-        centerAttackSprite = GameObject.FindGameObjectWithTag("MiddleFlash").GetComponent<SpriteRenderer>();
-        rightAttackSprite = GameObject.FindGameObjectWithTag("RightFlash").GetComponent<SpriteRenderer>();
 
 
         currentHealth = maxHealth;
@@ -205,6 +212,9 @@ public class EnemyParent : MonoBehaviour
     {
         if (attackSprite == null) yield break;
 
+
+        Debug.LogWarning("wtf");
+
         Color originalColor = attackSprite.color;
         attackSprite.enabled = true; // Ensure it's visible
 
@@ -256,8 +266,9 @@ public class EnemyParent : MonoBehaviour
         else if (attackPosition == 1) attackSprite = centerAttackSprite;
         else if (attackPosition == 2) attackSprite = rightAttackSprite;
 
-        if (attackSprite != null)
-            StartCoroutine(FlashAttackIndicator(attackSprite));
+        
+
+     
 
         if (gameObject.tag == "Goblin")
         {
@@ -266,6 +277,17 @@ public class EnemyParent : MonoBehaviour
 
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.HighlightPosition(attackPosition);
+
+        if (attackSprite != null)
+        {
+            Debug.Log($"Starting Flash for {attackSprite.gameObject.name}");
+            StartCoroutine(FlashAttackIndicator(attackSprite));
+        }
+        else
+        {
+            Debug.LogError("Attack Sprite is NULL!");
+        }
+
 
         // Ensure the animation starts correctly
         animator.SetBool("IsWinding", true);
