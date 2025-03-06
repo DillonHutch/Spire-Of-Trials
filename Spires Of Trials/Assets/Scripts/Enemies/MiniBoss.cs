@@ -28,7 +28,7 @@ public class MiniBoss : MonoBehaviour
 
     private float attackIntervalMin = 1f;
     private float attackIntervalMax = 1f;
-    private float windUpTime = .6f;
+    private float windUpTime = 1f;
     //private float movementSpeed = 10f;
     //private float windUpRiseDistance = 1f;
     //private float attackDropDistance = 1f;
@@ -58,6 +58,10 @@ public class MiniBoss : MonoBehaviour
     SpriteRenderer iconRenderer;
     Color iconOriginalColor;
 
+    private SpriteRenderer leftAttackSprite;
+    private SpriteRenderer centerAttackSprite;
+    private SpriteRenderer rightAttackSprite;
+    private Coroutine flashCoroutine;
 
 
 
@@ -87,9 +91,14 @@ public class MiniBoss : MonoBehaviour
         originalColor = spriteRenderer.color;
         iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
 
-        leftFlash = GameObject.FindGameObjectWithTag("LeftFlash")?.GetComponent<Image>();
-        middleFlash = GameObject.FindGameObjectWithTag("MiddleFlash")?.GetComponent<Image>();
-        rightFlash = GameObject.FindGameObjectWithTag("RightFlash")?.GetComponent<Image>();
+        GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
+        GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
+        GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
+
+        leftAttackSprite = leftObj != null ? leftObj.GetComponent<SpriteRenderer>() : null;
+        centerAttackSprite = centerObj != null ? centerObj.GetComponent<SpriteRenderer>() : null;
+        rightAttackSprite = rightObj != null ? rightObj.GetComponent<SpriteRenderer>() : null;
+
 
         if (leftFlash == null || middleFlash == null || rightFlash == null)
         {
@@ -221,7 +230,18 @@ public class MiniBoss : MonoBehaviour
                 miniBossTargetPos = Random.Range(0, 2);
             }
 
-            StartCoroutine(BlinkFlash(miniBossTargetPos, windUpTime));
+            SpriteRenderer attackSprite = null;
+
+            if (miniBossTargetPos == 0) attackSprite = leftAttackSprite;
+            else if (miniBossTargetPos == 1) attackSprite = centerAttackSprite;
+            else if (miniBossTargetPos == 2) attackSprite = rightAttackSprite;
+
+            if (attackSprite != null)
+            {
+                attackSprite.enabled = true;
+                StartCoroutine(FlashAttackIndicator(attackSprite));
+            }
+
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.skeWU, transform.position);
 
@@ -230,7 +250,7 @@ public class MiniBoss : MonoBehaviour
          
 
             // Trigger attack AFTER Last Flash has completed
-            animator.SetTrigger("Attack");
+            
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.skeAtk, transform.position);
 
@@ -255,10 +275,25 @@ public class MiniBoss : MonoBehaviour
                 dodgeBarHighlighter.ClearHighlight(miniBossTargetPos);
             }
 
+            animator.SetTrigger("Attack");
+
             isAttacking = false;
             UpdateColor();
 
             yield return new WaitForSeconds(.1f);
+
+
+            if (attackSprite != null)
+            {
+                attackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+                if (flashCoroutine != null)
+                {
+                    StopCoroutine(flashCoroutine);
+                    flashCoroutine = null;
+                }
+            }
+
 
             isAttacking = false;
             animator.SetTrigger("ReturnToIdle");
@@ -272,6 +307,42 @@ public class MiniBoss : MonoBehaviour
         }
     }
 
+
+    private IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
+
+        attackSprite.gameObject.SetActive(true);
+        attackSprite.enabled = true;
+
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+        flashCoroutine = StartCoroutine(FlashRoutine(attackSprite));
+
+    }
+
+    private IEnumerator FlashRoutine(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
+
+        Color originalColor = attackSprite.color;
+        attackSprite.enabled = true;
+
+        for (int i = 0; i < 3; i++) // Flash 3 times
+        {
+            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f);
+            yield return new WaitForSeconds(0.15f);
+            attackSprite.color = originalColor;
+            yield return new WaitForSeconds(0.15f);
+        }
+
+        attackSprite.color = originalColor; // Ensure it remains visible
+        attackSprite.enabled = true; // Keep it enabled after flashing
+        flashCoroutine = null;
+    }
 
 
     private IEnumerator LastFlash(int attackPosition, float duration)
@@ -444,13 +515,49 @@ public class MiniBoss : MonoBehaviour
     {
         Debug.Log("MiniBoss defeated!");
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        if (leftAttackSprite != null)
+            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
+
+
+
         Destroy(gameObject);
     }
 
     private void OnDisable()
     {
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        if (leftAttackSprite != null)
+            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
+
+
     }
+
 
     private void SetNewParent(Transform newParent)
     {
