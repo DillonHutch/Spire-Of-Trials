@@ -188,15 +188,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Knight Anim_Frame_0
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 828
-      width: 69
-      height: 94
+      x: 373
+      y: 1789
+      width: 71
+      height: 96
     spriteID: d2437daf20d1d3942b16348ea095f444
     spriteBone: []
     spriteOutline: []
@@ -205,18 +205,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 828}
+    uvTransform: {x: 373, y: 1789}
   - name: Knight Anim_Frame_1
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 310
-      width: 69
-      height: 95
+      x: 290
+      y: 420
+      width: 71
+      height: 97
     spriteID: 0e94a70238687f1468f419cdd91e0238
     spriteBone: []
     spriteOutline: []
@@ -225,18 +225,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 310}
+    uvTransform: {x: 290, y: 420}
   - name: Knight Anim_Frame_2
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 413
-      width: 69
-      height: 95
+      x: 290
+      y: 525
+      width: 71
+      height: 97
     spriteID: 16ae9ac8dddd67144b767d2d1b351595
     spriteBone: []
     spriteOutline: []
@@ -245,18 +245,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 413}
+    uvTransform: {x: 290, y: 525}
   - name: Knight Anim_Frame_3
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 516
-      width: 69
-      height: 95
+      x: 290
+      y: 630
+      width: 71
+      height: 97
     spriteID: 79ab058d03169644cb5b1e47b3842da2
     spriteBone: []
     spriteOutline: []
@@ -265,18 +265,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 516}
+    uvTransform: {x: 290, y: 630}
   - name: Knight Anim_Frame_4
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 619
-      width: 69
-      height: 95
+      x: 290
+      y: 735
+      width: 71
+      height: 97
     spriteID: e9f2f48783d944449b8d9f16db373470
     spriteBone: []
     spriteOutline: []
@@ -285,18 +285,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 619}
+    uvTransform: {x: 290, y: 735}
   - name: Knight Anim_Frame_5
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 722
-      width: 69
-      height: 95
+      x: 290
+      y: 840
+      width: 71
+      height: 97
     spriteID: f6e7ad3101ef5b34ebea6d805a82590e
     spriteBone: []
     spriteOutline: []
@@ -305,18 +305,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 722}
+    uvTransform: {x: 290, y: 840}
   - name: Knight Anim_Frame_6
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 825
-      width: 69
-      height: 95
+      x: 290
+      y: 945
+      width: 71
+      height: 97
     spriteID: 984d7d3889884454a86aa82278f3987e
     spriteBone: []
     spriteOutline: []
@@ -325,18 +325,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 825}
+    uvTransform: {x: 290, y: 945}
   - name: Knight Anim_Frame_7
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 4
-      width: 69
-      height: 95
+      x: 290
+      y: 1050
+      width: 71
+      height: 97
     spriteID: 6caedc02528d82f468bbec30c88fd30a
     spriteBone: []
     spriteOutline: []
@@ -345,18 +345,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 4}
+    uvTransform: {x: 290, y: 1050}
   - name: Knight Anim_Frame_8
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 920
-      width: 76
-      height: 95
+      y: 936
+      width: 78
+      height: 97
     spriteID: c31b3d2203bf1d94faf277f3b84fdedd
     spriteBone: []
     spriteOutline: []
@@ -365,18 +365,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 920}
+    uvTransform: {x: 4, y: 936}
   - name: Knight Anim_Frame_9
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 4
-      width: 76
-      height: 95
+      x: 4
+      y: 1041
+      width: 78
+      height: 97
     spriteID: 4c2c6030014d68a4f8f1dd440cbb0007
     spriteBone: []
     spriteOutline: []
@@ -385,18 +385,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 4}
+    uvTransform: {x: 4, y: 1041}
   - name: Knight Anim_Frame_10
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 106
-      width: 73
-      height: 95
+      x: 206
+      y: 1151
+      width: 75
+      height: 97
     spriteID: 2b06ee2f48dd10d4798a7cb891f7a757
     spriteBone: []
     spriteOutline: []
@@ -405,18 +405,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 106}
+    uvTransform: {x: 206, y: 1151}
   - name: Knight Anim_Frame_11
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 107
-      width: 76
-      height: 95
+      x: 4
+      y: 1146
+      width: 78
+      height: 97
     spriteID: c301f78bd416cec41a97e11d1fb33922
     spriteBone: []
     spriteOutline: []
@@ -425,18 +425,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 107}
+    uvTransform: {x: 4, y: 1146}
   - name: Knight Anim_Frame_12
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 922
-      width: 74
-      height: 95
+      x: 120
+      y: 1882
+      width: 76
+      height: 97
     spriteID: 130d018b16300c442894622e036e0cef
     spriteBone: []
     spriteOutline: []
@@ -445,18 +445,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 922}
+    uvTransform: {x: 120, y: 1882}
   - name: Knight Anim_Frame_13
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 210
-      width: 76
-      height: 95
+      x: 4
+      y: 1251
+      width: 78
+      height: 97
     spriteID: ecac0de2b4f00204aac208ec99fef470
     spriteBone: []
     spriteOutline: []
@@ -465,18 +465,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 210}
+    uvTransform: {x: 4, y: 1251}
   - name: Knight Anim_Frame_14
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 518
-      width: 73
-      height: 94
+      x: 206
+      y: 1571
+      width: 75
+      height: 96
     spriteID: 8110381695eaeaf4db4459ce6ecd0e64
     spriteBone: []
     spriteOutline: []
@@ -485,18 +485,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 518}
+    uvTransform: {x: 206, y: 1571}
   - name: Knight Anim_Frame_15
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 313
-      width: 74
-      height: 94
+      x: 206
+      y: 319
+      width: 76
+      height: 96
     spriteID: 77e36e545a41522469ce12d8431d1f1b
     spriteBone: []
     spriteOutline: []
@@ -505,18 +505,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 313}
+    uvTransform: {x: 206, y: 319}
   - name: Knight Anim_Frame_16
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 415
-      width: 74
-      height: 94
+      x: 206
+      y: 423
+      width: 76
+      height: 96
     spriteID: 7c9a1f93f52961347812fd9b8f5fc973
     spriteBone: []
     spriteOutline: []
@@ -525,18 +525,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 415}
+    uvTransform: {x: 206, y: 423}
   - name: Knight Anim_Frame_17
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 622
-      width: 76
-      height: 94
+      x: 120
+      y: 634
+      width: 78
+      height: 96
     spriteID: a7b42539528f8c849a3f2ea6c42b0843
     spriteBone: []
     spriteOutline: []
@@ -545,18 +545,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 622}
+    uvTransform: {x: 120, y: 634}
   - name: Knight Anim_Frame_18
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 724
-      width: 76
-      height: 94
+      x: 120
+      y: 738
+      width: 78
+      height: 96
     spriteID: ad27ebd0f0201044e83ef8a53664a00f
     spriteBone: []
     spriteOutline: []
@@ -565,18 +565,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 724}
+    uvTransform: {x: 120, y: 738}
   - name: Knight Anim_Frame_19
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 620
-      width: 73
-      height: 94
+      x: 206
+      y: 1675
+      width: 75
+      height: 96
     spriteID: a196142a003c43340981df715e982e50
     spriteBone: []
     spriteOutline: []
@@ -585,18 +585,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 620}
+    uvTransform: {x: 206, y: 1675}
   - name: Knight Anim_Frame_20
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 826
-      width: 76
-      height: 94
+      x: 120
+      y: 842
+      width: 78
+      height: 96
     spriteID: 4bd97576857cafd44a4b9084d6350bfc
     spriteBone: []
     spriteOutline: []
@@ -605,18 +605,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 826}
+    uvTransform: {x: 120, y: 842}
   - name: Knight Anim_Frame_21
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 107
-      width: 69
-      height: 95
+      x: 290
+      y: 1155
+      width: 71
+      height: 97
     spriteID: d665a0690e32f5c428add6951c3353bd
     spriteBone: []
     spriteOutline: []
@@ -625,18 +625,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 107}
+    uvTransform: {x: 290, y: 1155}
   - name: Knight Anim_Frame_22
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 4
-      width: 69
-      height: 94
+      x: 373
+      y: 1893
+      width: 71
+      height: 96
     spriteID: eb0d0604c877ff6488726a44aeb80287
     spriteBone: []
     spriteOutline: []
@@ -645,18 +645,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 4}
+    uvTransform: {x: 373, y: 1893}
   - name: Knight Anim_Frame_23
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 106
-      width: 69
-      height: 94
+      x: 452
+      y: 4
+      width: 71
+      height: 96
     spriteID: a7d2e464a8ac82e4bac91876df9e90a6
     spriteBone: []
     spriteOutline: []
@@ -665,18 +665,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 106}
+    uvTransform: {x: 452, y: 4}
   - name: Knight Anim_Frame_24
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 208
-      width: 69
-      height: 94
+      x: 452
+      y: 108
+      width: 71
+      height: 96
     spriteID: d707bca9f37adf14392565265d451fbf
     spriteBone: []
     spriteOutline: []
@@ -685,18 +685,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 208}
+    uvTransform: {x: 452, y: 108}
   - name: Knight Anim_Frame_25
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 310
-      width: 69
-      height: 94
+      x: 452
+      y: 212
+      width: 71
+      height: 96
     spriteID: 927bccf9ed593e7478a4a45e73730f51
     spriteBone: []
     spriteOutline: []
@@ -705,18 +705,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 310}
+    uvTransform: {x: 452, y: 212}
   - name: Knight Anim_Frame_26
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 210
-      width: 69
-      height: 95
+      x: 290
+      y: 1260
+      width: 71
+      height: 97
     spriteID: 3295d798f00174042ae52f8feebfc77b
     spriteBone: []
     spriteOutline: []
@@ -725,18 +725,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 210}
+    uvTransform: {x: 290, y: 1260}
   - name: Knight Anim_Frame_27
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 313
-      width: 69
-      height: 95
+      x: 290
+      y: 1365
+      width: 71
+      height: 97
     spriteID: 51637560179ead842bb4d8a95918e03e
     spriteBone: []
     spriteOutline: []
@@ -745,18 +745,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 313}
+    uvTransform: {x: 290, y: 1365}
   - name: Knight Anim_Frame_28
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 416
-      width: 69
-      height: 95
+      x: 290
+      y: 1470
+      width: 71
+      height: 97
     spriteID: f209b9d3fd6a4d242bbd9c4d11140573
     spriteBone: []
     spriteOutline: []
@@ -765,18 +765,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 416}
+    uvTransform: {x: 290, y: 1470}
   - name: Knight Anim_Frame_29
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 519
-      width: 69
-      height: 95
+      x: 290
+      y: 1575
+      width: 71
+      height: 97
     spriteID: b062cd8e5a599d14bb6e5db50fc2f9af
     spriteBone: []
     spriteOutline: []
@@ -785,18 +785,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 519}
+    uvTransform: {x: 290, y: 1575}
   - name: Knight Anim_Frame_30
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 622
-      width: 69
-      height: 95
+      x: 290
+      y: 1680
+      width: 71
+      height: 97
     spriteID: ebdebd5c6c3d56145b3684e4aabac38c
     spriteBone: []
     spriteOutline: []
@@ -805,18 +805,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 622}
+    uvTransform: {x: 290, y: 1680}
   - name: Knight Anim_Frame_31
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 725
-      width: 69
-      height: 95
+      x: 290
+      y: 1785
+      width: 71
+      height: 97
     spriteID: 7bebf983898a0ee408f495f176e14089
     spriteBone: []
     spriteOutline: []
@@ -825,18 +825,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 725}
+    uvTransform: {x: 290, y: 1785}
   - name: Knight Anim_Frame_32
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 615
-      y: 828
-      width: 69
-      height: 95
+      x: 290
+      y: 1890
+      width: 71
+      height: 97
     spriteID: e50fa3b2f8d7e5a4e9891dc0e86873f8
     spriteBone: []
     spriteOutline: []
@@ -845,18 +845,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 615, y: 828}
+    uvTransform: {x: 290, y: 1890}
   - name: Knight Anim_Frame_33
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 313
-      width: 76
-      height: 95
+      x: 4
+      y: 1356
+      width: 78
+      height: 97
     spriteID: a98baf12172773f4bb3915a848559207
     spriteBone: []
     spriteOutline: []
@@ -865,18 +865,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 313}
+    uvTransform: {x: 4, y: 1356}
   - name: Knight Anim_Frame_34
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 416
-      width: 76
-      height: 95
+      x: 4
+      y: 1461
+      width: 78
+      height: 97
     spriteID: ceeaa98c3ca65364ba94d64be810e98c
     spriteBone: []
     spriteOutline: []
@@ -885,18 +885,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 416}
+    uvTransform: {x: 4, y: 1461}
   - name: Knight Anim_Frame_35
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 209
-      width: 73
-      height: 95
+      x: 206
+      y: 1256
+      width: 75
+      height: 97
     spriteID: ad060304fae71454387d992869b1c4d5
     spriteBone: []
     spriteOutline: []
@@ -905,18 +905,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 209}
+    uvTransform: {x: 206, y: 1256}
   - name: Knight Anim_Frame_36
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 519
-      width: 76
-      height: 95
+      x: 4
+      y: 1566
+      width: 78
+      height: 97
     spriteID: 29798ebe90e340e41836b1e86bd5d7bf
     spriteBone: []
     spriteOutline: []
@@ -925,18 +925,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 519}
+    uvTransform: {x: 4, y: 1566}
   - name: Knight Anim_Frame_37
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
+      x: 206
       y: 4
-      width: 74
-      height: 95
+      width: 76
+      height: 97
     spriteID: 031197f8c4b61944da12262d22c88a16
     spriteBone: []
     spriteOutline: []
@@ -945,18 +945,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 4}
+    uvTransform: {x: 206, y: 4}
   - name: Knight Anim_Frame_38
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 622
-      width: 76
-      height: 95
+      x: 4
+      y: 1671
+      width: 78
+      height: 97
     spriteID: ade6cbb5b46495a42846613b189a4e52
     spriteBone: []
     spriteOutline: []
@@ -965,18 +965,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 622}
+    uvTransform: {x: 4, y: 1671}
   - name: Knight Anim_Frame_39
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 722
-      width: 73
-      height: 94
+      x: 206
+      y: 1779
+      width: 75
+      height: 96
     spriteID: be3c6035e38584b4f97f213813b9e62c
     spriteBone: []
     spriteOutline: []
@@ -985,18 +985,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 722}
+    uvTransform: {x: 206, y: 1779}
   - name: Knight Anim_Frame_40
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 517
-      width: 74
-      height: 94
+      x: 206
+      y: 527
+      width: 76
+      height: 96
     spriteID: 7dc571aec1a595943a7b2aceb87d57b3
     spriteBone: []
     spriteOutline: []
@@ -1005,18 +1005,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 517}
+    uvTransform: {x: 206, y: 527}
   - name: Knight Anim_Frame_41
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 619
-      width: 74
-      height: 94
+      x: 206
+      y: 631
+      width: 76
+      height: 96
     spriteID: 3c5823e6bd3a5ae46b71514999678f6d
     spriteBone: []
     spriteOutline: []
@@ -1025,18 +1025,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 619}
+    uvTransform: {x: 206, y: 631}
   - name: Knight Anim_Frame_42
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 4
-      width: 76
-      height: 94
+      x: 120
+      y: 946
+      width: 78
+      height: 96
     spriteID: ec99a638873a6a74489cd5b8d5fb197b
     spriteBone: []
     spriteOutline: []
@@ -1045,18 +1045,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 4}
+    uvTransform: {x: 120, y: 946}
   - name: Knight Anim_Frame_43
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 106
-      width: 76
-      height: 94
+      x: 120
+      y: 1050
+      width: 78
+      height: 96
     spriteID: f9e75375e28f3414b9f3eaf8bab10723
     spriteBone: []
     spriteOutline: []
@@ -1065,18 +1065,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 106}
+    uvTransform: {x: 120, y: 1050}
   - name: Knight Anim_Frame_44
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 824
-      width: 73
-      height: 94
+      x: 206
+      y: 1883
+      width: 75
+      height: 96
     spriteID: 540ef1c41bc115d48b424521e9048a6c
     spriteBone: []
     spriteOutline: []
@@ -1085,18 +1085,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 824}
+    uvTransform: {x: 206, y: 1883}
   - name: Knight Anim_Frame_45
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 208
-      width: 76
-      height: 94
+      x: 120
+      y: 1154
+      width: 78
+      height: 96
     spriteID: 9a9729d5b62814843b79f11feeb8d7e8
     spriteBone: []
     spriteOutline: []
@@ -1105,18 +1105,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 208}
+    uvTransform: {x: 120, y: 1154}
   - name: Knight Anim_Frame_46
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
+      x: 373
       y: 4
-      width: 69
-      height: 95
+      width: 71
+      height: 97
     spriteID: 4038109379bb00843b2b72b9c3bebba1
     spriteBone: []
     spriteOutline: []
@@ -1125,18 +1125,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 4}
+    uvTransform: {x: 373, y: 4}
   - name: Knight Anim_Frame_47
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 412
-      width: 69
-      height: 94
+      x: 452
+      y: 316
+      width: 71
+      height: 96
     spriteID: 0eb7fc65379aca145abedd4fa8fb10b6
     spriteBone: []
     spriteOutline: []
@@ -1145,18 +1145,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 412}
+    uvTransform: {x: 452, y: 316}
   - name: Knight Anim_Frame_48
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 514
-      width: 69
-      height: 94
+      x: 452
+      y: 420
+      width: 71
+      height: 96
     spriteID: 4d0ecefd181e3e14e8ff37c9c38ee45c
     spriteBone: []
     spriteOutline: []
@@ -1165,18 +1165,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 514}
+    uvTransform: {x: 452, y: 420}
   - name: Knight Anim_Frame_49
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 616
-      width: 69
-      height: 94
+      x: 452
+      y: 524
+      width: 71
+      height: 96
     spriteID: 763843f2c2ded954fae281e0d8487047
     spriteBone: []
     spriteOutline: []
@@ -1185,18 +1185,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 616}
+    uvTransform: {x: 452, y: 524}
   - name: Knight Anim_Frame_50
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 718
-      width: 69
-      height: 94
+      x: 452
+      y: 628
+      width: 71
+      height: 96
     spriteID: c26f60f719ac9ad4790a3d9f225bb62c
     spriteBone: []
     spriteOutline: []
@@ -1205,18 +1205,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 718}
+    uvTransform: {x: 452, y: 628}
   - name: Knight Anim_Frame_51
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 107
-      width: 69
-      height: 95
+      x: 373
+      y: 109
+      width: 71
+      height: 97
     spriteID: 6149af0296095134ba1f1a1a78a2b910
     spriteBone: []
     spriteOutline: []
@@ -1225,18 +1225,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 107}
+    uvTransform: {x: 373, y: 109}
   - name: Knight Anim_Frame_52
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 210
-      width: 69
-      height: 95
+      x: 373
+      y: 214
+      width: 71
+      height: 97
     spriteID: e281fb0d11ff5c04eac94ec6ba5f3a3a
     spriteBone: []
     spriteOutline: []
@@ -1245,18 +1245,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 210}
+    uvTransform: {x: 373, y: 214}
   - name: Knight Anim_Frame_53
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 313
-      width: 69
-      height: 95
+      x: 373
+      y: 319
+      width: 71
+      height: 97
     spriteID: 12512f756c8bcc24b823ecdd2205ca49
     spriteBone: []
     spriteOutline: []
@@ -1265,18 +1265,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 313}
+    uvTransform: {x: 373, y: 319}
   - name: Knight Anim_Frame_54
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 416
-      width: 69
-      height: 95
+      x: 373
+      y: 424
+      width: 71
+      height: 97
     spriteID: a2e0ee9316f82194e90c035e21bbbf96
     spriteBone: []
     spriteOutline: []
@@ -1285,18 +1285,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 416}
+    uvTransform: {x: 373, y: 424}
   - name: Knight Anim_Frame_55
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 519
-      width: 69
-      height: 95
+      x: 373
+      y: 529
+      width: 71
+      height: 97
     spriteID: 820c1ac24df4f1e4cb1bb5820d76f8fe
     spriteBone: []
     spriteOutline: []
@@ -1305,18 +1305,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 519}
+    uvTransform: {x: 373, y: 529}
   - name: Knight Anim_Frame_56
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 622
-      width: 69
-      height: 95
+      x: 373
+      y: 634
+      width: 71
+      height: 97
     spriteID: 8e3151b7d3edeb54ca48960d92706068
     spriteBone: []
     spriteOutline: []
@@ -1325,18 +1325,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 622}
+    uvTransform: {x: 373, y: 634}
   - name: Knight Anim_Frame_57
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 725
-      width: 69
-      height: 95
+      x: 373
+      y: 739
+      width: 71
+      height: 97
     spriteID: 04ca37a21b269ab46995352c1d2820eb
     spriteBone: []
     spriteOutline: []
@@ -1345,18 +1345,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 725}
+    uvTransform: {x: 373, y: 739}
   - name: Knight Anim_Frame_58
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 725
-      width: 76
-      height: 95
+      x: 4
+      y: 1776
+      width: 78
+      height: 97
     spriteID: 62d1a3d07fc0edc40bd385af34c266bc
     spriteBone: []
     spriteOutline: []
@@ -1365,18 +1365,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 725}
+    uvTransform: {x: 4, y: 1776}
   - name: Knight Anim_Frame_59
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 118
-      y: 828
-      width: 76
-      height: 95
+      x: 4
+      y: 1881
+      width: 78
+      height: 97
     spriteID: a836d2f24785f3649876fcebdefc626f
     spriteBone: []
     spriteOutline: []
@@ -1385,18 +1385,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 118, y: 828}
+    uvTransform: {x: 4, y: 1881}
   - name: Knight Anim_Frame_60
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 312
-      width: 73
-      height: 95
+      x: 206
+      y: 1361
+      width: 75
+      height: 97
     spriteID: 2426fdeb70baddd4998dc8a563d4a582
     spriteBone: []
     spriteOutline: []
@@ -1405,18 +1405,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 312}
+    uvTransform: {x: 206, y: 1361}
   - name: Knight Anim_Frame_61
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
+      x: 120
       y: 4
-      width: 76
-      height: 95
+      width: 78
+      height: 97
     spriteID: 5000fc5ccffc17643a3f187ccd1a861d
     spriteBone: []
     spriteOutline: []
@@ -1425,18 +1425,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 4}
+    uvTransform: {x: 120, y: 4}
   - name: Knight Anim_Frame_62
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 107
-      width: 74
-      height: 95
+      x: 206
+      y: 109
+      width: 76
+      height: 97
     spriteID: 57105ea49c358b34bb31e1d7b483387d
     spriteBone: []
     spriteOutline: []
@@ -1445,18 +1445,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 107}
+    uvTransform: {x: 206, y: 109}
   - name: Knight Anim_Frame_63
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 107
-      width: 76
-      height: 95
+      x: 120
+      y: 109
+      width: 78
+      height: 97
     spriteID: 17b430672efa62047aa9681044ab7373
     spriteBone: []
     spriteOutline: []
@@ -1465,18 +1465,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 107}
+    uvTransform: {x: 120, y: 109}
   - name: Knight Anim_Frame_64
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 926
-      width: 73
-      height: 94
+      x: 290
+      y: 4
+      width: 75
+      height: 96
     spriteID: 26ab0bcba463c3941936860c20707fc5
     spriteBone: []
     spriteOutline: []
@@ -1485,18 +1485,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 926}
+    uvTransform: {x: 290, y: 4}
   - name: Knight Anim_Frame_65
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 721
-      width: 74
-      height: 94
+      x: 206
+      y: 735
+      width: 76
+      height: 96
     spriteID: 2f0bc2fb8cb9b524097a20daf0c41067
     spriteBone: []
     spriteOutline: []
@@ -1505,18 +1505,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 721}
+    uvTransform: {x: 206, y: 735}
   - name: Knight Anim_Frame_66
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 823
-      width: 74
-      height: 94
+      x: 206
+      y: 839
+      width: 76
+      height: 96
     spriteID: 9e4615d273bdac943a1d32ca0a01cd48
     spriteBone: []
     spriteOutline: []
@@ -1525,18 +1525,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 823}
+    uvTransform: {x: 206, y: 839}
   - name: Knight Anim_Frame_67
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 310
-      width: 76
-      height: 94
+      x: 120
+      y: 1258
+      width: 78
+      height: 96
     spriteID: b62e9ba5f12ba6f41ab5122c9e0d9f50
     spriteBone: []
     spriteOutline: []
@@ -1545,18 +1545,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 310}
+    uvTransform: {x: 120, y: 1258}
   - name: Knight Anim_Frame_68
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 412
-      width: 76
-      height: 94
+      x: 120
+      y: 1362
+      width: 78
+      height: 96
     spriteID: 44d5d75c33052c148ab323939e74a17f
     spriteBone: []
     spriteOutline: []
@@ -1565,18 +1565,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 412}
+    uvTransform: {x: 120, y: 1362}
   - name: Knight Anim_Frame_69
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 4
-      width: 73
-      height: 94
+      x: 290
+      y: 108
+      width: 75
+      height: 96
     spriteID: 0a1f4c3bd7db0b94ebc3d0962c4a0430
     spriteBone: []
     spriteOutline: []
@@ -1585,18 +1585,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 4}
+    uvTransform: {x: 290, y: 108}
   - name: Knight Anim_Frame_70
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 514
-      width: 76
-      height: 94
+      x: 120
+      y: 1466
+      width: 78
+      height: 96
     spriteID: 03ee4032c8fa8b347a6dbbd4547a6eaf
     spriteBone: []
     spriteOutline: []
@@ -1605,18 +1605,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 514}
+    uvTransform: {x: 120, y: 1466}
   - name: Knight Anim_Frame_71
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 692
-      y: 828
-      width: 69
-      height: 95
+      x: 373
+      y: 844
+      width: 71
+      height: 97
     spriteID: eaed1444bf3e4ab4e84a86e3274c524e
     spriteBone: []
     spriteOutline: []
@@ -1625,18 +1625,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 692, y: 828}
+    uvTransform: {x: 373, y: 844}
   - name: Knight Anim_Frame_72
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 820
-      width: 69
-      height: 94
+      x: 452
+      y: 732
+      width: 71
+      height: 96
     spriteID: 029ed7b935a37e0498828fabc735b530
     spriteBone: []
     spriteOutline: []
@@ -1645,18 +1645,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 820}
+    uvTransform: {x: 452, y: 732}
   - name: Knight Anim_Frame_73
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 846
-      y: 922
-      width: 69
-      height: 94
+      x: 452
+      y: 836
+      width: 71
+      height: 96
     spriteID: e4820347f9f41ee479cc5bd00f3bc064
     spriteBone: []
     spriteOutline: []
@@ -1665,18 +1665,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 846, y: 922}
+    uvTransform: {x: 452, y: 836}
   - name: Knight Anim_Frame_74
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 923
-      y: 4
-      width: 69
-      height: 94
+      x: 452
+      y: 940
+      width: 71
+      height: 96
     spriteID: 798f99e933ecff24d9a18e108ed4dcba
     spriteBone: []
     spriteOutline: []
@@ -1685,18 +1685,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 923, y: 4}
+    uvTransform: {x: 452, y: 940}
   - name: Knight Anim_Frame_75
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 923
-      y: 106
-      width: 69
-      height: 94
+      x: 452
+      y: 1044
+      width: 71
+      height: 96
     spriteID: a495fa996aea3154c9b8ed0b67bbc682
     spriteBone: []
     spriteOutline: []
@@ -1705,18 +1705,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 923, y: 106}
+    uvTransform: {x: 452, y: 1044}
   - name: Knight Anim_Frame_76
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 4
-      width: 69
-      height: 95
+      x: 373
+      y: 949
+      width: 71
+      height: 97
     spriteID: fb4b28a9581bfb44b90de520a3ac67f3
     spriteBone: []
     spriteOutline: []
@@ -1725,18 +1725,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 4}
+    uvTransform: {x: 373, y: 949}
   - name: Knight Anim_Frame_77
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 107
-      width: 69
-      height: 95
+      x: 373
+      y: 1054
+      width: 71
+      height: 97
     spriteID: 5cb85d8524cd0844397979da0777ecda
     spriteBone: []
     spriteOutline: []
@@ -1745,18 +1745,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 107}
+    uvTransform: {x: 373, y: 1054}
   - name: Knight Anim_Frame_78
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 210
-      width: 69
-      height: 95
+      x: 373
+      y: 1159
+      width: 71
+      height: 97
     spriteID: e122aebbf5cbf2342bf3e6138ebb3e4c
     spriteBone: []
     spriteOutline: []
@@ -1765,18 +1765,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 210}
+    uvTransform: {x: 373, y: 1159}
   - name: Knight Anim_Frame_79
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 313
-      width: 69
-      height: 95
+      x: 373
+      y: 1264
+      width: 71
+      height: 97
     spriteID: bfab917758d7b014da3a5a2a371d8f85
     spriteBone: []
     spriteOutline: []
@@ -1785,18 +1785,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 313}
+    uvTransform: {x: 373, y: 1264}
   - name: Knight Anim_Frame_80
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 416
-      width: 69
-      height: 95
+      x: 373
+      y: 1369
+      width: 71
+      height: 97
     spriteID: 4b024f0177e93524da691e84d312fed0
     spriteBone: []
     spriteOutline: []
@@ -1805,18 +1805,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 416}
+    uvTransform: {x: 373, y: 1369}
   - name: Knight Anim_Frame_81
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 519
-      width: 69
-      height: 95
+      x: 373
+      y: 1474
+      width: 71
+      height: 97
     spriteID: f3996a67d91f9ec49a992475915eafb1
     spriteBone: []
     spriteOutline: []
@@ -1825,18 +1825,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 519}
+    uvTransform: {x: 373, y: 1474}
   - name: Knight Anim_Frame_82
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 622
-      width: 69
-      height: 95
+      x: 373
+      y: 1579
+      width: 71
+      height: 97
     spriteID: 50f3a307a26bef946b92547be0ceeaac
     spriteBone: []
     spriteOutline: []
@@ -1845,18 +1845,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 622}
+    uvTransform: {x: 373, y: 1579}
   - name: Knight Anim_Frame_83
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 210
-      width: 76
-      height: 95
+      x: 120
+      y: 214
+      width: 78
+      height: 97
     spriteID: 1e7eefcd4104d624fb650d01cef78506
     spriteBone: []
     spriteOutline: []
@@ -1865,18 +1865,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 210}
+    uvTransform: {x: 120, y: 214}
   - name: Knight Anim_Frame_84
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 313
-      width: 76
-      height: 95
+      x: 120
+      y: 319
+      width: 78
+      height: 97
     spriteID: 439677ae842f48241a3a4395c0ed9810
     spriteBone: []
     spriteOutline: []
@@ -1885,18 +1885,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 313}
+    uvTransform: {x: 120, y: 319}
   - name: Knight Anim_Frame_85
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 415
-      width: 73
-      height: 95
+      x: 206
+      y: 1466
+      width: 75
+      height: 97
     spriteID: 5c42483c8ed0f944c9c27e4a13c8677d
     spriteBone: []
     spriteOutline: []
@@ -1905,18 +1905,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 415}
+    uvTransform: {x: 206, y: 1466}
   - name: Knight Anim_Frame_86
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 416
-      width: 76
-      height: 95
+      x: 120
+      y: 424
+      width: 78
+      height: 97
     spriteID: 5d9e8c2c3aa91924f87a1b5b27de6986
     spriteBone: []
     spriteOutline: []
@@ -1925,18 +1925,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 416}
+    uvTransform: {x: 120, y: 424}
   - name: Knight Anim_Frame_87
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 210
-      width: 74
-      height: 95
+      x: 206
+      y: 214
+      width: 76
+      height: 97
     spriteID: 8c5a3b95f21b8b54eb9bbf4eaf8c7baa
     spriteBone: []
     spriteOutline: []
@@ -1945,18 +1945,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 210}
+    uvTransform: {x: 206, y: 214}
   - name: Knight Anim_Frame_88
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 202
-      y: 519
-      width: 76
-      height: 95
+      x: 120
+      y: 529
+      width: 78
+      height: 97
     spriteID: 8254f2d0ed991264683a03b1deb8b8ad
     spriteBone: []
     spriteOutline: []
@@ -1965,18 +1965,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 202, y: 519}
+    uvTransform: {x: 120, y: 529}
   - name: Knight Anim_Frame_89
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 106
-      width: 73
-      height: 94
+      x: 290
+      y: 212
+      width: 75
+      height: 96
     spriteID: 8e7c9a78ccc97234e902e6022ef40195
     spriteBone: []
     spriteOutline: []
@@ -1985,18 +1985,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 106}
+    uvTransform: {x: 290, y: 212}
   - name: Knight Anim_Frame_90
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 370
-      y: 925
-      width: 74
-      height: 94
+      x: 206
+      y: 943
+      width: 76
+      height: 96
     spriteID: f27153d6178f00b4d95730f2f56fe6b0
     spriteBone: []
     spriteOutline: []
@@ -2005,18 +2005,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 370, y: 925}
+    uvTransform: {x: 206, y: 943}
   - name: Knight Anim_Frame_91
     originalName: 
-    pivot: {x: 0.68918914, y: 0}
+    pivot: {x: 0.6842104, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 452
-      y: 4
-      width: 74
-      height: 94
+      x: 206
+      y: 1047
+      width: 76
+      height: 96
     spriteID: 8d3e01e0e237f9f4585f1ae64399df74
     spriteBone: []
     spriteOutline: []
@@ -2025,18 +2025,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 452, y: 4}
+    uvTransform: {x: 206, y: 1047}
   - name: Knight Anim_Frame_92
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 616
-      width: 76
-      height: 94
+      x: 120
+      y: 1570
+      width: 78
+      height: 96
     spriteID: 27842c3d0edacc34f9284c82696e4e9c
     spriteBone: []
     spriteOutline: []
@@ -2045,18 +2045,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 616}
+    uvTransform: {x: 120, y: 1570}
   - name: Knight Anim_Frame_93
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 718
-      width: 76
-      height: 94
+      x: 120
+      y: 1674
+      width: 78
+      height: 96
     spriteID: 18462da9206ecb647a0d2e0e137df596
     spriteBone: []
     spriteOutline: []
@@ -2065,18 +2065,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 718}
+    uvTransform: {x: 120, y: 1674}
   - name: Knight Anim_Frame_94
     originalName: 
-    pivot: {x: 0.6849316, y: 0}
+    pivot: {x: 0.68, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 534
-      y: 208
-      width: 73
-      height: 94
+      x: 290
+      y: 316
+      width: 75
+      height: 96
     spriteID: 4ee713671db454b41b3d25583cba9ea6
     spriteBone: []
     spriteOutline: []
@@ -2085,18 +2085,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 534, y: 208}
+    uvTransform: {x: 290, y: 316}
   - name: Knight Anim_Frame_95
     originalName: 
-    pivot: {x: 0.69736844, y: 0}
+    pivot: {x: 0.6923077, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 286
-      y: 820
-      width: 76
-      height: 94
+      x: 120
+      y: 1778
+      width: 78
+      height: 96
     spriteID: 695a39c0f78e95448b318228dc499fb6
     spriteBone: []
     spriteOutline: []
@@ -2105,18 +2105,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 286, y: 820}
+    uvTransform: {x: 120, y: 1778}
   - name: Knight Anim_Frame_96
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 769
-      y: 725
-      width: 69
-      height: 95
+      x: 373
+      y: 1684
+      width: 71
+      height: 97
     spriteID: 2b7442a9476a3444da5f56b4c38d89f9
     spriteBone: []
     spriteOutline: []
@@ -2125,18 +2125,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 769, y: 725}
+    uvTransform: {x: 373, y: 1684}
   - name: Knight Anim_Frame_97
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 923
-      y: 208
-      width: 69
-      height: 94
+      x: 452
+      y: 1148
+      width: 71
+      height: 96
     spriteID: 0ebf2bbb0854ba348ab14cc76a04fb75
     spriteBone: []
     spriteOutline: []
@@ -2145,18 +2145,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 923, y: 208}
+    uvTransform: {x: 452, y: 1148}
   - name: Knight Anim_Frame_98
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 923
-      y: 310
-      width: 69
-      height: 94
+      x: 452
+      y: 1252
+      width: 71
+      height: 96
     spriteID: 9a6dfa5772fa2d64483115e0253f4f80
     spriteBone: []
     spriteOutline: []
@@ -2165,18 +2165,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 923, y: 310}
+    uvTransform: {x: 452, y: 1252}
   - name: Knight Anim_Frame_99
     originalName: 
-    pivot: {x: 0.6666667, y: 0}
+    pivot: {x: 0.6619718, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 923
-      y: 412
-      width: 69
-      height: 94
+      x: 452
+      y: 1356
+      width: 71
+      height: 96
     spriteID: dbf23399fc43d1244864cc4db2a8cfde
     spriteBone: []
     spriteOutline: []
@@ -2185,18 +2185,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 923, y: 412}
+    uvTransform: {x: 452, y: 1356}
   - name: Knight Anim_Frame_100
     originalName: 
-    pivot: {x: 0.59036136, y: 0}
+    pivot: {x: 0.5882354, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 504
-      width: 83
-      height: 96
+      y: 512
+      width: 85
+      height: 98
     spriteID: 2184c6921f49b4b46906da93ad15dae5
     spriteBone: []
     spriteOutline: []
@@ -2205,18 +2205,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 504}
+    uvTransform: {x: 4, y: 512}
   - name: Knight Anim_Frame_101
     originalName: 
-    pivot: {x: 0.59036136, y: 0}
+    pivot: {x: 0.5882354, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 608
-      width: 83
-      height: 96
+      y: 618
+      width: 85
+      height: 98
     spriteID: dcdce6032b992ba49be170dab07fc8eb
     spriteBone: []
     spriteOutline: []
@@ -2225,18 +2225,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 608}
+    uvTransform: {x: 4, y: 618}
   - name: Knight Anim_Frame_102
     originalName: 
-    pivot: {x: 0.59036136, y: 0}
+    pivot: {x: 0.5882354, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 712
-      width: 83
-      height: 96
+      y: 724
+      width: 85
+      height: 98
     spriteID: 6382677e3854b184d8266e37d9dfbe6d
     spriteBone: []
     spriteOutline: []
@@ -2245,18 +2245,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 712}
+    uvTransform: {x: 4, y: 724}
   - name: Knight Anim_Frame_103
     originalName: 
-    pivot: {x: 0.59036136, y: 0}
+    pivot: {x: 0.5882354, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 816
-      width: 83
-      height: 96
+      y: 830
+      width: 85
+      height: 98
     spriteID: 64c2b8f2ce5a7304b9f6463953d62733
     spriteBone: []
     spriteOutline: []
@@ -2265,18 +2265,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 816}
+    uvTransform: {x: 4, y: 830}
   - name: Knight Anim_Frame_104
     originalName: 
-    pivot: {x: 0.46226412, y: 0}
+    pivot: {x: 0.462963, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 106
-      height: 117
+      width: 108
+      height: 119
     spriteID: 482e295072d95bf4e9952bdbb3944c4a
     spriteBone: []
     spriteOutline: []
@@ -2288,15 +2288,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Knight Anim_Frame_105
     originalName: 
-    pivot: {x: 0.46226412, y: 0}
+    pivot: {x: 0.462963, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 129
-      width: 106
-      height: 117
+      y: 131
+      width: 108
+      height: 119
     spriteID: 4a2a667bf67c62f41967138366bdf6b7
     spriteBone: []
     spriteOutline: []
@@ -2305,18 +2305,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 129}
+    uvTransform: {x: 4, y: 131}
   - name: Knight Anim_Frame_106
     originalName: 
-    pivot: {x: 0.46226412, y: 0}
+    pivot: {x: 0.462963, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 254
-      width: 106
-      height: 117
+      y: 258
+      width: 108
+      height: 119
     spriteID: 830a2241c74f64e4b9bc17c7e9b971b8
     spriteBone: []
     spriteOutline: []
@@ -2325,18 +2325,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 254}
+    uvTransform: {x: 4, y: 258}
   - name: Knight Anim_Frame_107
     originalName: 
-    pivot: {x: 0.46226412, y: 0}
+    pivot: {x: 0.462963, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 379
-      width: 106
-      height: 117
+      y: 385
+      width: 108
+      height: 119
     spriteID: 33769e3dd501bbc4cb674db5a244cda9
     spriteBone: []
     spriteOutline: []
@@ -2345,7 +2345,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 379}
+    uvTransform: {x: 4, y: 385}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -2358,866 +2358,866 @@ ScriptedImporter:
     - name: Knight Anim_Frame_0
       frameIndex: 0
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: d2437daf20d1d3942b16348ea095f444
     - name: Knight Anim_Frame_1
       frameIndex: 1
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 0e94a70238687f1468f419cdd91e0238
     - name: Knight Anim_Frame_2
       frameIndex: 2
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 16ae9ac8dddd67144b767d2d1b351595
     - name: Knight Anim_Frame_3
       frameIndex: 3
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 79ab058d03169644cb5b1e47b3842da2
     - name: Knight Anim_Frame_4
       frameIndex: 4
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: e9f2f48783d944449b8d9f16db373470
     - name: Knight Anim_Frame_5
       frameIndex: 5
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: f6e7ad3101ef5b34ebea6d805a82590e
     - name: Knight Anim_Frame_6
       frameIndex: 6
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 984d7d3889884454a86aa82278f3987e
     - name: Knight Anim_Frame_7
       frameIndex: 7
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 6caedc02528d82f468bbec30c88fd30a
     - name: Knight Anim_Frame_8
       frameIndex: 8
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: c31b3d2203bf1d94faf277f3b84fdedd
     - name: Knight Anim_Frame_9
       frameIndex: 9
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 4c2c6030014d68a4f8f1dd440cbb0007
     - name: Knight Anim_Frame_10
       frameIndex: 10
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 95
+        width: 75
+        height: 97
       spriteId: 2b06ee2f48dd10d4798a7cb891f7a757
     - name: Knight Anim_Frame_11
       frameIndex: 11
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: c301f78bd416cec41a97e11d1fb33922
     - name: Knight Anim_Frame_12
       frameIndex: 12
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 95
+        width: 76
+        height: 97
       spriteId: 130d018b16300c442894622e036e0cef
     - name: Knight Anim_Frame_13
       frameIndex: 13
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: ecac0de2b4f00204aac208ec99fef470
     - name: Knight Anim_Frame_14
       frameIndex: 14
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: 8110381695eaeaf4db4459ce6ecd0e64
     - name: Knight Anim_Frame_15
       frameIndex: 15
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 77e36e545a41522469ce12d8431d1f1b
     - name: Knight Anim_Frame_16
       frameIndex: 16
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 7c9a1f93f52961347812fd9b8f5fc973
     - name: Knight Anim_Frame_17
       frameIndex: 17
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: a7b42539528f8c849a3f2ea6c42b0843
     - name: Knight Anim_Frame_18
       frameIndex: 18
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: ad27ebd0f0201044e83ef8a53664a00f
     - name: Knight Anim_Frame_19
       frameIndex: 19
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: a196142a003c43340981df715e982e50
     - name: Knight Anim_Frame_20
       frameIndex: 20
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 4bd97576857cafd44a4b9084d6350bfc
     - name: Knight Anim_Frame_21
       frameIndex: 21
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: d665a0690e32f5c428add6951c3353bd
     - name: Knight Anim_Frame_22
       frameIndex: 22
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: eb0d0604c877ff6488726a44aeb80287
     - name: Knight Anim_Frame_23
       frameIndex: 23
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: a7d2e464a8ac82e4bac91876df9e90a6
     - name: Knight Anim_Frame_24
       frameIndex: 24
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: d707bca9f37adf14392565265d451fbf
     - name: Knight Anim_Frame_25
       frameIndex: 25
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 927bccf9ed593e7478a4a45e73730f51
     - name: Knight Anim_Frame_26
       frameIndex: 26
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 3295d798f00174042ae52f8feebfc77b
     - name: Knight Anim_Frame_27
       frameIndex: 27
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 51637560179ead842bb4d8a95918e03e
     - name: Knight Anim_Frame_28
       frameIndex: 28
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: f209b9d3fd6a4d242bbd9c4d11140573
     - name: Knight Anim_Frame_29
       frameIndex: 29
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: b062cd8e5a599d14bb6e5db50fc2f9af
     - name: Knight Anim_Frame_30
       frameIndex: 30
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: ebdebd5c6c3d56145b3684e4aabac38c
     - name: Knight Anim_Frame_31
       frameIndex: 31
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 7bebf983898a0ee408f495f176e14089
     - name: Knight Anim_Frame_32
       frameIndex: 32
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: e50fa3b2f8d7e5a4e9891dc0e86873f8
     - name: Knight Anim_Frame_33
       frameIndex: 33
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: a98baf12172773f4bb3915a848559207
     - name: Knight Anim_Frame_34
       frameIndex: 34
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: ceeaa98c3ca65364ba94d64be810e98c
     - name: Knight Anim_Frame_35
       frameIndex: 35
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 95
+        width: 75
+        height: 97
       spriteId: ad060304fae71454387d992869b1c4d5
     - name: Knight Anim_Frame_36
       frameIndex: 36
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 29798ebe90e340e41836b1e86bd5d7bf
     - name: Knight Anim_Frame_37
       frameIndex: 37
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 95
+        width: 76
+        height: 97
       spriteId: 031197f8c4b61944da12262d22c88a16
     - name: Knight Anim_Frame_38
       frameIndex: 38
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: ade6cbb5b46495a42846613b189a4e52
     - name: Knight Anim_Frame_39
       frameIndex: 39
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: be3c6035e38584b4f97f213813b9e62c
     - name: Knight Anim_Frame_40
       frameIndex: 40
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 7dc571aec1a595943a7b2aceb87d57b3
     - name: Knight Anim_Frame_41
       frameIndex: 41
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 3c5823e6bd3a5ae46b71514999678f6d
     - name: Knight Anim_Frame_42
       frameIndex: 42
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: ec99a638873a6a74489cd5b8d5fb197b
     - name: Knight Anim_Frame_43
       frameIndex: 43
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: f9e75375e28f3414b9f3eaf8bab10723
     - name: Knight Anim_Frame_44
       frameIndex: 44
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: 540ef1c41bc115d48b424521e9048a6c
     - name: Knight Anim_Frame_45
       frameIndex: 45
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 9a9729d5b62814843b79f11feeb8d7e8
     - name: Knight Anim_Frame_46
       frameIndex: 46
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 4038109379bb00843b2b72b9c3bebba1
     - name: Knight Anim_Frame_47
       frameIndex: 47
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 0eb7fc65379aca145abedd4fa8fb10b6
     - name: Knight Anim_Frame_48
       frameIndex: 48
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 4d0ecefd181e3e14e8ff37c9c38ee45c
     - name: Knight Anim_Frame_49
       frameIndex: 49
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 763843f2c2ded954fae281e0d8487047
     - name: Knight Anim_Frame_50
       frameIndex: 50
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: c26f60f719ac9ad4790a3d9f225bb62c
     - name: Knight Anim_Frame_51
       frameIndex: 51
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 6149af0296095134ba1f1a1a78a2b910
     - name: Knight Anim_Frame_52
       frameIndex: 52
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: e281fb0d11ff5c04eac94ec6ba5f3a3a
     - name: Knight Anim_Frame_53
       frameIndex: 53
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 12512f756c8bcc24b823ecdd2205ca49
     - name: Knight Anim_Frame_54
       frameIndex: 54
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: a2e0ee9316f82194e90c035e21bbbf96
     - name: Knight Anim_Frame_55
       frameIndex: 55
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 820c1ac24df4f1e4cb1bb5820d76f8fe
     - name: Knight Anim_Frame_56
       frameIndex: 56
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 8e3151b7d3edeb54ca48960d92706068
     - name: Knight Anim_Frame_57
       frameIndex: 57
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 04ca37a21b269ab46995352c1d2820eb
     - name: Knight Anim_Frame_58
       frameIndex: 58
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 62d1a3d07fc0edc40bd385af34c266bc
     - name: Knight Anim_Frame_59
       frameIndex: 59
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: a836d2f24785f3649876fcebdefc626f
     - name: Knight Anim_Frame_60
       frameIndex: 60
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 95
+        width: 75
+        height: 97
       spriteId: 2426fdeb70baddd4998dc8a563d4a582
     - name: Knight Anim_Frame_61
       frameIndex: 61
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 5000fc5ccffc17643a3f187ccd1a861d
     - name: Knight Anim_Frame_62
       frameIndex: 62
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 95
+        width: 76
+        height: 97
       spriteId: 57105ea49c358b34bb31e1d7b483387d
     - name: Knight Anim_Frame_63
       frameIndex: 63
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 17b430672efa62047aa9681044ab7373
     - name: Knight Anim_Frame_64
       frameIndex: 64
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: 26ab0bcba463c3941936860c20707fc5
     - name: Knight Anim_Frame_65
       frameIndex: 65
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 2f0bc2fb8cb9b524097a20daf0c41067
     - name: Knight Anim_Frame_66
       frameIndex: 66
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 9e4615d273bdac943a1d32ca0a01cd48
     - name: Knight Anim_Frame_67
       frameIndex: 67
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: b62e9ba5f12ba6f41ab5122c9e0d9f50
     - name: Knight Anim_Frame_68
       frameIndex: 68
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 44d5d75c33052c148ab323939e74a17f
     - name: Knight Anim_Frame_69
       frameIndex: 69
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: 0a1f4c3bd7db0b94ebc3d0962c4a0430
     - name: Knight Anim_Frame_70
       frameIndex: 70
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 03ee4032c8fa8b347a6dbbd4547a6eaf
     - name: Knight Anim_Frame_71
       frameIndex: 71
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: eaed1444bf3e4ab4e84a86e3274c524e
     - name: Knight Anim_Frame_72
       frameIndex: 72
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 029ed7b935a37e0498828fabc735b530
     - name: Knight Anim_Frame_73
       frameIndex: 73
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: e4820347f9f41ee479cc5bd00f3bc064
     - name: Knight Anim_Frame_74
       frameIndex: 74
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 798f99e933ecff24d9a18e108ed4dcba
     - name: Knight Anim_Frame_75
       frameIndex: 75
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: a495fa996aea3154c9b8ed0b67bbc682
     - name: Knight Anim_Frame_76
       frameIndex: 76
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: fb4b28a9581bfb44b90de520a3ac67f3
     - name: Knight Anim_Frame_77
       frameIndex: 77
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 5cb85d8524cd0844397979da0777ecda
     - name: Knight Anim_Frame_78
       frameIndex: 78
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: e122aebbf5cbf2342bf3e6138ebb3e4c
     - name: Knight Anim_Frame_79
       frameIndex: 79
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: bfab917758d7b014da3a5a2a371d8f85
     - name: Knight Anim_Frame_80
       frameIndex: 80
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 4b024f0177e93524da691e84d312fed0
     - name: Knight Anim_Frame_81
       frameIndex: 81
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: f3996a67d91f9ec49a992475915eafb1
     - name: Knight Anim_Frame_82
       frameIndex: 82
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 50f3a307a26bef946b92547be0ceeaac
     - name: Knight Anim_Frame_83
       frameIndex: 83
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 1e7eefcd4104d624fb650d01cef78506
     - name: Knight Anim_Frame_84
       frameIndex: 84
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 439677ae842f48241a3a4395c0ed9810
     - name: Knight Anim_Frame_85
       frameIndex: 85
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 95
+        width: 75
+        height: 97
       spriteId: 5c42483c8ed0f944c9c27e4a13c8677d
     - name: Knight Anim_Frame_86
       frameIndex: 86
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 5d9e8c2c3aa91924f87a1b5b27de6986
     - name: Knight Anim_Frame_87
       frameIndex: 87
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 95
+        width: 76
+        height: 97
       spriteId: 8c5a3b95f21b8b54eb9bbf4eaf8c7baa
     - name: Knight Anim_Frame_88
       frameIndex: 88
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 95
+        width: 78
+        height: 97
       spriteId: 8254f2d0ed991264683a03b1deb8b8ad
     - name: Knight Anim_Frame_89
       frameIndex: 89
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: 8e7c9a78ccc97234e902e6022ef40195
     - name: Knight Anim_Frame_90
       frameIndex: 90
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: f27153d6178f00b4d95730f2f56fe6b0
     - name: Knight Anim_Frame_91
       frameIndex: 91
       cellRect:
-        x: 45
+        x: 44
         y: 0
-        width: 74
-        height: 94
+        width: 76
+        height: 96
       spriteId: 8d3e01e0e237f9f4585f1ae64399df74
     - name: Knight Anim_Frame_92
       frameIndex: 92
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 27842c3d0edacc34f9284c82696e4e9c
     - name: Knight Anim_Frame_93
       frameIndex: 93
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 18462da9206ecb647a0d2e0e137df596
     - name: Knight Anim_Frame_94
       frameIndex: 94
       cellRect:
-        x: 46
+        x: 45
         y: 0
-        width: 73
-        height: 94
+        width: 75
+        height: 96
       spriteId: 4ee713671db454b41b3d25583cba9ea6
     - name: Knight Anim_Frame_95
       frameIndex: 95
       cellRect:
-        x: 43
+        x: 42
         y: 0
-        width: 76
-        height: 94
+        width: 78
+        height: 96
       spriteId: 695a39c0f78e95448b318228dc499fb6
     - name: Knight Anim_Frame_96
       frameIndex: 96
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 95
+        width: 71
+        height: 97
       spriteId: 2b7442a9476a3444da5f56b4c38d89f9
     - name: Knight Anim_Frame_97
       frameIndex: 97
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 0ebf2bbb0854ba348ab14cc76a04fb75
     - name: Knight Anim_Frame_98
       frameIndex: 98
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: 9a6dfa5772fa2d64483115e0253f4f80
     - name: Knight Anim_Frame_99
       frameIndex: 99
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 69
-        height: 94
+        width: 71
+        height: 96
       spriteId: dbf23399fc43d1244864cc4db2a8cfde
     - name: Knight Anim_Frame_100
       frameIndex: 100
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 83
-        height: 96
+        width: 85
+        height: 98
       spriteId: 2184c6921f49b4b46906da93ad15dae5
     - name: Knight Anim_Frame_101
       frameIndex: 101
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 83
-        height: 96
+        width: 85
+        height: 98
       spriteId: dcdce6032b992ba49be170dab07fc8eb
     - name: Knight Anim_Frame_102
       frameIndex: 102
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 83
-        height: 96
+        width: 85
+        height: 98
       spriteId: 6382677e3854b184d8266e37d9dfbe6d
     - name: Knight Anim_Frame_103
       frameIndex: 103
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 83
-        height: 96
+        width: 85
+        height: 98
       spriteId: 64c2b8f2ce5a7304b9f6463953d62733
     - name: Knight Anim_Frame_104
       frameIndex: 104
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 106
-        height: 117
+        width: 108
+        height: 119
       spriteId: 482e295072d95bf4e9952bdbb3944c4a
     - name: Knight Anim_Frame_105
       frameIndex: 105
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 106
-        height: 117
+        width: 108
+        height: 119
       spriteId: 4a2a667bf67c62f41967138366bdf6b7
     - name: Knight Anim_Frame_106
       frameIndex: 106
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 106
-        height: 117
+        width: 108
+        height: 119
       spriteId: 830a2241c74f64e4b9bc17c7e9b971b8
     - name: Knight Anim_Frame_107
       frameIndex: 107
       cellRect:
-        x: 47
+        x: 46
         y: 0
-        width: 106
-        height: 117
+        width: 108
+        height: 119
       spriteId: 33769e3dd501bbc4cb674db5a244cda9
     linkedCells: []
     parentIndex: -1
