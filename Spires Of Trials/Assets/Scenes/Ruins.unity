@@ -7787,7 +7787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667027813}
   m_Layer: 0
-  m_Name: WarningSheilds (1)
+  m_Name: 'WarningSheilds '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8952,7 +8952,7 @@ MonoBehaviour:
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
-  miniBossSpawnNumber: 2
+  miniBossSpawnNumber: 10
 --- !u!1 &1955808337
 GameObject:
   m_ObjectHideFlags: 0
