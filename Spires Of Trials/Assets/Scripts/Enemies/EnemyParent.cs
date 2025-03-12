@@ -64,25 +64,23 @@ public class EnemyParent : MonoBehaviour
     private SpriteRenderer attackIndicatorRenderer;
 
 
+    [SerializeField] private SpriteRenderer leftAttackSprite;
+    [SerializeField] private SpriteRenderer centerAttackSprite;
+    [SerializeField] private SpriteRenderer rightAttackSprite;
 
-   private SpriteRenderer leftAttackSprite;
-   private SpriteRenderer centerAttackSprite;
-   private SpriteRenderer rightAttackSprite;
 
-   
+
 
     protected virtual void Start()
     {
-       
-        GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
-        GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
-        GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
 
-            
+        //GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
+        //GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
+        //GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
 
-        leftAttackSprite = leftObj != null ? leftObj.GetComponent<SpriteRenderer>() : null;
-        centerAttackSprite = centerObj != null ? centerObj.GetComponent<SpriteRenderer>() : null;
-        rightAttackSprite = rightObj != null ? rightObj.GetComponent<SpriteRenderer>() : null;
+
+
+        
 
         StartCoroutine(MonitorColorReset()); // Start monitoring color resets
 
@@ -127,6 +125,14 @@ public class EnemyParent : MonoBehaviour
 
 
     }
+
+    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right)
+    {
+        leftAttackSprite = left;
+        centerAttackSprite = center;
+        rightAttackSprite = right;
+    }
+
 
     private IEnumerator MonitorColorReset()
     {

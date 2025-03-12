@@ -23,6 +23,12 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] int miniBossSpawnNumber = 10;
 
+
+    [SerializeField] private SpriteRenderer leftFlash;
+    [SerializeField] private SpriteRenderer centerFlash;
+    [SerializeField] private SpriteRenderer rightFlash;
+
+
     private void Start()
     {
         if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
@@ -74,6 +80,8 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate the MiniBoss as a child of the spawn location
         GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
+        miniBoss.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash);
+
         miniBoss.transform.SetParent(bossSpawnLocation.transform, true); // Set parent while maintaining world position
 
         spawnedEnemies.Add(miniBoss); // Add to tracking list
@@ -106,6 +114,7 @@ public class EnemySpawner : MonoBehaviour
 
                         // Spawn the enemy and make it a child of the spawn location
                         GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
+                        spawnedEnemy.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash);
 
                         if (spawnedEnemy.tag == "Slime")
                         {
