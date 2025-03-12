@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Shield_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.3106796}
+    pivot: {x: 0.5, y: -0.29523808}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 88
-      height: 103
+      width: 90
+      height: 105
     spriteID: 2d94fb4e2060ee140ae4d24e8bb09e01
     spriteBone: []
     spriteOutline: []
@@ -143,15 +143,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Shield_Frame_1
     originalName: 
-    pivot: {x: 1.4482758, y: -0.17272727}
+    pivot: {x: 1.4166666, y: -0.16071428}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 100
+      x: 102
       y: 4
-      width: 58
-      height: 110
+      width: 60
+      height: 112
     spriteID: 9efb7fe61f9322d4fbf4166c5745f572
     spriteBone: []
     spriteOutline: []
@@ -160,18 +160,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 100, y: 4}
+    uvTransform: {x: 102, y: 4}
   - name: Shield_Frame_2
     originalName: 
-    pivot: {x: -0.46551716, y: -0.17272727}
+    pivot: {x: -0.43333328, y: -0.16071428}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 166
+      x: 170
       y: 4
-      width: 58
-      height: 110
+      width: 60
+      height: 112
     spriteID: 6a4e437a5f721a343b4cabb78f77e03e
     spriteBone: []
     spriteOutline: []
@@ -180,7 +180,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 166, y: 4}
+    uvTransform: {x: 170, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -193,26 +193,26 @@ ScriptedImporter:
     - name: Shield_Frame_0
       frameIndex: 0
       cellRect:
-        x: 44
-        y: 32
-        width: 88
-        height: 103
+        x: 43
+        y: 31
+        width: 90
+        height: 105
       spriteId: 2d94fb4e2060ee140ae4d24e8bb09e01
     - name: Shield_Frame_1
       frameIndex: 1
       cellRect:
-        x: 4
-        y: 19
-        width: 58
-        height: 110
+        x: 3
+        y: 18
+        width: 60
+        height: 112
       spriteId: 9efb7fe61f9322d4fbf4166c5745f572
     - name: Shield_Frame_2
       frameIndex: 2
       cellRect:
-        x: 115
-        y: 19
-        width: 58
-        height: 110
+        x: 114
+        y: 18
+        width: 60
+        height: 112
       spriteId: 6a4e437a5f721a343b4cabb78f77e03e
     linkedCells: []
     parentIndex: -1

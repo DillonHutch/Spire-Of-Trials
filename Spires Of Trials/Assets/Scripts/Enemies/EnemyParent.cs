@@ -12,12 +12,15 @@ public class EnemyParent : MonoBehaviour
     private Slider dodgeSlider;
     private DodgeBarHighlighter dodgeBarHighlighter;
 
-    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color normalColor = Color.yellow;
     [SerializeField] private Color windUpColor = Color.blue;
     [SerializeField] private Color attackColor = Color.magenta;
     [SerializeField] private Color damageColor = Color.red;
 
-    
+    private Coroutine flashCoroutine;
+
+    //private Coroutine finalFlashCoroutine; // Track final flash separately
+
     [SerializeField] Slider healthBar;
     private Transform healthBarTransform;
     [SerializeField] private Image healthBarFill; // Assign the Fill Image in Inspector
@@ -212,23 +215,44 @@ public class EnemyParent : MonoBehaviour
     {
         if (attackSprite == null) yield break;
 
+        // **Ensure the sprite is visible before flashing**
+        attackSprite.gameObject.SetActive(true);
+        attackSprite.enabled = true;
 
-        Debug.LogWarning("wtf");
+        // Stop any existing flash coroutine
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        // Start the flash effect
+        flashCoroutine = StartCoroutine(FlashRoutine(attackSprite));
+    }
+
+
+    private IEnumerator FlashRoutine(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
 
         Color originalColor = attackSprite.color;
-        attackSprite.enabled = true; // Ensure it's visible
+
+        // **Ensure it’s enabled before flashing**
+        attackSprite.enabled = true;
 
         for (int i = 0; i < 3; i++) // Flash 3 times
         {
-            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f); // Set opacity to 0.5
+            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f); // Slightly transparent
             yield return new WaitForSeconds(0.15f);
-            attackSprite.color = originalColor; // Reset to original color
+            attackSprite.color = originalColor; // Reset
             yield return new WaitForSeconds(0.15f);
         }
 
-        attackSprite.enabled = false; // Hide after flashing
-    }
+        // **Keep it enabled for the next attack**
+        attackSprite.enabled = true;
 
+        flashCoroutine = null;
+    }
 
 
 
@@ -281,6 +305,11 @@ public class EnemyParent : MonoBehaviour
         if (attackSprite != null)
         {
             Debug.Log($"Starting Flash for {attackSprite.gameObject.name}");
+
+            // **Force enable before flashing**
+            attackSprite.gameObject.SetActive(true);
+            attackSprite.enabled = true;
+
             StartCoroutine(FlashAttackIndicator(attackSprite));
         }
         else
@@ -301,7 +330,7 @@ public class EnemyParent : MonoBehaviour
 
         // Make sure the wind-up animation stops and attack animation starts
         animator.SetBool("IsWinding", false);
-        animator.SetBool("IsAttacking", true); // Explicitly setting attack animation here
+       
 
         AttackSound();
 
@@ -318,6 +347,9 @@ public class EnemyParent : MonoBehaviour
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.ClearHighlight(attackPosition);
 
+
+        animator.SetBool("IsAttacking", true); // Explicitly setting attack animation here
+
         yield return new WaitForSeconds(0.2f); // Give time for the attack animation to play
 
         isAttacking = false;
@@ -327,29 +359,88 @@ public class EnemyParent : MonoBehaviour
         if (attackSprite != null)
             attackSprite.enabled = false; // This guarantees that the sprite is turned off
 
-        // **Final bright flash effect before attack lands**
+
+
+        // Ensure attack indicator is turned off after the attack ends
         if (attackSprite != null)
-            StartCoroutine(FinalBrightFlash(attackSprite));
+        {
+            attackSprite.enabled = false; // Guarantees it is turned off
+
+            // Stop flashing if still running
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+                flashCoroutine = null;
+            }
+        }
+
+
+        //if (attackSprite != null)
+        //{
+        //    StartCoroutine(FinalBrightFlash(attackSprite));
+
+        //    // **Ensure final flash gets cleared no matter what**
+        //    yield return new WaitForSeconds(0.2f); // Wait for animation time
+        //    attackSprite.color = Color.yellow; // Reset color
+        //    attackSprite.enabled = false; // Guarantee it's disabled
+        //}
+
 
         // Notify manager that the attack finished
         EnemyAttackQueue.AttackFinished(this);
+
+     
+
+
     }
 
-    private IEnumerator FinalBrightFlash(SpriteRenderer attackSprite)
-    {
-        if (attackSprite == null) yield break;
 
-        Color originalColor = attackSprite.color;
 
-        attackSprite.enabled = true; // Ensure it's visible
+    //private IEnumerator FinalBrightFlash(SpriteRenderer attackSprite)
+    //{
+    //    if (attackSprite == null) yield break;
 
-        // Bright flash effect (full opacity, bright white tint)
-        attackSprite.color = new Color(originalColor.r, originalColor.b, originalColor.g, 1f); // White and fully opaque
-        yield return new WaitForSeconds(0.1f);
+    //    // Stop any existing final flash before starting a new one
+    //    if (finalFlashCoroutine != null)
+    //    {
+    //        StopCoroutine(finalFlashCoroutine);
+    //        finalFlashCoroutine = null;
+    //    }
 
-        // Return to original color
-        attackSprite.color = originalColor;
-    }
+    //    finalFlashCoroutine = StartCoroutine(FinalFlashRoutine(attackSprite));
+    //}
+
+    //private IEnumerator FinalFlashRoutine(SpriteRenderer attackSprite)
+    //{
+    //    if (attackSprite == null) yield break;
+
+    //    // Store the original color
+    //    Color originalColor = attackSprite.color;
+
+    //    // Calculate a "brighter" version of the original color.
+    //    // For example, multiplying the RGB values by 1.5 (clamped to 1) while keeping the alpha the same.
+    //    Color flashColor = new Color(
+    //        Mathf.Clamp01(originalColor.r * 1.5f),
+    //        Mathf.Clamp01(originalColor.b * 1.5f),
+    //        Mathf.Clamp01(originalColor.g * 1.5f),
+    //        originalColor.a
+    //    );
+
+    //    // Ensure the sprite is visible and apply the flash color.
+    //    attackSprite.enabled = true;
+    //    attackSprite.color = flashColor;
+
+    //    // Wait for the flash duration (e.g., 0.1 seconds)
+    //    yield return new WaitForSeconds(0.1f);
+
+    //    // Reset to the original color and disable the sprite
+    //    attackSprite.color = originalColor;
+    //    attackSprite.enabled = false;
+
+    //    finalFlashCoroutine = null;
+    //}
+
+
 
 
 
@@ -462,10 +553,26 @@ public class EnemyParent : MonoBehaviour
             attackIndicatorRenderer.enabled = false;
         }
 
+        //// Stop the final flash if it's still running
+        //if (finalFlashCoroutine != null)
+        //{
+        //    StopCoroutine(finalFlashCoroutine);
+        //    finalFlashCoroutine = null;
+        //}
+
         // Ensure attack sprites are disabled if they were being used
-        if (leftAttackSprite != null) leftAttackSprite.enabled = false;
-        if (centerAttackSprite != null) centerAttackSprite.enabled = false;
-        if (rightAttackSprite != null) rightAttackSprite.enabled = false;
+        if (leftAttackSprite != null)
+            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
+
+
+        // Ensure any attack flash is stopped
+        //StopAllCoroutines();
 
         // Ensure health bar is destroyed
         if (healthBar != null)
@@ -477,14 +584,28 @@ public class EnemyParent : MonoBehaviour
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         }
 
-        // Stop any attack coroutine that might still be running
-        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+        // Stop this enemy's flashing effect
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+
 
         // Notify manager that this enemy is no longer attacking
         EnemyAttackQueue.AttackFinished(this);
 
         // Destroy the enemy game object
         Destroy(gameObject);
+
+        // Stop the final flash if it's still running
+        //if (finalFlashCoroutine != null)
+        //{
+        //    StopCoroutine(finalFlashCoroutine);
+        //    finalFlashCoroutine = null;
+        //}
+
     }
 
 
@@ -499,10 +620,31 @@ public class EnemyParent : MonoBehaviour
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
         }
 
-       
+
+        // Ensure attack indicator is turned off when the enemy is disabled
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+
+        // Ensure attack indicator is turned off when the enemy is disabled
+        if (leftAttackSprite != null)
+            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
+
+
+        //StopAllCoroutines(); // Ensures no lingering effects
     }
 
-  
+
+
 
 
 

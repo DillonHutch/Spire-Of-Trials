@@ -138,15 +138,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: GoblinAnim_Frame_0
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 238
+      x: 244
       y: 4
-      width: 56
-      height: 68
+      width: 58
+      height: 70
     spriteID: 9f784e2712fd01545a5237bd62c07eaf
     spriteBone: []
     spriteOutline: []
@@ -155,18 +155,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 238, y: 4}
+    uvTransform: {x: 244, y: 4}
   - name: GoblinAnim_Frame_1
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 302
+      x: 310
       y: 4
-      width: 56
-      height: 68
+      width: 58
+      height: 70
     spriteID: 12e810a90487f36468b183b859e27962
     spriteBone: []
     spriteOutline: []
@@ -175,18 +175,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 302, y: 4}
+    uvTransform: {x: 310, y: 4}
   - name: GoblinAnim_Frame_2
     originalName: 
-    pivot: {x: 0.52727276, y: 0}
+    pivot: {x: 0.5263158, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 68
-      y: 101
-      width: 55
-      height: 68
+      x: 70
+      y: 103
+      width: 57
+      height: 70
     spriteID: 240f8034394e97a41a3612820b61da19
     spriteBone: []
     spriteOutline: []
@@ -195,18 +195,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 68, y: 101}
+    uvTransform: {x: 70, y: 103}
   - name: GoblinAnim_Frame_3
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 366
+      x: 376
       y: 4
-      width: 56
-      height: 68
+      width: 58
+      height: 70
     spriteID: 24832ca6b0c43ad4e85704ff81cca4cf
     spriteBone: []
     spriteOutline: []
@@ -215,18 +215,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 366, y: 4}
+    uvTransform: {x: 376, y: 4}
   - name: GoblinAnim_Frame_4
     originalName: 
-    pivot: {x: 0.5185185, y: 0}
+    pivot: {x: 0.5178572, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 450
-      y: 101
-      width: 54
-      height: 68
+      x: 68
+      y: 181
+      width: 56
+      height: 70
     spriteID: cdff48ec051125447a839650d73ea39b
     spriteBone: []
     spriteOutline: []
@@ -235,18 +235,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 450, y: 101}
+    uvTransform: {x: 68, y: 181}
   - name: GoblinAnim_Frame_5
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 430
+      x: 442
       y: 4
-      width: 56
-      height: 68
+      width: 58
+      height: 70
     spriteID: 2bc04f2ddd8c92149902dcce259ac557
     spriteBone: []
     spriteOutline: []
@@ -255,18 +255,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 430, y: 4}
+    uvTransform: {x: 442, y: 4}
   - name: GoblinAnim_Frame_6
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 101
-      width: 56
-      height: 68
+      y: 103
+      width: 58
+      height: 70
     spriteID: 58f14b7f92956784b8f4f5fabba3778e
     spriteBone: []
     spriteOutline: []
@@ -275,18 +275,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 101}
+    uvTransform: {x: 4, y: 103}
   - name: GoblinAnim_Frame_7
     originalName: 
-    pivot: {x: 0.5185185, y: 0}
+    pivot: {x: 0.5178572, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 176
+      x: 180
       y: 4
-      width: 54
-      height: 72
+      width: 56
+      height: 74
     spriteID: 75f5185b6a17ea14abab50b79348fb69
     spriteBone: []
     spriteOutline: []
@@ -295,18 +295,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 176, y: 4}
+    uvTransform: {x: 180, y: 4}
   - name: GoblinAnim_Frame_8
     originalName: 
-    pivot: {x: 0.5185185, y: 0}
+    pivot: {x: 0.5178572, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 177
-      width: 54
-      height: 69
+      y: 181
+      width: 56
+      height: 71
     spriteID: 2acb1899fab040a41bc3649204028b2f
     spriteBone: []
     spriteOutline: []
@@ -315,18 +315,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 177}
+    uvTransform: {x: 4, y: 181}
   - name: GoblinAnim_Frame_9
     originalName: 
-    pivot: {x: 0.5094339, y: 0}
+    pivot: {x: 0.50909096, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 254
-      y: 177
-      width: 53
-      height: 66
+      x: 326
+      y: 181
+      width: 55
+      height: 68
     spriteID: b1ebe43d8d6e9574a9481cfdb49d3e73
     spriteBone: []
     spriteOutline: []
@@ -335,18 +335,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 254, y: 177}
+    uvTransform: {x: 326, y: 181}
   - name: GoblinAnim_Frame_10
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 194
-      y: 101
-      width: 56
-      height: 66
+      x: 200
+      y: 103
+      width: 58
+      height: 68
     spriteID: 863641c66074b854f8fc2939ba03b98e
     spriteBone: []
     spriteOutline: []
@@ -355,18 +355,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 194, y: 101}
+    uvTransform: {x: 200, y: 103}
   - name: GoblinAnim_Frame_11
     originalName: 
-    pivot: {x: 0.52727276, y: 0}
+    pivot: {x: 0.5263158, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 66
-      y: 177
-      width: 55
-      height: 66
+      x: 132
+      y: 181
+      width: 57
+      height: 68
     spriteID: 3bad5aafc18ffb04ebf153805126b1c9
     spriteBone: []
     spriteOutline: []
@@ -375,18 +375,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 66, y: 177}
+    uvTransform: {x: 132, y: 181}
   - name: GoblinAnim_Frame_12
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 258
-      y: 101
-      width: 56
-      height: 66
+      x: 266
+      y: 103
+      width: 58
+      height: 68
     spriteID: 51426fdaf09d1ca40a456ba92e6250d4
     spriteBone: []
     spriteOutline: []
@@ -395,18 +395,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 258, y: 101}
+    uvTransform: {x: 266, y: 103}
   - name: GoblinAnim_Frame_13
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 322
-      y: 101
-      width: 56
-      height: 66
+      x: 332
+      y: 103
+      width: 58
+      height: 68
     spriteID: aabc0063d4f959c4086f528a2ca0bf21
     spriteBone: []
     spriteOutline: []
@@ -415,18 +415,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 322, y: 101}
+    uvTransform: {x: 332, y: 103}
   - name: GoblinAnim_Frame_14
     originalName: 
-    pivot: {x: 0.5185185, y: 0}
+    pivot: {x: 0.5178572, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 192
-      y: 177
-      width: 54
-      height: 66
+      x: 262
+      y: 181
+      width: 56
+      height: 68
     spriteID: 7f6dd13ab7b84d548a615afce477996c
     spriteBone: []
     spriteOutline: []
@@ -435,18 +435,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 192, y: 177}
+    uvTransform: {x: 262, y: 181}
   - name: GoblinAnim_Frame_15
     originalName: 
-    pivot: {x: 0.53571427, y: 0}
+    pivot: {x: 0.5344828, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 386
-      y: 101
-      width: 56
-      height: 66
+      x: 398
+      y: 103
+      width: 58
+      height: 68
     spriteID: 0400f2be9a5df1e4c91edd8c0f3ba96c
     spriteBone: []
     spriteOutline: []
@@ -455,18 +455,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 386, y: 101}
+    uvTransform: {x: 398, y: 103}
   - name: GoblinAnim_Frame_16
     originalName: 
-    pivot: {x: 0.5094339, y: 0}
+    pivot: {x: 0.50909096, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 315
-      y: 177
-      width: 53
-      height: 66
+      x: 389
+      y: 181
+      width: 55
+      height: 68
     spriteID: 48f253af3aee83446a5f954fdc9b1d77
     spriteBone: []
     spriteOutline: []
@@ -475,18 +475,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 315, y: 177}
+    uvTransform: {x: 389, y: 181}
   - name: GoblinAnim_Frame_17
     originalName: 
-    pivot: {x: 0.5094339, y: 0}
+    pivot: {x: 0.50909096, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 376
-      y: 177
-      width: 53
-      height: 66
+      x: 452
+      y: 181
+      width: 55
+      height: 68
     spriteID: 8e762102c6ac7a44297c02214a01aed2
     spriteBone: []
     spriteOutline: []
@@ -495,18 +495,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 376, y: 177}
+    uvTransform: {x: 452, y: 181}
   - name: GoblinAnim_Frame_18
     originalName: 
-    pivot: {x: 0.52727276, y: 0}
+    pivot: {x: 0.5263158, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 129
-      y: 177
-      width: 55
-      height: 66
+      x: 197
+      y: 181
+      width: 57
+      height: 68
     spriteID: 82ee490be131fb64284bd79f75424cd4
     spriteBone: []
     spriteOutline: []
@@ -515,18 +515,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 129, y: 177}
+    uvTransform: {x: 197, y: 181}
   - name: GoblinAnim_Frame_19
     originalName: 
-    pivot: {x: 0.52727276, y: 0}
+    pivot: {x: 0.5263158, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 131
-      y: 101
-      width: 55
-      height: 68
+      x: 135
+      y: 103
+      width: 57
+      height: 70
     spriteID: 9518322632281984abe463115a85337c
     spriteBone: []
     spriteOutline: []
@@ -535,18 +535,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 131, y: 101}
+    uvTransform: {x: 135, y: 103}
   - name: GoblinAnim_Frame_20
     originalName: 
-    pivot: {x: 0.5333333, y: 0}
+    pivot: {x: 0.5322581, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 108
+      x: 110
       y: 4
-      width: 60
-      height: 84
+      width: 62
+      height: 86
     spriteID: 8b120960b3125d04fa8b03fcbbd04372
     spriteBone: []
     spriteOutline: []
@@ -555,18 +555,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 108, y: 4}
+    uvTransform: {x: 110, y: 4}
   - name: GoblinAnim_Frame_21
     originalName: 
-    pivot: {x: 0.7291666, y: 0}
+    pivot: {x: 0.7244898, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 96
-      height: 89
+      width: 98
+      height: 91
     spriteID: addc4050282def644b29cb9a5ddc9f85
     spriteBone: []
     spriteOutline: []
@@ -588,178 +588,178 @@ ScriptedImporter:
     - name: GoblinAnim_Frame_0
       frameIndex: 0
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 68
+        width: 58
+        height: 70
       spriteId: 9f784e2712fd01545a5237bd62c07eaf
     - name: GoblinAnim_Frame_1
       frameIndex: 1
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 68
+        width: 58
+        height: 70
       spriteId: 12e810a90487f36468b183b859e27962
     - name: GoblinAnim_Frame_2
       frameIndex: 2
       cellRect:
-        x: 51
+        x: 50
         y: 0
-        width: 55
-        height: 68
+        width: 57
+        height: 70
       spriteId: 240f8034394e97a41a3612820b61da19
     - name: GoblinAnim_Frame_3
       frameIndex: 3
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 68
+        width: 58
+        height: 70
       spriteId: 24832ca6b0c43ad4e85704ff81cca4cf
     - name: GoblinAnim_Frame_4
       frameIndex: 4
       cellRect:
-        x: 52
+        x: 51
         y: 0
-        width: 54
-        height: 68
+        width: 56
+        height: 70
       spriteId: cdff48ec051125447a839650d73ea39b
     - name: GoblinAnim_Frame_5
       frameIndex: 5
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 68
+        width: 58
+        height: 70
       spriteId: 2bc04f2ddd8c92149902dcce259ac557
     - name: GoblinAnim_Frame_6
       frameIndex: 6
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 68
+        width: 58
+        height: 70
       spriteId: 58f14b7f92956784b8f4f5fabba3778e
     - name: GoblinAnim_Frame_7
       frameIndex: 7
       cellRect:
-        x: 52
+        x: 51
         y: 0
-        width: 54
-        height: 72
+        width: 56
+        height: 74
       spriteId: 75f5185b6a17ea14abab50b79348fb69
     - name: GoblinAnim_Frame_8
       frameIndex: 8
       cellRect:
-        x: 52
+        x: 51
         y: 0
-        width: 54
-        height: 69
+        width: 56
+        height: 71
       spriteId: 2acb1899fab040a41bc3649204028b2f
     - name: GoblinAnim_Frame_9
       frameIndex: 9
       cellRect:
-        x: 53
+        x: 52
         y: 0
-        width: 53
-        height: 66
+        width: 55
+        height: 68
       spriteId: b1ebe43d8d6e9574a9481cfdb49d3e73
     - name: GoblinAnim_Frame_10
       frameIndex: 10
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 66
+        width: 58
+        height: 68
       spriteId: 863641c66074b854f8fc2939ba03b98e
     - name: GoblinAnim_Frame_11
       frameIndex: 11
       cellRect:
-        x: 51
+        x: 50
         y: 0
-        width: 55
-        height: 66
+        width: 57
+        height: 68
       spriteId: 3bad5aafc18ffb04ebf153805126b1c9
     - name: GoblinAnim_Frame_12
       frameIndex: 12
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 66
+        width: 58
+        height: 68
       spriteId: 51426fdaf09d1ca40a456ba92e6250d4
     - name: GoblinAnim_Frame_13
       frameIndex: 13
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 66
+        width: 58
+        height: 68
       spriteId: aabc0063d4f959c4086f528a2ca0bf21
     - name: GoblinAnim_Frame_14
       frameIndex: 14
       cellRect:
-        x: 52
+        x: 51
         y: 0
-        width: 54
-        height: 66
+        width: 56
+        height: 68
       spriteId: 7f6dd13ab7b84d548a615afce477996c
     - name: GoblinAnim_Frame_15
       frameIndex: 15
       cellRect:
-        x: 50
+        x: 49
         y: 0
-        width: 56
-        height: 66
+        width: 58
+        height: 68
       spriteId: 0400f2be9a5df1e4c91edd8c0f3ba96c
     - name: GoblinAnim_Frame_16
       frameIndex: 16
       cellRect:
-        x: 53
+        x: 52
         y: 0
-        width: 53
-        height: 66
+        width: 55
+        height: 68
       spriteId: 48f253af3aee83446a5f954fdc9b1d77
     - name: GoblinAnim_Frame_17
       frameIndex: 17
       cellRect:
-        x: 53
+        x: 52
         y: 0
-        width: 53
-        height: 66
+        width: 55
+        height: 68
       spriteId: 8e762102c6ac7a44297c02214a01aed2
     - name: GoblinAnim_Frame_18
       frameIndex: 18
       cellRect:
-        x: 51
+        x: 50
         y: 0
-        width: 55
-        height: 66
+        width: 57
+        height: 68
       spriteId: 82ee490be131fb64284bd79f75424cd4
     - name: GoblinAnim_Frame_19
       frameIndex: 19
       cellRect:
-        x: 51
+        x: 50
         y: 0
-        width: 55
-        height: 68
+        width: 57
+        height: 70
       spriteId: 9518322632281984abe463115a85337c
     - name: GoblinAnim_Frame_20
       frameIndex: 20
       cellRect:
-        x: 48
+        x: 47
         y: 0
-        width: 60
-        height: 84
+        width: 62
+        height: 86
       spriteId: 8b120960b3125d04fa8b03fcbbd04372
     - name: GoblinAnim_Frame_21
       frameIndex: 21
       cellRect:
-        x: 10
+        x: 9
         y: 0
-        width: 96
-        height: 89
+        width: 98
+        height: 91
       spriteId: addc4050282def644b29cb9a5ddc9f85
     linkedCells: []
     parentIndex: -1
