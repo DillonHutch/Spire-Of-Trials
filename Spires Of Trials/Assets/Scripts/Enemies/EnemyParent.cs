@@ -449,9 +449,11 @@ public class EnemyParent : MonoBehaviour
         }          
         else
         {
-            Debug.Log("Player failed to block! Taking damage.");
-            EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
+            if (FindObjectOfType<PlayerHealth>() != null) // Prevent triggering damage if player is null
+            {
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
+            }
         }
 
         if (dodgeBarHighlighter != null)
