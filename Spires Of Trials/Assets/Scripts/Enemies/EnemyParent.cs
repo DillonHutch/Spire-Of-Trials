@@ -77,6 +77,10 @@ public class EnemyParent : MonoBehaviour
     private Transform rightShield;
 
 
+    private Coroutine activeRecoilCoroutine;
+
+
+
     protected virtual void Start()
     {
 
@@ -135,27 +139,53 @@ public class EnemyParent : MonoBehaviour
 
     private void TriggerShieldRecoil(int position)
     {
-        Transform shieldToRecoil = null;
+        Transform shieldToRecoil = GetShieldByPosition(position);
 
-        if (position == 0) shieldToRecoil = leftShield;
-        else if (position == 1) shieldToRecoil = centerShield;
-        else if (position == 2) shieldToRecoil = rightShield;
-
-        if (shieldToRecoil != null)
+        // Ensure the shield exists and is active before attempting recoil
+        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
         {
-            StartCoroutine(ShieldRecoil(shieldToRecoil));
+            Debug.Log($"Triggering shield recoil at position {position}");
+
+            // Stop any existing recoil coroutine to prevent multiple bounces
+            if (activeRecoilCoroutine != null)
+            {
+                StopCoroutine(activeRecoilCoroutine);
+            }
+
+            // Start a new recoil coroutine and store it
+            activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
         }
     }
+
 
     private IEnumerator ShieldRecoil(Transform shield)
     {
         Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Move shield down slightly
+        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Slight downward movement
 
-        shield.position = recoilPosition;
+        Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
+
+        shield.position = recoilPosition; // Move down slightly
         yield return new WaitForSeconds(0.1f); // Short delay
+
         shield.position = originalPosition; // Reset back
+        Debug.Log($"Recoil End for {shield.name}");
+
+        activeRecoilCoroutine = null; // Clear the coroutine reference to allow future recoil
     }
+
+
+    private Transform GetShieldByPosition(int position)
+    {
+        switch (position)
+        {
+            case 0: return leftShield;
+            case 1: return centerShield;
+            case 2: return rightShield;
+            default: return null;
+        }
+    }
+
 
 
     public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
@@ -197,13 +227,18 @@ public class EnemyParent : MonoBehaviour
     {
         if (healthBar != null)
         {
-            healthBar.value = attackSequence.Count - currentSequenceIndex; // Update health value
-
-            // Apply gradient based on current health
+            healthBar.value = attackSequence.Count - currentSequenceIndex;
             float healthPercentage = healthBar.value / healthBar.maxValue;
             healthBarFill.color = healthGradient.Evaluate(healthPercentage);
         }
+
+        // **Check if stuck in attack animation and reset**
+        if (isAttacking && !animator.GetBool("IsAttacking"))
+        {
+            isAttacking = false;
+        }
     }
+
 
 
 
@@ -388,6 +423,8 @@ public class EnemyParent : MonoBehaviour
         if (playerDodgePosition == attackPosition)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+
+            if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
             TriggerShieldRecoil(attackPosition);
         }          
         else
@@ -429,6 +466,13 @@ public class EnemyParent : MonoBehaviour
 
         // Notify manager that the attack finished
         EnemyAttackQueue.AttackFinished(this);
+
+
+        // Ensure the animation resets after attack
+        animator.SetBool("IsAttacking", false);
+        animator.SetBool("IsWinding", false);
+        isAttacking = false;
+
 
     }
 

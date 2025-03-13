@@ -70,6 +70,9 @@ public class MiniBoss : MonoBehaviour
     private Transform centerShield;
     private Transform rightShield;
 
+    private Coroutine activeRecoilCoroutine;
+
+
 
     private List<string> attackSequence = new List<string>
     {
@@ -156,27 +159,56 @@ public class MiniBoss : MonoBehaviour
 
     private void TriggerShieldRecoil(int position)
     {
-        Transform shieldToRecoil = null;
+        Transform shieldToRecoil = GetShieldByPosition(position);
 
-        if (position == 0) shieldToRecoil = leftShield;
-        else if (position == 1) shieldToRecoil = centerShield;
-        else if (position == 2) shieldToRecoil = rightShield;
-
-        if (shieldToRecoil != null)
+        // Ensure the shield exists and is active before attempting recoil
+        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
         {
-            StartCoroutine(ShieldRecoil(shieldToRecoil));
+            Debug.Log($"Triggering shield recoil at position {position}");
+
+            // Stop any existing recoil coroutine to prevent multiple bounces
+            if (activeRecoilCoroutine != null)
+            {
+                StopCoroutine(activeRecoilCoroutine);
+            }
+
+            // Start a new recoil coroutine and store it
+            activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
         }
     }
+
+
+
 
     private IEnumerator ShieldRecoil(Transform shield)
     {
         Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Move shield down slightly
+        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Move shield slightly down
 
-        shield.position = recoilPosition;
+        Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
+
+        shield.position = recoilPosition; // Move down slightly
         yield return new WaitForSeconds(0.1f); // Short delay
+
         shield.position = originalPosition; // Reset back
+        Debug.Log($"Recoil End for {shield.name}");
+
+        activeRecoilCoroutine = null; // Clear the coroutine reference to allow future recoil
     }
+
+
+    private Transform GetShieldByPosition(int position)
+    {
+        switch (position)
+        {
+            case 0: return leftShield;
+            case 1: return centerShield;
+            case 2: return rightShield;
+            default: return null;
+        }
+    }
+
+
 
 
     public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
@@ -200,6 +232,13 @@ public class MiniBoss : MonoBehaviour
             float healthPercentage = healthBar.value / healthBar.maxValue;
             healthBarFill.color = healthGradient.Evaluate(healthPercentage);
         }
+
+        // **Check if stuck in attack animation and reset**
+        if (isAttacking && !animator.GetBool("IsAttacking"))
+        {
+            isAttacking = false;
+        }
+
     }
 
 
@@ -275,17 +314,28 @@ public class MiniBoss : MonoBehaviour
 
                 // Check if the player dodged correctly
                 int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-                if (updatedPlayerDodgePosition == miniBossTargetPos)
+                if (updatedPlayerDodgePosition == miniBossTargetPos) // Player blocks correctly
                 {
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, this.transform.position);
+                    Debug.Log("Player successfully blocked the attack!");
+
+                    // Stop any ongoing shield recoil to prevent bouncing issues
+                    if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
+
+                    // Only trigger shield recoil if the shield is actually there
                     TriggerShieldRecoil(miniBossTargetPos);
+
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);  
+
                 }
                 else
                 {
                     Debug.Log("Player failed to block! Taking damage from MiniBoss.");
+
+                    // Trigger the player's damage event instead
                     EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, this.transform.position);
                 }
+
 
                 if (dodgeBarHighlighter != null)
                 {
@@ -314,7 +364,7 @@ public class MiniBoss : MonoBehaviour
             animator.SetTrigger("ReturnToIdle"); // Reset to idle before resting
             yield return new WaitForSeconds(3f); // Rest period for punishment window
 
-            Debug.Log("MiniBoss is resuming attacks!");
+            
         }
     }
 

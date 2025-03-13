@@ -40,8 +40,8 @@ public class PlayerAttackingScript : MonoBehaviour
     private bool isShaking = false; // Prevent multiple shakes from running at the same time
 
     const int ComboGot = 24;
-    const int GreaterCombo = 64;
-    const int FinalCombo = 120;
+    const int GreaterCombo = 50;
+    const int FinalCombo = 100;
 
 
     private void OnEnable()
