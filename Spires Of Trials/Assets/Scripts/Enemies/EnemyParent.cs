@@ -27,6 +27,9 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] protected Gradient healthGradient; // Create a Gradient in Inspector
 
 
+    protected Dictionary<Transform, Vector3> shieldOriginalPositions = new Dictionary<Transform, Vector3>();
+    protected Dictionary<Transform, bool> shieldRecoilStatus = new Dictionary<Transform, bool>();
+
 
 
     protected float flashDuration = 0.2f;
@@ -86,11 +89,25 @@ public class EnemyParent : MonoBehaviour
     protected virtual void Start()
     {
 
-     
+
+        // Store original positions of shields
+        if (leftShield != null)
+        {
+            shieldOriginalPositions[leftShield] = leftShield.localPosition;
+            shieldRecoilStatus[leftShield] = false;
+        }
+        if (centerShield != null)
+        {
+            shieldOriginalPositions[centerShield] = centerShield.localPosition;
+            shieldRecoilStatus[centerShield] = false;
+        }
+        if (rightShield != null)
+        {
+            shieldOriginalPositions[rightShield] = rightShield.localPosition;
+            shieldRecoilStatus[rightShield] = false;
+        }
 
 
-
-        
 
         StartCoroutine(MonitorColorReset()); // Start monitoring color resets
 
@@ -142,38 +159,86 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    protected void TriggerShieldRecoil(int position)
+    //protected void TriggerShieldRecoil(int position)
+    //{
+    //    Transform shieldToRecoil = GetShieldByPosition(position);
+
+    //    if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
+    //    {
+    //        Debug.Log($"Attempting to trigger shield recoil at position {position}");
+
+    //        if (!shieldRecoilStatus.ContainsKey(shieldToRecoil) || shieldRecoilStatus[shieldToRecoil])
+    //        {
+    //            return; // Shield is already recoiling, prevent duplicate triggers
+    //        }
+
+    //        shieldRecoilStatus[shieldToRecoil] = true; // Lock recoil for this shield
+
+    //        if (activeRecoilCoroutine != null)
+    //        {
+    //            StopCoroutine(activeRecoilCoroutine); // Stop any ongoing recoil to prevent overlap
+    //        }
+
+    //        activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
+    //    }
+    //}
+
+
+
+
+    //protected IEnumerator ShieldRecoil(Transform shield)
+    //{
+    //    if (!shieldOriginalPositions.ContainsKey(shield))
+    //    {
+    //        Debug.LogError($"Shield {shield.name} has no original position stored!");
+    //        yield break;
+    //    }
+
+    //    Vector3 originalLocalPosition = shieldOriginalPositions[shield]; // Get stored position
+    //    Vector3 recoilLocalPosition = originalLocalPosition + new Vector3(0, -0.2f, 0);
+
+    //    Debug.Log($"Recoil Start for {shield.name} at {shield.localPosition}");
+
+    //    // Move shield down
+    //    shield.localPosition = recoilLocalPosition;
+    //    yield return new WaitForSeconds(0.1f); // Short recoil delay
+
+    //    // Move shield back up smoothly
+    //    float elapsedTime = 0f;
+    //    float duration = 0.2f; // Adjust this for smooth animation
+
+    //    while (elapsedTime < duration)
+    //    {
+    //        shield.localPosition = Vector3.Lerp(recoilLocalPosition, originalLocalPosition, elapsedTime / duration);
+    //        elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+
+    //    shield.localPosition = originalLocalPosition; // Ensure it is exactly at the correct position
+
+    //    Debug.Log($"Recoil End for {shield.name}, final position: {shield.localPosition}");
+
+    //    // Unlock the shield so it can recoil again
+    //    shieldRecoilStatus[shield] = false;
+    //    activeRecoilCoroutine = null;
+    //}
+
+
+
+
+    protected IEnumerator ResetShieldAfterDelay(Transform shield)
     {
-        Transform shieldToRecoil = GetShieldByPosition(position);
+        yield return new WaitForSeconds(0.1f); // Allow time before resetting
 
-        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
+        if (shield != null && shieldOriginalPositions.ContainsKey(shield))
         {
-            Debug.Log($"Attempting to trigger shield recoil at position {position}");
-
-            if (!isRecoiling) // Check if shield is already recoiling
-            {
-                isRecoiling = true; // Lock recoil
-                activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
-            }
+            shield.localPosition = shieldOriginalPositions[shield];
+            shieldRecoilStatus[shield] = false; // Unlock recoil so it can happen again
+            Debug.Log($"Shield {shield.name} reset to original position: {shield.localPosition}");
         }
     }
 
-    protected IEnumerator ShieldRecoil(Transform shield)
-    {
-        Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0);
 
-        Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
-
-        shield.position = recoilPosition; // Move down slightly
-        yield return new WaitForSeconds(0.1f); // Short delay
-
-        shield.position = originalPosition; // Reset back
-        Debug.Log($"Recoil End for {shield.name}");
-
-        isRecoiling = false; // Unlock recoil after animation
-        activeRecoilCoroutine = null; // Clear coroutine reference
-    }
 
 
 
@@ -445,7 +510,7 @@ public class EnemyParent : MonoBehaviour
 
             if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
             if (flashCoroutine != null) StopCoroutine(flashCoroutine);
-            TriggerShieldRecoil(attackPosition);
+            //TriggerShieldRecoil(attackPosition);
         }          
         else
         {
@@ -455,6 +520,8 @@ public class EnemyParent : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
             }
         }
+
+        if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
 
         if (dodgeBarHighlighter != null)
             dodgeBarHighlighter.ClearHighlight(attackPosition);

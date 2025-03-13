@@ -151,7 +151,7 @@ public class MiniBoss : EnemyParent
                     if (flashCoroutine != null) StopCoroutine(flashCoroutine);
 
                     // Only trigger shield recoil if the shield is actually there
-                    TriggerShieldRecoil(miniBossTargetPos);
+                    //TriggerShieldRecoil(miniBossTargetPos);
 
                     AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);  
 
