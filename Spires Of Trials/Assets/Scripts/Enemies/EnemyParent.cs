@@ -256,7 +256,7 @@ public class EnemyParent : MonoBehaviour
                 attackSequence = new List<string> { "melee", "heavy", "range", "magic" };
                 break;
             case "Goblin":
-                attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
+                attackSequence = new List<string> { "magic", "melee", "range", "heavy" };
                 break;
             case "Slime":
                 attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
