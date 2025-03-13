@@ -237,7 +237,11 @@ public class EnemyParent : MonoBehaviour
         // **Check if stuck in attack animation and reset**
         if (isAttacking && !animator.GetBool("IsAttacking"))
         {
+            Debug.LogWarning($"{gameObject.name} was stuck attacking! Resetting state.");
             isAttacking = false;
+            animator.SetBool("IsAttacking", false);
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = StartCoroutine(AttackLoop());
         }
     }
 
