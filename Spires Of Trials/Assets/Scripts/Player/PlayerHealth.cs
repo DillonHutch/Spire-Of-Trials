@@ -25,7 +25,7 @@ public class PlayerHealth : MonoBehaviour
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StartListening("takeDamageEvent", param => TakeDamage((int)param));
-            EventManager.Instance.StartListening("healDamageEvent", param => Heal((int)param));
+            //EventManager.Instance.StartListening("healDamageEvent", param => Heal((int)param));
         }
         else
         {
@@ -38,7 +38,7 @@ public class PlayerHealth : MonoBehaviour
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StopListening("takeDamageEvent", param => TakeDamage((int)param));
-            EventManager.Instance.StopListening("healDamageEvent", param => Heal((int)param));
+            //EventManager.Instance.StopListening("healDamageEvent", param => Heal((int)param));
         }
     }
 
@@ -81,18 +81,18 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void Heal(int amount)
-    {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    //void Heal(int amount)
+    //{
+    //    currentHealth += amount;
+    //    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
-    }
+    //    EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
+    //}
 
     private void Die()
     {
         EventManager.Instance.TriggerEvent("OnPlayerDied");
-        Heal(maxHealth);
+        currentHealth = maxHealth;
         SceneManager.LoadScene("MainMenu");
     }
 }
