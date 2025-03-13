@@ -80,13 +80,16 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate the MiniBoss as a child of the spawn location
         GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-        miniBoss.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash);
+        miniBoss.GetComponent<MiniBoss>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash);
 
         miniBoss.transform.SetParent(bossSpawnLocation.transform, true); // Set parent while maintaining world position
 
         spawnedEnemies.Add(miniBoss); // Add to tracking list
 
         Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
+
+       
+
 
         isSpawning = false;
         yield return null;
@@ -157,6 +160,10 @@ public class EnemySpawner : MonoBehaviour
                         else
                         {
                             spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                        }
+                        if (i == 1) // Middle spawn location
+                        {
+                            spawnedEnemy.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
                         }
 
                         //spawnedEnemy.transform.parent = spawnLocations[i].transform;

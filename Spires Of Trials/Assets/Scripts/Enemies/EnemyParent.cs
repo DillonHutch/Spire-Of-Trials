@@ -64,9 +64,9 @@ public class EnemyParent : MonoBehaviour
     private SpriteRenderer attackIndicatorRenderer;
 
 
-    [SerializeField] private SpriteRenderer leftAttackSprite;
-    [SerializeField] private SpriteRenderer centerAttackSprite;
-    [SerializeField] private SpriteRenderer rightAttackSprite;
+    private SpriteRenderer leftAttackSprite;
+     private SpriteRenderer centerAttackSprite;
+     private SpriteRenderer rightAttackSprite;
 
 
 

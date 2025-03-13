@@ -91,13 +91,11 @@ public class MiniBoss : MonoBehaviour
         originalColor = spriteRenderer.color;
         iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
 
-        GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
-        GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
-        GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
+        //GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
+        //GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
+        //GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
 
-        leftAttackSprite = leftObj != null ? leftObj.GetComponent<SpriteRenderer>() : null;
-        centerAttackSprite = centerObj != null ? centerObj.GetComponent<SpriteRenderer>() : null;
-        rightAttackSprite = rightObj != null ? rightObj.GetComponent<SpriteRenderer>() : null;
+  
 
 
         if (leftFlash == null || middleFlash == null || rightFlash == null)
@@ -155,6 +153,13 @@ public class MiniBoss : MonoBehaviour
         healthBar.maxValue = attackSequence.Count;
         healthBar.value = attackSequence.Count; // Start full
 
+    }
+
+    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right)
+    {
+        leftAttackSprite = left;
+        centerAttackSprite = center;
+        rightAttackSprite = right;
     }
 
     private void Update()

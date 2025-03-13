@@ -328,6 +328,9 @@ MonoBehaviour:
   magicSprite: {fileID: 21300000, guid: cea764425c0a2a543a6d5f66c03c2786, type: 3}
   rangeSprite: {fileID: 21300000, guid: 1c5b92e3cc74a6e43bbc7efce2bdf060, type: 3}
   heavySprite: {fileID: 21300000, guid: a8466baaef5cfb34e9cd601bf8c26dc4, type: 3}
+  leftAttackSprite: {fileID: 0}
+  centerAttackSprite: {fileID: 0}
+  rightAttackSprite: {fileID: 0}
 --- !u!95 &-3248506855327201166
 Animator:
   serializedVersion: 5
