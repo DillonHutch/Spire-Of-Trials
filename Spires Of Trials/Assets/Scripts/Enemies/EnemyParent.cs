@@ -440,6 +440,7 @@ public class EnemyParent : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
 
             if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
+            if (flashCoroutine != null) StopCoroutine(flashCoroutine);
             TriggerShieldRecoil(attackPosition);
         }          
         else

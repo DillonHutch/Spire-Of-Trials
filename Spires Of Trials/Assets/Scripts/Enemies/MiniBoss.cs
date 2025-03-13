@@ -110,7 +110,7 @@ public class MiniBoss : EnemyParent
             for (int i = 0; i < attackBurstCount; i++)
             {
                 int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-                float attackDelay = Random.Range(.3f, .5f); // Faster attack intervals
+                float attackDelay = Random.Range(.5f, .5f); // Faster attack intervals
 
                 yield return new WaitForSeconds(attackDelay); // Short delay between rapid attacks
 
@@ -136,7 +136,7 @@ public class MiniBoss : EnemyParent
                 }
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
-                yield return new WaitForSeconds(.6f); // Short wind-up time
+                yield return new WaitForSeconds(.5f); // Short wind-up time
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
 
@@ -148,6 +148,7 @@ public class MiniBoss : EnemyParent
 
                     // Stop any ongoing shield recoil to prevent bouncing issues
                     if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
+                    if (flashCoroutine != null) StopCoroutine(flashCoroutine);
 
                     // Only trigger shield recoil if the shield is actually there
                     TriggerShieldRecoil(miniBossTargetPos);
