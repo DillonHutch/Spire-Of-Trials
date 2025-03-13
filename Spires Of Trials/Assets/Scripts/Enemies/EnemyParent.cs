@@ -346,12 +346,12 @@ public class EnemyParent : MonoBehaviour
 
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
         if (playerDodgePosition == attackPosition)
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
         else
         {
             Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
         }
 
         if (dodgeBarHighlighter != null)

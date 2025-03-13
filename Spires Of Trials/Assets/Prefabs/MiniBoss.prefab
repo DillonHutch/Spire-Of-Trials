@@ -244,6 +244,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  damageParticlePrefab: {fileID: 7351758881579968959, guid: 47f8a4f379715ee4083149c8b4106d37, type: 3}
+  partOrgin: {fileID: 327950641326174477}
 --- !u!95 &-1293869529360626323
 Animator:
   serializedVersion: 5
@@ -406,6 +408,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28543029882089545867061f3ca6d74b, type: 3}
+--- !u!1 &327950641326174477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 459549351818512032, guid: 28543029882089545867061f3ca6d74b, type: 3}
+  m_PrefabInstance: {fileID: 211028088689850285}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7468292204970658201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7298378812912614964, guid: 28543029882089545867061f3ca6d74b, type: 3}

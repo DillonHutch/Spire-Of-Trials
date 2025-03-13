@@ -64,6 +64,9 @@ public class MiniBoss : MonoBehaviour
     private Coroutine flashCoroutine;
 
 
+    [SerializeField] private GameObject damageParticlePrefab; // Assign the prefab in the Inspector
+    [SerializeField] private GameObject partOrgin;
+
 
     private List<string> attackSequence = new List<string>
     {
@@ -248,7 +251,7 @@ public class MiniBoss : MonoBehaviour
             }
 
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.skeWU, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
 
             yield return new WaitForSeconds(windUpTime - 0.15f); // Almost the full wind-up duration
 
@@ -257,7 +260,7 @@ public class MiniBoss : MonoBehaviour
             // Trigger attack AFTER Last Flash has completed
             
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.skeAtk, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
 
             // Ensure the Last Flash happens BEFORE Attack
             yield return StartCoroutine(LastFlash(miniBossTargetPos, 0.15f));
@@ -266,13 +269,13 @@ public class MiniBoss : MonoBehaviour
             int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (updatedPlayerDodgePosition == miniBossTargetPos)
             {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldBlock, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, this.transform.position);
             }
             else
             {
                 Debug.Log("Player failed to block! Taking damage from MiniBoss.");
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, this.transform.position);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, this.transform.position);
             }
 
             if (dodgeBarHighlighter != null)
@@ -446,6 +449,11 @@ public class MiniBoss : MonoBehaviour
 
     public void TakeDamage(string attackType)
     {
+
+        PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
+
+        
+
         int phaseSize = 4; // Each phase consists of 4 attacks
         int totalPhases = attackSequence.Count / phaseSize;
 
@@ -458,7 +466,17 @@ public class MiniBoss : MonoBehaviour
             currentSequenceIndex++;
             Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
+
             StartCoroutine(FlashRed()); // Flash effect on hit
+
+            if (damageParticlePrefab != null)
+            {
+
+                GameObject particles = Instantiate(damageParticlePrefab, partOrgin.transform.position, Quaternion.identity);
+                Destroy(particles, 0.5f); // Cleanup after 0.5 sec
+
+            }
 
             // If phase is completed, move to the next phase
             if (currentSequenceIndex >= phaseEndIndex)
@@ -475,6 +493,9 @@ public class MiniBoss : MonoBehaviour
             {
                 UpdateColor();
             }
+
+            player?.UpdateCombo(true); // **Notify the player about a successful hit**
+
         }
         else
         {
@@ -483,7 +504,12 @@ public class MiniBoss : MonoBehaviour
             // Reset only the current phase, not the entire sequence
             currentSequenceIndex = phaseStartIndex;
             UpdateColor();
+
+
+            player?.UpdateCombo(false); // **Notify the player about a successful hit**
         }
+
+        
 
         if (healthBar != null)
         {

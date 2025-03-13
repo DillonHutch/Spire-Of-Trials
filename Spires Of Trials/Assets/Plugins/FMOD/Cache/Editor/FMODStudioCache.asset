@@ -101,6 +101,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-7829987530572406116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FallenKnightDamageTaken
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FallenKnightDamageTaken
+  Guid:
+    Data1: -1290292135
+    Data2: 1333193605
+    Data3: 949618876
+    Data4: 1632345354
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 490
 --- !u!114 &-6078690931414929007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,10 +142,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/SlimeWindUp
   Guid:
-    Data1: 571970934
-    Data2: 1204274767
-    Data3: 1878377097
-    Data4: 524133972
+    Data1: 390107698
+    Data2: 1089623680
+    Data3: -355634552
+    Data4: 1340504959
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -127,7 +154,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 582
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,11 +170,65 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638762672484162187
+  lastModified: 638774131733925668
   FileSizes:
   - Name: Desktop
-    Value: 1808
+    Value: 2000
   Exists: 1
+--- !u!114 &-5828419515339961869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SheildBlockWood
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SheildBlockWood
+  Guid:
+    Data1: 1859766865
+    Data2: 1215334580
+    Data3: -1288910411
+    Data4: 1951790861
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 515
+--- !u!114 &-5164981725338322892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SheildBlockMetal
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SheildBlockMetal
+  Guid:
+    Data1: -1445398018
+    Data2: 1074700936
+    Data3: 161254038
+    Data4: -76466610
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 550
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,10 +297,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/SkeletonWindUp
   Guid:
-    Data1: -1305002328
-    Data2: 1186967271
-    Data3: 830270880
-    Data4: -570401753
+    Data1: -45488521
+    Data2: 1210778939
+    Data3: 1390843069
+    Data4: 434892745
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -228,7 +309,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 666
 --- !u!114 &-3343029927289553756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +325,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638762672484152154
+  lastModified: 638774131733915672
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -361,33 +442,6 @@ MonoBehaviour:
   - Sanctum
   - RuinsBoss
   Exists: 1
---- !u!114 &-2051294763545766897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/SheildBlock
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/SheildBlock
-  Guid:
-    Data1: -1445398018
-    Data2: 1074700936
-    Data3: 161254038
-    Data4: -76466610
-  Banks:
-  - {fileID: 3830511604902927485}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 490
 --- !u!114 &-1162848138560153866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,10 +483,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/GoblinWindUp
   Guid:
-    Data1: -991004106
-    Data2: 1322054689
-    Data3: 1967567753
-    Data4: -1672752554
+    Data1: 550565529
+    Data2: 1299306930
+    Data3: -988850770
+    Data4: 1464431157
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -441,7 +495,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 689
 --- !u!114 &-162973357311304557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,7 +548,6 @@ MonoBehaviour:
   - {fileID: -162973357311304557}
   - {fileID: 287775435814578406}
   - {fileID: -1162848138560153866}
-  - {fileID: -2051294763545766897}
   - {fileID: -8669372602413151282}
   - {fileID: 6508568627568475173}
   - {fileID: -343850513165908480}
@@ -503,12 +556,17 @@ MonoBehaviour:
   - {fileID: -3724979697605840433}
   - {fileID: 8268199626674060905}
   - {fileID: -8203754507938053636}
+  - {fileID: -5828419515339961869}
+  - {fileID: -7829987530572406116}
+  - {fileID: 7486844046975610317}
+  - {fileID: -5164981725338322892}
+  - {fileID: 828286408442124395}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638762674250251635
+  cacheTime: 638774136526144346
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -564,6 +622,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 332832
+--- !u!114 &828286408442124395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FallenKnightWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FallenKnightWindUp
+  Guid:
+    Data1: 990404708
+    Data2: 1242021231
+    Data3: 588160391
+    Data4: -156217427
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 900
 --- !u!114 &1193128878835185884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,10 +663,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/SkeletonAttack
   Guid:
-    Data1: -1931319991
-    Data2: 1265760969
-    Data3: -434437188
-    Data4: -1834143756
+    Data1: 2082411642
+    Data2: 1176372919
+    Data3: 1141668234
+    Data4: -382538194
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -590,7 +675,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 186
 --- !u!114 &2736528152502921916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,10 +745,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638762674250251635
+  lastModified: 638774136526144346
   FileSizes:
   - Name: Desktop
-    Value: 103296
+    Value: 215744
   Exists: 1
 --- !u!114 &5645940961067155302
 MonoBehaviour:
@@ -706,10 +791,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/GoblinAttack
   Guid:
-    Data1: 1416357682
-    Data2: 1317695844
-    Data3: 1514639237
-    Data4: -1566498779
+    Data1: -1669838789
+    Data2: 1139094939
+    Data3: -1899586912
+    Data4: -1051616326
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -718,7 +803,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 1000
 --- !u!114 &6764697856713243361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,6 +831,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &7486844046975610317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FallenKnightAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FallenKnightAttack
+  Guid:
+    Data1: -624841606
+    Data2: 1081099695
+    Data3: -304868944
+    Data4: -2052599205
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 800
 --- !u!114 &8268199626674060905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,10 +872,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SFX/SlimeAttack
   Guid:
-    Data1: 1993721054
-    Data2: 1142015801
-    Data3: 736670095
-    Data4: 1959380680
+    Data1: 1775405821
+    Data2: 1079275795
+    Data3: -275723854
+    Data4: 1314077986
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -772,7 +884,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
+  Length: 500
 --- !u!114 &8747005220439572358
 MonoBehaviour:
   m_ObjectHideFlags: 0

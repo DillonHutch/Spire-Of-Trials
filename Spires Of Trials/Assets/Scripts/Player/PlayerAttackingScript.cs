@@ -52,6 +52,8 @@ public class PlayerAttackingScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI comboText; // UI display for combo (optional)
 
 
+    private bool isShaking = false; // Prevent multiple shakes from running at the same time
+
 
     private void OnEnable()
     {
@@ -157,7 +159,7 @@ public class PlayerAttackingScript : MonoBehaviour
         }
     }
 
-    private bool isShaking = false; // Prevent multiple shakes from running at the same time
+    
 
     IEnumerator ShakeText()
     {

@@ -26,8 +26,6 @@ public class FMODEvents : MonoBehaviour
     [field: Header("HeavyAttck")]
     [field: SerializeField] public EventReference heavyAttack { get; set; }
 
-    [field: Header("Shield")]
-    [field: SerializeField] public EventReference shieldBlock { get; set; }
 
     [field: Header("GobAtk")]
     [field: SerializeField] public EventReference gobAtk { get; set; }
@@ -50,6 +48,23 @@ public class FMODEvents : MonoBehaviour
     [field: Header("PlayerHit")]
     [field: SerializeField] public EventReference playerHit { get; set; }
 
+    [field: Header("KnightAttack")]
+    [field: SerializeField] public EventReference knightAttack { get; set; }
+
+
+    [field: Header("KnightWU")]
+    [field: SerializeField] public EventReference knightWU { get; set; }
+
+
+    [field: Header("KnightDamage")]
+    [field: SerializeField] public EventReference knightDamage { get; set; }
+
+
+    [field: Header("PlayerMetal")]
+    [field: SerializeField] public EventReference playerMetal { get; set; }
+
+    [field: Header("ShieldWood")]
+    [field: SerializeField] public EventReference shieldWood { get; set; }
 
 
     public static FMODEvents instance { get; private set; }
