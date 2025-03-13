@@ -3,111 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniBoss : MonoBehaviour
+public class MiniBoss : EnemyParent
 {
-    [SerializeField] private int maxHealth = 10;
-    private int currentHealth;
+   
+    
 
-    private Slider dodgeSlider;
-    private DodgeBarHighlighter dodgeBarHighlighter;
+    
+    
 
-    private Color meleeColor = Color.red;
-    private Color magicColor = Color.blue;
-    private Color rangeColor = Color.green;
-    private Color heavyColor = Color.yellow;
+   
 
     [SerializeField] private Transform leftSpawn;
     [SerializeField] private Transform centerSpawn;
     [SerializeField] private Transform rightSpawn;
 
     private Transform player;
-    private SpriteRenderer spriteRenderer;
-    private Coroutine attackCoroutine;
+    
+    
     private Transform currentParent;
-    private bool isAttacking = false;
+    
 
-    private float attackIntervalMin = 1f;
-    private float attackIntervalMax = 1f;
-    private float windUpTime = 1f;
+
     //private float movementSpeed = 10f;
     //private float windUpRiseDistance = 1f;
     //private float attackDropDistance = 1f;
 
 
-    private Animator animator;
-
-    [SerializeField] private GameObject attackIndicator; // Assign in Inspector
-    [SerializeField] private Sprite meleeSprite;
-    [SerializeField] private Sprite magicSprite;
-    [SerializeField] private Sprite rangeSprite;
-    [SerializeField] private Sprite heavySprite;
-    private SpriteRenderer attackIndicatorRenderer;
-
- 
-    private float flashDuration = 0.2f;
-
-
-    [SerializeField] Slider healthBar;
-    private Transform healthBarTransform;
-    [SerializeField] private Image healthBarFill; // Assign the Fill Image in Inspector
-    [SerializeField] private Gradient healthGradient; // Create a Gradient in Inspector
+   
 
     Color originalColor;
     SpriteRenderer iconRenderer;
     Color iconOriginalColor;
 
-    private SpriteRenderer leftAttackSprite;
-    private SpriteRenderer centerAttackSprite;
-    private SpriteRenderer rightAttackSprite;
-    private Coroutine flashCoroutine;
 
-
-    [SerializeField] private GameObject damageParticlePrefab; // Assign the prefab in the Inspector
-    [SerializeField] private GameObject partOrgin;
-
-
-    private Transform leftShield;
-    private Transform centerShield;
-    private Transform rightShield;
-
-    private Coroutine activeRecoilCoroutine;
+    Coroutine knightAttackCoroutine;
 
 
 
-    private List<string> attackSequence = new List<string>
-    {
-        "melee", "magic", "range", "heavy",
-        "magic", "melee", "range", "heavy", 
-        "melee", "magic", "range", "heavy",
-        "melee", "range", "magic", "heavy",
-        "melee", "magic", "range", "heavy", 
-        "magic", "melee", "range", "heavy", 
-        "melee", "magic", "range", "heavy",
-        "magic", "melee", "range", "heavy"
-    };
-
-    private int currentSequenceIndex = 0;
-    private Vector3 originalPosition;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
         originalColor = spriteRenderer.color;
         iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
 
-   
+        attackIntervalMin = 1f;
+        attackIntervalMax = 1f;
+        windUpTime = 1f;
 
-      
-
-
-        currentHealth = maxHealth;
-        dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider")?.GetComponent<Slider>();
-        dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
         leftSpawn = GameObject.FindWithTag("LeftSpawn")?.transform;
@@ -120,126 +71,23 @@ public class MiniBoss : MonoBehaviour
             return;
         }
 
-        Debug.Log("MiniBoss has spawned and initialized spawn positions.");
 
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
-        UpdateColor();
-
-        if (attackIndicator != null)
-        {
-            attackIndicatorRenderer = attackIndicator.GetComponent<SpriteRenderer>();
-            if (attackIndicatorRenderer == null)
-            {
-                Debug.LogError($"SpriteRenderer missing on {attackIndicator.name}. Please add one.");
-            }
-        }
-        else
-        {
-            Debug.LogError($"attackIndicator is not assigned for {gameObject.name}. Assign it in the Inspector.");
-        }
-
-
-
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
         }
-        attackCoroutine = StartCoroutine(AttackLoop());
-
-        animator = this.GetComponent<Animator>();
-
-        UpdateColor();
-
-
-        healthBar.maxValue = attackSequence.Count;
-        healthBar.value = attackSequence.Count; // Start full
-
-    }
-
-
-    private void TriggerShieldRecoil(int position)
-    {
-        Transform shieldToRecoil = GetShieldByPosition(position);
-
-        // Ensure the shield exists and is active before attempting recoil
-        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
+        if (knightAttackCoroutine != null)
         {
-            Debug.Log($"Triggering shield recoil at position {position}");
-
-            // Stop any existing recoil coroutine to prevent multiple bounces
-            if (activeRecoilCoroutine != null)
-            {
-                StopCoroutine(activeRecoilCoroutine);
-            }
-
-            // Start a new recoil coroutine and store it
-            activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
+            StopCoroutine(knightAttackCoroutine);
         }
+        knightAttackCoroutine = StartCoroutine(KnightAttackLoop());
+
+
     }
 
 
 
-
-    private IEnumerator ShieldRecoil(Transform shield)
-    {
-        Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Move shield slightly down
-
-        Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
-
-        shield.position = recoilPosition; // Move down slightly
-        yield return new WaitForSeconds(0.1f); // Short delay
-
-        shield.position = originalPosition; // Reset back
-        Debug.Log($"Recoil End for {shield.name}");
-
-        activeRecoilCoroutine = null; // Clear the coroutine reference to allow future recoil
-    }
-
-
-    private Transform GetShieldByPosition(int position)
-    {
-        switch (position)
-        {
-            case 0: return leftShield;
-            case 1: return centerShield;
-            case 2: return rightShield;
-            default: return null;
-        }
-    }
-
-
-
-
-    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
-    {
-        leftAttackSprite = left;
-        centerAttackSprite = center;
-        rightAttackSprite = right;
-
-        leftShield = lShield;
-        centerShield = cShield;
-        rightShield = rShield;
-    }
-
-    private void Update()
-    {
-        if (healthBar != null)
-        {
-            healthBar.value = attackSequence.Count - currentSequenceIndex; // Update health value
-
-            // Apply gradient based on current health
-            float healthPercentage = healthBar.value / healthBar.maxValue;
-            healthBarFill.color = healthGradient.Evaluate(healthPercentage);
-        }
-
-        // **Check if stuck in attack animation and reset**
-        if (isAttacking && !animator.GetBool("IsAttacking"))
-        {
-            isAttacking = false;
-        }
-
-    }
 
 
     private void UpdateColor()
@@ -274,7 +122,7 @@ public class MiniBoss : MonoBehaviour
     }
 
 
-    private IEnumerator AttackLoop()
+    private IEnumerator KnightAttackLoop()
     {
         while (true)
         {
@@ -371,56 +219,6 @@ public class MiniBoss : MonoBehaviour
 
 
 
-    private IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
-    {
-        if (attackSprite == null) yield break;
-
-        attackSprite.gameObject.SetActive(true);
-        attackSprite.enabled = true;
-
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-        flashCoroutine = StartCoroutine(FlashRoutine(attackSprite));
-
-    }
-
-    private IEnumerator FlashRoutine(SpriteRenderer attackSprite)
-    {
-        if (attackSprite == null) yield break;
-
-        Color originalColor = attackSprite.color;
-        attackSprite.enabled = true;
-
-        float flashInterval = 0.1f; // Faster flashes
-        int flashCount = 4; // More flashes in a short period
-
-        for (int i = 0; i < flashCount; i++)
-        {
-            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f); // Flash ON
-            yield return new WaitForSeconds(flashInterval);
-            attackSprite.color = originalColor; // Flash OFF
-            yield return new WaitForSeconds(flashInterval);
-        }
-
-        attackSprite.color = originalColor; // Ensure visibility before attack
-        attackSprite.enabled = true; // Keep it enabled after flashing
-        flashCoroutine = null;
-    }
-
-
-
-    private IEnumerator FlashEffect(Image panel)
-    {
-        Color originalColor = panel.color;
-        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.2f); // Half opacity
-        yield return new WaitForSeconds(flashDuration);
-        panel.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0); // Reset transparency
-    }
-
-
  
     private Transform GetSpawnFromIndex(int index)
     {
@@ -434,16 +232,9 @@ public class MiniBoss : MonoBehaviour
     }
 
 
-    private IEnumerator MoveEnemy(Vector3 targetPosition, float speed)
-    {
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-            yield return null;
-        }
-    }
+  
 
-    public void TakeDamage(string attackType)
+    new public void TakeDamage(string attackType)
     {
 
         PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
@@ -513,35 +304,14 @@ public class MiniBoss : MonoBehaviour
         }
     }
 
-    private IEnumerator FlashRed()
-    {
-        if (spriteRenderer != null)
-        {
-           
-
-         
-            // Flash red
-            spriteRenderer.color = Color.red;
-            if (iconRenderer != null)
-                iconRenderer.color = Color.red;
-
-            yield return new WaitForSeconds(0.2f);
-
-            // Ensure it returns to the correct color after flashing
-            if (spriteRenderer != null)
-                spriteRenderer.color = originalColor;
-
-            if (iconRenderer != null)
-                iconRenderer.color = iconOriginalColor;
-        }
-    }
+    
 
 
 
     private void Die()
     {
         Debug.Log("MiniBoss defeated!");
-        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
+        if (knightAttackCoroutine != null) StopCoroutine(knightAttackCoroutine);
 
         if (flashCoroutine != null)
         {
@@ -563,37 +333,20 @@ public class MiniBoss : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnDisable()
-    {
-        if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-
-        if (leftAttackSprite != null)
-            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-
-        if (centerAttackSprite != null)
-            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
-
-        if (rightAttackSprite != null)
-            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
-
-
-    }
 
 
     private void SetNewParent(Transform newParent)
     {
         if (newParent != null)
         {
+
+            
             currentParent = newParent;
             transform.position = currentParent.position;
             transform.SetParent(currentParent);
         }
+        
     }
 
     private Transform GetRandomSpawn(params Transform[] positions)
@@ -606,10 +359,7 @@ public class MiniBoss : MonoBehaviour
         return player.position.x < centerSpawn.position.x ? leftSpawn : (player.position.x > centerSpawn.position.x ? rightSpawn : centerSpawn);
     }
 
-    private int GetAttackPosition()
-    {
-        return GetPositionIndex(currentParent);
-    }
+   
 
     private int GetPositionIndex(Transform position)
     {

@@ -10,9 +10,5 @@ public class Monster : EnemyParent
         //return enemyAttackPosition;
     }
 
-    protected override void Die()
-    {
-        base.Die();
-        Debug.Log("Monster defeated!");
-    }
+  
 }

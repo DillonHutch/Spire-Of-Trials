@@ -6,87 +6,85 @@ using UnityEngine.UI;
 
 public class EnemyParent : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 3;
-    private int currentHealth;
+    [SerializeField] protected int maxHealth = 3;
+    protected int currentHealth;
 
-    private Slider dodgeSlider;
-    private DodgeBarHighlighter dodgeBarHighlighter;
+    protected Slider dodgeSlider;
+    protected DodgeBarHighlighter dodgeBarHighlighter;
 
-    [SerializeField] private Color normalColor = Color.yellow;
-    [SerializeField] private Color windUpColor = Color.blue;
-    [SerializeField] private Color attackColor = Color.magenta;
-    [SerializeField] private Color damageColor = Color.red;
+     protected Color normalColor = Color.white;
+    [SerializeField] protected Color windUpColor = Color.blue;
+    [SerializeField] protected Color attackColor = Color.magenta;
+    [SerializeField] protected Color damageColor = Color.red;
 
-    private Coroutine flashCoroutine;
+    protected Coroutine flashCoroutine;
 
     //private Coroutine finalFlashCoroutine; // Track final flash separately
 
-    [SerializeField] Slider healthBar;
-    private Transform healthBarTransform;
-    [SerializeField] private Image healthBarFill; // Assign the Fill Image in Inspector
-    [SerializeField] private Gradient healthGradient; // Create a Gradient in Inspector
+    [SerializeField] protected Slider healthBar;
+    protected Transform healthBarTransform;
+    [SerializeField] protected Image healthBarFill; // Assign the Fill Image in Inspector
+    [SerializeField] protected Gradient healthGradient; // Create a Gradient in Inspector
 
 
 
 
-    private float flashDuration = 0.2f;
+    protected float flashDuration = 0.2f;
 
 
 
-    private Color meleeColor = Color.red;
-    private Color magicColor = Color.blue;
-    private Color rangeColor = Color.green;
-    private Color heavyColor = Color.yellow;
+    protected Color meleeColor = Color.red;
+    protected Color magicColor = Color.blue;
+    protected Color rangeColor = Color.green;
+    protected Color heavyColor = Color.yellow;
 
-    private float attackIntervalMin = .5f;
-    private float attackIntervalMax = 2f;
-    private float windUpTime = 1f;
+    protected float attackIntervalMin = .5f;
+    protected float attackIntervalMax = 2f;
+    protected float windUpTime = 1f;
     //private float attackDropDistance = 1f;
     //private float windUpRiseDistance = 0.5f;
     //private float movementSpeed = 10f;
 
-    private Vector3 originalPosition;
-    private SpriteRenderer spriteRenderer;
-    private Coroutine attackCoroutine;
-    private bool isAttacking = false;
+    protected Vector3 originalPosition;
+    protected SpriteRenderer spriteRenderer;
+    protected Coroutine attackCoroutine;
+    protected bool isAttacking = false;
 
     protected int enemyAttackPosition;
-    private List<string> attackSequence = new List<string>();
-    private int currentSequenceIndex = 0;
+    protected List<string> attackSequence = new List<string>();
+    protected int currentSequenceIndex = 0;
 
-    private Animator animator;
+    protected Animator animator;
 
-    [SerializeField] private GameObject attackIndicator; // Assign in Inspector (e.g., an empty GameObject with a SpriteRenderer)
-    [SerializeField] private Sprite meleeSprite;
-    [SerializeField] private Sprite magicSprite;
-    [SerializeField] private Sprite rangeSprite;
-    [SerializeField] private Sprite heavySprite;
-    private SpriteRenderer attackIndicatorRenderer;
-
-
-    private SpriteRenderer leftAttackSprite;
-     private SpriteRenderer centerAttackSprite;
-     private SpriteRenderer rightAttackSprite;
-
-    [SerializeField] private GameObject damageParticlePrefab; // Assign the prefab in the Inspector
-    [SerializeField] private GameObject partOrgin;
+    [SerializeField] protected GameObject attackIndicator; // Assign in Inspector (e.g., an empty GameObject with a SpriteRenderer)
+    [SerializeField] protected Sprite meleeSprite;
+    [SerializeField] protected Sprite magicSprite;
+    [SerializeField] protected Sprite rangeSprite;
+    [SerializeField] protected Sprite heavySprite;
+    protected SpriteRenderer attackIndicatorRenderer;
 
 
-    private Transform leftShield;
-    private Transform centerShield;
-    private Transform rightShield;
+    protected SpriteRenderer leftAttackSprite;
+    protected SpriteRenderer centerAttackSprite;
+    protected SpriteRenderer rightAttackSprite;
+
+    [SerializeField] protected GameObject damageParticlePrefab; // Assign the prefab in the Inspector
+    [SerializeField] protected GameObject partOrgin;
 
 
-    private Coroutine activeRecoilCoroutine;
+    protected Transform leftShield;
+    protected Transform centerShield;
+    protected Transform rightShield;
+
+
+    protected Coroutine activeRecoilCoroutine;
 
 
 
     protected virtual void Start()
     {
 
-        //GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
-        //GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
-        //GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
+     
 
 
 
@@ -124,6 +122,11 @@ public class EnemyParent : MonoBehaviour
         DefineAttackSequence();
         UpdateColor();
 
+
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+        }
         attackCoroutine = StartCoroutine(AttackLoop());
 
 
@@ -137,7 +140,7 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    private void TriggerShieldRecoil(int position)
+    protected void TriggerShieldRecoil(int position)
     {
         Transform shieldToRecoil = GetShieldByPosition(position);
 
@@ -158,7 +161,7 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    private IEnumerator ShieldRecoil(Transform shield)
+    protected IEnumerator ShieldRecoil(Transform shield)
     {
         Vector3 originalPosition = shield.position;
         Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Slight downward movement
@@ -175,7 +178,7 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    private Transform GetShieldByPosition(int position)
+    protected Transform GetShieldByPosition(int position)
     {
         switch (position)
         {
@@ -223,7 +226,7 @@ public class EnemyParent : MonoBehaviour
 
 
 
-    private void Update()
+    protected void Update()
     {
         if (healthBar != null)
         {
@@ -242,7 +245,7 @@ public class EnemyParent : MonoBehaviour
 
 
 
-    private void DefineAttackSequence()
+    protected void DefineAttackSequence()
     {
         switch (gameObject.tag)
         {
@@ -254,6 +257,19 @@ public class EnemyParent : MonoBehaviour
                 break;
             case "Slime":
                 attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
+                break;
+            case "Knight":
+                attackSequence = new List<string>
+                                                     {
+                                                    "melee", "magic", "range", "heavy",
+                                                    "magic", "melee", "range", "heavy",
+                                                    "melee", "magic", "range", "heavy",
+                                                    "melee", "range", "magic", "heavy",
+                                                    "melee", "magic", "range", "heavy",
+                                                    "magic", "melee", "range", "heavy",
+                                                    "melee", "magic", "range", "heavy",
+                                                    "magic", "melee", "range", "heavy"
+                                                    };
                 break;
             default:
                 attackSequence = new List<string> { "melee" };
@@ -288,7 +304,7 @@ public class EnemyParent : MonoBehaviour
         }
     }
 
-    private IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
+    protected IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
     {
         if (attackSprite == null) yield break;
 
@@ -308,7 +324,7 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    private IEnumerator FlashRoutine(SpriteRenderer attackSprite)
+    protected IEnumerator FlashRoutine(SpriteRenderer attackSprite)
     {
         if (attackSprite == null) yield break;
 
@@ -564,7 +580,7 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    private IEnumerator FlashRed()
+    protected IEnumerator FlashRed()
     {
         if (spriteRenderer != null)
         {
@@ -593,7 +609,7 @@ public class EnemyParent : MonoBehaviour
 
 
 
-    protected virtual void Die()
+    private void Die()
     {
         Debug.Log($"{gameObject.name} died!");
 
@@ -660,7 +676,7 @@ public class EnemyParent : MonoBehaviour
 
 
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 

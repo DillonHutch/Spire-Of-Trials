@@ -7,9 +7,5 @@ public class Skeleton : EnemyParent
         return enemyAttackPosition; // Attack the position in front
     }
 
-    protected override void Die()
-    {
-        base.Die();
-        Debug.Log("Skeleton defeated!");
-    }
+   
 }

@@ -85,7 +85,7 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate the MiniBoss as a child of the spawn location
         GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-        miniBoss.GetComponent<MiniBoss>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield);
+        miniBoss.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield);
 
 
         miniBoss.transform.SetParent(bossSpawnLocation.transform, true); // Set parent while maintaining world position
