@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using FMOD.Studio;
 using Unity.VisualScripting;
+using TMPro;
 
 public class PlayerAttackingScript : MonoBehaviour
 {
@@ -46,6 +47,10 @@ public class PlayerAttackingScript : MonoBehaviour
     private float highSpeedThreshold = 2; // Attacks per window to trigger fast music
 
    [SerializeField] SpriteRenderer sideSpriteRenderer;
+
+    private int comboCount = 0; // Tracks consecutive successful attacks
+    [SerializeField] private TextMeshProUGUI comboText; // UI display for combo (optional)
+
 
 
     private void OnEnable()
@@ -92,6 +97,95 @@ public class PlayerAttackingScript : MonoBehaviour
         // Get Music Instance
         StartCoroutine(WaitForMusicInstance());
     }
+
+    void AttackEnemy(Transform enemy, string attackType)
+    {
+        
+
+        if (enemy != null)
+        {
+            foreach (Transform child in enemy)
+            {
+                EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
+                MiniBoss miniBossComponent = child.GetComponent<MiniBoss>();
+
+                if (enemyComponent != null)
+                {
+                    enemyComponent.TakeDamage(attackType);
+                    
+                }
+                else if (miniBossComponent != null)
+                {
+                    miniBossComponent.TakeDamage(attackType);
+                    
+                }
+            }
+        }
+
+        
+    }
+
+    public void UpdateCombo(bool hit)
+    {
+        if (hit)
+        {
+            comboCount++; // Increase combo if the attack lands
+        }
+        else
+        {
+            comboCount = 0; // Reset combo on a miss
+        }
+
+        // Optional: Update UI text if assigned
+        if (comboText != null)
+        {
+            comboText.text = "Combo: " + comboCount;
+
+            // If combo is high, change color and start shaking
+            if (comboCount >= 10) // Adjust threshold as needed
+            {
+                comboText.color = Color.red; // Turn text red
+                if (!isShaking)
+                {
+                    StartCoroutine(ShakeText());
+                }
+            }
+            else
+            {
+                comboText.color = Color.white; // Reset text color
+            }
+        }
+    }
+
+    private bool isShaking = false; // Prevent multiple shakes from running at the same time
+
+    IEnumerator ShakeText()
+    {
+        isShaking = true;
+        Vector3 originalPosition = comboText.transform.localPosition;
+
+        float duration = 0.5f; // Duration of the shake
+        float elapsed = 0f;
+        float magnitude = 5f; // Adjust for stronger/weaker shaking
+
+        while (comboCount >= 10) // Keep shaking while combo is high
+        {
+            elapsed += Time.deltaTime;
+            float x = Random.Range(-magnitude, magnitude);
+            float y = Random.Range(-magnitude, magnitude);
+
+            comboText.transform.localPosition = originalPosition + new Vector3(x, y, 0);
+
+            yield return null;
+        }
+
+        // Reset position after shaking stops
+        comboText.transform.localPosition = originalPosition;
+        isShaking = false;
+    }
+
+
+
 
     IEnumerator WaitForMusicInstance()
     {
@@ -251,35 +345,8 @@ public class PlayerAttackingScript : MonoBehaviour
         };
     }
 
-    void AttackEnemy(Transform enemy, string attackType)
-    {
-        if (enemy != null)
-        {
-            foreach (Transform child in enemy)
-            {
-                EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
-                MiniBoss miniBossComponent = child.GetComponent<MiniBoss>();
+  
 
-                if (enemyComponent != null)
-                {
-                    enemyComponent.TakeDamage(attackType);
-
-                    //StartCoroutine(FlashRed(enemyComponent.GetComponent<SpriteRenderer>()));
-                }
-                else if (miniBossComponent != null)
-                {
-                    miniBossComponent.TakeDamage(attackType);
-                    //StartCoroutine(FlashRed(miniBossComponent.GetComponent<SpriteRenderer>()));
-                }
-                
-                
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Enemy transform is not assigned or is null.");
-        }
-    }
 
     //IEnumerator FlashRed(SpriteRenderer sprite)
     //{

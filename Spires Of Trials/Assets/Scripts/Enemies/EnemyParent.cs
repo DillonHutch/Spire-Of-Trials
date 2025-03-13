@@ -68,6 +68,10 @@ public class EnemyParent : MonoBehaviour
      private SpriteRenderer centerAttackSprite;
      private SpriteRenderer rightAttackSprite;
 
+    [SerializeField] private GameObject damageParticlePrefab; // Assign the prefab in the Inspector
+    [SerializeField] private GameObject partOrgin;
+
+
 
 
 
@@ -401,56 +405,6 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-
-    //private IEnumerator FinalBrightFlash(SpriteRenderer attackSprite)
-    //{
-    //    if (attackSprite == null) yield break;
-
-    //    // Stop any existing final flash before starting a new one
-    //    if (finalFlashCoroutine != null)
-    //    {
-    //        StopCoroutine(finalFlashCoroutine);
-    //        finalFlashCoroutine = null;
-    //    }
-
-    //    finalFlashCoroutine = StartCoroutine(FinalFlashRoutine(attackSprite));
-    //}
-
-    //private IEnumerator FinalFlashRoutine(SpriteRenderer attackSprite)
-    //{
-    //    if (attackSprite == null) yield break;
-
-    //    // Store the original color
-    //    Color originalColor = attackSprite.color;
-
-    //    // Calculate a "brighter" version of the original color.
-    //    // For example, multiplying the RGB values by 1.5 (clamped to 1) while keeping the alpha the same.
-    //    Color flashColor = new Color(
-    //        Mathf.Clamp01(originalColor.r * 1.5f),
-    //        Mathf.Clamp01(originalColor.b * 1.5f),
-    //        Mathf.Clamp01(originalColor.g * 1.5f),
-    //        originalColor.a
-    //    );
-
-    //    // Ensure the sprite is visible and apply the flash color.
-    //    attackSprite.enabled = true;
-    //    attackSprite.color = flashColor;
-
-    //    // Wait for the flash duration (e.g., 0.1 seconds)
-    //    yield return new WaitForSeconds(0.1f);
-
-    //    // Reset to the original color and disable the sprite
-    //    attackSprite.color = originalColor;
-    //    attackSprite.enabled = false;
-
-    //    finalFlashCoroutine = null;
-    //}
-
-
-
-
-
-
     void WindUpSound()
     {
         if(this.gameObject.tag == "Goblin")
@@ -494,12 +448,25 @@ public class EnemyParent : MonoBehaviour
 
     public void TakeDamage(string attackType)
     {
+        PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
+
         if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
         {
             currentSequenceIndex++;
             Debug.Log($"{gameObject.name} hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
             StartCoroutine(FlashRed()); // Trigger red flash
+
+            if (damageParticlePrefab != null)
+            {
+
+                GameObject particles = Instantiate(damageParticlePrefab, partOrgin.transform.position, Quaternion.identity);
+                Destroy(particles, 0.5f); // Cleanup after 0.5 sec
+
+            }
+
+
+            player?.UpdateCombo(true); // **Notify the player about a successful hit**
 
             if (currentSequenceIndex >= attackSequence.Count)
             {
@@ -514,11 +481,16 @@ public class EnemyParent : MonoBehaviour
         {
             Debug.Log($"{gameObject.name} hit incorrectly! Resetting sequence.");
             currentSequenceIndex = 0;
+
             if (healthBar != null)
                 healthBar.value = 0; // Reset on incorrect hit
+
+            player?.UpdateCombo(false); // **Notify the player about a failed hit (miss)**
+
             UpdateColor();
         }
     }
+
 
     private IEnumerator FlashRed()
     {

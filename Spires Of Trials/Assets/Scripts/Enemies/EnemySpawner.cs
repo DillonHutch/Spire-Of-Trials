@@ -141,7 +141,9 @@ public class EnemySpawner : MonoBehaviour
                                 if (spawnedEnemy.transform.childCount > 0)
                                 {
                                     Transform childIcon = spawnedEnemy.transform.GetChild(0);
+                                    Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
                                     childIcon.localPosition = new Vector3(-3.5f, 0.62f, 0); // Move the icon beneath the slime
+                                    childPartOrgin.localPosition = new Vector3(-3.5f, 2.5f, 0); // Move the icon beneath the slime
                                 }
 
                                 // **Find and adjust the Canvas**
