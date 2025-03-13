@@ -38,8 +38,8 @@ public class EnemyParent : MonoBehaviour
     private Color rangeColor = Color.green;
     private Color heavyColor = Color.yellow;
 
-    private float attackIntervalMin = 2f;
-    private float attackIntervalMax = 2.5f;
+    private float attackIntervalMin = .5f;
+    private float attackIntervalMax = 2f;
     private float windUpTime = 1f;
     //private float attackDropDistance = 1f;
     //private float windUpRiseDistance = 0.5f;
@@ -308,13 +308,19 @@ public class EnemyParent : MonoBehaviour
     {
         while (true)
         {
-            float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
+            float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
+            Debug.Log($"Next attack in {waitTime} seconds"); // Debugging info
+
             yield return new WaitForSeconds(waitTime);
 
             // Request to attack
             EnemyAttackQueue.RequestAttack(this);
+
+            // Wait before restarting the loop (ensuring waitTime applies to every cycle)
+            yield return new WaitForSeconds(waitTime);
         }
     }
+
 
     public void StartAttack()
     {

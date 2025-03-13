@@ -4998,8 +4998,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -94, y: 406}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -477, y: 361.09}
+  m_SizeDelta: {x: 966, y: 139.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &775100943
 MonoBehaviour:
@@ -5048,14 +5048,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.6
-  m_fontSizeBase: 50.6
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5084,7 +5084,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -376.59616, w: 0}
+  m_margin: {x: 0, y: 0, z: -956.768, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7226,7 +7226,7 @@ GameObject:
   - component: {fileID: 1265966355}
   - component: {fileID: 1265966356}
   m_Layer: 0
-  m_Name: ShieldMiddle (1)
+  m_Name: ShieldLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7572,7 +7572,7 @@ GameObject:
   - component: {fileID: 1289765997}
   - component: {fileID: 1289765996}
   m_Layer: 0
-  m_Name: ShieldMiddle (2)
+  m_Name: ShieldRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10124,7 +10124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7022eba46b486114f9c6667ea6e85a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeRemaining: 180
   countdownText: {fileID: 2124377263}
 --- !u!4 &1827224243
 Transform:
@@ -10574,10 +10573,13 @@ MonoBehaviour:
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
-  miniBossSpawnNumber: 10
+  miniBossSpawnNumber: 20
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}
+  leftShield: {fileID: 1265966355}
+  centerShield: {fileID: 2067732341}
+  rightShield: {fileID: 1289765997}
 --- !u!4 &1950758703 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5088393225267183328, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}

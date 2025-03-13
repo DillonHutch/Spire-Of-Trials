@@ -239,111 +239,86 @@ public class MiniBoss : MonoBehaviour
     {
         while (true)
         {
-            int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-            float waitTime = Random.Range(attackIntervalMin, attackIntervalMax);
-            yield return new WaitForSeconds(waitTime);
-            isAttacking = true;
-
-            // Move MiniBoss to a random spawn point before attacking
-            Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
-            SetNewParent(randomSpawn);
-            animator.SetTrigger("WindUp");
-
-            int miniBossTargetPos = 0;
-            if (playerDodgePosition == 0)
+            int attackBurstCount = Random.Range(5, 8); // Number of rapid attacks before resting
+            for (int i = 0; i < attackBurstCount; i++)
             {
-                miniBossTargetPos = Random.Range(1, 3);
-            }
-            else if (playerDodgePosition == 1)
-            {
-                miniBossTargetPos = Random.Range(0, 2) * 2;
-            }
-            else
-            {
-                miniBossTargetPos = Random.Range(0, 2);
-            }
+                int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+                float attackDelay = Random.Range(.3f, .5f); // Faster attack intervals
 
-            SpriteRenderer attackSprite = null;
+                yield return new WaitForSeconds(attackDelay); // Short delay between rapid attacks
 
-            if (miniBossTargetPos == 0) attackSprite = leftAttackSprite;
-            else if (miniBossTargetPos == 1) attackSprite = centerAttackSprite;
-            else if (miniBossTargetPos == 2) attackSprite = rightAttackSprite;
+                isAttacking = true;
 
-            
+                // Move MiniBoss to a random spawn point before attacking
+                Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+                SetNewParent(randomSpawn);
 
-            if (attackSprite != null)
-            {
-                attackSprite.enabled = true;
+                animator.SetTrigger("WindUp"); // Start Wind-up Animation
 
-                Debug.LogError("HUHH");
-                StartCoroutine(FlashAttackIndicator(attackSprite));
-            }
+                int miniBossTargetPos = Random.Range(0, 3); // Attack a random position
+                SpriteRenderer attackSprite = null;
 
-            
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
+                if (miniBossTargetPos == 0) attackSprite = leftAttackSprite;
+                else if (miniBossTargetPos == 1) attackSprite = centerAttackSprite;
+                else if (miniBossTargetPos == 2) attackSprite = rightAttackSprite;
 
-            yield return new WaitForSeconds(windUpTime - 0.15f); // Almost the full wind-up duration
-
-         
-
-            // Trigger attack AFTER Last Flash has completed
-            
-
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
-
-         
-
-            // Now check if the player successfully blocked
-            int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-            if (updatedPlayerDodgePosition == miniBossTargetPos)
-            {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, this.transform.position);
-                TriggerShieldRecoil(miniBossTargetPos); 
-            }
-
-            else
-            {
-                Debug.Log("Player failed to block! Taking damage from MiniBoss.");
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, this.transform.position);
-            }
-
-            if (dodgeBarHighlighter != null)
-            {
-                dodgeBarHighlighter.ClearHighlight(miniBossTargetPos);
-            }
-
-            animator.SetTrigger("Attack");
-
-            isAttacking = false;
-            UpdateColor();
-
-            yield return new WaitForSeconds(.1f);
-
-
-            if (attackSprite != null)
-            {
-                attackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-
-                if (flashCoroutine != null)
+                if (attackSprite != null)
                 {
-                    StopCoroutine(flashCoroutine);
-                    flashCoroutine = null;
+                    attackSprite.enabled = true;
+                    StartCoroutine(FlashAttackIndicator(attackSprite));
                 }
+
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
+                yield return new WaitForSeconds(.6f); // Short wind-up time
+
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
+
+                // Check if the player dodged correctly
+                int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+                if (updatedPlayerDodgePosition == miniBossTargetPos)
+                {
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, this.transform.position);
+                    TriggerShieldRecoil(miniBossTargetPos);
+                }
+                else
+                {
+                    Debug.Log("Player failed to block! Taking damage from MiniBoss.");
+                    EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, this.transform.position);
+                }
+
+                if (dodgeBarHighlighter != null)
+                {
+                    dodgeBarHighlighter.ClearHighlight(miniBossTargetPos);
+                }
+
+                animator.SetTrigger("Attack"); // Attack animation
+
+                isAttacking = false;
+                UpdateColor();
+
+                if (attackSprite != null)
+                {
+                    attackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+                }
+
+                yield return new WaitForSeconds(0.1f); // Small delay before resetting
+
+                // **Reset to Idle before next attack**
+                animator.SetTrigger("ReturnToIdle");
+                yield return new WaitForSeconds(0.1f); // Give a brief pause for animation reset
             }
 
+            // **Rest Phase** - After the burst of attacks, the MiniBoss pauses
+            Debug.Log("MiniBoss is resting...");
+            animator.SetTrigger("ReturnToIdle"); // Reset to idle before resting
+            yield return new WaitForSeconds(3f); // Rest period for punishment window
 
-            isAttacking = false;
-            animator.SetTrigger("ReturnToIdle");
-
-            // Ensure it returns to the correct color after flashing
-            if (spriteRenderer != null)
-                spriteRenderer.color = originalColor;
-
-            if (iconRenderer != null)
-                iconRenderer.color = iconOriginalColor;
+            Debug.Log("MiniBoss is resuming attacks!");
         }
     }
+
+
 
 
     private IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
@@ -366,30 +341,26 @@ public class MiniBoss : MonoBehaviour
     {
         if (attackSprite == null) yield break;
 
-        Debug.LogError("WTFFKJSFHKJS");
-
-
         Color originalColor = attackSprite.color;
         attackSprite.enabled = true;
 
-        for (int i = 0; i < 3; i++) // Flash 3 times
+        float flashInterval = 0.1f; // Faster flashes
+        int flashCount = 4; // More flashes in a short period
+
+        for (int i = 0; i < flashCount; i++)
         {
-            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f);
-            yield return new WaitForSeconds(0.15f);
-            attackSprite.color = originalColor;
-            yield return new WaitForSeconds(0.15f);
+            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f); // Flash ON
+            yield return new WaitForSeconds(flashInterval);
+            attackSprite.color = originalColor; // Flash OFF
+            yield return new WaitForSeconds(flashInterval);
         }
 
-        attackSprite.color = originalColor; // Ensure it remains visible
+        attackSprite.color = originalColor; // Ensure visibility before attack
         attackSprite.enabled = true; // Keep it enabled after flashing
         flashCoroutine = null;
     }
 
 
-   
-
-
-   
 
     private IEnumerator FlashEffect(Image panel)
     {
@@ -400,11 +371,7 @@ public class MiniBoss : MonoBehaviour
     }
 
 
-    
-
-
-
-
+ 
     private Transform GetSpawnFromIndex(int index)
     {
         switch (index)
