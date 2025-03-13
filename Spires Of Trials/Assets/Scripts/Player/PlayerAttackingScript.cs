@@ -9,32 +9,17 @@ using TMPro;
 public class PlayerAttackingScript : MonoBehaviour
 {
     [SerializeField] Slider attackSlider; // Reference to the UI Slider for selecting attack positions
-    //[SerializeField] Slider meleeCooldownSlider; // Slider for melee cooldown
-    //[SerializeField] Slider rangeCooldownSlider; // Slider for range cooldown
-    //[SerializeField] Slider magicCooldownSlider; // Slider for magic cooldown
-    //[SerializeField] Slider heavyCooldownSlider; // Slider for heavy attack cooldown
-
-
     [SerializeField] GameObject leftSheild;
     [SerializeField] GameObject rightSheild;
     [SerializeField] GameObject middleSheild;
-
     [SerializeField] private GameObject forwardSprite; // Forward-facing sprite
     [SerializeField] private GameObject sideSprite; // Side-facing sprite (default left)
-
-
     [SerializeField] Transform leftEnemy; // Reference to the left enemy spawn point
     [SerializeField] Transform centerEnemy; // Reference to the center enemy spawn point
     [SerializeField] Transform rightEnemy; // Reference to the right enemy spawn point
 
     private int selectedPosition = 1; // 0 = Left, 1 = Center, 2 = Right (initial position is center)
     private bool isRoundActive = true; // Track if the current round is active
-
-
-    //private float meleeCooldown = .1f; // Cooldown duration for melee attacks
-    //private float rangeCooldown = .1f; // Cooldown duration for range attacks
-    //private float magicCooldown = .1f; // Cooldown duration for magic attacks
-    //private float heavyCooldown = .1f; // Cooldown duration for heavy attacks
 
     private float meleeCooldownTimer = 0f; // Current cooldown timer for melee
     private float rangeCooldownTimer = 0f; // Current cooldown timer for range
@@ -46,13 +31,17 @@ public class PlayerAttackingScript : MonoBehaviour
     private float attackWindow = 3f; // Time window to track attack speed
     private float highSpeedThreshold = 2; // Attacks per window to trigger fast music
 
-   [SerializeField] SpriteRenderer sideSpriteRenderer;
+    [SerializeField] SpriteRenderer sideSpriteRenderer;
 
     private int comboCount = 0; // Tracks consecutive successful attacks
     [SerializeField] private TextMeshProUGUI comboText; // UI display for combo (optional)
 
 
     private bool isShaking = false; // Prevent multiple shakes from running at the same time
+
+    const int ComboGot = 24;
+    const int GreaterCombo = 64;
+    const int FinalCombo = 120;
 
 
     private void OnEnable()
@@ -138,46 +127,84 @@ public class PlayerAttackingScript : MonoBehaviour
             comboCount = 0; // Reset combo on a miss
         }
 
-        // Optional: Update UI text if assigned
+        // Ensure the UI is updated if assigned
         if (comboText != null)
         {
             comboText.text = "Combo: " + comboCount;
 
-            // If combo is high, change color and start shaking
-            if (comboCount >= 10) // Adjust threshold as needed
+            // Apply visual changes based on combo count
+            if (comboCount >= ComboGot) // First threshold (5+)
             {
-                comboText.color = Color.red; // Turn text red
+                comboText.color = Color.red;
+                comboText.fontSize = 55; // Slightly bigger
                 if (!isShaking)
                 {
-                    StartCoroutine(ShakeText());
+                    StartCoroutine(ShakeText(5f, 0.5f)); // Mild shake
                 }
             }
-            else
+            if (comboCount >= GreaterCombo) // Second threshold (10+)
             {
-                comboText.color = Color.white; // Reset text color
+                comboText.color = Color.yellow;
+                comboText.fontSize = 60; // Bigger
+                if (!isShaking)
+                {
+                    StartCoroutine(ShakeText(7f, 0.8f)); // Stronger shake
+                }
+            }
+            if (comboCount >= FinalCombo) // Final threshold (15+)
+            {
+                comboText.color = Color.cyan; // Final effect
+                comboText.fontSize = 65; // Even bigger
+                if (!isShaking)
+                {
+                    StartCoroutine(ShakeText(12f, 1f)); // Maximum shake
+                }
+            }
+            else if (comboCount < ComboGot) // Reset if below first threshold
+            {
+                comboText.color = Color.white;
+                comboText.fontSize = 40; // Default size
+            }
+
+            // Audio trigger for 5 combo milestone
+            if (comboCount == ComboGot)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.combo, transform.position);
+            }
+            else if(comboCount == GreaterCombo)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.unstopable, transform.position);
+            }
+            else if(comboCount == FinalCombo)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.legendary, transform.position);
             }
         }
     }
 
-    
 
-    IEnumerator ShakeText()
+
+
+
+    IEnumerator ShakeText(float magnitude, float duration)
     {
         isShaking = true;
         Vector3 originalPosition = comboText.transform.localPosition;
-
-        float duration = 0.5f; // Duration of the shake
         float elapsed = 0f;
-        float magnitude = 5f; // Adjust for stronger/weaker shaking
 
-        while (comboCount >= 10) // Keep shaking while combo is high
+        while (comboCount >= ComboGot) // Keep shaking while combo is active
         {
             elapsed += Time.deltaTime;
-            float x = Random.Range(-magnitude, magnitude);
-            float y = Random.Range(-magnitude, magnitude);
+
+            // Increase shake intensity for each combo tier
+            float strength = (comboCount >= FinalCombo) ? magnitude * 2f :
+                             (comboCount >= GreaterCombo) ? magnitude * 1.5f :
+                             magnitude;
+
+            float x = Random.Range(-strength, strength);
+            float y = Random.Range(-strength, strength);
 
             comboText.transform.localPosition = originalPosition + new Vector3(x, y, 0);
-
             yield return null;
         }
 
@@ -185,6 +212,8 @@ public class PlayerAttackingScript : MonoBehaviour
         comboText.transform.localPosition = originalPosition;
         isShaking = false;
     }
+
+
 
 
 
@@ -350,24 +379,6 @@ public class PlayerAttackingScript : MonoBehaviour
   
 
 
-    //IEnumerator FlashRed(SpriteRenderer sprite)
-    //{
-    //    if (sprite != null)
-    //    {
-    //        Color originalColor = sprite.color;
-    //        sprite.color = Color.red;
-    //        yield return new WaitForSeconds(0.2f);
-
-    //        // Ensure the color resets even if multiple hits happen quickly
-    //        if (sprite != null)
-    //        {
-    //            sprite.color = originalColor;
-    //        }
-    //    }
-    //}
-
-
-
     void HandleCooldownTimers()
     {
         //UpdateCooldownSlider(meleeCooldownSlider, ref meleeCooldownTimer, meleeCooldown);
@@ -446,4 +457,8 @@ public class PlayerAttackingScript : MonoBehaviour
             //Debug.LogWarning("music speed down");
         }
     }
+
+
+
+
 }

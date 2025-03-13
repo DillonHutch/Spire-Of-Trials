@@ -170,10 +170,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638774131733925668
+  lastModified: 638774205058390619
   FileSizes:
   - Name: Desktop
-    Value: 2000
+    Value: 2116
   Exists: 1
 --- !u!114 &-5828419515339961869
 MonoBehaviour:
@@ -229,6 +229,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 550
+--- !u!114 &-4661491924204614401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Combo
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Combo
+  Guid:
+    Data1: -1820346456
+    Data2: 1130356576
+    Data3: 439843747
+    Data4: 296047937
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-4617588377743754878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +352,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638774131733915672
+  lastModified: 638774205058380613
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -561,12 +588,15 @@ MonoBehaviour:
   - {fileID: 7486844046975610317}
   - {fileID: -5164981725338322892}
   - {fileID: 828286408442124395}
+  - {fileID: -4661491924204614401}
+  - {fileID: 843706876105287260}
+  - {fileID: 1433389023076430879}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638774136526144346
+  cacheTime: 638774205059140469
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -649,6 +679,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 900
+--- !u!114 &843706876105287260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Unstopable
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Unstopable
+  Guid:
+    Data1: 1856221345
+    Data2: 1201878678
+    Data3: 1812546689
+    Data4: 1950774504
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1193128878835185884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -676,6 +733,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 186
+--- !u!114 &1433389023076430879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Legendary
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Legendary
+  Guid:
+    Data1: 1214312112
+    Data2: 1086420369
+    Data3: -1474314316
+    Data4: -813039904
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2736528152502921916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -745,10 +829,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638774136526144346
+  lastModified: 638774205059140469
   FileSizes:
   - Name: Desktop
-    Value: 215744
+    Value: 265440
   Exists: 1
 --- !u!114 &5645940961067155302
 MonoBehaviour:

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CountdownTimer : MonoBehaviour
 {
-    [SerializeField] float timeRemaining = 300f; // 5 minutes in seconds
+    float timeRemaining = 600f; // 5 minutes in seconds
     [SerializeField] TextMeshProUGUI countdownText;
 
     private void Update()

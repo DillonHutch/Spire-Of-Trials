@@ -67,6 +67,16 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference shieldWood { get; set; }
 
 
+    [field: Header("Combo")]
+    [field: SerializeField] public EventReference combo { get; set; }
+
+    [field: Header("Unstopable")]
+    [field: SerializeField] public EventReference unstopable { get; set; }
+
+    [field: Header("Legendary")]
+    [field: SerializeField] public EventReference legendary { get; set; }
+
+
     public static FMODEvents instance { get; private set; }
 
 

@@ -72,7 +72,9 @@ public class EnemyParent : MonoBehaviour
     [SerializeField] private GameObject partOrgin;
 
 
-
+    private Transform leftShield;
+    private Transform centerShield;
+    private Transform rightShield;
 
 
     protected virtual void Start()
@@ -130,11 +132,41 @@ public class EnemyParent : MonoBehaviour
 
     }
 
-    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right)
+
+    private void TriggerShieldRecoil(int position)
+    {
+        Transform shieldToRecoil = null;
+
+        if (position == 0) shieldToRecoil = leftShield;
+        else if (position == 1) shieldToRecoil = centerShield;
+        else if (position == 2) shieldToRecoil = rightShield;
+
+        if (shieldToRecoil != null)
+        {
+            StartCoroutine(ShieldRecoil(shieldToRecoil));
+        }
+    }
+
+    private IEnumerator ShieldRecoil(Transform shield)
+    {
+        Vector3 originalPosition = shield.position;
+        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Move shield down slightly
+
+        shield.position = recoilPosition;
+        yield return new WaitForSeconds(0.1f); // Short delay
+        shield.position = originalPosition; // Reset back
+    }
+
+
+    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
     {
         leftAttackSprite = left;
         centerAttackSprite = center;
         rightAttackSprite = right;
+
+        leftShield = lShield;
+        centerShield = cShield;
+        rightShield = rShield;
     }
 
 
@@ -345,8 +377,13 @@ public class EnemyParent : MonoBehaviour
         AttackSound();
 
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+
+        animator.SetBool("IsAttacking", true); // Explicitly setting attack animation here
         if (playerDodgePosition == attackPosition)
+        {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+            TriggerShieldRecoil(attackPosition);
+        }          
         else
         {
             Debug.Log("Player failed to block! Taking damage.");
@@ -358,7 +395,7 @@ public class EnemyParent : MonoBehaviour
             dodgeBarHighlighter.ClearHighlight(attackPosition);
 
 
-        animator.SetBool("IsAttacking", true); // Explicitly setting attack animation here
+        
 
         yield return new WaitForSeconds(0.2f); // Give time for the attack animation to play
 
@@ -384,23 +421,8 @@ public class EnemyParent : MonoBehaviour
             }
         }
 
-
-        //if (attackSprite != null)
-        //{
-        //    StartCoroutine(FinalBrightFlash(attackSprite));
-
-        //    // **Ensure final flash gets cleared no matter what**
-        //    yield return new WaitForSeconds(0.2f); // Wait for animation time
-        //    attackSprite.color = Color.yellow; // Reset color
-        //    attackSprite.enabled = false; // Guarantee it's disabled
-        //}
-
-
         // Notify manager that the attack finished
         EnemyAttackQueue.AttackFinished(this);
-
-     
-
 
     }
 

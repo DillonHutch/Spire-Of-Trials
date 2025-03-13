@@ -43,9 +43,7 @@ public class MiniBoss : MonoBehaviour
     [SerializeField] private Sprite heavySprite;
     private SpriteRenderer attackIndicatorRenderer;
 
-    private Image leftFlash;
-    private Image middleFlash;
-    private Image rightFlash;
+ 
     private float flashDuration = 0.2f;
 
 
@@ -66,6 +64,11 @@ public class MiniBoss : MonoBehaviour
 
     [SerializeField] private GameObject damageParticlePrefab; // Assign the prefab in the Inspector
     [SerializeField] private GameObject partOrgin;
+
+
+    private Transform leftShield;
+    private Transform centerShield;
+    private Transform rightShield;
 
 
     private List<string> attackSequence = new List<string>
@@ -94,17 +97,9 @@ public class MiniBoss : MonoBehaviour
         originalColor = spriteRenderer.color;
         iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
 
-        //GameObject leftObj = GameObject.FindGameObjectWithTag("LeftFlash");
-        //GameObject centerObj = GameObject.FindGameObjectWithTag("MiddleFlash");
-        //GameObject rightObj = GameObject.FindGameObjectWithTag("RightFlash");
+   
 
-  
-
-
-        if (leftFlash == null || middleFlash == null || rightFlash == null)
-        {
-            Debug.LogError("One or more flash UI elements not found! Ensure they have the correct tags.");
-        }
+      
 
 
         currentHealth = maxHealth;
@@ -158,11 +153,41 @@ public class MiniBoss : MonoBehaviour
 
     }
 
-    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right)
+
+    private void TriggerShieldRecoil(int position)
+    {
+        Transform shieldToRecoil = null;
+
+        if (position == 0) shieldToRecoil = leftShield;
+        else if (position == 1) shieldToRecoil = centerShield;
+        else if (position == 2) shieldToRecoil = rightShield;
+
+        if (shieldToRecoil != null)
+        {
+            StartCoroutine(ShieldRecoil(shieldToRecoil));
+        }
+    }
+
+    private IEnumerator ShieldRecoil(Transform shield)
+    {
+        Vector3 originalPosition = shield.position;
+        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Move shield down slightly
+
+        shield.position = recoilPosition;
+        yield return new WaitForSeconds(0.1f); // Short delay
+        shield.position = originalPosition; // Reset back
+    }
+
+
+    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
     {
         leftAttackSprite = left;
         centerAttackSprite = center;
         rightAttackSprite = right;
+
+        leftShield = lShield;
+        centerShield = cShield;
+        rightShield = rShield;
     }
 
     private void Update()
@@ -244,13 +269,17 @@ public class MiniBoss : MonoBehaviour
             else if (miniBossTargetPos == 1) attackSprite = centerAttackSprite;
             else if (miniBossTargetPos == 2) attackSprite = rightAttackSprite;
 
+            
+
             if (attackSprite != null)
             {
                 attackSprite.enabled = true;
+
+                Debug.LogError("HUHH");
                 StartCoroutine(FlashAttackIndicator(attackSprite));
             }
 
-
+            
             AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
 
             yield return new WaitForSeconds(windUpTime - 0.15f); // Almost the full wind-up duration
@@ -262,15 +291,16 @@ public class MiniBoss : MonoBehaviour
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
 
-            // Ensure the Last Flash happens BEFORE Attack
-            yield return StartCoroutine(LastFlash(miniBossTargetPos, 0.15f));
+         
 
             // Now check if the player successfully blocked
             int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
             if (updatedPlayerDodgePosition == miniBossTargetPos)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, this.transform.position);
+                TriggerShieldRecoil(miniBossTargetPos); 
             }
+
             else
             {
                 Debug.Log("Player failed to block! Taking damage from MiniBoss.");
@@ -336,6 +366,9 @@ public class MiniBoss : MonoBehaviour
     {
         if (attackSprite == null) yield break;
 
+        Debug.LogError("WTFFKJSFHKJS");
+
+
         Color originalColor = attackSprite.color;
         attackSprite.enabled = true;
 
@@ -353,49 +386,10 @@ public class MiniBoss : MonoBehaviour
     }
 
 
-    private IEnumerator LastFlash(int attackPosition, float duration)
-    {
-        Image flashPanel = null;
-        switch (attackPosition)
-        {
-            case 0: flashPanel = leftFlash; break;
-            case 1: flashPanel = middleFlash; break;
-            case 2: flashPanel = rightFlash; break;
-        }
-
-        if (flashPanel == null) yield break;
-
-        // Strong final flash effect
-        flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.6f); // Brighter flash
-        yield return new WaitForSeconds(duration);
-        flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
-    }
+   
 
 
-    private IEnumerator BlinkFlash(int attackPosition, float duration)
-    {
-        Image flashPanel = null;
-        switch (attackPosition)
-        {
-            case 0: flashPanel = leftFlash; break;
-            case 1: flashPanel = middleFlash; break;
-            case 2: flashPanel = rightFlash; break;
-        }
-
-        if (flashPanel == null) yield break;
-
-        float blinkInterval = 0.2f; // Adjust for faster/slower blinking
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0.2f);
-            yield return new WaitForSeconds(blinkInterval);
-            flashPanel.color = new Color(flashPanel.color.r, flashPanel.color.g, flashPanel.color.b, 0);
-            yield return new WaitForSeconds(blinkInterval);
-            elapsedTime += blinkInterval * 2;
-        }
-    }
+   
 
     private IEnumerator FlashEffect(Image panel)
     {
@@ -406,22 +400,7 @@ public class MiniBoss : MonoBehaviour
     }
 
 
-    private void FlashScreen(int attackPosition)
-    {
-        Image flashPanel = null;
-
-        switch (attackPosition)
-        {
-            case 0: flashPanel = leftFlash; break;
-            case 1: flashPanel = middleFlash; break;
-            case 2: flashPanel = rightFlash; break;
-        }
-
-        if (flashPanel != null)
-        {
-            StartCoroutine(FlashEffect(flashPanel));
-        }
-    }
+    
 
 
 

@@ -170,6 +170,27 @@ MonoBehaviour:
       Data3: -1288910411
       Data4: 1951790861
     Path: event:/SFX/SheildBlockWood
+  <combo>k__BackingField:
+    Guid:
+      Data1: -1820346456
+      Data2: 1130356576
+      Data3: 439843747
+      Data4: 296047937
+    Path: event:/SFX/Combo
+  <unstopable>k__BackingField:
+    Guid:
+      Data1: 1856221345
+      Data2: 1201878678
+      Data3: 1812546689
+      Data4: 1950774504
+    Path: event:/SFX/Unstopable
+  <legendary>k__BackingField:
+    Guid:
+      Data1: 1214312112
+      Data2: 1086420369
+      Data3: -1474314316
+      Data4: -813039904
+    Path: event:/SFX/Legendary
 --- !u!1 &5313083338162673164
 GameObject:
   m_ObjectHideFlags: 0

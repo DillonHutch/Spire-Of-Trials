@@ -28,6 +28,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private SpriteRenderer centerFlash;
     [SerializeField] private SpriteRenderer rightFlash;
 
+    [SerializeField] private Transform leftShield;
+    [SerializeField] private Transform centerShield;
+    [SerializeField] private Transform rightShield;
+
+
 
     private void Start()
     {
@@ -80,7 +85,8 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate the MiniBoss as a child of the spawn location
         GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-        miniBoss.GetComponent<MiniBoss>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash);
+        miniBoss.GetComponent<MiniBoss>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield);
+
 
         miniBoss.transform.SetParent(bossSpawnLocation.transform, true); // Set parent while maintaining world position
 
@@ -117,7 +123,7 @@ public class EnemySpawner : MonoBehaviour
 
                         // Spawn the enemy and make it a child of the spawn location
                         GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
-                        spawnedEnemy.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash);
+                        spawnedEnemy.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield);
 
                         if (spawnedEnemy.tag == "Slime")
                         {
