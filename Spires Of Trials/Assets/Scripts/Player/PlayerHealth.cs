@@ -50,10 +50,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (this == null) return; // Prevent execution if the player has been destroyed
+
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
+        if (EventManager.Instance != null) // Check if EventManager exists before triggering the event
+        {
+            EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
+        }
 
         if (spriteRenderers.Length > 0)
         {
@@ -65,6 +70,7 @@ public class PlayerHealth : MonoBehaviour
             Die();
         }
     }
+
 
     private IEnumerator FlashRed()
     {
@@ -91,8 +97,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        EventManager.Instance.TriggerEvent("OnPlayerDied");
-        Heal(maxHealth);
+        if (EventManager.Instance != null) // Prevent null reference when calling event
+        {
+            EventManager.Instance.TriggerEvent("OnPlayerDied");
+        }
+
+        currentHealth = maxHealth;
         SceneManager.LoadScene("MainMenu");
     }
+
 }
