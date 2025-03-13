@@ -79,6 +79,8 @@ public class EnemyParent : MonoBehaviour
 
     protected Coroutine activeRecoilCoroutine;
 
+    private bool isRecoiling = false;
+
 
 
     protected virtual void Start()
@@ -144,27 +146,22 @@ public class EnemyParent : MonoBehaviour
     {
         Transform shieldToRecoil = GetShieldByPosition(position);
 
-        // Ensure the shield exists and is active before attempting recoil
         if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
         {
-            Debug.Log($"Triggering shield recoil at position {position}");
+            Debug.Log($"Attempting to trigger shield recoil at position {position}");
 
-            // Stop any existing recoil coroutine to prevent multiple bounces
-            if (activeRecoilCoroutine != null)
+            if (!isRecoiling) // Check if shield is already recoiling
             {
-                StopCoroutine(activeRecoilCoroutine);
+                isRecoiling = true; // Lock recoil
+                activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
             }
-
-            // Start a new recoil coroutine and store it
-            activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
         }
     }
-
 
     protected IEnumerator ShieldRecoil(Transform shield)
     {
         Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0); // Slight downward movement
+        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0);
 
         Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
 
@@ -174,8 +171,10 @@ public class EnemyParent : MonoBehaviour
         shield.position = originalPosition; // Reset back
         Debug.Log($"Recoil End for {shield.name}");
 
-        activeRecoilCoroutine = null; // Clear the coroutine reference to allow future recoil
+        isRecoiling = false; // Unlock recoil after animation
+        activeRecoilCoroutine = null; // Clear coroutine reference
     }
+
 
 
     protected Transform GetShieldByPosition(int position)

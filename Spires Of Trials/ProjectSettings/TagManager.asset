@@ -16,6 +16,7 @@ TagManager:
   - LeftFlash
   - MiddleFlash
   - RightFlash
+  - Knight
   layers:
   - Default
   - TransparentFX

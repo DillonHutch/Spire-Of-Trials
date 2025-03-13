@@ -6,13 +6,6 @@ using UnityEngine.UI;
 public class MiniBoss : EnemyParent
 {
    
-    
-
-    
-    
-
-   
-
     [SerializeField] private Transform leftSpawn;
     [SerializeField] private Transform centerSpawn;
     [SerializeField] private Transform rightSpawn;
@@ -23,22 +16,12 @@ public class MiniBoss : EnemyParent
     private Transform currentParent;
     
 
-
-    //private float movementSpeed = 10f;
-    //private float windUpRiseDistance = 1f;
-    //private float attackDropDistance = 1f;
-
-
-   
-
     Color originalColor;
     SpriteRenderer iconRenderer;
     Color iconOriginalColor;
 
 
     Coroutine knightAttackCoroutine;
-
-
 
 
     private void Awake()
@@ -85,9 +68,6 @@ public class MiniBoss : EnemyParent
 
 
     }
-
-
-
 
 
     private void UpdateColor()
@@ -217,9 +197,6 @@ public class MiniBoss : EnemyParent
     }
 
 
-
-
- 
     private Transform GetSpawnFromIndex(int index)
     {
         switch (index)
@@ -231,8 +208,6 @@ public class MiniBoss : EnemyParent
         }
     }
 
-
-  
 
     new public void TakeDamage(string attackType)
     {
@@ -305,8 +280,6 @@ public class MiniBoss : EnemyParent
     }
 
     
-
-
 
     private void Die()
     {
