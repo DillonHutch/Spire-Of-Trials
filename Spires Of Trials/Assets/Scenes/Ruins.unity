@@ -578,7 +578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.19004674, y: -2.09}
+  m_AnchoredPosition: {x: -0.19004674, y: -1.78}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &139943413
@@ -723,6 +723,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
@@ -1005,6 +1009,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -1077,6 +1085,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
@@ -1554,7 +1566,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.389
   m_Color: {r: 0.4745098, g: 1, b: 1, a: 1}
-  m_Intensity: 1.18
+  m_Intensity: 3.34
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d
@@ -2183,6 +2195,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -2569,7 +2585,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_Intensity
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 64.54326
       objectReference: {fileID: 0}
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
@@ -2601,7 +2621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3283401241693804213, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.89
+      value: -3.6000001
       objectReference: {fileID: 0}
     - target: {fileID: 3283401241693804213, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3286,6 +3306,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
@@ -5101,6 +5125,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -5478,7 +5506,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.389
   m_Color: {r: 0.4745098, g: 1, b: 1, a: 1}
-  m_Intensity: 1.18
+  m_Intensity: 3.34
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d
@@ -5603,6 +5631,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
@@ -6454,6 +6486,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
+      propertyPath: m_Intensity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 64.54326
+      objectReference: {fileID: 0}
+    - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -6471,7 +6511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3283401241693804213, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3
+      value: -2.01
       objectReference: {fileID: 0}
     - target: {fileID: 3283401241693804213, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6995,6 +7035,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -7072,6 +7116,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
@@ -7639,7 +7687,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.389
   m_Color: {r: 0.4745098, g: 1, b: 1, a: 1}
-  m_Intensity: 1.18
+  m_Intensity: 3.34
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d
@@ -10214,6 +10262,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -10434,6 +10486,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -10524,7 +10580,7 @@ Transform:
   m_GameObject: {fileID: 1999322361}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19004674, y: -0.33, z: -0.022774823}
+  m_LocalPosition: {x: 0.19004674, y: -0.5, z: -0.022774823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11428,6 +11484,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 477558234}
     m_Modifications:
     - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
+      propertyPath: m_Intensity
+      value: 3.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 23988821283022790, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
       propertyPath: m_OverlapOperation
       value: 1
       objectReference: {fileID: 0}
@@ -11611,7 +11671,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_Intensity
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
+      propertyPath: m_PointLightInnerAngle
+      value: 64.54326
       objectReference: {fileID: 0}
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
@@ -11631,7 +11695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3283401241693804213, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3
+      value: -2.01
       objectReference: {fileID: 0}
     - target: {fileID: 3283401241693804213, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_LocalPosition.z
