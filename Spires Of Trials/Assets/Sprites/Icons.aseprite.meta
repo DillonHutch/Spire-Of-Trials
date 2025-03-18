@@ -123,15 +123,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Icons
     originalName: 
-    pivot: {x: 0.5, y: -0.44117647}
+    pivot: {x: 0.5, y: -0.3125}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 69
+      x: 46
+      y: 4
       width: 34
-      height: 34
+      height: 48
     spriteID: 69106b8c6e34e874b9ae1fb293e3feed
     spriteBone: []
     spriteOutline: []
@@ -140,7 +140,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 69}
+    uvTransform: {x: 46, y: 4}
   - name: Icons_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0.14035088}
@@ -163,14 +163,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Icons_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.44117647}
+    pivot: {x: 0.3541667, y: -0.44117647}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 46
-      y: 4
-      width: 34
+      x: 4
+      y: 69
+      width: 48
       height: 34
     spriteID: 02204bc683efb55489aca6713573484c
     spriteBone: []
@@ -180,17 +180,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 46, y: 4}
+    uvTransform: {x: 4, y: 69}
   - name: Icons_Frame_3
     originalName: 
-    pivot: {x: 0.5, y: -0.44117647}
+    pivot: {x: 0.6458334, y: -0.44117647}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 46
-      y: 46
-      width: 34
+      x: 60
+      y: 69
+      width: 48
       height: 34
     spriteID: 9751c885c4abb6742aec66d3f434fcf6
     spriteBone: []
@@ -200,7 +200,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 46, y: 46}
+    uvTransform: {x: 60, y: 69}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -216,7 +216,7 @@ ScriptedImporter:
         x: 15
         y: 15
         width: 34
-        height: 34
+        height: 48
       spriteId: 69106b8c6e34e874b9ae1fb293e3feed
     - name: Icons_Frame_1
       frameIndex: 1
@@ -231,15 +231,15 @@ ScriptedImporter:
       cellRect:
         x: 15
         y: 15
-        width: 34
+        width: 48
         height: 34
       spriteId: 02204bc683efb55489aca6713573484c
     - name: Icons_Frame_3
       frameIndex: 3
       cellRect:
-        x: 15
+        x: 1
         y: 15
-        width: 34
+        width: 48
         height: 34
       spriteId: 9751c885c4abb6742aec66d3f434fcf6
     linkedCells: []
