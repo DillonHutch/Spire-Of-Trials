@@ -88,6 +88,15 @@ public class MiniBoss : EnemyParent
     #region OverrideRegions
 
     /// <summary>
+    /// returns position of miniboss
+    /// </summary>
+    /// <returns></returns>
+    protected override int GetAttackPosition()
+    {
+        return enemyAttackPosition;
+    }
+
+    /// <summary>
     /// Overrides the standard attack loop to implement a burst attack pattern.
     /// The MiniBoss attacks rapidly for a short period before resting.
     /// </summary>

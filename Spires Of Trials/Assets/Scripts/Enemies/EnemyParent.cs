@@ -348,10 +348,8 @@ public abstract class EnemyParent : MonoBehaviour
     /// Can be overridden by subclasses if needed.
     /// </summary>
     /// <returns>Integer representing the attack position.</returns>
-    protected virtual int GetAttackPosition()
-    {
-        return enemyAttackPosition;
-    }
+    protected abstract int GetAttackPosition();
+    
 
     /// <summary>
     /// Continuously loops and waits for a random interval before requesting an attack.
@@ -390,107 +388,119 @@ public abstract class EnemyParent : MonoBehaviour
     {
         isAttacking = true;
 
-        // Determine which attack sprite to use based on attack position
+        // Select the attack sprite based on position
         int attackPosition = GetAttackPosition();
-        SpriteRenderer attackSprite = null;
+        SpriteRenderer attackSprite = GetAttackSprite(attackPosition);
 
-        if (attackPosition == 0) attackSprite = leftAttackSprite;
-        else if (attackPosition == 1) attackSprite = centerAttackSprite;
-        else if (attackPosition == 2) attackSprite = rightAttackSprite;
-
-        // Flip the sprite direction if necessary (e.g., Goblin should face the correct way)
-        if (gameObject.tag == "Goblin")
-        {
+        // Flip sprite if enemy is a goblin
+        if (gameObject.CompareTag("Goblin"))
             spriteRenderer.flipX = attackPosition == 2;
-        }
 
         // Highlight the attack position on the dodge bar
-        if (dodgeBarHighlighter != null)
-            dodgeBarHighlighter.HighlightPosition(attackPosition);
+        dodgeBarHighlighter?.HighlightPosition(attackPosition);
 
-        // Flash attack indicator if an attack sprite exists
+        // Show attack sprite indicator
         if (attackSprite != null)
-        {
-            Debug.Log($"Starting Flash for {attackSprite.gameObject.name}");
-
-            // Ensure sprite is visible before flashing
-            attackSprite.gameObject.SetActive(true);
-            attackSprite.enabled = true;
-
-            StartCoroutine(FlashAttackIndicator(attackSprite));
-        }
+            StartCoroutine(ShowAttackIndicator(attackSprite));
         else
-        {
             Debug.LogError("Attack Sprite is NULL!");
-        }
 
-        // Trigger wind-up animation
-        animator.SetBool("IsWinding", true);
-        animator.SetBool("IsAttacking", false); // Ensure it's false before the attack
-
-        // Play wind-up sound effect based on enemy type
+        // Play wind-up animation and sound
+        SetAnimationState(isWinding: true, isAttacking: false);
         WindUpSound();
 
-        // Wait for wind-up duration
         yield return new WaitForSeconds(windUpTime);
 
-        // Stop wind-up animation and trigger attack animation
-        animator.SetBool("IsWinding", false);
-        animator.SetBool("IsAttacking", true);
-
-        // Play attack sound effect based on enemy type
+        // Play attack animation and sound
+        SetAnimationState(isWinding: false, isAttacking: true);
         AttackSound();
 
-        // Determine the player's dodge position
+        // Check if the player successfully blocked the attack
+        ResolveAttack(attackPosition);
+
+        // Clear attack visuals
+        yield return new WaitForSeconds(0.2f);
+        CleanupAttack(attackSprite, attackPosition);
+
+        // Notify attack queue
+        EnemyAttackQueue.AttackFinished(this);
+    }
+
+    /// <summary>
+    /// Gets the appropriate attack sprite based on position.
+    /// </summary>
+    private SpriteRenderer GetAttackSprite(int attackPosition)
+    {
+        return attackPosition switch
+        {
+            0 => leftAttackSprite,
+            1 => centerAttackSprite,
+            2 => rightAttackSprite,
+            _ => null
+        };
+    }
+
+    /// <summary>
+    /// Handles flashing the attack indicator.
+    /// </summary>
+    private IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
+    {
+        attackSprite.gameObject.SetActive(true);
+        attackSprite.enabled = true;
+        flashCoroutine = StartCoroutine(FlashAttackIndicator(attackSprite));
+        yield return null;
+    }
+
+    /// <summary>
+    /// Sets the animation states for wind-up and attack.
+    /// </summary>
+    private void SetAnimationState(bool isWinding, bool isAttacking)
+    {
+        animator.SetBool("IsWinding", isWinding);
+        animator.SetBool("IsAttacking", isAttacking);
+    }
+
+    /// <summary>
+    /// Determines whether the player dodged successfully and applies the appropriate effects.
+    /// </summary>
+    private void ResolveAttack(int attackPosition)
+    {
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
 
-        // Check if the player successfully blocked the attack
         if (playerDodgePosition == attackPosition)
         {
-            // Play shield block sound
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
-
-            // Trigger shield recoil effect
             if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
             TriggerShieldRecoil(attackPosition);
         }
         else
         {
-            // Player failed to block - take damage
             Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-
-            // Play damage sound effect
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
         }
+    }
 
-        // Clear dodge bar highlight after attack
-        if (dodgeBarHighlighter != null)
-            dodgeBarHighlighter.ClearHighlight(attackPosition);
-
-        // Allow a brief delay for the attack animation to play out
-        yield return new WaitForSeconds(0.2f);
-
-        // Reset attack state and animation
+    /// <summary>
+    /// Cleans up the attack sequence, removing visuals and resetting state.
+    /// </summary>
+    private void CleanupAttack(SpriteRenderer attackSprite, int attackPosition)
+    {
         isAttacking = false;
-        animator.SetBool("IsAttacking", false);
+        SetAnimationState(isWinding: false, isAttacking: false);
+        dodgeBarHighlighter?.ClearHighlight(attackPosition);
 
-        // Ensure the attack indicator is turned off after the attack ends
         if (attackSprite != null)
         {
-            attackSprite.enabled = false; // Hide attack sprite
-
-            // Stop flashing if the coroutine is still running
+            attackSprite.enabled = false;
             if (flashCoroutine != null)
             {
                 StopCoroutine(flashCoroutine);
                 flashCoroutine = null;
             }
         }
-
-        // Notify the attack queue that the attack is finished
-        EnemyAttackQueue.AttackFinished(this);
     }
+
 
     /// <summary>
     /// Plays the wind-up sound effect based on the enemy type.
