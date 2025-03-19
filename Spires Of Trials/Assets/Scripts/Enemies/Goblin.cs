@@ -1,23 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// is goblin 
+/// </summary>
 public class Goblin : EnemyParent
 {
+
+    #region OverrideMethods
+    /// <summary>
+    /// Determines the attack position for the Goblin.
+    /// - If the enemy is at position 0 (left), it attacks position 1 (center).
+    /// - If the enemy is at position 2 (right), it attacks position 1 (center).
+    /// - If the enemy is at position 1 (center), it randomly attacks position 0 (left) or position 2 (right) with a 50/50 chance.
+    /// </summary>
+    /// <returns>The attack position (0, 1, or 2), ensuring logical attack behavior.</returns>
     protected override int GetAttackPosition()
     {
-        if (enemyAttackPosition == 0) return 1;
-        if (enemyAttackPosition == 2) return 1;
-        return Random.Range(0, 2) == 0 ? 0 : 2; // 50/50 chance to attack 0 or 2
+        if (enemyAttackPosition == 0) return 1; // Attacks center if on the left
+        if (enemyAttackPosition == 2) return 1; // Attacks center if on the right
 
-        //return enemyAttackPosition;
+        // If in the center (position 1), randomly attack left (0) or right (2)
+        return Random.Range(0, 2) == 0 ? 0 : 2;
     }
 
-
+    /// <summary>
+    /// Defines the attack sequence for the Goblin.
+    /// The sequence follows a rotating pattern of "magic", "range", "heavy", and "melee" attacks.
+    /// </summary>
     protected override void DefineAttackSequence()
     {
-
         attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
-              
     }
+
+
+    #endregion
 
 }

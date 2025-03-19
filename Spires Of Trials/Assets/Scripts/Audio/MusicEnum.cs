@@ -1,6 +1,7 @@
 
-
-
+/// <summary>
+/// is enum for music that plays in game
+/// </summary>
 public enum MusicEnum
 {
     Title = 0,

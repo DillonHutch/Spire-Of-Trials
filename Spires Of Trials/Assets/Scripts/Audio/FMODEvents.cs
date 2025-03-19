@@ -4,91 +4,136 @@ using UnityEngine;
 using FMODUnity;
 using System.Runtime.InteropServices;
 
+/// <summary>
+/// manages all fmod events 
+/// </summary>
 public class FMODEvents : MonoBehaviour
 {
 
-    [field: Header("Music")]
-    [field: SerializeField] public EventReference music { get; set; }
+    #region Singleton Instance
 
-    [field: Header("Ambience")]
-    [field: SerializeField] public EventReference ambience { get; set; }
-
-
-    [field: Header("MeleeAttack")]
-    [field: SerializeField] public EventReference meleeAttack { get; set; }
-
-    [field: Header("RangeAttack")]
-    [field: SerializeField] public EventReference rangeAttack { get; set; }
-
-    [field: Header("MagicAttack")]
-    [field: SerializeField] public EventReference magicAttack { get; set; }
-
-    [field: Header("HeavyAttck")]
-    [field: SerializeField] public EventReference heavyAttack { get; set; }
-
-
-    [field: Header("GobAtk")]
-    [field: SerializeField] public EventReference gobAtk { get; set; }
-
-    [field: Header("GobWU")]
-    [field: SerializeField] public EventReference gobWU { get; set; }
-
-    [field: Header("SkeAtk")]
-    [field: SerializeField] public EventReference skeAtk { get; set; }
-
-    [field: Header("SkeWU")]
-    [field: SerializeField] public EventReference skeWU { get; set; }
-
-    [field: Header("SlimeAtk")]
-    [field: SerializeField] public EventReference slimeAtk { get; set; }
-
-    [field: Header("SlimeWU")]
-    [field: SerializeField] public EventReference slimeWU { get; set; }
-
-    [field: Header("PlayerHit")]
-    [field: SerializeField] public EventReference playerHit { get; set; }
-
-    [field: Header("KnightAttack")]
-    [field: SerializeField] public EventReference knightAttack { get; set; }
-
-
-    [field: Header("KnightWU")]
-    [field: SerializeField] public EventReference knightWU { get; set; }
-
-
-    [field: Header("KnightDamage")]
-    [field: SerializeField] public EventReference knightDamage { get; set; }
-
-
-    [field: Header("PlayerMetal")]
-    [field: SerializeField] public EventReference playerMetal { get; set; }
-
-    [field: Header("ShieldWood")]
-    [field: SerializeField] public EventReference shieldWood { get; set; }
-
-
-    [field: Header("Combo")]
-    [field: SerializeField] public EventReference combo { get; set; }
-
-    [field: Header("Unstopable")]
-    [field: SerializeField] public EventReference unstopable { get; set; }
-
-    [field: Header("Legendary")]
-    [field: SerializeField] public EventReference legendary { get; set; }
-
-
+    /// <summary>
+    /// Singleton instance of FMODEvents to ensure only one exists in the game.
+    /// </summary>
     public static FMODEvents instance { get; private set; }
 
+    #endregion
 
+    #region Music & Ambience
+
+    [field: Header("Music")]
+    [field: SerializeField] public EventReference music { get; set; } // Background music event
+
+    [field: Header("Ambience")]
+    [field: SerializeField] public EventReference ambience { get; set; } // Ambiance/background noise event
+
+    #endregion
+
+    #region Player Attack Sounds
+
+    [field: Header("Player Attack Sounds")]
+
+    [field: Header("Melee Attack")]
+    [field: SerializeField] public EventReference meleeAttack { get; set; } // Sound effect for melee attacks
+
+    [field: Header("Range Attack")]
+    [field: SerializeField] public EventReference rangeAttack { get; set; } // Sound effect for ranged attacks
+
+    [field: Header("Magic Attack")]
+    [field: SerializeField] public EventReference magicAttack { get; set; } // Sound effect for magic attacks
+
+    [field: Header("Heavy Attack")]
+    [field: SerializeField] public EventReference heavyAttack { get; set; } // Sound effect for heavy attacks
+
+    #endregion
+
+    #region Enemy Attack Sounds
+
+    [field: Header("Enemy Attack Sounds")]
+
+    [field: Header("Goblin Attack")]
+    [field: SerializeField] public EventReference gobAtk { get; set; } // Goblin attack sound
+
+    [field: Header("Goblin Wind-Up")]
+    [field: SerializeField] public EventReference gobWU { get; set; } // Goblin wind-up sound
+
+    [field: Header("Skeleton Attack")]
+    [field: SerializeField] public EventReference skeAtk { get; set; } // Skeleton attack sound
+
+    [field: Header("Skeleton Wind-Up")]
+    [field: SerializeField] public EventReference skeWU { get; set; } // Skeleton wind-up sound
+
+    [field: Header("Slime Attack")]
+    [field: SerializeField] public EventReference slimeAtk { get; set; } // Slime attack sound
+
+    [field: Header("Slime Wind-Up")]
+    [field: SerializeField] public EventReference slimeWU { get; set; } // Slime wind-up sound
+
+    #endregion
+
+    #region Knight Sounds
+
+    [field: Header("Knight Sounds")]
+
+    [field: Header("Knight Attack")]
+    [field: SerializeField] public EventReference knightAttack { get; set; } // Knight attack sound
+
+    [field: Header("Knight Wind-Up")]
+    [field: SerializeField] public EventReference knightWU { get; set; } // Knight wind-up sound
+
+    [field: Header("Knight Damage")]
+    [field: SerializeField] public EventReference knightDamage { get; set; } // Knight damage sound
+
+    #endregion
+
+    #region Player Damage & Defense Sounds
+
+    [field: Header("Player Damage & Defense")]
+
+    [field: Header("Player Hit")]
+    [field: SerializeField] public EventReference playerHit { get; set; } // Sound effect when the player gets hit
+
+    [field: Header("Player Metal Hit")]
+    [field: SerializeField] public EventReference playerMetal { get; set; } // Sound effect when player is hit with a metallic attack
+
+    [field: Header("Shield Block (Wood)")]
+    [field: SerializeField] public EventReference shieldWood { get; set; } // Shield block sound (wooden shield)
+
+    #endregion
+
+    #region Combo Milestone Sounds
+
+    [field: Header("Combo Milestones")]
+
+    [field: Header("Combo Achieved")]
+    [field: SerializeField] public EventReference combo { get; set; } // Sound effect for reaching a combo milestone
+
+    [field: Header("Unstoppable Combo")]
+    [field: SerializeField] public EventReference unstopable { get; set; } // Sound effect for high combo streak
+
+    [field: Header("Legendary Combo")]
+    [field: SerializeField] public EventReference legendary { get; set; } // Sound effect for max combo streak
+
+    #endregion
+
+    #region UnityMethods
+
+    /// <summary>
+    /// Called when the script instance is being loaded.
+    /// Implements the Singleton pattern to ensure only one FMODEvents instance exists.
+    /// </summary>
     private void Awake()
     {
         if (instance != null)
         {
-
-            //Debug.LogError("Found more than one fmod events");
-
+            // If an additional instance is found, you may want to log an error or handle it accordingly.
+            // Debug.LogError("Found more than one FMODEvents instance. Ensure there is only one in the scene.");
         }
 
+        // Assign this instance as the singleton instance
         instance = this;
     }
+
+    #endregion
+
 }
