@@ -1,6 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : EnemyParent
+public class Slime : EnemyParent
 {
     protected override int GetAttackPosition()
     {
@@ -10,5 +11,12 @@ public class Monster : EnemyParent
         //return enemyAttackPosition;
     }
 
-  
+    protected override void DefineAttackSequence()
+    {
+      
+       attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
+               
+    }
+
+
 }

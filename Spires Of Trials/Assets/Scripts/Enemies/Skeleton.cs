@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Skeleton : EnemyParent
@@ -7,5 +8,13 @@ public class Skeleton : EnemyParent
         return enemyAttackPosition; // Attack the position in front
     }
 
-   
+    protected override void DefineAttackSequence()
+    {
+
+        attackSequence = new List<string> { "melee", "heavy", "range", "magic" };
+          
+    }
+
 }
+
+

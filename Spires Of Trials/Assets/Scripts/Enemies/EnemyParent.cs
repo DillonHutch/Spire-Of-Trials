@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyParent : MonoBehaviour
+public abstract class EnemyParent : MonoBehaviour
 {
     [SerializeField] protected int maxHealth = 3;
     protected int currentHealth;
@@ -236,47 +236,14 @@ public class EnemyParent : MonoBehaviour
             healthBarFill.color = healthGradient.Evaluate(healthPercentage);
         }
 
-        // **Check if stuck in attack animation and reset**
-        if (isAttacking && !animator.GetBool("IsAttacking"))
-        {
-            isAttacking = false;
-        }
+    
     }
 
 
 
 
-    protected void DefineAttackSequence()
-    {
-        switch (gameObject.tag)
-        {
-            case "Skeleton":
-                attackSequence = new List<string> { "melee", "heavy", "range", "magic" };
-                break;
-            case "Goblin":
-                attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
-                break;
-            case "Slime":
-                attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
-                break;
-            case "Knight":
-                attackSequence = new List<string>
-                                                     {
-                                                    "melee", "magic", "range", "heavy",
-                                                    "magic", "melee", "range", "heavy",
-                                                    "melee", "magic", "range", "heavy",
-                                                    "melee", "range", "magic", "heavy",
-                                                    "melee", "magic", "range", "heavy",
-                                                    "magic", "melee", "range", "heavy",
-                                                    "melee", "magic", "range", "heavy",
-                                                    "magic", "melee", "range", "heavy"
-                                                    };
-                break;
-            default:
-                attackSequence = new List<string> { "melee" };
-                break;
-        }
-    }
+    protected abstract void DefineAttackSequence();
+  
 
     private void UpdateColor()
     {

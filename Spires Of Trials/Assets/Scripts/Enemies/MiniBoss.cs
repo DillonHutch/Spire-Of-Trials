@@ -27,7 +27,7 @@ public class MiniBoss : EnemyParent
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
+
     }
 
     protected override void Start()
@@ -67,6 +67,24 @@ public class MiniBoss : EnemyParent
         knightAttackCoroutine = StartCoroutine(KnightAttackLoop());
 
 
+    }
+
+    protected override void DefineAttackSequence()
+    {
+        
+        attackSequence = new List<string>
+                                          {
+                                                    "melee", "magic", "range", "heavy",
+                                                    "magic", "melee", "range", "heavy",
+                                                    "melee", "magic", "range", "heavy",
+                                                    "melee", "range", "magic", "heavy",
+                                                    "melee", "magic", "range", "heavy",
+                                                    "magic", "melee", "range", "heavy",
+                                                    "melee", "magic", "range", "heavy",
+                                                    "magic", "melee", "range", "heavy"
+                                          };
+             
+        
     }
 
 
