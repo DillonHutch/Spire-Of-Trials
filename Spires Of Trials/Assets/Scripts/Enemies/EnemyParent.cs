@@ -323,7 +323,7 @@ public abstract class EnemyParent : MonoBehaviour
         return enemyAttackPosition;
     }
 
-    private IEnumerator AttackLoop()
+    protected virtual IEnumerator AttackLoop()
     {
         while (true)
         {

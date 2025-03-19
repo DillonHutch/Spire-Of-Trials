@@ -56,17 +56,102 @@ public class MiniBoss : EnemyParent
 
 
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
-        if (attackCoroutine != null)
-        {
-            StopCoroutine(attackCoroutine);
-        }
-        if (knightAttackCoroutine != null)
-        {
-            StopCoroutine(knightAttackCoroutine);
-        }
-        knightAttackCoroutine = StartCoroutine(KnightAttackLoop());
 
 
+    }
+
+    protected override IEnumerator AttackLoop()
+    {
+        while (true)
+        {
+            int attackBurstCount = Random.Range(5, 8); // Number of rapid attacks before resting
+            for (int i = 0; i < attackBurstCount; i++)
+            {
+                int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+                float attackDelay = Random.Range(.3f, .5f); // Faster attack intervals
+
+                yield return new WaitForSeconds(attackDelay); // Short delay between rapid attacks
+
+                isAttacking = true;
+
+                // Move MiniBoss to a random spawn point before attacking
+                Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+                SetNewParent(randomSpawn);
+
+                animator.SetTrigger("WindUp"); // Start Wind-up Animation
+
+                int miniBossTargetPos = Random.Range(0, 3); // Attack a random position
+                SpriteRenderer attackSprite = null;
+
+                if (miniBossTargetPos == 0) attackSprite = leftAttackSprite;
+                else if (miniBossTargetPos == 1) attackSprite = centerAttackSprite;
+                else if (miniBossTargetPos == 2) attackSprite = rightAttackSprite;
+
+                if (attackSprite != null)
+                {
+                    attackSprite.enabled = true;
+                    StartCoroutine(FlashAttackIndicator(attackSprite));
+                }
+
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
+                yield return new WaitForSeconds(.5f); // Short wind-up time
+
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
+
+                // Check if the player dodged correctly
+                int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+                if (updatedPlayerDodgePosition == miniBossTargetPos) // Player blocks correctly
+                {
+                    Debug.Log("Player successfully blocked the attack!");
+
+                    // Stop any ongoing shield recoil to prevent bouncing issues
+                    if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
+
+                    // Only trigger shield recoil if the shield is actually there
+                    TriggerShieldRecoil(miniBossTargetPos);
+
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+
+                }
+                else
+                {
+                    Debug.Log("Player failed to block! Taking damage from MiniBoss.");
+
+                    // Trigger the player's damage event instead
+                    EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, this.transform.position);
+                }
+
+
+                if (dodgeBarHighlighter != null)
+                {
+                    dodgeBarHighlighter.ClearHighlight(miniBossTargetPos);
+                }
+
+                animator.SetTrigger("Attack"); // Attack animation
+
+                isAttacking = false;
+                UpdateColor();
+
+                if (attackSprite != null)
+                {
+                    attackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+                }
+
+                yield return new WaitForSeconds(0.1f); // Small delay before resetting
+
+                // **Reset to Idle before next attack**
+                animator.SetTrigger("ReturnToIdle");
+                yield return new WaitForSeconds(0.1f); // Give a brief pause for animation reset
+            }
+
+            // **Rest Phase** - After the burst of attacks, the MiniBoss pauses
+            Debug.Log("MiniBoss is resting...");
+            animator.SetTrigger("ReturnToIdle"); // Reset to idle before resting
+            yield return new WaitForSeconds(3f); // Rest period for punishment window
+
+
+        }
     }
 
     protected override void DefineAttackSequence()
@@ -120,102 +205,9 @@ public class MiniBoss : EnemyParent
     }
 
 
-    private IEnumerator KnightAttackLoop()
-    {
-        while (true)
-        {
-            int attackBurstCount = Random.Range(5, 8); // Number of rapid attacks before resting
-            for (int i = 0; i < attackBurstCount; i++)
-            {
-                int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-                float attackDelay = Random.Range(.3f, .5f); // Faster attack intervals
-
-                yield return new WaitForSeconds(attackDelay); // Short delay between rapid attacks
-
-                isAttacking = true;
-
-                // Move MiniBoss to a random spawn point before attacking
-                Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
-                SetNewParent(randomSpawn);
-
-                animator.SetTrigger("WindUp"); // Start Wind-up Animation
-
-                int miniBossTargetPos = Random.Range(0, 3); // Attack a random position
-                SpriteRenderer attackSprite = null;
-
-                if (miniBossTargetPos == 0) attackSprite = leftAttackSprite;
-                else if (miniBossTargetPos == 1) attackSprite = centerAttackSprite;
-                else if (miniBossTargetPos == 2) attackSprite = rightAttackSprite;
-
-                if (attackSprite != null)
-                {
-                    attackSprite.enabled = true;
-                    StartCoroutine(FlashAttackIndicator(attackSprite));
-                }
-
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
-                yield return new WaitForSeconds(.5f); // Short wind-up time
-
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
-
-                // Check if the player dodged correctly
-                int updatedPlayerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
-                if (updatedPlayerDodgePosition == miniBossTargetPos) // Player blocks correctly
-                {
-                    Debug.Log("Player successfully blocked the attack!");
-
-                    // Stop any ongoing shield recoil to prevent bouncing issues
-                    if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
-
-                    // Only trigger shield recoil if the shield is actually there
-                    TriggerShieldRecoil(miniBossTargetPos);
-
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);  
-
-                }
-                else
-                {
-                    Debug.Log("Player failed to block! Taking damage from MiniBoss.");
-
-                    // Trigger the player's damage event instead
-                    EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, this.transform.position);
-                }
 
 
-                if (dodgeBarHighlighter != null)
-                {
-                    dodgeBarHighlighter.ClearHighlight(miniBossTargetPos);
-                }
-
-                animator.SetTrigger("Attack"); // Attack animation
-
-                isAttacking = false;
-                UpdateColor();
-
-                if (attackSprite != null)
-                {
-                    attackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-                }
-
-                yield return new WaitForSeconds(0.1f); // Small delay before resetting
-
-                // **Reset to Idle before next attack**
-                animator.SetTrigger("ReturnToIdle");
-                yield return new WaitForSeconds(0.1f); // Give a brief pause for animation reset
-            }
-
-            // **Rest Phase** - After the burst of attacks, the MiniBoss pauses
-            Debug.Log("MiniBoss is resting...");
-            animator.SetTrigger("ReturnToIdle"); // Reset to idle before resting
-            yield return new WaitForSeconds(3f); // Rest period for punishment window
-
-            
-        }
-    }
-
-
-    protected  override IEnumerator FlashRoutine(SpriteRenderer attackSprite)
+    protected override IEnumerator FlashRoutine(SpriteRenderer attackSprite)
     {
         if (attackSprite == null) yield break;
 
