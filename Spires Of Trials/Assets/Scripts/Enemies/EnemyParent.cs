@@ -38,6 +38,8 @@ public class EnemyParent : MonoBehaviour
     protected Color rangeColor = Color.green;
     protected Color heavyColor = Color.yellow;
 
+    protected float warningOpacity = .50f;
+
     protected float attackIntervalMin = .5f;
     protected float attackIntervalMax = 2f;
     protected float windUpTime = 1f;
@@ -323,7 +325,7 @@ public class EnemyParent : MonoBehaviour
     }
 
 
-    protected IEnumerator FlashRoutine(SpriteRenderer attackSprite)
+    protected virtual IEnumerator FlashRoutine(SpriteRenderer attackSprite)
     {
         if (attackSprite == null) yield break;
 
@@ -334,7 +336,7 @@ public class EnemyParent : MonoBehaviour
 
         for (int i = 0; i < 3; i++) // Flash 3 times
         {
-            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0.85f); // Slightly transparent
+            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, warningOpacity); // Slightly transparent
             yield return new WaitForSeconds(0.15f);
             attackSprite.color = originalColor; // Reset
             yield return new WaitForSeconds(0.15f);
@@ -483,9 +485,7 @@ public class EnemyParent : MonoBehaviour
         EnemyAttackQueue.AttackFinished(this);
 
 
-        // Ensure the animation resets after attack
-        animator.SetBool("IsAttacking", false);
-        animator.SetBool("IsWinding", false);
+    
         isAttacking = false;
 
 

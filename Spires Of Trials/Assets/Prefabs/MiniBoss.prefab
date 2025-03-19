@@ -59,8 +59,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -819123839
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!114 &3674696937387678636
 MonoBehaviour:
@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 25
-  normalColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   windUpColor: {r: 0, g: 0, b: 1, a: 1}
   attackColor: {r: 1, g: 0, b: 1, a: 1}
   damageColor: {r: 1, g: 0, b: 0, a: 1}

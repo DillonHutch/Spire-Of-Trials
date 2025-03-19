@@ -136,7 +136,7 @@ public class MiniBoss : EnemyParent
                 }
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
-                yield return new WaitForSeconds(.6f); // Short wind-up time
+                yield return new WaitForSeconds(.5f); // Short wind-up time
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
 
@@ -194,6 +194,30 @@ public class MiniBoss : EnemyParent
 
             
         }
+    }
+
+
+    protected  override IEnumerator FlashRoutine(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
+
+        Color originalColor = attackSprite.color;
+
+        // **Ensure it’s enabled before flashing**
+        attackSprite.enabled = true;
+
+        for (int i = 0; i < 3; i++) // Flash 3 times
+        {
+            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, warningOpacity); // Slightly transparent
+            yield return new WaitForSeconds(0.1f);
+            attackSprite.color = originalColor; // Reset
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // **Keep it enabled for the next attack**
+        attackSprite.enabled = true;
+
+        flashCoroutine = null;
     }
 
 
