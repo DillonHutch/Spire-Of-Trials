@@ -95,6 +95,12 @@ public class MiniBoss : EnemyParent
     }
 
     /// <summary>
+    /// Amount of burst attacks miniboss will throw
+    /// </summary>
+    /// <returns></returns>
+    private int GetAttackBurstCount() => Random.Range(5, 8); // MiniBoss attacks in bursts
+
+    /// <summary>
     /// Continuously loops and waits for a random interval before requesting an attack.
     /// Ensures each attack happens at a randomized interval within the given range.
     /// </summary>
@@ -120,11 +126,6 @@ public class MiniBoss : EnemyParent
         }
     }
 
-
-
-    private float GetAttackDelay() => Random.Range(0.3f, 0.5f); // Faster attack speed for MiniBoss
-
-    private int GetAttackBurstCount() => Random.Range(5, 8); // MiniBoss attacks in bursts
 
     /// <summary>
     /// Defines the MiniBoss's attack sequence.

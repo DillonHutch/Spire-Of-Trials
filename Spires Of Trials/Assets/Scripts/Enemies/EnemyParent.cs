@@ -227,26 +227,27 @@ public abstract class EnemyParent : MonoBehaviour
     /// <param name="shield">The shield transform to apply the recoil effect.</param>
     protected IEnumerator ShieldRecoil(Transform shield)
     {
-        // Store the shield's original position
-        Vector3 originalPosition = shield.position;
+        if (shield == null) yield break; // Ensure shield exists
 
-        // Calculate the recoil position (slightly lower)
+        Vector3 originalPosition = shield.position;
         Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0);
 
         Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
 
-        // Move the shield down slightly to simulate impact
+        // Move the shield down
         shield.position = recoilPosition;
-        yield return new WaitForSeconds(0.1f); // Short recoil delay
+        yield return new WaitForSeconds(0.1f);
 
-        // Reset shield to its original position
+        // Ensure shield returns to original position even if interrupted
         shield.position = originalPosition;
+
         Debug.Log($"Recoil End for {shield.name}");
 
-        // Unlock recoil state to allow future recoils
+        // Reset flags properly
         isRecoiling = false;
-        activeRecoilCoroutine = null; // Clear coroutine reference
+        activeRecoilCoroutine = null;
     }
+
 
     /// <summary>
     /// Triggers a flashing effect on the attack indicator sprite.
@@ -499,6 +500,9 @@ public abstract class EnemyParent : MonoBehaviour
         isAttacking = false;
         SetAnimationState("ReturnToIdle");
         dodgeBarHighlighter?.ClearHighlight(attackPosition);
+
+        if(spriteRenderer != null) spriteRenderer.color = Color.white;
+
 
         if (attackSprite != null)
         {
