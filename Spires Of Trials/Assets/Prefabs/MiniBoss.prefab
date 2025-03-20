@@ -101,10 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff31a0b740fb0e469ac4b00be393504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 25
-  windUpColor: {r: 0, g: 0, b: 1, a: 1}
-  attackColor: {r: 1, g: 0, b: 1, a: 1}
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
   healthBar: {fileID: 7541887541245241934}
   healthBarFill: {fileID: 4875015134591833144}
   healthGradient:
@@ -142,6 +138,7 @@ MonoBehaviour:
   magicSprite: {fileID: 21300000, guid: cea764425c0a2a543a6d5f66c03c2786, type: 3}
   rangeSprite: {fileID: 21300000, guid: 1c5b92e3cc74a6e43bbc7efce2bdf060, type: 3}
   heavySprite: {fileID: 21300000, guid: a8466baaef5cfb34e9cd601bf8c26dc4, type: 3}
+  flashTime: 0.1
   damageParticlePrefab: {fileID: 7351758881579968959, guid: 47f8a4f379715ee4083149c8b4106d37, type: 3}
   partOrgin: {fileID: 327950641326174477}
   leftSpawn: {fileID: 0}

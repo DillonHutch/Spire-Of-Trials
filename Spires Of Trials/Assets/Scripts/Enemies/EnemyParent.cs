@@ -37,6 +37,8 @@ public abstract class EnemyParent : MonoBehaviour
     protected List<string> attackSequence = new List<string>();
     protected int currentSequenceIndex = 0;
     protected Coroutine attackCoroutine;
+    protected int phaseSize = 4; // Default phase size, can be overridden by subclasses
+
 
     // Attack Indicators
     [SerializeField] protected GameObject attackIndicator; // Assign in Inspector (e.g., an empty GameObject with a SpriteRenderer)
@@ -50,6 +52,8 @@ public abstract class EnemyParent : MonoBehaviour
     protected SpriteRenderer leftAttackSprite;
     protected SpriteRenderer centerAttackSprite;
     protected SpriteRenderer rightAttackSprite;
+
+    [SerializeField] private float flashTime;
 
     // Shields
     protected Transform leftShield;
@@ -70,6 +74,12 @@ public abstract class EnemyParent : MonoBehaviour
     // Recoil Mechanic
     protected Coroutine activeRecoilCoroutine;
     private bool isRecoiling = false;
+
+    // enemies that move support
+    [SerializeField] protected Transform leftSpawn;   // Left-side spawn position
+    [SerializeField] protected Transform centerSpawn; // Center spawn position
+    [SerializeField] protected Transform rightSpawn;  // Right-side spawn position
+    protected Transform currentParent; // Stores the current parent transform
 
     #endregion
 
@@ -283,11 +293,11 @@ public abstract class EnemyParent : MonoBehaviour
         {
             // Change the sprite color to a semi-transparent state
             attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, warningOpacity);
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(flashTime);
 
             // Reset to original color
             attackSprite.color = originalColor;
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(flashTime);
         }
 
         // Keep the sprite enabled for the next attack indication
@@ -349,7 +359,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     /// <returns>Integer representing the attack position.</returns>
     protected abstract int GetAttackPosition();
-    
+
 
     /// <summary>
     /// Continuously loops and waits for a random interval before requesting an attack.
@@ -384,7 +394,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Handles the entire attack sequence, including wind-up, attack execution, and attack resolution.
     /// </summary>
-    private IEnumerator PerformAttack()
+    protected virtual IEnumerator PerformAttack()
     {
         isAttacking = true;
 
@@ -429,7 +439,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Gets the appropriate attack sprite based on position.
     /// </summary>
-    private SpriteRenderer GetAttackSprite(int attackPosition)
+    protected SpriteRenderer GetAttackSprite(int attackPosition)
     {
         return attackPosition switch
         {
@@ -443,7 +453,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Handles flashing the attack indicator.
     /// </summary>
-    private IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
+    protected IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
     {
         attackSprite.gameObject.SetActive(true);
         attackSprite.enabled = true;
@@ -454,7 +464,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Sets the animation states for wind-up and attack.
     /// </summary>
-    private void SetAnimationState(bool isWinding, bool isAttacking)
+    protected void SetAnimationState(bool isWinding, bool isAttacking)
     {
         animator.SetBool("IsWinding", isWinding);
         animator.SetBool("IsAttacking", isAttacking);
@@ -463,7 +473,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Determines whether the player dodged successfully and applies the appropriate effects.
     /// </summary>
-    private void ResolveAttack(int attackPosition)
+    protected void ResolveAttack(int attackPosition)
     {
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
 
@@ -484,7 +494,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Cleans up the attack sequence, removing visuals and resetting state.
     /// </summary>
-    private void CleanupAttack(SpriteRenderer attackSprite, int attackPosition)
+    protected void CleanupAttack(SpriteRenderer attackSprite, int attackPosition)
     {
         isAttacking = false;
         SetAnimationState(isWinding: false, isAttacking: false);
@@ -505,7 +515,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Plays the wind-up sound effect based on the enemy type.
     /// </summary>
-    void WindUpSound()
+    protected void WindUpSound()
     {
         if (this.gameObject.tag == "Goblin")
         {
@@ -524,7 +534,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Plays the attack sound effect based on the enemy type.
     /// </summary>
-    void AttackSound()
+    protected void AttackSound()
     {
         if (this.gameObject.tag == "Goblin")
         {
@@ -575,7 +585,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// Updates the attack indicator sprite based on the next attack in the sequence.
     /// Ensures the enemy displays the correct attack type.
     /// </summary>
-    private void UpdateColor()
+    protected virtual void UpdateColor()
     {
         // If the enemy has completed all attacks, do nothing
         if (currentSequenceIndex >= attackSequence.Count) return;
@@ -609,60 +619,74 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
     /// <summary>
-    /// Handles taking damage and verifying if the player's attack was correct.
-    /// Updates attack sequence progress or resets if the attack was incorrect.
+    /// Handles the MiniBoss taking damage from the player.
+    /// Uses a phase-based attack sequence where the MiniBoss must be attacked in a specific order.
     /// </summary>
     /// <param name="attackType">The type of attack the player used.</param>
     public void TakeDamage(string attackType)
     {
-        // Get a reference to the player's attack script
-        PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>();
+        PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
+
+        int phaseSize = 4; // Each phase consists of 4 attacks
+        int totalPhases = attackSequence.Count / phaseSize;
+        int currentPhase = currentSequenceIndex / phaseSize; // Determine which phase the player is in
+        int phaseStartIndex = currentPhase * phaseSize; // Start of the current phase
+        int phaseEndIndex = phaseStartIndex + phaseSize; // End of the current phase
 
         // Check if the attack matches the expected sequence
         if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
         {
-            currentSequenceIndex++; // Advance attack sequence
-            Debug.Log($"{gameObject.name} hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
+            currentSequenceIndex++;
+            Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
-            // Trigger red flash effect to indicate a successful hit
+            // Play damage sound
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
+
+            // Flash red effect on hit
             StartCoroutine(FlashRed());
 
-            // Spawn damage particles at the particle origin point
+            // Spawn damage particles
             if (damageParticlePrefab != null)
             {
                 GameObject particles = Instantiate(damageParticlePrefab, partOrgin.transform.position, Quaternion.identity);
-                Destroy(particles, 0.5f); // Auto-cleanup after 0.5 seconds
+                Destroy(particles, 0.5f); // Cleanup after 0.5 sec
             }
 
-            // Notify the player of a successful combo hit
-            player?.UpdateCombo(true);
+            // If phase is completed, move to the next phase
+            if (currentSequenceIndex >= phaseEndIndex)
+            {
+                Debug.Log($"Phase {currentPhase + 1} completed!");
+            }
 
-            // If the attack sequence is complete, the enemy dies
+            // If all phases are completed, the MiniBoss dies
             if (currentSequenceIndex >= attackSequence.Count)
             {
                 Die();
             }
             else
             {
-                // Update attack indicator to show the next expected attack
                 UpdateColor();
             }
+
+            // Notify the player of a successful combo hit
+            player?.UpdateCombo(true);
         }
         else
         {
-            // Incorrect attack resets the sequence
-            Debug.Log($"{gameObject.name} hit incorrectly! Resetting sequence.");
-            currentSequenceIndex = 0;
+            Debug.Log("MiniBoss hit incorrectly! Resetting current phase.");
 
-            // Reset health bar if it exists
-            if (healthBar != null)
-                healthBar.value = 0;
-
-            // Notify the player of a failed hit (miss)
-            player?.UpdateCombo(false);
-
-            // Update attack indicator to restart the sequence
+            // Reset only the current phase, not the entire sequence
+            currentSequenceIndex = phaseStartIndex;
             UpdateColor();
+
+            // Notify the player of a failed hit
+            player?.UpdateCombo(false);
+        }
+
+        // Update the health bar based on attack sequence progress
+        if (healthBar != null)
+        {
+            healthBar.value = attackSequence.Count - currentSequenceIndex;
         }
     }
 
@@ -740,6 +764,36 @@ public abstract class EnemyParent : MonoBehaviour
 
         // Destroy the enemy game object
         Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region MovementBetweenLocationMethods
+
+    /// <summary>
+    /// Sets the MiniBoss's new parent transform and moves it to the new position.
+    /// Ensures the MiniBoss is correctly positioned within the spawn hierarchy.
+    /// </summary>
+    /// <param name="newParent">The new Transform parent.</param>
+    protected void SetNewParent(Transform newParent)
+    {
+        if (newParent != null)
+        {
+            currentParent = newParent;
+            transform.position = currentParent.position; // Move to new position
+            transform.SetParent(currentParent); // Set hierarchy parent
+        }
+    }
+
+    /// <summary>
+    /// Selects a random spawn point from the given list of spawn positions.
+    /// Used for randomizing the MiniBoss's movement between attacks.
+    /// </summary>
+    /// <param name="positions">An array of possible spawn positions.</param>
+    /// <returns>A randomly selected Transform spawn position.</returns>
+    protected Transform GetRandomSpawn(params Transform[] positions)
+    {
+        return positions.Length > 0 ? positions[Random.Range(0, positions.Length)] : null;
     }
 
     #endregion

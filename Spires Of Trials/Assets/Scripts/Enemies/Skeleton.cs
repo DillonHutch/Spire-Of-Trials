@@ -24,7 +24,7 @@ public class Skeleton : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "melee", "heavy", "range", "magic" };
+        attackSequence = new List<string> { "melee", "heavy", "range", "magic",  };
     }
 
 
