@@ -29,8 +29,8 @@ public abstract class EnemyParent : MonoBehaviour
     protected float flashDuration = 0.2f;
 
     // Attack System
-    protected float attackIntervalMin = 0.5f;
-    protected float attackIntervalMax = 2f;
+    [SerializeField] protected float attackIntervalMin = 0.5f;
+    [SerializeField] protected float attackIntervalMax = 2f;
     [SerializeField] protected float windUpTime = 1f;
     protected bool isAttacking = false;
     protected int enemyAttackPosition;
@@ -60,6 +60,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected Transform centerShield;
     protected Transform rightShield;
 
+
     // Particle Effects
     [SerializeField] protected GameObject damageParticlePrefab; // Assign the prefab in the Inspector
     [SerializeField] protected GameObject partOrgin;
@@ -76,10 +77,21 @@ public abstract class EnemyParent : MonoBehaviour
     private bool isRecoiling = false;
 
     // enemies that move support
-    [SerializeField] protected Transform leftSpawn;   // Left-side spawn position
-    [SerializeField] protected Transform centerSpawn; // Center spawn position
-    [SerializeField] protected Transform rightSpawn;  // Right-side spawn position
+    protected Transform leftSpawn;   // Left-side spawn position
+    protected Transform centerSpawn; // Center spawn position
+    protected Transform rightSpawn;  // Right-side spawn position
     protected Transform currentParent; // Stores the current parent transform
+
+
+
+
+    // **Color Management**
+    private Color originalColor;       // Stores the original color of the enemy
+    private SpriteRenderer iconRenderer; // Reference to the icon sprite renderer
+    private Color iconOriginalColor;    // Stores the original color of the icon
+
+    // **References**
+    protected Transform player;        // Reference to the player transform
 
     #endregion
 
@@ -89,59 +101,68 @@ public abstract class EnemyParent : MonoBehaviour
     /// Called when the script instance is first initialized. 
     /// Sets up references, starts coroutines, and initializes health values.
     /// </summary>
+    /// <summary>
+    /// Called when the script instance is first initialized. 
+    /// Sets up references, starts coroutines, and initializes health values.
+    /// </summary>
     protected virtual void Start()
     {
-        // Start monitoring color resets
         StartCoroutine(MonitorColorReset());
 
-        // Get the attack position from the parent spawn point
-        enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
-
-        // Find and assign the dodge slider and highlighter
-        dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider").GetComponent<Slider>();
-        dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
-
-        // Cache the sprite renderer and original position
+        // Cache commonly used components
         spriteRenderer = GetComponent<SpriteRenderer>();
-        originalPosition = transform.position;
-
-        // Cache the animator component
         animator = GetComponent<Animator>();
 
-        // Ensure attackIndicator is properly set up
+        // Store original values
+        originalPosition = transform.position;
+        originalColor = spriteRenderer.color;
+
+        // Assign attack position
+        enemyAttackPosition = GetComponentInParent<SpawnPoint>().SpawnPointNumber;
+
+        // Assign UI elements
+        dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider")?.GetComponent<Slider>();
+        dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
+
+        // Assign attack indicator renderer (with error checking)
         if (attackIndicator != null)
         {
-            attackIndicatorRenderer = attackIndicator.GetComponent<SpriteRenderer>();
-
-            // Log an error if the SpriteRenderer is missing
-            if (attackIndicatorRenderer == null)
-            {
-                Debug.LogError($"SpriteRenderer missing on {attackIndicator.name}. Please add one.");
-            }
+            attackIndicatorRenderer = attackIndicator.GetComponent<SpriteRenderer>()
+                ?? throw new MissingComponentException($"SpriteRenderer missing on {attackIndicator.name}.");
         }
         else
         {
-            // Log an error if attackIndicator is not assigned
             Debug.LogError($"attackIndicator is not assigned for {gameObject.name}. Assign it in the Inspector.");
         }
 
-        // Define the attack sequence for the enemy
-        DefineAttackSequence();
+        // Assign icon renderer and store its original color
+        iconRenderer = transform.childCount > 0 ? transform.GetChild(0).GetComponent<SpriteRenderer>() : null;
+        iconOriginalColor = iconRenderer ? iconRenderer.color : Color.white;
 
-        // Update the enemy's color based on its state
+        // Initialize attack sequence and update visuals
+        DefineAttackSequence();
         UpdateColor();
 
-        // Stop any existing attack coroutine and start a new attack loop
+        // Setup health bar values
+        healthBar.maxValue = attackSequence.Count;
+        healthBar.value = attackSequence.Count;
+
+        // Handle attack coroutine
         if (attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
         }
         attackCoroutine = StartCoroutine(AttackLoop());
 
-        // Set up health bar values
-        healthBar.maxValue = attackSequence.Count;
-        healthBar.value = attackSequence.Count; // Start full
+        // Find the player in the scene
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
+        //find spawn
+        leftSpawn = GameObject.FindGameObjectWithTag("LeftSpawn").GetComponent<Transform>();
+        rightSpawn = GameObject.FindGameObjectWithTag("RightSpawn").GetComponent<Transform>();
+        centerSpawn = GameObject.FindGameObjectWithTag("MiddleSpawn").GetComponent<Transform>();
     }
+
 
     /// <summary>
     /// Called once per frame. Updates the health bar and color based on the current sequence index.
@@ -501,7 +522,12 @@ public abstract class EnemyParent : MonoBehaviour
         SetAnimationState("ReturnToIdle");
         dodgeBarHighlighter?.ClearHighlight(attackPosition);
 
-        if(spriteRenderer != null) spriteRenderer.color = Color.white;
+        if(spriteRenderer != null) spriteRenderer.color = originalColor;
+        if (iconRenderer != null) iconRenderer.color = iconOriginalColor;
+
+        leftShield.localPosition = new Vector3(-11f, -9.92f, 0f);
+        centerShield.localPosition = new Vector3(0f, -9.92f, 0f);
+        rightShield.localPosition = new Vector3(11f, -9.92f, 0f);
 
 
         if (attackSprite != null)

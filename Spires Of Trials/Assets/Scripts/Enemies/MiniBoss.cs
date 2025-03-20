@@ -12,31 +12,9 @@ public class MiniBoss : EnemyParent
     #region Fields
 
 
-    // **References**
-    private Transform player;        // Reference to the player transform
-  
-
-    // **Color Management**
-    private Color originalColor;       // Stores the original color of the enemy
-    private SpriteRenderer iconRenderer; // Reference to the icon sprite renderer
-    private Color iconOriginalColor;    // Stores the original color of the icon
-
-    // **Coroutines**
-    private Coroutine knightAttackCoroutine; // Coroutine reference for knight attack sequence
-
     #endregion
 
     #region UnityMethods
-
-    /// <summary>
-    /// Called when the script instance is being loaded.
-    /// Initializes references before the game starts.
-    /// </summary>
-    private void Awake()
-    {
-        // Get the SpriteRenderer component attached to this GameObject
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
 
     /// <summary>
     /// Called before the first frame update.
@@ -45,36 +23,7 @@ public class MiniBoss : EnemyParent
     protected override void Start()
     {
         // Call base Start() to ensure parent class logic runs first
-        base.Start();
-
-        // Get the original color of the icon (if available) or default to white
-        iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
-
-        // Store the original sprite color
-        originalColor = spriteRenderer.color;
-
-        // Assign iconRenderer by assuming the first child is the icon
-        iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-
-        // Set attack behavior properties
-        attackIntervalMin = 1f; // Minimum time between attacks
-        attackIntervalMax = 1f; // Maximum time between attacks
-        windUpTime = 1f;        // Wind-up time before an attack executes
-
-        // Find the player in the scene by tag
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-
-        // Find spawn positions in the scene using tags
-        leftSpawn = GameObject.FindWithTag("LeftSpawn")?.transform;
-        centerSpawn = GameObject.FindWithTag("MiddleSpawn")?.transform;
-        rightSpawn = GameObject.FindWithTag("RightSpawn")?.transform;
-
-        // Error handling: Ensure all spawn points are assigned correctly
-        if (leftSpawn == null || centerSpawn == null || rightSpawn == null)
-        {
-            Debug.LogError("MiniBoss spawn positions are not properly set! Check your tags.");
-            return;
-        }
+        base.Start(); 
 
         // Set a random spawn position as the new parent
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
@@ -112,7 +61,9 @@ public class MiniBoss : EnemyParent
 
             for (int i = 0; i < attackBurstCount; i++)
             {
-               
+                // Determine a random attack interval within the min/max range, rounded to one decimal place
+                float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;             
+                yield return new WaitForSeconds(waitTime);
                 Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
                 SetNewParent(randomSpawn);
                 yield return PerformAttack(); // Reuse parent attack logic with minor tweaks
