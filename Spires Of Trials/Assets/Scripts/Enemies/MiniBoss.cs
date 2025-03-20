@@ -79,8 +79,6 @@ public class MiniBoss : EnemyParent
         // Set a random spawn position as the new parent
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
 
-        // Override phase size for MiniBoss
-        phaseSize = 4; // Adjust this value based on design needs
     }
 
     #endregion
@@ -93,7 +91,7 @@ public class MiniBoss : EnemyParent
     /// <returns></returns>
     protected override int GetAttackPosition()
     {
-        return enemyAttackPosition;
+        return Random.Range(0, 3);
     }
 
     /// <summary>
@@ -120,6 +118,9 @@ public class MiniBoss : EnemyParent
     }
 
 
+  
+
+
     /// <summary>
     /// Handles the entire attack sequence, including wind-up, attack execution, and attack resolution.
     /// </summary>
@@ -130,18 +131,18 @@ public class MiniBoss : EnemyParent
         isAttacking = true;
 
         // Select random attack position
-        int attackPosition = Random.Range(0, 3);
+        int attackPosition = GetAttackPosition();
         SpriteRenderer attackSprite = GetAttackSprite(attackPosition);
 
         // Move MiniBoss before attacking
         Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
         SetNewParent(randomSpawn);
 
+        // Show attack sprite indicator
         if (attackSprite != null)
-        {
-            attackSprite.enabled = true;
-            StartCoroutine(FlashAttackIndicator(attackSprite));
-        }
+            StartCoroutine(ShowAttackIndicator(attackSprite));
+        else
+            Debug.LogError("Attack Sprite is NULL!");
 
         // Trigger wind-up animation
         animator.SetTrigger("WindUp");
@@ -154,9 +155,8 @@ public class MiniBoss : EnemyParent
         AttackSound();  
 
         ResolveAttack(attackPosition);
-
-        isAttacking = false;
-        animator.SetTrigger("ReturnToIdle");
+       
+        CleanupAttack(attackSprite, attackPosition);
 
         yield return new WaitForSeconds(0.1f);
     }

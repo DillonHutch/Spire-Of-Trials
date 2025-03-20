@@ -416,17 +416,19 @@ public abstract class EnemyParent : MonoBehaviour
             Debug.LogError("Attack Sprite is NULL!");
 
         // Play wind-up animation and sound
-        SetAnimationState(isWinding: true, isAttacking: false);
+        SetAnimationState("WindUp");
         WindUpSound();
 
         yield return new WaitForSeconds(windUpTime);
 
         // Play attack animation and sound
-        SetAnimationState(isWinding: false, isAttacking: true);
+        SetAnimationState("Attack");
         AttackSound();
 
         // Check if the player successfully blocked the attack
         ResolveAttack(attackPosition);
+
+        
 
         // Clear attack visuals
         yield return new WaitForSeconds(0.2f);
@@ -464,10 +466,9 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Sets the animation states for wind-up and attack.
     /// </summary>
-    protected void SetAnimationState(bool isWinding, bool isAttacking)
+    private void SetAnimationState(string animationSequence)
     {
-        animator.SetBool("IsWinding", isWinding);
-        animator.SetBool("IsAttacking", isAttacking);
+        animator.SetTrigger(animationSequence);
     }
 
     /// <summary>
@@ -497,7 +498,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected void CleanupAttack(SpriteRenderer attackSprite, int attackPosition)
     {
         isAttacking = false;
-        SetAnimationState(isWinding: false, isAttacking: false);
+        SetAnimationState("ReturnToIdle");
         dodgeBarHighlighter?.ClearHighlight(attackPosition);
 
         if (attackSprite != null)
