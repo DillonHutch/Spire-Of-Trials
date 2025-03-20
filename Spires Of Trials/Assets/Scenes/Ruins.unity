@@ -10372,7 +10372,7 @@ MonoBehaviour:
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
-  miniBossSpawnNumber: 2
+  miniBossSpawnNumber: 20
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}

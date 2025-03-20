@@ -4,6 +4,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// is enemy spawner
+/// </summary>
 public class EnemySpawner : MonoBehaviour
 {
     #region Fields
@@ -116,20 +120,54 @@ public class EnemySpawner : MonoBehaviour
                 Debug.Log("All enemies destroyed. Starting new spawn cycle.");
 
                 roundCounter++; // Increase round count
-                UpdateRoundUI(); // Update the UI to reflect the new round number
+                UpdateRoundUI(); // Update UI
 
-                if (roundCounter == miniBossSpawnNumber && !bossSpawned)
-                {
-                    yield return StartCoroutine(SpawnMiniBoss()); // Spawn MiniBoss when the designated round is reached
-                }
+                // Adjust spawn chance dynamically based on round number
+                if (roundCounter <= 5)
+                    spawnChance = .05f; // Guarantee at least one spawn
+                else if (roundCounter < 10)
+                    spawnChance = 0.2f; // 20% chance
+                else if (roundCounter < 15)
+                    spawnChance = 0.3f; // 30% chance
                 else if (roundCounter < miniBossSpawnNumber)
+                    spawnChance = 0.5f; // 50% chance
+                else if (roundCounter == miniBossSpawnNumber && !bossSpawned)
                 {
-                    yield return StartCoroutine(SpawnEnemies()); // Continue spawning normal enemies
+                    yield return StartCoroutine(SpawnMiniBoss());
+                    continue;
                 }
+
+                yield return StartCoroutine(SpawnEnemies());
             }
-            yield return new WaitForSeconds(0.5f); // Periodically check every 0.5 seconds
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
+
+
+    /// <summary>
+    /// Updates the spawn chance based on the current round.
+    /// </summary>
+    private void UpdateSpawnChance()
+    {
+        if (roundCounter <= 5)
+        {
+            spawnChance = 0f; // Only one enemy spawns, handled separately
+        }
+        else if (roundCounter <= 9)
+        {
+            spawnChance = 0.2f; // 20% chance per location
+        }
+        else if (roundCounter <= 14)
+        {
+            spawnChance = 0.3f; // 30% chance per location
+        }
+        else if (roundCounter <= 19)
+        {
+            spawnChance = 0.5f; // 50% chance per location
+        }
+    }
+
 
     /// <summary>
     /// Spawns the MiniBoss at a random spawn location and updates game states accordingly.
@@ -246,23 +284,36 @@ public class EnemySpawner : MonoBehaviour
         {
             string enemyTag = enemy.tag; // Get the enemy's tag
 
-            // Define valid positions for each enemy type
-            if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+
+            // If rounds are 1-5, only Skeletons spawn
+            if (roundCounter <= 5)
             {
-                possibleEnemies.Add(enemy);
+                // Define valid positions for each enemy type
+                if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+                {
+                    possibleEnemies.Add(enemy);
+                }
             }
-            else if (enemyTag == "Goblin" && positionIndex == 1) // Goblins spawn only in the center
+            else
             {
-                possibleEnemies.Add(enemy);
-            }
-            else if (enemyTag == "Slime" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
-            {
-                possibleEnemies.Add(enemy);
+                // Define valid positions for each enemy type
+                if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Goblin" && positionIndex == 1) // Goblins spawn only in the center
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Slime" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
             }
         }
 
-        // Return a random enemy from the list or null if no valid enemies exist
-        return possibleEnemies.Count > 0 ? possibleEnemies[Random.Range(0, possibleEnemies.Count)] : null;
+            // Return a random enemy from the list or null if no valid enemies exist
+            return possibleEnemies.Count > 0 ? possibleEnemies[Random.Range(0, possibleEnemies.Count)] : null;
     }
 
     /// <summary>
@@ -303,7 +354,7 @@ public class EnemySpawner : MonoBehaviour
                 RectTransform canvasTransform = slimeCanvas.GetComponent<RectTransform>();
                 if (canvasTransform != null)
                 {
-                    canvasTransform.localPosition = new Vector3(1916.1f, canvasTransform.localPosition.y, 0);
+                    canvasTransform.localPosition = new Vector3(1913.19f, canvasTransform.localPosition.y, 0);
                 }
             }
         }
