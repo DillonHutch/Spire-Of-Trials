@@ -154,16 +154,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSlider: {fileID: 1835740636}
+  comboText: {fileID: 775100943}
   leftSheild: {fileID: 1265966354}
   rightSheild: {fileID: 1289765995}
   middleSheild: {fileID: 2067732340}
   forwardSprite: {fileID: 510329086}
   sideSprite: {fileID: 1726120751}
+  sideSpriteRenderer: {fileID: 1726120752}
   leftEnemy: {fileID: 83192028}
   centerEnemy: {fileID: 1999322362}
   rightEnemy: {fileID: 512280081}
-  sideSpriteRenderer: {fileID: 1726120752}
-  comboText: {fileID: 775100943}
 --- !u!4 &39693208
 Transform:
   m_ObjectHideFlags: 0
@@ -3386,7 +3386,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
   m_Layer: 0
@@ -3506,18 +3505,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e94a84305599de4b8c1be6d74dcc44f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10385,7 +10372,7 @@ MonoBehaviour:
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
-  miniBossSpawnNumber: 20
+  miniBossSpawnNumber: 2
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}
