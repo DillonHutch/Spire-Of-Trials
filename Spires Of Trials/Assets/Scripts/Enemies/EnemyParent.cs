@@ -31,7 +31,7 @@ public abstract class EnemyParent : MonoBehaviour
     // Attack System
     protected float attackIntervalMin = 0.5f;
     protected float attackIntervalMax = 2f;
-    protected float windUpTime = 1f;
+    [SerializeField] protected float windUpTime = 1f;
     protected bool isAttacking = false;
     protected int enemyAttackPosition;
     protected List<string> attackSequence = new List<string>();
@@ -429,7 +429,6 @@ public abstract class EnemyParent : MonoBehaviour
         ResolveAttack(attackPosition);
 
         
-
         // Clear attack visuals
         yield return new WaitForSeconds(0.2f);
         CleanupAttack(attackSprite, attackPosition);

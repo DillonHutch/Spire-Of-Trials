@@ -106,8 +106,11 @@ public class MiniBoss : EnemyParent
 
             for (int i = 0; i < attackBurstCount; i++)
             {
+               
+                Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+                SetNewParent(randomSpawn);
                 yield return PerformAttack(); // Reuse parent attack logic with minor tweaks
-                yield return new WaitForSeconds(GetAttackDelay()); // Rapid attack delay
+                
             }
 
             // **Rest Phase** - MiniBoss pauses after its attack burst
@@ -118,48 +121,6 @@ public class MiniBoss : EnemyParent
     }
 
 
-  
-
-
-    /// <summary>
-    /// Handles the entire attack sequence, including wind-up, attack execution, and attack resolution.
-    /// </summary>
-    protected override IEnumerator PerformAttack()
-    {
-        yield return new WaitForSeconds(GetAttackDelay()); // Faster delay before attack
-
-        isAttacking = true;
-
-        // Select random attack position
-        int attackPosition = GetAttackPosition();
-        SpriteRenderer attackSprite = GetAttackSprite(attackPosition);
-
-        // Move MiniBoss before attacking
-        Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
-        SetNewParent(randomSpawn);
-
-        // Show attack sprite indicator
-        if (attackSprite != null)
-            StartCoroutine(ShowAttackIndicator(attackSprite));
-        else
-            Debug.LogError("Attack Sprite is NULL!");
-
-        // Trigger wind-up animation
-        animator.SetTrigger("WindUp");
-        WindUpSound();
-
-        yield return new WaitForSeconds(0.5f); // Wind-up time
-
-        // Execute attack
-        animator.SetTrigger("Attack");
-        AttackSound();  
-
-        ResolveAttack(attackPosition);
-       
-        CleanupAttack(attackSprite, attackPosition);
-
-        yield return new WaitForSeconds(0.1f);
-    }
 
     private float GetAttackDelay() => Random.Range(0.3f, 0.5f); // Faster attack speed for MiniBoss
 
