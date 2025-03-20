@@ -133,38 +133,17 @@ public class EnemySpawner : MonoBehaviour
                     spawnChance = 0.5f; // 50% chance
                 else if (roundCounter == miniBossSpawnNumber && !bossSpawned)
                 {
+                    bossSpawned = true;
                     yield return StartCoroutine(SpawnMiniBoss());
                     continue;
                 }
 
-                yield return StartCoroutine(SpawnEnemies());
+
+                if (!bossSpawned) { yield return StartCoroutine(SpawnEnemies()); }
+                
             }
 
             yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-
-    /// <summary>
-    /// Updates the spawn chance based on the current round.
-    /// </summary>
-    private void UpdateSpawnChance()
-    {
-        if (roundCounter <= 5)
-        {
-            spawnChance = 0f; // Only one enemy spawns, handled separately
-        }
-        else if (roundCounter <= 9)
-        {
-            spawnChance = 0.2f; // 20% chance per location
-        }
-        else if (roundCounter <= 14)
-        {
-            spawnChance = 0.3f; // 30% chance per location
-        }
-        else if (roundCounter <= 19)
-        {
-            spawnChance = 0.5f; // 50% chance per location
         }
     }
 
