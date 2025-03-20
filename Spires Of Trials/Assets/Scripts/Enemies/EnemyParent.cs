@@ -428,8 +428,6 @@ public abstract class EnemyParent : MonoBehaviour
         if (gameObject.CompareTag("Goblin"))
             spriteRenderer.flipX = attackPosition == 2;
 
-        // Highlight the attack position on the dodge bar
-        dodgeBarHighlighter?.HighlightPosition(attackPosition);
 
         // Show attack sprite indicator
         if (attackSprite != null)
@@ -443,9 +441,7 @@ public abstract class EnemyParent : MonoBehaviour
 
         yield return new WaitForSeconds(windUpTime);
 
-        // Play attack animation and sound
-        SetAnimationState("Attack");
-        AttackSound();
+ 
 
         // Check if the player successfully blocked the attack
         ResolveAttack(attackPosition);
@@ -498,6 +494,8 @@ public abstract class EnemyParent : MonoBehaviour
     protected void ResolveAttack(int attackPosition)
     {
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+ 
+        AttackSound();
 
         if (playerDodgePosition == attackPosition)
         {
@@ -511,6 +509,9 @@ public abstract class EnemyParent : MonoBehaviour
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
         }
+
+        // Play attack animation and sound
+        SetAnimationState("Attack");
     }
 
     /// <summary>
