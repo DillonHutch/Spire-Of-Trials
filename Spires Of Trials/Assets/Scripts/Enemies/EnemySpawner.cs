@@ -77,6 +77,10 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Start()
     {
+
+
+        
+
         // Validate that all necessary spawn points and enemy prefabs are assigned
         if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
         {
@@ -95,7 +99,7 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         // If the MiniBoss has already spawned and all enemies are defeated, trigger the win screen
-        if (bossSpawned && AllEnemiesDestroyed())
+        if (RoundManager.ROUND_NUMBER == 21 && AllEnemiesDestroyed())
         {
             Debug.Log("MiniBoss defeated. Loading WinScreen.");
             SceneManager.LoadScene("WinScreen"); // Load the Win Screen
@@ -138,6 +142,7 @@ public class EnemySpawner : MonoBehaviour
                     continue;
                 }
 
+                RoundManager.ROUND_NUMBER = roundCounter;
 
                 if (!bossSpawned) { yield return StartCoroutine(SpawnEnemies()); }
                 
