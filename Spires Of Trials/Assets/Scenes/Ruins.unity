@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_Intensity: 3.34
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf58001300000000672ced64
+  m_ApplyToSortingLayers: bf58001300000000672ced6469906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1768,7 +1768,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d
+  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -1798,6 +1798,67 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1001 &300607683
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1262975882357312618, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2262.3333
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 980.96454
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25.954113
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7532710226897751222, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_Name
+      value: LevelLoader
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
 --- !u!1 &309118214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,7 +4359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &619394801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4319,7 +4380,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000081292dcfbf580013c156dc1d672ced64
+  m_ApplyToSortingLayers: c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -5694,7 +5755,7 @@ MonoBehaviour:
   m_Intensity: 3.34
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf58001300000000672ced64
+  m_ApplyToSortingLayers: bf58001300000000672ced6469906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -7790,7 +7851,7 @@ MonoBehaviour:
   m_Intensity: 3.34
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf58001300000000672ced64
+  m_ApplyToSortingLayers: bf58001300000000672ced6469906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -11959,3 +12020,4 @@ SceneRoots:
   - {fileID: 1640623290}
   - {fileID: 2467861171437298931}
   - {fileID: 477558234}
+  - {fileID: 300607683}
