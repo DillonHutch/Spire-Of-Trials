@@ -45,8 +45,8 @@ public class PlayerHealth : MonoBehaviour
         if (EventManager.Instance != null)
         {
             // Listen for damage and healing events, ensuring the correct methods are called when triggered
-            EventManager.Instance.StartListening("takeDamageEvent", param => TakeDamage((int)param));
-            EventManager.Instance.StartListening("healDamageEvent", param => Heal((int)param));
+            EventManager.Instance.StartListening<int>("takeDamageEvent", TakeDamage);
+            EventManager.Instance.StartListening<int>("healDamageEvent", Heal);
         }
         else
         {
@@ -62,8 +62,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (EventManager.Instance != null)
         {
-            EventManager.Instance.StopListening("takeDamageEvent", param => TakeDamage((int)param));
-            EventManager.Instance.StopListening("healDamageEvent", param => Heal((int)param));
+            EventManager.Instance.StopListening<int>("takeDamageEvent", TakeDamage);
+            EventManager.Instance.StopListening<int>("healDamageEvent", Heal);
         }
     }
 
@@ -89,7 +89,7 @@ public class PlayerHealth : MonoBehaviour
     /// Triggers health update events, applies visual feedback, and checks for death.
     /// </summary>
     /// <param name="damage">The amount of damage to apply.</param>
-    public void TakeDamage(int damage)
+    void TakeDamage(int damage)
     {
         if (this == null) return; // Prevent execution if the player object has been destroyed
 

@@ -78,7 +78,9 @@ public class PlayerAttackingScript : MonoBehaviour
     {
         if (EventManager.Instance != null)
         {
-            EventManager.Instance.StartListening("OnStartNewRound", StartNewRound);
+            EventManager.Instance.StartListening("OnStartNewRound", StartNewRound);            
+            EventManager.Instance.StartListening<bool>("UpdateCombo", UpdateCombo);
+
         }
         else
         {
@@ -95,6 +97,7 @@ public class PlayerAttackingScript : MonoBehaviour
         if (EventManager.Instance != null)
         {
             EventManager.Instance.StopListening("OnStartNewRound", StartNewRound);
+            EventManager.Instance.StopListening<bool>("UpdateCombo", UpdateCombo);
         }
     }
 
@@ -304,7 +307,7 @@ public class PlayerAttackingScript : MonoBehaviour
     /// Determines the enemy at the player's position and applies the correct attack.
     /// </summary>
     /// <param name="attackType">The type of attack (melee, range, magic, heavy).</param>
-    public void Attack(string attackType)
+     void Attack(string attackType)
     {
         switch (attackType)
         {
@@ -367,7 +370,7 @@ public class PlayerAttackingScript : MonoBehaviour
     /// Modifies UI elements and triggers special effects when reaching combo milestones.
     /// </summary>
     /// <param name="hit">True if the attack lands, false if it misses.</param>
-    public void UpdateCombo(bool hit)
+     void UpdateCombo(bool hit)
     {
         if (hit)
         {

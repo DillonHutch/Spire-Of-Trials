@@ -27,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Round System")]
     [SerializeField] private TextMeshProUGUI roundText; // UI element displaying the current round number
     private int roundCounter = 0; // Tracks the current round, starting at Round 1
+    
 
     #endregion
 
@@ -70,6 +71,18 @@ public class EnemySpawner : MonoBehaviour
 
     #region UnityMethods
 
+
+    private void OnEnable()
+    {
+        
+    }
+
+
+    private void OnDisable()
+    {
+        
+    }
+
     /// <summary>
     /// Called when the script starts.
     /// Ensures that spawn locations, enemy prefabs, and the MiniBoss prefab are assigned.
@@ -102,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
         if (RoundManager.ROUND_NUMBER == 21 && AllEnemiesDestroyed())
         {
             Debug.Log("MiniBoss defeated. Loading WinScreen.");
-            SceneManager.LoadScene("WinScreen"); // Load the Win Screen
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
         }
     }
 
@@ -171,7 +184,18 @@ public class EnemySpawner : MonoBehaviour
 
         // Instantiate the MiniBoss at the selected location
         GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-        miniBoss.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield);
+       
+
+
+        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
+                                                                        leftFlash,
+                                                                        centerFlash,
+                                                                        rightFlash,
+                                                                        leftShield,
+                                                                        centerShield,
+                                                                        rightShield
+                                                                                    ));
+
 
         // Set the MiniBoss as a child of the spawn location
         miniBoss.transform.SetParent(bossSpawnLocation.transform, true);
@@ -210,8 +234,14 @@ public class EnemySpawner : MonoBehaviour
 
                         // Spawn the enemy and set its parent to the spawn location
                         GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
-                        spawnedEnemy.GetComponent<EnemyParent>()?.InitializeAttackSprites(leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield);
-
+                        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
+                                                                 leftFlash,
+                                                                 centerFlash,
+                                                                 rightFlash,
+                                                                 leftShield,
+                                                                 centerShield,
+                                                                 rightShield
+                                                                             ));
                         // Special handling for Slime enemy position and adjustments
                         if (spawnedEnemy.tag == "Slime")
                         {

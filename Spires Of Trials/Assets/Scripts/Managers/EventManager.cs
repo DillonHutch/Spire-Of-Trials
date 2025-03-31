@@ -30,7 +30,8 @@ public class EventManager : MonoBehaviour
     /// Dictionary storing events that require parameters.
     /// The key is the event name (string), and the value is an action that takes an object as a parameter.
     /// </summary>
-    private Dictionary<string, Action<object>> eventDictionaryWithArgs = new Dictionary<string, Action<object>>();
+    private Dictionary<string, Delegate> eventDictionaryGeneral = new Dictionary<string, Delegate>();
+
 
     #endregion
 
@@ -83,18 +84,18 @@ public class EventManager : MonoBehaviour
     /// </summary>
     /// <param name="eventName">The name of the event to listen for.</param>
     /// <param name="listener">The method to execute when the event is triggered, with an object argument.</param>
-    public void StartListening(string eventName, Action<object> listener)
+    public void StartListening<T>(string eventName, Action<T> listener)
     {
-        if (eventDictionaryWithArgs.TryGetValue(eventName, out var thisEvent))
+        if (eventDictionaryGeneral.TryGetValue(eventName, out var existingDelegate))
         {
-            thisEvent += listener; // Add listener to existing event
-            eventDictionaryWithArgs[eventName] = thisEvent;
+            eventDictionaryGeneral[eventName] = Delegate.Combine(existingDelegate, listener);
         }
         else
         {
-            eventDictionaryWithArgs.Add(eventName, listener); // Create new event entry
+            eventDictionaryGeneral.Add(eventName, listener);
         }
     }
+
 
     #endregion
 
@@ -126,19 +127,18 @@ public class EventManager : MonoBehaviour
     /// </summary>
     /// <param name="eventName">The name of the event.</param>
     /// <param name="listener">The listener method to remove.</param>
-    public void StopListening(string eventName, Action<object> listener)
+    public void StopListening<T>(string eventName, Action<T> listener)
     {
-        if (eventDictionaryWithArgs.TryGetValue(eventName, out var thisEvent))
+        if (eventDictionaryGeneral.TryGetValue(eventName, out var existingDelegate))
         {
-            thisEvent -= listener; // Remove listener from event
-
-            // If no more listeners remain, remove the event from the dictionary
-            if (thisEvent == null)
-                eventDictionaryWithArgs.Remove(eventName);
+            existingDelegate = Delegate.Remove(existingDelegate, listener);
+            if (existingDelegate == null)
+                eventDictionaryGeneral.Remove(eventName);
             else
-                eventDictionaryWithArgs[eventName] = thisEvent;
+                eventDictionaryGeneral[eventName] = existingDelegate;
         }
     }
+
 
     #endregion
 
@@ -163,13 +163,14 @@ public class EventManager : MonoBehaviour
     /// </summary>
     /// <param name="eventName">The name of the event to trigger.</param>
     /// <param name="argument">The argument to pass to the event listeners.</param>
-    public void TriggerEvent(string eventName, object argument)
+    public void TriggerEvent(string eventName, params object[] args)
     {
-        if (eventDictionaryWithArgs.TryGetValue(eventName, out var thisEvent))
+        if (eventDictionaryGeneral.TryGetValue(eventName, out var thisEvent))
         {
-            thisEvent.Invoke(argument); // Invoke all subscribed listeners with argument
+            thisEvent.DynamicInvoke(args); // Dynamically invoke with any arguments
         }
     }
+
 
     #endregion
 

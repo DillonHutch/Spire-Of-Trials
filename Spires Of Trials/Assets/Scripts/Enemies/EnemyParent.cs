@@ -180,12 +180,62 @@ public abstract class EnemyParent : MonoBehaviour
         }
     }
 
+
+    private void OnEnable()
+    {
+        if (EventManager.Instance != null)
+        {
+
+            EventManager.Instance.StartListening<(
+            SpriteRenderer left,
+            SpriteRenderer center,
+            SpriteRenderer right,
+            Transform leftShield,
+            Transform centerShield,
+            Transform rightShield
+        )>("InitializeAttackSprites", data =>
+            InitializeAttackSprites(data.left, data.center, data.right, data.leftShield, data.centerShield, data.rightShield));
+
+
+
+            
+            
+        }
+        else
+        {
+            Debug.LogError("EventManager instance is null. Ensure it is present in the scene.");
+        }
+    }
+
     /// <summary>
     /// Called when the GameObject is disabled. 
     /// Stops coroutines and resets relevant UI and visual elements.
     /// </summary>
     protected void OnDisable()
     {
+        if (EventManager.Instance != null)
+        {
+
+            EventManager.Instance.StopListening<(
+            SpriteRenderer left,
+            SpriteRenderer center,
+            SpriteRenderer right,
+            Transform leftShield,
+            Transform centerShield,
+            Transform rightShield
+        )>("InitializeAttackSprites", data =>
+            InitializeAttackSprites(data.left, data.center, data.right, data.leftShield, data.centerShield, data.rightShield));
+
+      
+
+        }
+        else
+        {
+            Debug.LogError("EventManager instance is null. Ensure it is present in the scene.");
+        }
+
+
+
         // Stop the attack coroutine if it is running
         if (attackCoroutine != null)
             StopCoroutine(attackCoroutine);
@@ -354,7 +404,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <param name="lShield">Left shield transform.</param>
     /// <param name="cShield">Center shield transform.</param>
     /// <param name="rShield">Right shield transform.</param>
-    public void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
+    void InitializeAttackSprites(SpriteRenderer left, SpriteRenderer center, SpriteRenderer right, Transform lShield, Transform cShield, Transform rShield)
     {
         leftAttackSprite = left;
         centerAttackSprite = center;
@@ -699,8 +749,11 @@ public abstract class EnemyParent : MonoBehaviour
                 UpdateColor();
             }
 
-            // Notify the player of a successful combo hit
-            player?.UpdateCombo(true);
+
+            if(player != null)
+            {
+                EventManager.Instance.TriggerEvent("UpdateCombo", true);
+            }
         }
         else
         {
@@ -711,7 +764,10 @@ public abstract class EnemyParent : MonoBehaviour
             UpdateColor();
 
             // Notify the player of a failed hit
-            player?.UpdateCombo(false);
+            if (player != null)
+            {
+                EventManager.Instance.TriggerEvent("UpdateCombo", false);
+            }
         }
 
         // Update the health bar based on attack sequence progress

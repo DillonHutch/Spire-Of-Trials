@@ -14,9 +14,9 @@ public class EndScript : MonoBehaviour
     /// Called when the script starts.
     /// Currently unused but can be expanded for end-screen setup.
     /// </summary>
-    void Start()
+    private void Start()
     {
-        // Future setup for the end screen can be added here if needed
+        
     }
 
     /// <summary>

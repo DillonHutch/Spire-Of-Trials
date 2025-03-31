@@ -42,7 +42,7 @@ public class HealthBar : MonoBehaviour
     {
         if (EventManager.Instance != null)
         {
-            EventManager.Instance.StartListening("OnHealthChanged", UpdateHealthBar);
+            EventManager.Instance.StartListening<object>("OnHealthChanged", UpdateHealthBar);
         }
         else
         {
@@ -58,7 +58,7 @@ public class HealthBar : MonoBehaviour
     {
         if (EventManager.Instance != null)
         {
-            EventManager.Instance.StopListening("OnHealthChanged", UpdateHealthBar);
+            EventManager.Instance.StopListening<object>("OnHealthChanged", UpdateHealthBar);
         }
     }
 
