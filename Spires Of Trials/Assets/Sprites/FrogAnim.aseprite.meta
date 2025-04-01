@@ -128,11 +128,411 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
+      x: 348
+      y: 276
+      width: 164
+      height: 127
+    spriteID: 87a04ded9636bc34d957555f1c6a0d54
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 276}
+  - name: FrogAnim_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 189
+      y: 4
+      width: 164
+      height: 128
+    spriteID: e4503f3a70a46a84e9f37b6d5a1c6f56
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 189, y: 4}
+  - name: FrogAnim_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 361
+      y: 4
+      width: 164
+      height: 128
+    spriteID: fa9ec73a77681de41a257154dd701ecc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 361, y: 4}
+  - name: FrogAnim_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 533
+      y: 4
+      width: 164
+      height: 128
+    spriteID: 3b9325e38c9768e41bb59c8f008352cb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 533, y: 4}
+  - name: FrogAnim_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 705
+      y: 4
+      width: 164
+      height: 128
+    spriteID: db0202ae159384c4dbf8c98cf30ef296
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 705, y: 4}
+  - name: FrogAnim_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 140
+      width: 164
+      height: 128
+    spriteID: bce26f77f3a80c54281827acd09dc9cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 140}
+  - name: FrogAnim_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 176
+      y: 140
+      width: 164
+      height: 128
+    spriteID: 50e3d541cf4272d429e571123a8095b3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 176, y: 140}
+  - name: FrogAnim_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 140
+      width: 164
+      height: 128
+    spriteID: 0156157fd5c32544aa2279c778622740
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 140}
+  - name: FrogAnim_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 520
+      y: 140
+      width: 164
+      height: 128
+    spriteID: c2517e9f93c0795479c84f01e21a7dbd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 520, y: 140}
+  - name: FrogAnim_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 140
+      width: 164
+      height: 128
+    spriteID: 3a2d260a90f472e468ade111fd60ec09
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 140}
+  - name: FrogAnim_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 276
+      width: 164
+      height: 128
+    spriteID: 0d016104549c5e74da7b18eada18ea9a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 276}
+  - name: FrogAnim_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 520
+      y: 276
+      width: 164
+      height: 127
+    spriteID: 71793467af60e3e4a9020e10f99e7ed1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 520, y: 276}
+  - name: FrogAnim_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 276
+      width: 164
+      height: 127
+    spriteID: a44eac4e453d37d449f33ea12fa47584
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 276}
+  - name: FrogAnim_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 412
+      width: 164
+      height: 127
+    spriteID: a30629f7e80746747a54b8368f57deef
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 412}
+  - name: FrogAnim_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 176
+      y: 412
+      width: 164
+      height: 127
+    spriteID: f277f4c44a6b0f14fa6656eeffa2a55d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 176, y: 412}
+  - name: FrogAnim_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 348
+      y: 412
+      width: 164
+      height: 127
+    spriteID: e2fc9350e78aca34ea33ea21106faaf9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 348, y: 412}
+  - name: FrogAnim_Frame_16
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 520
+      y: 412
+      width: 164
+      height: 127
+    spriteID: a09e292e3934af04bb50637fd516c072
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 520, y: 412}
+  - name: FrogAnim_Frame_17
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 692
+      y: 412
+      width: 164
+      height: 127
+    spriteID: 941dabffee24a7043a1f72eeb4c97680
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 692, y: 412}
+  - name: FrogAnim_Frame_18
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 547
+      width: 164
+      height: 127
+    spriteID: 320afc2836ecd954a97a24c435d3e482
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 547}
+  - name: FrogAnim_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 176
+      y: 276
+      width: 164
+      height: 128
+    spriteID: 866bf0e55f7581046bd9c6569e5d3280
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 176, y: 276}
+  - name: FrogAnim_Frame_20
+    originalName: 
+    pivot: {x: 0.53672314, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
       x: 4
       y: 4
-      width: 162
-      height: 115
-    spriteID: 87a04ded9636bc34d957555f1c6a0d54
+      width: 177
+      height: 128
+    spriteID: 32c2644f534b4054a99acae54a39294c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -150,14 +550,174 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: FrogAnim
+    - name: FrogAnim_Frame_0
       frameIndex: 0
       cellRect:
-        x: 15
+        x: 14
         y: 0
-        width: 162
-        height: 115
+        width: 164
+        height: 127
       spriteId: 87a04ded9636bc34d957555f1c6a0d54
+    - name: FrogAnim_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: e4503f3a70a46a84e9f37b6d5a1c6f56
+    - name: FrogAnim_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: fa9ec73a77681de41a257154dd701ecc
+    - name: FrogAnim_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: 3b9325e38c9768e41bb59c8f008352cb
+    - name: FrogAnim_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: db0202ae159384c4dbf8c98cf30ef296
+    - name: FrogAnim_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: bce26f77f3a80c54281827acd09dc9cc
+    - name: FrogAnim_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: 50e3d541cf4272d429e571123a8095b3
+    - name: FrogAnim_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: 0156157fd5c32544aa2279c778622740
+    - name: FrogAnim_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: c2517e9f93c0795479c84f01e21a7dbd
+    - name: FrogAnim_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: 3a2d260a90f472e468ade111fd60ec09
+    - name: FrogAnim_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: 0d016104549c5e74da7b18eada18ea9a
+    - name: FrogAnim_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: 71793467af60e3e4a9020e10f99e7ed1
+    - name: FrogAnim_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: a44eac4e453d37d449f33ea12fa47584
+    - name: FrogAnim_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: a30629f7e80746747a54b8368f57deef
+    - name: FrogAnim_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: f277f4c44a6b0f14fa6656eeffa2a55d
+    - name: FrogAnim_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: e2fc9350e78aca34ea33ea21106faaf9
+    - name: FrogAnim_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: a09e292e3934af04bb50637fd516c072
+    - name: FrogAnim_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: 941dabffee24a7043a1f72eeb4c97680
+    - name: FrogAnim_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 127
+      spriteId: 320afc2836ecd954a97a24c435d3e482
+    - name: FrogAnim_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 14
+        y: 0
+        width: 164
+        height: 128
+      spriteId: 866bf0e55f7581046bd9c6569e5d3280
+    - name: FrogAnim_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 1
+        y: 0
+        width: 177
+        height: 128
+      spriteId: 32c2644f534b4054a99acae54a39294c
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -188,4 +748,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 192, y: 130}
+  canvasSize: {x: 192, y: 128}

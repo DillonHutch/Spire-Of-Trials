@@ -141,6 +141,326 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: WendigoAnim_Frame_1
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 110
+      width: 85
+      height: 98
+    spriteID: 7797bb01f3e609840a634a357f8acb06
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 110}
+  - name: WendigoAnim_Frame_2
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 216
+      width: 85
+      height: 98
+    spriteID: 43e945502476d4f479a6fcbd2ff79570
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 216}
+  - name: WendigoAnim_Frame_3
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 322
+      width: 85
+      height: 98
+    spriteID: 1d9f94208453d324785ab14d06c35e60
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 322}
+  - name: WendigoAnim_Frame_4
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 97
+      y: 4
+      width: 85
+      height: 98
+    spriteID: bcd86163696f21449aa09330516bf0df
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 97, y: 4}
+  - name: WendigoAnim_Frame_5
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 97
+      y: 110
+      width: 85
+      height: 98
+    spriteID: 08b4305450b2f3f40a33f651162e58f7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 97, y: 110}
+  - name: WendigoAnim_Frame_6
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 97
+      y: 216
+      width: 85
+      height: 98
+    spriteID: 98ca55dedb7ac1241ae5b916d37fa86b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 97, y: 216}
+  - name: WendigoAnim_Frame_7
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 97
+      y: 322
+      width: 85
+      height: 98
+    spriteID: ac3329f8f6621664eb4e4325e5448c3d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 97, y: 322}
+  - name: WendigoAnim_Frame_8
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 4
+      width: 85
+      height: 97
+    spriteID: dc4c739334da3284380df63c28f8b109
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 190, y: 4}
+  - name: WendigoAnim_Frame_9
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 109
+      width: 85
+      height: 97
+    spriteID: 2f413a556a1515e4581afb8e67ad6415
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 190, y: 109}
+  - name: WendigoAnim_Frame_10
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 214
+      width: 85
+      height: 97
+    spriteID: 9d17d15a5cc58544ca2056befcb6a74b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 190, y: 214}
+  - name: WendigoAnim_Frame_11
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 190
+      y: 319
+      width: 85
+      height: 97
+    spriteID: eaa852c343e760c45a5b6b437b770d33
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 190, y: 319}
+  - name: WendigoAnim_Frame_12
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 283
+      y: 4
+      width: 85
+      height: 97
+    spriteID: f1adcfd8c64bb124183300f8a2fe3693
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 283, y: 4}
+  - name: WendigoAnim_Frame_13
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 283
+      y: 109
+      width: 85
+      height: 97
+    spriteID: 3545c7b5415cb304bb544125e0cef958
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 283, y: 109}
+  - name: WendigoAnim_Frame_14
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 283
+      y: 214
+      width: 85
+      height: 97
+    spriteID: a942f0ff62c0f1a4094c7a3f0aed0749
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 283, y: 214}
+  - name: WendigoAnim_Frame_15
+    originalName: 
+    pivot: {x: 0.49411768, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 376
+      y: 4
+      width: 85
+      height: 88
+    spriteID: 82bf8742a5c51844387a4001004d656e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 376, y: 4}
+  - name: WendigoAnim_Frame_16
+    originalName: 
+    pivot: {x: 0.4939759, y: -0.010416667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 283
+      y: 319
+      width: 83
+      height: 96
+    spriteID: 107d9c5fe862d0d40850756ffe93c884
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 283, y: 319}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -150,7 +470,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: WendigoAnim
+    - name: WendigoAnim_Frame_0
       frameIndex: 0
       cellRect:
         x: 6
@@ -158,6 +478,134 @@ ScriptedImporter:
         width: 85
         height: 98
       spriteId: 13108e4a5f34b50459ef7c3a71f693a0
+    - name: WendigoAnim_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: 7797bb01f3e609840a634a357f8acb06
+    - name: WendigoAnim_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: 43e945502476d4f479a6fcbd2ff79570
+    - name: WendigoAnim_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: 1d9f94208453d324785ab14d06c35e60
+    - name: WendigoAnim_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: bcd86163696f21449aa09330516bf0df
+    - name: WendigoAnim_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: 08b4305450b2f3f40a33f651162e58f7
+    - name: WendigoAnim_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: 98ca55dedb7ac1241ae5b916d37fa86b
+    - name: WendigoAnim_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 98
+      spriteId: ac3329f8f6621664eb4e4325e5448c3d
+    - name: WendigoAnim_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: dc4c739334da3284380df63c28f8b109
+    - name: WendigoAnim_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: 2f413a556a1515e4581afb8e67ad6415
+    - name: WendigoAnim_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: 9d17d15a5cc58544ca2056befcb6a74b
+    - name: WendigoAnim_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: eaa852c343e760c45a5b6b437b770d33
+    - name: WendigoAnim_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: f1adcfd8c64bb124183300f8a2fe3693
+    - name: WendigoAnim_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: 3545c7b5415cb304bb544125e0cef958
+    - name: WendigoAnim_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 97
+      spriteId: a942f0ff62c0f1a4094c7a3f0aed0749
+    - name: WendigoAnim_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 6
+        y: 0
+        width: 85
+        height: 88
+      spriteId: 82bf8742a5c51844387a4001004d656e
+    - name: WendigoAnim_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 7
+        y: 1
+        width: 83
+        height: 96
+      spriteId: 107d9c5fe862d0d40850756ffe93c884
     linkedCells: []
     parentIndex: -1
   platformSettings:
