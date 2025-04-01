@@ -9,35 +9,15 @@ public class Wendingo : EnemyParent
 
     protected override int GetAttackPosition()
     {
-        return attackInRow;
+        int attackAmount = 3; // Positions: 0, 1, 2
+
+        int currentAttack = attackInRow;
+        attackInRow = (attackInRow + 1) % attackAmount;
+
+        return currentAttack;
+
     }
 
-
-    protected override IEnumerator AttackLoop()
-    {
-        while (true)
-        {
-            int attackAmount = 3;
-
-            for (int i = 0; i < attackAmount; i++)
-            {
-                // Determine a random attack interval within the min/max range, rounded to one decimal place
-                float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
-                yield return new WaitForSeconds(waitTime);
-
-                yield return PerformAttack(); // Reuse parent attack logic with minor tweaks
-
-                attackInRow++;  
-
-            }
-
-            // **Rest Phase** - MiniBoss pauses after its attack burst
-            Debug.Log("MiniBoss is resting...");
-            animator.SetTrigger("ReturnToIdle");
-            attackInRow = 0;
-            yield return new WaitForSeconds(3f); // Punishment window
-        }
-    }
 
     /// <summary>
     /// Defines the attack sequence for the Goblin.
