@@ -17,6 +17,9 @@ TagManager:
   - MiddleFlash
   - RightFlash
   - Knight
+  - VineSerpant
+  - Thornbrute
+  - Wendingo
   layers:
   - Default
   - TransparentFX

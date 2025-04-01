@@ -26,7 +26,9 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Round System")]
     [SerializeField] private TextMeshProUGUI roundText; // UI element displaying the current round number
-    private int roundCounter = 0; // Tracks the current round, starting at Round 1
+    private int roundCounter = RoundManager.ROUND_NUMBER; // Tracks the current round, starting at Round 1
+
+    [SerializeField] int goToGarden = 2;
     
 
     #endregion
@@ -112,11 +114,13 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         // If the MiniBoss has already spawned and all enemies are defeated, trigger the win screen
-        if (RoundManager.ROUND_NUMBER == 21 && AllEnemiesDestroyed())
+        if (RoundManager.ROUND_NUMBER == goToGarden && AllEnemiesDestroyed())
         {
             Debug.Log("MiniBoss defeated. Loading WinScreen.");
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
         }
+
+        
     }
 
     #endregion
@@ -245,13 +249,17 @@ public class EnemySpawner : MonoBehaviour
                         // Special handling for Slime enemy position and adjustments
                         if (spawnedEnemy.tag == "Slime")
                         {
-                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                         
                             AdjustSlimePosition(spawnedEnemy, i);
                         }
-                        else
+                        else if (spawnedEnemy.tag == "VineSerpant")
                         {
-                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                          
+                            AdjustSerpantPosition(spawnedEnemy, i);
                         }
+
+
+                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
                         // Scale enemies differently if they spawn in the middle position
                         if (i == 1) // Middle spawn location
@@ -308,7 +316,7 @@ public class EnemySpawner : MonoBehaviour
                     possibleEnemies.Add(enemy);
                 }
             }
-            else
+            else if(roundCounter > 5 && roundCounter < goToGarden)
             {
                 // Define valid positions for each enemy type
                 if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
@@ -323,12 +331,95 @@ public class EnemySpawner : MonoBehaviour
                 {
                     possibleEnemies.Add(enemy);
                 }
+
+            }
+            else if (roundCounter >= goToGarden)
+            {
+                if (enemyTag == "VineSerpant" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Thornbrute" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Wendingo" && (positionIndex == 1)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
             }
         }
 
             // Return a random enemy from the list or null if no valid enemies exist
             return possibleEnemies.Count > 0 ? possibleEnemies[Random.Range(0, possibleEnemies.Count)] : null;
     }
+
+
+
+    private void AdjustSerpantPosition(GameObject spawnedEnemy, int spawnIndex)
+    {
+
+        Vector3 spawnLocation = spawnedEnemy.transform.position;
+        spawnedEnemy.transform.position = spawnLocation;
+
+        if (spawnIndex == 0) // If spawning in the leftmost position
+        {
+            spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
+            spriteRenderer.flipX = true; // Flip the sprite
+
+            spawnLocation.x += 1.5f; // Adjust slime position further
+            spawnedEnemy.transform.position = spawnLocation;
+
+            if (spawnedEnemy.transform.childCount > 0)
+            {
+                Transform childIcon = spawnedEnemy.transform.GetChild(0);
+                Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
+
+                // Adjust the positions of child elements
+                childIcon.localPosition = new Vector3(-2.24f, 0.62f, 0);
+                childPartOrgin.localPosition = new Vector3(-3.5f, 2.5f, 0);
+            }
+
+            // Adjust the Canvas position for Slime enemies
+            Canvas snakeCanavs = spawnedEnemy.GetComponentInChildren<Canvas>();
+            if (snakeCanavs != null)
+            {
+                RectTransform canvasTransform = snakeCanavs.GetComponent<RectTransform>();
+                if (canvasTransform != null)
+                {
+                    canvasTransform.localPosition = new Vector3(1918f, 1080.036f, 0);
+                }
+            }
+        }
+        else
+        {
+            spawnLocation.x -= 1.5f; // Offset slime spawn position
+
+            //if (spawnedEnemy.transform.childCount > 0)
+            //{
+            //    Transform childIcon = spawnedEnemy.transform.GetChild(0);
+            //    Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
+
+            //    // Adjust the positions of child elements
+            //    childIcon.localPosition = new Vector3(0f, 0.62f, 0);
+            //    //childPartOrgin.localPosition = new Vector3(2.28f, 2.5f, 0);
+            //}
+
+            //// Adjust the Canvas position for Slime enemies
+            //Canvas slimeCanvas = spawnedEnemy.GetComponentInChildren<Canvas>();
+            //if (slimeCanvas != null)
+            //{
+            //    RectTransform canvasTransform = slimeCanvas.GetComponent<RectTransform>();
+            //    if (canvasTransform != null)
+            //    {
+            //        canvasTransform.localPosition = new Vector3(1918f, canvasTransform.localPosition.y, 0);
+            //    }
+            //}
+
+            spawnedEnemy.transform.position = spawnLocation;
+        }
+    }
+
 
     /// <summary>
     /// Adjusts the position, scaling, and child elements of Slime enemies.
