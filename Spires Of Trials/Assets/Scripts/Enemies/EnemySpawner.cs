@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI roundText; // UI element displaying the current round number
     private int roundCounter = RoundManager.ROUND_NUMBER; // Tracks the current round, starting at Round 1
 
-    [SerializeField] int goToGarden = 2;
+     int goToGarden = 25;
     
 
     #endregion
@@ -92,9 +92,6 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Start()
     {
-
-
-        
 
         // Validate that all necessary spawn points and enemy prefabs are assigned
         if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
@@ -160,6 +157,8 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 RoundManager.ROUND_NUMBER = roundCounter;
+
+                Debug.LogWarning(roundCounter);
 
                 if (!bossSpawned) { yield return StartCoroutine(SpawnEnemies()); }
                 
