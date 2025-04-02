@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 /// <summary>
 /// Enemy Parent Class
 /// </summary>
@@ -55,10 +56,7 @@ public abstract class EnemyParent : MonoBehaviour
 
     [SerializeField] private float flashTime;
 
-    // Shields
-    protected Transform leftShield;
-    protected Transform centerShield;
-    protected Transform rightShield;
+
 
 
     // Particle Effects
@@ -72,9 +70,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected Vector3 originalPosition;
     protected SpriteRenderer spriteRenderer;
 
-    // Recoil Mechanic
-    protected Coroutine activeRecoilCoroutine;
-    private bool isRecoiling = false;
+
 
     // enemies that move support
     protected Transform leftSpawn;   // Left-side spawn position
@@ -92,6 +88,10 @@ public abstract class EnemyParent : MonoBehaviour
 
     // **References**
     protected Transform player;        // Reference to the player transform
+
+
+    protected SheildsScript shieldManager;
+
 
     #endregion
 
@@ -161,6 +161,10 @@ public abstract class EnemyParent : MonoBehaviour
         leftSpawn = GameObject.FindGameObjectWithTag("LeftSpawn").GetComponent<Transform>();
         rightSpawn = GameObject.FindGameObjectWithTag("RightSpawn").GetComponent<Transform>();
         centerSpawn = GameObject.FindGameObjectWithTag("MiddleSpawn").GetComponent<Transform>();
+
+
+        shieldManager = FindObjectOfType<SheildsScript>();
+
     }
 
 
@@ -231,7 +235,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
         else
         {
-            Debug.LogError("EventManager instance is null. Ensure it is present in the scene.");
+            //Debug.LogError("EventManager instance is null. Ensure it is present in the scene.");
         }
 
 
@@ -268,133 +272,7 @@ public abstract class EnemyParent : MonoBehaviour
 
     #region ShieldMethods
 
-    /// <summary>
-    /// Triggers the shield recoil effect at a given position if the shield is active.
-    /// Prevents multiple recoils from happening simultaneously.
-    /// </summary>
-    /// <param name="position">The position of the shield (0 = left, 1 = center, 2 = right).</param>
-    protected void TriggerShieldRecoil(int position)
-    {
-        // Get the shield transform at the given position
-        Transform shieldToRecoil = GetShieldByPosition(position);
-
-        // Ensure the shield exists and is active before applying recoil
-        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
-        {
-            Debug.Log($"Attempting to trigger shield recoil at position {position}");
-
-            // Prevent multiple recoil effects from running at the same time
-            if (!isRecoiling)
-            {
-                isRecoiling = true; // Lock recoil state
-                activeRecoilCoroutine = StartCoroutine(ShieldRecoil(shieldToRecoil));
-            }
-        }
-    }
-
-    /// <summary>
-    /// Coroutine that temporarily moves the shield downward and then resets its position.
-    /// </summary>
-    /// <param name="shield">The shield transform to apply the recoil effect.</param>
-    protected IEnumerator ShieldRecoil(Transform shield)
-    {
-        if (shield == null) yield break; // Ensure shield exists
-
-        Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0);
-
-        Debug.Log($"Recoil Start for {shield.name} at {shield.position}");
-
-        // Move the shield down
-        shield.position = recoilPosition;
-        yield return new WaitForSeconds(0.1f);
-
-        // Ensure shield returns to original position even if interrupted
-        shield.position = originalPosition;
-
-        Debug.Log($"Recoil End for {shield.name}");
-
-        // Reset flags properly
-        isRecoiling = false;
-        activeRecoilCoroutine = null;
-    }
-
-
-    /// <summary>
-    /// Triggers a flashing effect on the attack indicator sprite.
-    /// Ensures previous flash coroutines are stopped before starting a new one.
-    /// </summary>
-    /// <param name="attackSprite">The attack indicator sprite to flash.</param>
-    protected IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
-    {
-        // Ensure the sprite exists before attempting to flash
-        if (attackSprite == null) yield break;
-
-        // Make sure the sprite is visible before flashing
-        attackSprite.gameObject.SetActive(true);
-        attackSprite.enabled = true;
-
-        // Stop any existing flash coroutine to prevent overlapping effects
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-
-        // Start the flashing effect
-        flashCoroutine = StartCoroutine(FlashRoutine(attackSprite));
-    }
-
-    /// <summary>
-    /// Coroutine that makes the attack indicator sprite flash three times.
-    /// </summary>
-    /// <param name="attackSprite">The attack indicator sprite to flash.</param>
-    protected virtual IEnumerator FlashRoutine(SpriteRenderer attackSprite)
-    {
-        // Ensure the sprite exists before attempting to flash
-        if (attackSprite == null) yield break;
-
-        // Store the sprite's original color
-        Color originalColor = attackSprite.color;
-
-        // Ensure the sprite is enabled before starting the flash effect
-        attackSprite.enabled = true;
-
-        // Perform three flashes
-        for (int i = 0; i < 3; i++)
-        {
-            // Change the sprite color to a semi-transparent state
-            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, warningOpacity);
-            yield return new WaitForSeconds(flashTime);
-
-            // Reset to original color
-            attackSprite.color = originalColor;
-            yield return new WaitForSeconds(flashTime);
-        }
-
-        // Keep the sprite enabled for the next attack indication
-        attackSprite.enabled = true;
-
-        // Clear coroutine reference when done
-        flashCoroutine = null;
-    }
-
-    /// <summary>
-    /// Retrieves the shield transform corresponding to a given position.
-    /// </summary>
-    /// <param name="position">The shield position (0 = left, 1 = center, 2 = right).</param>
-    /// <returns>Transform of the corresponding shield or null if the position is invalid.</returns>
-    protected Transform GetShieldByPosition(int position)
-    {
-        switch (position)
-        {
-            case 0: return leftShield;
-            case 1: return centerShield;
-            case 2: return rightShield;
-            default: return null;
-        }
-    }
-
+   
     /// <summary>
     /// Initializes attack sprites and shields by assigning references.
     /// </summary>
@@ -410,10 +288,9 @@ public abstract class EnemyParent : MonoBehaviour
         centerAttackSprite = center;
         rightAttackSprite = right;
 
-        leftShield = lShield;
-        centerShield = cShield;
-        rightShield = rShield;
+        shieldManager?.InitializeShields(lShield, cShield, rShield);
     }
+
 
     #endregion
 
@@ -526,7 +403,8 @@ public abstract class EnemyParent : MonoBehaviour
     {
         attackSprite.gameObject.SetActive(true);
         attackSprite.enabled = true;
-        flashCoroutine = StartCoroutine(FlashAttackIndicator(attackSprite));
+        flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(attackSprite, this));
+
         yield return null;
     }
 
@@ -550,8 +428,9 @@ public abstract class EnemyParent : MonoBehaviour
         if (playerDodgePosition == attackPosition)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
-            if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
-            TriggerShieldRecoil(attackPosition);
+            //if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
+            shieldManager?.TriggerShieldRecoil(attackPosition, this);
+
         }
         else
         {
@@ -585,9 +464,7 @@ public abstract class EnemyParent : MonoBehaviour
         if(spriteRenderer != null) spriteRenderer.color = originalColor;
         if (iconRenderer != null) iconRenderer.color = iconOriginalColor;
 
-        leftShield.localPosition = new Vector3(-11f, -9.92f, 0f);
-        centerShield.localPosition = new Vector3(0f, -9.92f, 0f);
-        rightShield.localPosition = new Vector3(11f, -9.92f, 0f);
+        shieldManager?.ResetShieldPositions();
 
 
         if (attackSprite != null)
