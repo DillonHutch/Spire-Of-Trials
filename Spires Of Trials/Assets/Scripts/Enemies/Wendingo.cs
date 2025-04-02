@@ -25,6 +25,9 @@ public class Wendingo : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "heavy", "range", "heavy", "melee", "magic", "melee", "heavy", "melee" };
+                attackSequence = new List<string> {
+                "melee", "magic", "range", "heavy",   // Combo 1
+                "range", "melee", "heavy", "magic"    // Combo 2  
+                };
     }
 }

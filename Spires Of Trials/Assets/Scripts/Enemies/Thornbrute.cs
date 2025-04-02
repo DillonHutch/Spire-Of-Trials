@@ -37,6 +37,9 @@ public class Thornbrute : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "heavy", "range", "heavy", "melee", "magic", "melee", "heavy", "melee" };
+                 attackSequence = new List<string> {
+                "magic", "range", "melee", "heavy",   // Combo 1
+                "melee", "magic", "range", "heavy"    // Combo 2
+};
     }
 }

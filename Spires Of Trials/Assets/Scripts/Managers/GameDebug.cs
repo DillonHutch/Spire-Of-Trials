@@ -15,7 +15,8 @@ public class GameDebug : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            RoundManager.ROUND_NUMBER = 25;
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
+            RoundManager.ROUND_NUMBER = 40;
         }
 
         //Debug.LogWarning(RoundManager.ROUND_NUMBER);

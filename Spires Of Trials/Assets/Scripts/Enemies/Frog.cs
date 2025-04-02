@@ -24,7 +24,37 @@ public class Frog : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "melee", "heavy", "range", "magic", };
+        attackSequence = new List<string> { // melee-first (6)
+    "melee", "heavy", "range", "magic",
+    "melee", "heavy", "magic", "range",
+    "melee", "range", "heavy", "magic",
+    "melee", "range", "magic", "heavy",
+    "melee", "magic", "heavy", "range",
+    "melee", "magic", "range", "heavy",
+
+    // heavy-first (6)
+    "heavy", "melee", "range", "magic",
+    "heavy", "melee", "magic", "range",
+    "heavy", "range", "melee", "magic",
+    "heavy", "range", "magic", "melee",
+    "heavy", "magic", "melee", "range",
+    "heavy", "magic", "range", "melee",
+
+    // range-first (6)
+    "range", "melee", "heavy", "magic",
+    "range", "melee", "magic", "heavy",
+    "range", "heavy", "melee", "magic",
+    "range", "heavy", "magic", "melee",
+    "range", "magic", "melee", "heavy",
+    "range", "magic", "heavy", "melee",
+
+    // magic-first (6)
+    "magic", "melee", "heavy", "range",
+    "magic", "melee", "range", "heavy",
+    "magic", "heavy", "melee", "range",
+    "magic", "heavy", "range", "melee",
+    "magic", "range", "melee", "heavy",
+    "magic", "range", "heavy", "melee"};
     }
 
     private int GetAttackBurstCount() => Random.Range(5, 8); // MiniBoss attacks in bursts

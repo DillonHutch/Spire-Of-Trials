@@ -30,7 +30,7 @@ public class Goblin : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "magic", "range", "heavy", "melee" };
+        attackSequence = new List<string> { "magic", "melee", "magic", "heavy" };
     }
 
 

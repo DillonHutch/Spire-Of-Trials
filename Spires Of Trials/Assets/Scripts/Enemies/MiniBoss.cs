@@ -86,7 +86,32 @@ public class MiniBoss : EnemyParent
     {
         attackSequence = new List<string>
     {
-        "melee"
+         // Original 6
+    "melee", "magic", "range", "heavy",
+    "magic", "melee", "range", "heavy",
+    "range", "magic", "melee", "heavy",
+    "magic", "range", "melee", "heavy",
+    "range", "melee", "magic", "heavy",
+    "melee", "range", "magic", "heavy",
+
+
+        // Variants with intention (e.g., alternating starts)
+    "melee", "magic", "range", "heavy",
+    "range", "melee", "magic", "heavy",
+    "magic", "range", "melee", "heavy",
+    "melee", "range", "magic", "heavy",
+    "range", "magic", "melee", "heavy",
+    "magic", "melee", "range", "heavy",
+
+    // New unique-feel combos (repeat permutations, vary rhythm/order)
+    "melee", "magic", "range", "heavy",   // repeat of 1
+    "magic", "melee", "range", "heavy",   // repeat of 2
+    "melee", "range", "magic", "heavy",   // repeat of 6
+    "range", "magic", "melee", "heavy",   // repeat of 3
+    "magic", "range", "melee", "heavy",   // repeat of 4
+    "range", "melee", "magic", "heavy",   // repeat of 5
+
+
     };
     }
 
