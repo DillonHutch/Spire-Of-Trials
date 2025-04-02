@@ -560,8 +560,17 @@ public abstract class EnemyParent : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
         }
 
-        // Play attack animation and sound
-        SetAnimationState("Attack");
+        if(gameObject.tag == "Frog" && attackPosition == 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (gameObject.tag == "Frog" && attackPosition == 2)
+        {
+            spriteRenderer.flipX = true;
+        }
+
+            // Play attack animation and sound
+            SetAnimationState("Attack");
     }
 
     /// <summary>
