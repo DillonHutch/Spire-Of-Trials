@@ -18,6 +18,6 @@ public class GameDebug : MonoBehaviour
             RoundManager.ROUND_NUMBER = 25;
         }
 
-        Debug.LogWarning(RoundManager.ROUND_NUMBER);
+        //Debug.LogWarning(RoundManager.ROUND_NUMBER);
     }
 }
