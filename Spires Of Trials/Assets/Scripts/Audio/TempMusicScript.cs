@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FMOD.Studio;
+using UnityEngine.SceneManagement;
 
 public class TempMusicScript : MonoBehaviour
 {
@@ -18,7 +19,16 @@ public class TempMusicScript : MonoBehaviour
         yield return new WaitUntil(() => AudioManager.instance != null);
 
         // Ensure music is set
-        AudioManager.instance.SetMusic(MusicEnum.Ruins);
+
+        if(SceneManager.GetActiveScene().name == "Ruins")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Ruins);
+
+        }else if(SceneManager.GetActiveScene().name == "Garden")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Garden);
+        }
+        
 
         // Get the current music instance
         currentMusic = AudioManager.instance.GetCurrentMusicInstance();

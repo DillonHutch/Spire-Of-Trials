@@ -86,14 +86,7 @@ public class MiniBoss : EnemyParent
     {
         attackSequence = new List<string>
     {
-        "melee", "magic", "range", "heavy",
-        "magic", "melee", "range", "heavy",
-        "melee", "magic", "range", "heavy",
-        "melee", "range", "magic", "heavy",
-        "melee", "magic", "range", "heavy",
-        "magic", "melee", "range", "heavy",
-        "melee", "magic", "range", "heavy",
-        "magic", "melee", "range", "heavy"
+        "melee"
     };
     }
 

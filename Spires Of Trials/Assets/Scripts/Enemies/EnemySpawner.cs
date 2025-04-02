@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<GameObject> spawnLocations; // List of possible enemy spawn locations
     [SerializeField] private List<GameObject> enemyPrefabs;   // List of enemy prefabs to spawn
     [SerializeField] private GameObject miniBossPrefab;       // Reference to the MiniBoss prefab
+    [SerializeField] private GameObject frogBossPrfab;
     [SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
 
     #endregion
@@ -28,8 +29,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI roundText; // UI element displaying the current round number
     private int roundCounter = RoundManager.ROUND_NUMBER; // Tracks the current round, starting at Round 1
 
-     int goToGarden = 25;
     
+
+    private GameObject currentMiniBoss;
+
+    bool goneToGarden;
+
+
 
     #endregion
 
@@ -38,13 +44,15 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of active spawned enemies
     private bool isSpawning = false; // Ensures only one spawn process runs at a time
     private bool bossSpawned = false; // Prevents the MiniBoss from spawning more than once
+    private bool frogBossSpawned = false;
 
     #endregion
 
     #region MiniBoss Settings
 
     [Header("MiniBoss Settings")]
-    [SerializeField] private int miniBossSpawnNumber = 10; // The round number when the MiniBoss will appear
+    private int miniBossSpawnNumber = 5; // The round number when the MiniBoss will appear
+    private int frogBossSpawnNumber = 1;
 
     #endregion
 
@@ -102,6 +110,17 @@ public class EnemySpawner : MonoBehaviour
 
         UpdateRoundUI(); // Initialize the round counter text display
         StartCoroutine(CheckAndSpawnEnemies()); // Begin enemy spawning routine
+
+
+        if (SceneManager.GetActiveScene().name == "Ruins")
+        {
+            goneToGarden = false;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Garden")
+        {
+            goneToGarden = true;
+        }
     }
 
     /// <summary>
@@ -110,14 +129,16 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // If the MiniBoss has already spawned and all enemies are defeated, trigger the win screen
-        if (RoundManager.ROUND_NUMBER == goToGarden && AllEnemiesDestroyed())
+        if (bossSpawned && currentMiniBoss == null && !goneToGarden)
         {
-            Debug.Log("MiniBoss defeated. Loading WinScreen.");
+            goneToGarden = true;
+            Debug.Log("MiniBoss defeated. Loading Garden scene.");
             EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
+            
         }
 
-        
+
+
     }
 
     #endregion
@@ -132,31 +153,42 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
+    
+
             if (AllEnemiesDestroyed() && !isSpawning)
             {
                 EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
                 Debug.Log("All enemies destroyed. Starting new spawn cycle.");
 
-                roundCounter++; // Increase round count
-                UpdateRoundUI(); // Update UI
 
-                // Adjust spawn chance dynamically based on round number
-                if (roundCounter <= 5)
-                    spawnChance = .05f; // Guarantee at least one spawn
-                else if (roundCounter < 10)
-                    spawnChance = 0.2f; // 20% chance
-                else if (roundCounter < 15)
-                    spawnChance = 0.3f; // 30% chance
-                else if (roundCounter < miniBossSpawnNumber)
-                    spawnChance = 0.5f; // 50% chance
-                else if (roundCounter == miniBossSpawnNumber && !bossSpawned)
+
+                if (roundCounter == miniBossSpawnNumber && !bossSpawned)
                 {
+                    
                     bossSpawned = true;
                     yield return StartCoroutine(SpawnMiniBoss());
                     continue;
                 }
+                else if (roundCounter == frogBossSpawnNumber && !frogBossSpawned)
+                {
+                    frogBossSpawned = true;
+                    yield return StartCoroutine(SpawnFrogBoss());
+                    continue;
+                }
 
+                // THEN handle spawnChance for regular enemies
+                if (roundCounter <= 5)
+                    spawnChance = .05f;
+                else if (roundCounter < 10)
+                    spawnChance = 0.2f;
+                else if (roundCounter < 15)
+                    spawnChance = 0.3f;
+                else
+                    spawnChance = 0.5f;
+
+                roundCounter++; // Increase round count
                 RoundManager.ROUND_NUMBER = roundCounter;
+                UpdateRoundUI(); // Update UI
 
                 Debug.LogWarning(roundCounter);
 
@@ -186,8 +218,54 @@ public class EnemySpawner : MonoBehaviour
         GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
 
         // Instantiate the MiniBoss at the selected location
-        GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-       
+        currentMiniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
+
+
+
+        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
+                                                                        leftFlash,
+                                                                        centerFlash,
+                                                                        rightFlash,
+                                                                        leftShield,
+                                                                        centerShield,
+                                                                        rightShield
+                                                                                    ));
+
+
+
+
+        // Set the MiniBoss as a child of the spawn location
+        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
+
+        // Track the spawned MiniBoss
+        spawnedEnemies.Add(currentMiniBoss);
+
+        Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
+
+        isSpawning = false;
+        yield return null;
+    }
+
+
+    /// <summary>
+    /// Spawns the MiniBoss at a random spawn location and updates game states accordingly.
+    /// </summary>
+    private IEnumerator SpawnFrogBoss()
+    {
+        isSpawning = true;
+        frogBossSpawned = true; // Ensure the boss spawns only once
+
+        Debug.Log("Spawning MiniBoss!");
+
+        // Change background music for the boss fight
+        AudioManager.instance.SetMusic(MusicEnum.GardenBoss);
+
+        // Choose a random spawn location for the MiniBoss
+        GameObject bossSpawnLocation = spawnLocations[1];
+
+        // Instantiate the MiniBoss at the selected location
+        currentMiniBoss = Instantiate(frogBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 1.3f, 0), Quaternion.identity);
+
 
 
         EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
@@ -201,10 +279,10 @@ public class EnemySpawner : MonoBehaviour
 
 
         // Set the MiniBoss as a child of the spawn location
-        miniBoss.transform.SetParent(bossSpawnLocation.transform, true);
+        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
 
         // Track the spawned MiniBoss
-        spawnedEnemies.Add(miniBoss);
+        spawnedEnemies.Add(currentMiniBoss);
 
         Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
 
@@ -305,17 +383,10 @@ public class EnemySpawner : MonoBehaviour
         {
             string enemyTag = enemy.tag; // Get the enemy's tag
 
+            //Debug.LogError(goneToGarden);
 
             // If rounds are 1-5, only Skeletons spawn
-            if (roundCounter <= 5)
-            {
-                // Define valid positions for each enemy type
-                if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
-                {
-                    possibleEnemies.Add(enemy);
-                }
-            }
-            else if(roundCounter > 5 && roundCounter < goToGarden)
+            if(SceneManager.GetActiveScene().name == "Ruins")
             {
                 // Define valid positions for each enemy type
                 if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
@@ -332,7 +403,7 @@ public class EnemySpawner : MonoBehaviour
                 }
 
             }
-            else if (roundCounter >= goToGarden)
+            else if (SceneManager.GetActiveScene().name == "Garden")
             {
                 if (enemyTag == "VineSerpant" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
                 {
