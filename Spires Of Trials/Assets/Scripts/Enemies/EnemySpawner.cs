@@ -51,8 +51,8 @@ public class EnemySpawner : MonoBehaviour
     #region MiniBoss Settings
 
     [Header("MiniBoss Settings")]
-    private int miniBossSpawnNumber = 5; // The round number when the MiniBoss will appear
-    private int frogBossSpawnNumber = 1;
+    private int miniBossSpawnNumber = 25; // The round number when the MiniBoss will appear
+    private int frogBossSpawnNumber = 50;
 
     #endregion
 
@@ -137,7 +137,13 @@ public class EnemySpawner : MonoBehaviour
             
         }
 
+        if (frogBossSpawned && currentMiniBoss == null)
+        {
+            
+            Debug.Log("MiniBoss defeated. Loading Garden scene.");
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
 
+        }
 
     }
 
