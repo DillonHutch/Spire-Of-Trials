@@ -65,7 +65,7 @@ public class Frog : EnemyParent
             weakSpotColorsPerHit.Add(color);
 
             //Debug.LogError(atkType);
-            Debug.LogError(color);
+           // Debug.LogError(color);
         }
 
 
