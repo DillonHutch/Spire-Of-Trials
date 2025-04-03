@@ -169,6 +169,8 @@ public class PlayerHealth : MonoBehaviour
         // Reset health before restarting the game
         currentHealth = maxHealth;
 
+        RoundManager.ROUND_NUMBER = 0;
+
         // Load the main menu scene upon death
         SceneManager.LoadScene("MainMenu");
     }

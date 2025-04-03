@@ -9,6 +9,7 @@ public enum MusicEnum
     Garden = 2,
     Mirror = 3,
     Sanctum = 4,
-    RuinsBoss = 5
+    RuinsBoss = 5,
+    GardenBoss = 6
    
 }

@@ -2867,7 +2867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.66529536, b: 0.25, a: 0.48235294}
+  m_Color: {r: 1, g: 0.66529536, b: 0.25, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3466,6 +3466,8 @@ GameObject:
   - component: {fileID: 519420030}
   - component: {fileID: 519420034}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420036}
+  - component: {fileID: 519420037}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3610,6 +3612,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 915381133}
   volumePanel: {fileID: 85274599}
+--- !u!114 &519420036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592fbc3d1d6496c4d87745e9eac88288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &519420037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598d5e229a461c94c9a033e19ab65c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftShield: {fileID: 1265966355}
+  centerShield: {fileID: 2067732341}
+  rightShield: {fileID: 1289765997}
+  warningOpacity: 0.5
+  flashTime: 0.2
 --- !u!1 &523438118
 GameObject:
   m_ObjectHideFlags: 0
@@ -7969,7 +8000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8897,7 +8928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10544,9 +10575,9 @@ MonoBehaviour:
   - {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
   - {fileID: 4548580533598868436, guid: ecec639e469753a45a025df0423ce238, type: 3}
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
+  frogBossPrfab: {fileID: 5956038672238996150, guid: 8e3e257ab9dfb654b9481b5d277bcab4, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
-  miniBossSpawnNumber: 20
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}
@@ -11929,15 +11960,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3665228020108787652, guid: d33792211576be2458a1f488416a40b5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.854293
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3665228020108787652, guid: d33792211576be2458a1f488416a40b5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5.854293
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3665228020108787652, guid: d33792211576be2458a1f488416a40b5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5.854293
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3665228020108787652, guid: d33792211576be2458a1f488416a40b5, type: 3}
       propertyPath: m_LocalPosition.x

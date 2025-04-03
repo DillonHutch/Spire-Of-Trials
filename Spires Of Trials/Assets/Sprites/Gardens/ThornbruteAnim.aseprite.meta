@@ -1,0 +1,862 @@
+fileFormatVersion: 2
+guid: 730237008971f2d4aafa2287d1f2c2ec
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Attack
+    second: {fileID: 7400000, guid: cd136993e43bca349952b836d4d1f356, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Idle
+    second: {fileID: 7400000, guid: 6a6a35ca094dea74984e72ec643e57d1, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Wind Up
+    second: {fileID: 7400000, guid: 998c00908195064439765a564ce328db, type: 2}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 16
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638791157819433880
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: ThornbruteAnim_Frame_0
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 280
+      y: 4
+      width: 81
+      height: 89
+    spriteID: 0a8c1c982384b3c4ba6f522eb6e91f73
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 280, y: 4}
+  - name: ThornbruteAnim_Frame_1
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 280
+      y: 101
+      width: 81
+      height: 89
+    spriteID: 229dafdd8f78c644a8c4f1d62c9702a6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 280, y: 101}
+  - name: ThornbruteAnim_Frame_2
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 292
+      width: 81
+      height: 91
+    spriteID: eaeb5fb89ba84724e825754615dd826f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 292}
+  - name: ThornbruteAnim_Frame_3
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 391
+      width: 81
+      height: 91
+    spriteID: b00f17d0e13a3c74c8a2bac96acfe560
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 391}
+  - name: ThornbruteAnim_Frame_4
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 4
+      width: 81
+      height: 91
+    spriteID: 180445fcb272b2b4aa64b656a4238337
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 4}
+  - name: ThornbruteAnim_Frame_5
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 103
+      width: 81
+      height: 91
+    spriteID: b762d9da36a5d344d9406a970387ca27
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 103}
+  - name: ThornbruteAnim_Frame_6
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 202
+      width: 81
+      height: 91
+    spriteID: 5328ec3d4b10fea469af3b9c29f10c63
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 202}
+  - name: ThornbruteAnim_Frame_7
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 301
+      width: 81
+      height: 91
+    spriteID: e7a276a115a5b0b4b9fe46604673b184
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 301}
+  - name: ThornbruteAnim_Frame_8
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 400
+      width: 81
+      height: 91
+    spriteID: b9000181ebb6d6b49a677da5bc53239c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 400}
+  - name: ThornbruteAnim_Frame_9
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 191
+      y: 4
+      width: 81
+      height: 91
+    spriteID: 43f221857e8ea9a4b9445048a252eac2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 191, y: 4}
+  - name: ThornbruteAnim_Frame_10
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 191
+      y: 103
+      width: 81
+      height: 91
+    spriteID: 1c8811767a179894889dba128ff065d6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 191, y: 103}
+  - name: ThornbruteAnim_Frame_11
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 191
+      y: 202
+      width: 81
+      height: 91
+    spriteID: 2cddd3c0ce726f14c960213fc9e3b0ae
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 191, y: 202}
+  - name: ThornbruteAnim_Frame_12
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 191
+      y: 301
+      width: 81
+      height: 91
+    spriteID: 5594bb96c31e4c3479a51c3da63110d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 191, y: 301}
+  - name: ThornbruteAnim_Frame_13
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 191
+      y: 400
+      width: 81
+      height: 91
+    spriteID: ed50f74cf8e9eef4997b56fd10b62019
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 191, y: 400}
+  - name: ThornbruteAnim_Frame_14
+    originalName: 
+    pivot: {x: 0.46987948, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 195
+      width: 83
+      height: 89
+    spriteID: d8c1bb3c0f41fff429acfea498964955
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 195}
+  - name: ThornbruteAnim_Frame_15
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 280
+      y: 198
+      width: 81
+      height: 89
+    spriteID: 1857647485bebb0419bce87a0e5b13cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 280, y: 198}
+  - name: ThornbruteAnim_Frame_16
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 280
+      y: 295
+      width: 81
+      height: 89
+    spriteID: 0568ecf3e811589428f1236795883d8e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 280, y: 295}
+  - name: ThornbruteAnim_Frame_17
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 280
+      y: 392
+      width: 81
+      height: 89
+    spriteID: c1aa3c459999bf14b82d2d3775b6434b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 280, y: 392}
+  - name: ThornbruteAnim_Frame_18
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 369
+      y: 4
+      width: 81
+      height: 89
+    spriteID: 08c4065005924e34c9d5e13efe4cf743
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 369, y: 4}
+  - name: ThornbruteAnim_Frame_19
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 369
+      y: 101
+      width: 81
+      height: 89
+    spriteID: 7446ff4c40d63af439e0f47902ce72a8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 369, y: 101}
+  - name: ThornbruteAnim_Frame_20
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 369
+      y: 198
+      width: 81
+      height: 89
+    spriteID: 4e024c4d637865c4d8b6cf0b52fcff9c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 369, y: 198}
+  - name: ThornbruteAnim_Frame_21
+    originalName: 
+    pivot: {x: 0.46913582, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 369
+      y: 295
+      width: 81
+      height: 89
+    spriteID: a8fb6ce1d9743c24d888a70f5a24b7b1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 369, y: 295}
+  - name: ThornbruteAnim_Frame_22
+    originalName: 
+    pivot: {x: 0.5168539, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 103
+      width: 89
+      height: 84
+    spriteID: cd4829a232bb15f42a699d5f49dcce92
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 103}
+  - name: ThornbruteAnim_Frame_23
+    originalName: 
+    pivot: {x: 0.5222223, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 90
+      height: 91
+    spriteID: bb047e82fa0af56458506fb6a06c55bd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1632767564
+    name: ThornbruteAnim
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: ThornbruteAnim_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 0a8c1c982384b3c4ba6f522eb6e91f73
+    - name: ThornbruteAnim_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 229dafdd8f78c644a8c4f1d62c9702a6
+    - name: ThornbruteAnim_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: eaeb5fb89ba84724e825754615dd826f
+    - name: ThornbruteAnim_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: b00f17d0e13a3c74c8a2bac96acfe560
+    - name: ThornbruteAnim_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: 180445fcb272b2b4aa64b656a4238337
+    - name: ThornbruteAnim_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: b762d9da36a5d344d9406a970387ca27
+    - name: ThornbruteAnim_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: 5328ec3d4b10fea469af3b9c29f10c63
+    - name: ThornbruteAnim_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: e7a276a115a5b0b4b9fe46604673b184
+    - name: ThornbruteAnim_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: b9000181ebb6d6b49a677da5bc53239c
+    - name: ThornbruteAnim_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: 43f221857e8ea9a4b9445048a252eac2
+    - name: ThornbruteAnim_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: 1c8811767a179894889dba128ff065d6
+    - name: ThornbruteAnim_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: 2cddd3c0ce726f14c960213fc9e3b0ae
+    - name: ThornbruteAnim_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: 5594bb96c31e4c3479a51c3da63110d7
+    - name: ThornbruteAnim_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 91
+      spriteId: ed50f74cf8e9eef4997b56fd10b62019
+    - name: ThornbruteAnim_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 17
+        y: 0
+        width: 83
+        height: 89
+      spriteId: d8c1bb3c0f41fff429acfea498964955
+    - name: ThornbruteAnim_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 1857647485bebb0419bce87a0e5b13cc
+    - name: ThornbruteAnim_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 0568ecf3e811589428f1236795883d8e
+    - name: ThornbruteAnim_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: c1aa3c459999bf14b82d2d3775b6434b
+    - name: ThornbruteAnim_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 08c4065005924e34c9d5e13efe4cf743
+    - name: ThornbruteAnim_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 7446ff4c40d63af439e0f47902ce72a8
+    - name: ThornbruteAnim_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: 4e024c4d637865c4d8b6cf0b52fcff9c
+    - name: ThornbruteAnim_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 18
+        y: 0
+        width: 81
+        height: 89
+      spriteId: a8fb6ce1d9743c24d888a70f5a24b7b1
+    - name: ThornbruteAnim_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 10
+        y: 0
+        width: 89
+        height: 84
+      spriteId: cd4829a232bb15f42a699d5f49dcce92
+    - name: ThornbruteAnim_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 9
+        y: 0
+        width: 90
+        height: 91
+      spriteId: bb047e82fa0af56458506fb6a06c55bd
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 112, y: 112}

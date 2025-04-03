@@ -18,6 +18,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<GameObject> spawnLocations; // List of possible enemy spawn locations
     [SerializeField] private List<GameObject> enemyPrefabs;   // List of enemy prefabs to spawn
     [SerializeField] private GameObject miniBossPrefab;       // Reference to the MiniBoss prefab
+    [SerializeField] private GameObject frogBossPrfab;
     [SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
 
     #endregion
@@ -26,8 +27,15 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Round System")]
     [SerializeField] private TextMeshProUGUI roundText; // UI element displaying the current round number
-    private int roundCounter = 0; // Tracks the current round, starting at Round 1
+    private int roundCounter = RoundManager.ROUND_NUMBER; // Tracks the current round, starting at Round 1
+
     
+
+    private GameObject currentMiniBoss;
+
+    bool goneToGarden;
+
+
 
     #endregion
 
@@ -36,13 +44,15 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of active spawned enemies
     private bool isSpawning = false; // Ensures only one spawn process runs at a time
     private bool bossSpawned = false; // Prevents the MiniBoss from spawning more than once
+    private bool frogBossSpawned = false;
 
     #endregion
 
     #region MiniBoss Settings
 
     [Header("MiniBoss Settings")]
-    [SerializeField] private int miniBossSpawnNumber = 10; // The round number when the MiniBoss will appear
+    private int miniBossSpawnNumber = 25; // The round number when the MiniBoss will appear
+    private int frogBossSpawnNumber = 50;
 
     #endregion
 
@@ -91,9 +101,6 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
 
-
-        
-
         // Validate that all necessary spawn points and enemy prefabs are assigned
         if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
         {
@@ -103,6 +110,17 @@ public class EnemySpawner : MonoBehaviour
 
         UpdateRoundUI(); // Initialize the round counter text display
         StartCoroutine(CheckAndSpawnEnemies()); // Begin enemy spawning routine
+
+
+        if (SceneManager.GetActiveScene().name == "Ruins")
+        {
+            goneToGarden = false;
+        }
+
+        if (SceneManager.GetActiveScene().name == "Garden")
+        {
+            goneToGarden = true;
+        }
     }
 
     /// <summary>
@@ -111,12 +129,22 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // If the MiniBoss has already spawned and all enemies are defeated, trigger the win screen
-        if (RoundManager.ROUND_NUMBER == 21 && AllEnemiesDestroyed())
+        if (bossSpawned && currentMiniBoss == null && !goneToGarden)
         {
-            Debug.Log("MiniBoss defeated. Loading WinScreen.");
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
+            goneToGarden = true;
+            Debug.Log("MiniBoss defeated. Loading Garden scene.");
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
+            
         }
+
+        if (frogBossSpawned && currentMiniBoss == null)
+        {
+            
+            Debug.Log("MiniBoss defeated. Loading Garden scene.");
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
+
+        }
+
     }
 
     #endregion
@@ -131,31 +159,44 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
+    
+
             if (AllEnemiesDestroyed() && !isSpawning)
             {
                 EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
                 Debug.Log("All enemies destroyed. Starting new spawn cycle.");
 
-                roundCounter++; // Increase round count
-                UpdateRoundUI(); // Update UI
 
-                // Adjust spawn chance dynamically based on round number
-                if (roundCounter <= 5)
-                    spawnChance = .05f; // Guarantee at least one spawn
-                else if (roundCounter < 10)
-                    spawnChance = 0.2f; // 20% chance
-                else if (roundCounter < 15)
-                    spawnChance = 0.3f; // 30% chance
-                else if (roundCounter < miniBossSpawnNumber)
-                    spawnChance = 0.5f; // 50% chance
-                else if (roundCounter == miniBossSpawnNumber && !bossSpawned)
+
+                if (roundCounter == miniBossSpawnNumber && !bossSpawned)
                 {
+                    
                     bossSpawned = true;
                     yield return StartCoroutine(SpawnMiniBoss());
                     continue;
                 }
+                else if (roundCounter == frogBossSpawnNumber && !frogBossSpawned)
+                {
+                    frogBossSpawned = true;
+                    yield return StartCoroutine(SpawnFrogBoss());
+                    continue;
+                }
 
+                // THEN handle spawnChance for regular enemies
+                if (roundCounter <= 5)
+                    spawnChance = .05f;
+                else if (roundCounter < 10)
+                    spawnChance = 0.2f;
+                else if (roundCounter < 15)
+                    spawnChance = 0.3f;
+                else
+                    spawnChance = 0.5f;
+
+                roundCounter++; // Increase round count
                 RoundManager.ROUND_NUMBER = roundCounter;
+                UpdateRoundUI(); // Update UI
+
+                //Debug.LogWarning(roundCounter);
 
                 if (!bossSpawned) { yield return StartCoroutine(SpawnEnemies()); }
                 
@@ -183,8 +224,54 @@ public class EnemySpawner : MonoBehaviour
         GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
 
         // Instantiate the MiniBoss at the selected location
-        GameObject miniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-       
+        currentMiniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
+
+
+
+        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
+                                                                        leftFlash,
+                                                                        centerFlash,
+                                                                        rightFlash,
+                                                                        leftShield,
+                                                                        centerShield,
+                                                                        rightShield
+                                                                                    ));
+
+
+
+
+        // Set the MiniBoss as a child of the spawn location
+        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
+
+        // Track the spawned MiniBoss
+        spawnedEnemies.Add(currentMiniBoss);
+
+        Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
+
+        isSpawning = false;
+        yield return null;
+    }
+
+
+    /// <summary>
+    /// Spawns the MiniBoss at a random spawn location and updates game states accordingly.
+    /// </summary>
+    private IEnumerator SpawnFrogBoss()
+    {
+        isSpawning = true;
+        frogBossSpawned = true; // Ensure the boss spawns only once
+
+        Debug.Log("Spawning MiniBoss!");
+
+        // Change background music for the boss fight
+        AudioManager.instance.SetMusic(MusicEnum.GardenBoss);
+
+        // Choose a random spawn location for the MiniBoss
+        GameObject bossSpawnLocation = spawnLocations[1];
+
+        // Instantiate the MiniBoss at the selected location
+        currentMiniBoss = Instantiate(frogBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 1.3f, 0), Quaternion.identity);
+
 
 
         EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
@@ -198,10 +285,10 @@ public class EnemySpawner : MonoBehaviour
 
 
         // Set the MiniBoss as a child of the spawn location
-        miniBoss.transform.SetParent(bossSpawnLocation.transform, true);
+        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
 
         // Track the spawned MiniBoss
-        spawnedEnemies.Add(miniBoss);
+        spawnedEnemies.Add(currentMiniBoss);
 
         Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
 
@@ -245,13 +332,17 @@ public class EnemySpawner : MonoBehaviour
                         // Special handling for Slime enemy position and adjustments
                         if (spawnedEnemy.tag == "Slime")
                         {
-                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                         
                             AdjustSlimePosition(spawnedEnemy, i);
                         }
-                        else
+                        else if (spawnedEnemy.tag == "VineSerpant")
                         {
-                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                          
+                            AdjustSerpantPosition(spawnedEnemy, i);
                         }
+
+
+                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
                         // Scale enemies differently if they spawn in the middle position
                         if (i == 1) // Middle spawn location
@@ -298,17 +389,10 @@ public class EnemySpawner : MonoBehaviour
         {
             string enemyTag = enemy.tag; // Get the enemy's tag
 
+            //Debug.LogError(goneToGarden);
 
             // If rounds are 1-5, only Skeletons spawn
-            if (roundCounter <= 5)
-            {
-                // Define valid positions for each enemy type
-                if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
-                {
-                    possibleEnemies.Add(enemy);
-                }
-            }
-            else
+            if(SceneManager.GetActiveScene().name == "Ruins")
             {
                 // Define valid positions for each enemy type
                 if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
@@ -323,12 +407,95 @@ public class EnemySpawner : MonoBehaviour
                 {
                     possibleEnemies.Add(enemy);
                 }
+
+            }
+            else if (SceneManager.GetActiveScene().name == "Garden")
+            {
+                if (enemyTag == "VineSerpant" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Thornbrute" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Wendingo" && (positionIndex == 1)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
             }
         }
 
             // Return a random enemy from the list or null if no valid enemies exist
             return possibleEnemies.Count > 0 ? possibleEnemies[Random.Range(0, possibleEnemies.Count)] : null;
     }
+
+
+
+    private void AdjustSerpantPosition(GameObject spawnedEnemy, int spawnIndex)
+    {
+
+        Vector3 spawnLocation = spawnedEnemy.transform.position;
+        spawnedEnemy.transform.position = spawnLocation;
+
+        if (spawnIndex == 0) // If spawning in the leftmost position
+        {
+            spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
+            spriteRenderer.flipX = true; // Flip the sprite
+
+            spawnLocation.x += 1.5f; // Adjust slime position further
+            spawnedEnemy.transform.position = spawnLocation;
+
+            if (spawnedEnemy.transform.childCount > 0)
+            {
+                Transform childIcon = spawnedEnemy.transform.GetChild(0);
+                Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
+
+                // Adjust the positions of child elements
+                childIcon.localPosition = new Vector3(-2.24f, 0.62f, 0);
+                childPartOrgin.localPosition = new Vector3(-3.5f, 2.5f, 0);
+            }
+
+            // Adjust the Canvas position for Slime enemies
+            Canvas snakeCanavs = spawnedEnemy.GetComponentInChildren<Canvas>();
+            if (snakeCanavs != null)
+            {
+                RectTransform canvasTransform = snakeCanavs.GetComponent<RectTransform>();
+                if (canvasTransform != null)
+                {
+                    canvasTransform.localPosition = new Vector3(1918f, 1080.036f, 0);
+                }
+            }
+        }
+        else
+        {
+            spawnLocation.x -= 1.5f; // Offset slime spawn position
+
+            //if (spawnedEnemy.transform.childCount > 0)
+            //{
+            //    Transform childIcon = spawnedEnemy.transform.GetChild(0);
+            //    Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
+
+            //    // Adjust the positions of child elements
+            //    childIcon.localPosition = new Vector3(0f, 0.62f, 0);
+            //    //childPartOrgin.localPosition = new Vector3(2.28f, 2.5f, 0);
+            //}
+
+            //// Adjust the Canvas position for Slime enemies
+            //Canvas slimeCanvas = spawnedEnemy.GetComponentInChildren<Canvas>();
+            //if (slimeCanvas != null)
+            //{
+            //    RectTransform canvasTransform = slimeCanvas.GetComponent<RectTransform>();
+            //    if (canvasTransform != null)
+            //    {
+            //        canvasTransform.localPosition = new Vector3(1918f, canvasTransform.localPosition.y, 0);
+            //    }
+            //}
+
+            spawnedEnemy.transform.position = spawnLocation;
+        }
+    }
+
 
     /// <summary>
     /// Adjusts the position, scaling, and child elements of Slime enemies.

@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: 536977de32eb80c47a408777fce8de1a
+  - enabled: 1
+    path: Assets/Scenes/Garden.unity
+    guid: 7bfcda19a32547b48a1e74d374a6a6f9
   m_configObjects: {}
