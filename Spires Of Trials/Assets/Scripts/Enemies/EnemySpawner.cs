@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("MiniBoss Settings")]
     private int miniBossSpawnNumber = 25; // The round number when the MiniBoss will appear
-    private int frogBossSpawnNumber = 50;
+    private int frogBossSpawnNumber = 1;
 
     #endregion
 
@@ -196,7 +196,7 @@ public class EnemySpawner : MonoBehaviour
                 RoundManager.ROUND_NUMBER = roundCounter;
                 UpdateRoundUI(); // Update UI
 
-                Debug.LogWarning(roundCounter);
+                //Debug.LogWarning(roundCounter);
 
                 if (!bossSpawned) { yield return StartCoroutine(SpawnEnemies()); }
                 

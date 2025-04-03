@@ -171,7 +171,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Called once per frame. Updates the health bar and color based on the current sequence index.
     /// </summary>
-    protected void Update()
+    protected virtual void Update()
     {
         if (healthBar != null)
         {
@@ -439,17 +439,36 @@ public abstract class EnemyParent : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
         }
 
+        //if(gameObject.tag == "Frog" && attackPosition == 0)
+        //{
+        //    spriteRenderer.flipX = false;
+        //}
+        //else if (gameObject.tag == "Frog" && attackPosition == 2)
+        //{
+        //    spriteRenderer.flipX = true;
+        //}
+
+            // Play attack animation and sound
         if(gameObject.tag == "Frog" && attackPosition == 0)
         {
-            spriteRenderer.flipX = false;
+            animator.SetTrigger("AttackSide");
+
+        }
+        else if (gameObject.tag == "Frog" && attackPosition == 1)
+        {
+            animator.SetTrigger("AttackFront");
         }
         else if (gameObject.tag == "Frog" && attackPosition == 2)
         {
-            spriteRenderer.flipX = true;
+            animator.SetTrigger("AttackSide");
+        }
+        else
+        {
+            SetAnimationState("Attack");
         }
 
-            // Play attack animation and sound
-            SetAnimationState("Attack");
+
+            
     }
 
     /// <summary>
@@ -590,7 +609,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// Uses a phase-based attack sequence where the MiniBoss must be attacked in a specific order.
     /// </summary>
     /// <param name="attackType">The type of attack the player used.</param>
-    public void TakeDamage(string attackType)
+    public virtual void TakeDamage(string attackType)
     {
         PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
 

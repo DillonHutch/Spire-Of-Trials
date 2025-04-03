@@ -68,6 +68,13 @@ public class PlayerAttackingScript : MonoBehaviour
 
     #endregion
 
+
+    public int GetCurrentAttackPosition()
+    {
+        return selectedPosition;
+    }
+
+
     #region UnityMethods
 
     /// <summary>
@@ -204,6 +211,10 @@ public class PlayerAttackingScript : MonoBehaviour
         {
             OnAllEnemiesDestroyed();
         }
+
+
+        Debug.LogWarning($"Current Player Position: {selectedPosition}");
+
     }
 
     #endregion
@@ -260,7 +271,7 @@ public class PlayerAttackingScript : MonoBehaviour
         if (attackRate >= highSpeedThreshold)
         {
             currentMusic.setParameterByName("HoMAdaptive", 1); // Speed up music
-            Debug.LogWarning("Music speed up");
+            //Debug.LogWarning("Music speed up");
         }
         else
         {
