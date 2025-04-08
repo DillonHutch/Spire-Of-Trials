@@ -133,8 +133,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  attackIntervalMin: 0.5
-  attackIntervalMax: 0.5
+  attackIntervalMin: 1
+  attackIntervalMax: 1
   windUpTime: 0.5
   attackIndicator: {fileID: 7924280154791388743}
   meleeSprite: {fileID: 21300000, guid: fd2f08a1ea482a243b6c5a9999743422, type: 3}
@@ -144,9 +144,6 @@ MonoBehaviour:
   flashTime: 0.15
   damageParticlePrefab: {fileID: 7351758881579968959, guid: 47f8a4f379715ee4083149c8b4106d37, type: 3}
   partOrgin: {fileID: 327950641326174477}
-  leftSpawn: {fileID: 0}
-  centerSpawn: {fileID: 0}
-  rightSpawn: {fileID: 0}
 --- !u!95 &-1293869529360626323
 Animator:
   serializedVersion: 5
