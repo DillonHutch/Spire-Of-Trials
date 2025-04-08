@@ -164,7 +164,7 @@ MonoBehaviour:
   heavySprite: {fileID: 21300000, guid: a8466baaef5cfb34e9cd601bf8c26dc4, type: 3}
   flashTime: 0.15
   damageParticlePrefab: {fileID: 7351758881579968959, guid: 47f8a4f379715ee4083149c8b4106d37, type: 3}
-  partOrgin: {fileID: 459549351818512032, guid: 28543029882089545867061f3ca6d74b, type: 3}
+  partOrgin: {fileID: 763928239923889054}
 --- !u!1001 &935237016703649086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,6 +173,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4851959165305672182}
     m_Modifications:
+    - target: {fileID: 459549351818512032, guid: 28543029882089545867061f3ca6d74b, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 459549351818512032, guid: 28543029882089545867061f3ca6d74b, type: 3}
       propertyPath: m_Name
       value: ParticleOrgin
@@ -222,6 +226,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28543029882089545867061f3ca6d74b, type: 3}
+--- !u!1 &763928239923889054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 459549351818512032, guid: 28543029882089545867061f3ca6d74b, type: 3}
+  m_PrefabInstance: {fileID: 935237016703649086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7616622435807165194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7298378812912614964, guid: 28543029882089545867061f3ca6d74b, type: 3}
