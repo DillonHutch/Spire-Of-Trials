@@ -257,22 +257,30 @@ public abstract class EnemyParent : MonoBehaviour
             flashCoroutine = null;
         }
 
-        // Ensure attack indicator visuals are hidden when the enemy is disabled
+        // Fully clean up indicator visibility
         if (leftAttackSprite != null)
+        {
+            leftAttackSprite.enabled = false;
             leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-
+        }
         if (centerAttackSprite != null)
+        {
+            centerAttackSprite.enabled = false;
             centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
-
+        }
         if (rightAttackSprite != null)
+        {
+            rightAttackSprite.enabled = false;
             rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
+        }
+
     }
 
     #endregion
 
     #region ShieldMethods
 
-   
+
     /// <summary>
     /// Initializes attack sprites and shields by assigning references.
     /// </summary>
