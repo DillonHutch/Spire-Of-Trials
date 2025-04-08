@@ -11,6 +11,7 @@ public class Thornbrute : EnemyParent
         if (enemyAttackPosition == 0)
         {
             attackPos = Random.Range(0, 2);
+            spriteRenderer.flipX = true;
             return attackPos;
         } 
            
@@ -18,6 +19,14 @@ public class Thornbrute : EnemyParent
         if (enemyAttackPosition == 1)
         {
             attackPos = Random.Range(0, 3);
+            if(attackPos == 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+            else
+            {
+                spriteRenderer.flipX = true;
+            }
             return attackPos;
         }
 
