@@ -142,6 +142,7 @@ public class EnemySpawner : MonoBehaviour
             
             Debug.Log("MiniBoss defeated. Loading Garden scene.");
             EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
+            RoundManager.ROUND_NUMBER = 0;
 
         }
 

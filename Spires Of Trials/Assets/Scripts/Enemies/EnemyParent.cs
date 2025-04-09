@@ -202,8 +202,8 @@ public abstract class EnemyParent : MonoBehaviour
 
 
 
-            
-            
+
+
         }
         else
         {
@@ -230,7 +230,7 @@ public abstract class EnemyParent : MonoBehaviour
         )>("InitializeAttackSprites", data =>
             InitializeAttackSprites(data.left, data.center, data.right, data.leftShield, data.centerShield, data.rightShield));
 
-      
+
 
         }
         else
@@ -257,23 +257,15 @@ public abstract class EnemyParent : MonoBehaviour
             flashCoroutine = null;
         }
 
-        // Fully clean up indicator visibility
+        // Ensure attack indicator visuals are hidden when the enemy is disabled
         if (leftAttackSprite != null)
-        {
-            leftAttackSprite.enabled = false;
             leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-        }
-        if (centerAttackSprite != null)
-        {
-            centerAttackSprite.enabled = false;
-            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
-        }
-        if (rightAttackSprite != null)
-        {
-            rightAttackSprite.enabled = false;
-            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
-        }
 
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
     }
 
     #endregion
@@ -376,12 +368,12 @@ public abstract class EnemyParent : MonoBehaviour
 
         yield return new WaitForSeconds(windUpTime);
 
- 
+
 
         // Check if the player successfully blocked the attack
         ResolveAttack(attackPosition);
 
-        
+
         // Clear attack visuals
         yield return new WaitForSeconds(0.2f);
         CleanupAttack(attackSprite, attackPosition);
@@ -430,7 +422,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected void ResolveAttack(int attackPosition)
     {
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
- 
+
         AttackSound();
 
         if (playerDodgePosition == attackPosition)
@@ -456,8 +448,8 @@ public abstract class EnemyParent : MonoBehaviour
         //    spriteRenderer.flipX = true;
         //}
 
-            // Play attack animation and sound
-        if(gameObject.tag == "Frog" && attackPosition == 0)
+        // Play attack animation and sound
+        if (gameObject.tag == "Frog" && attackPosition == 0)
         {
             animator.SetTrigger("AttackSide");
 
@@ -476,7 +468,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
 
 
-            
+
     }
 
     /// <summary>
@@ -488,7 +480,7 @@ public abstract class EnemyParent : MonoBehaviour
         SetAnimationState("ReturnToIdle");
         dodgeBarHighlighter?.ClearHighlight(attackPosition);
 
-        if(spriteRenderer != null) spriteRenderer.color = originalColor;
+        if (spriteRenderer != null) spriteRenderer.color = originalColor;
         if (iconRenderer != null) iconRenderer.color = iconOriginalColor;
 
         shieldManager?.ResetShieldPositions();
@@ -663,7 +655,7 @@ public abstract class EnemyParent : MonoBehaviour
             }
 
 
-            if(player != null)
+            if (player != null)
             {
                 EventManager.Instance.TriggerEvent("UpdateCombo", true);
             }
@@ -799,3 +791,4 @@ public abstract class EnemyParent : MonoBehaviour
     #endregion
 
 }
+

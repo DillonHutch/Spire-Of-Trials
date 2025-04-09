@@ -60,12 +60,8 @@ public class SheildsScript : MonoBehaviour
             attackSprite.color = originalColor;
             yield return new WaitForSeconds(flashTime);
         }
-
-        // Ensure the indicator is turned off completely at the end
-        attackSprite.enabled = false;
-        attackSprite.color = originalColor; // Reset to original
+        attackSprite.enabled = true;
     }
-
 
     public void InitializeShields(Transform left, Transform center, Transform right)
     {

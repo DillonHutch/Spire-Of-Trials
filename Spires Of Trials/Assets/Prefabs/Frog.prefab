@@ -156,7 +156,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   attackIntervalMin: 1
   attackIntervalMax: 1
-  windUpTime: 0.5
+  windUpTime: 1
   attackIndicator: {fileID: 3415640490560584719}
   meleeSprite: {fileID: 21300000, guid: fd2f08a1ea482a243b6c5a9999743422, type: 3}
   magicSprite: {fileID: 21300000, guid: cea764425c0a2a543a6d5f66c03c2786, type: 3}
