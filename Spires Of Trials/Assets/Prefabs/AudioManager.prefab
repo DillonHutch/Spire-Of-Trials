@@ -128,13 +128,6 @@ MonoBehaviour:
       Data3: -355634552
       Data4: 1340504959
     Path: event:/SFX/SlimeWindUp
-  <playerHit>k__BackingField:
-    Guid:
-      Data1: -383150919
-      Data2: 1337889044
-      Data3: -851742583
-      Data4: 1216106596
-    Path: event:/SFX/PlayerHit
   <knightAttack>k__BackingField:
     Guid:
       Data1: -624841606
@@ -156,6 +149,20 @@ MonoBehaviour:
       Data3: 949618876
       Data4: 1632345354
     Path: event:/SFX/FallenKnightDamageTaken
+  <knightDeath>k__BackingField:
+    Guid:
+      Data1: -951788758
+      Data2: 1229739673
+      Data3: 1640348817
+      Data4: -405873485
+    Path: event:/SFX/FallenKnightDeath
+  <playerHit>k__BackingField:
+    Guid:
+      Data1: -383150919
+      Data2: 1337889044
+      Data3: -851742583
+      Data4: 1216106596
+    Path: event:/SFX/PlayerHit
   <playerMetal>k__BackingField:
     Guid:
       Data1: -1445398018

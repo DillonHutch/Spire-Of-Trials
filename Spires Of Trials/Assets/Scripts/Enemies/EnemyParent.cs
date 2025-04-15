@@ -436,7 +436,7 @@ public abstract class EnemyParent : MonoBehaviour
         {
             //Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
         }
 
         //if(gameObject.tag == "Frog" && attackPosition == 0)
