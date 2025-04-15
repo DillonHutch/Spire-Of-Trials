@@ -320,7 +320,7 @@ public abstract class EnemyParent : MonoBehaviour
         {
             // Determine a random attack interval within the min/max range, rounded to one decimal place
             float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
-            Debug.Log($"Next attack in {waitTime} seconds");
+           // Debug.Log($"Next attack in {waitTime} seconds");
 
             yield return new WaitForSeconds(waitTime);
 
@@ -434,7 +434,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
         else
         {
-            Debug.Log("Player failed to block! Taking damage.");
+            //Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
         }
@@ -623,7 +623,7 @@ public abstract class EnemyParent : MonoBehaviour
         if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
         {
             currentSequenceIndex++;
-            Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
+            //Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
             // Play damage sound
             AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
@@ -646,7 +646,7 @@ public abstract class EnemyParent : MonoBehaviour
             // If phase is completed, move to the next phase
             if (currentSequenceIndex >= phaseEndIndex)
             {
-                Debug.Log($"Phase {currentPhase + 1} completed!");
+                //Debug.Log($"Phase {currentPhase + 1} completed!");
             }
 
             // If all phases are completed, the MiniBoss dies
@@ -719,7 +719,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-        Debug.Log($"{gameObject.name} died!");
+        //Debug.Log($"{gameObject.name} died!");
 
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 

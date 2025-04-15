@@ -35,7 +35,7 @@ public class TempMusicScript : MonoBehaviour
 
         if (currentMusic.isValid())
         {
-            Debug.Log("Successfully retrieved valid music instance.");
+            //Debug.Log("Successfully retrieved valid music instance.");
             currentMusic.setParameterByName("HoMAdaptive", 0);
 
            

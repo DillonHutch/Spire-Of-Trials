@@ -213,7 +213,7 @@ public class PlayerAttackingScript : MonoBehaviour
         }
 
 
-        Debug.LogWarning($"Current Player Position: {selectedPosition}");
+        //Debug.LogWarning($"Current Player Position: {selectedPosition}");
 
     }
 

@@ -47,7 +47,7 @@ public class EventManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Ensure EventManager persists across scenes
-            Debug.Log("EventManager initialized.");
+            //Debug.Log("EventManager initialized.");
         }
         else
         {
