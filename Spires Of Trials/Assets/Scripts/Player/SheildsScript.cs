@@ -12,7 +12,7 @@ public class SheildsScript : MonoBehaviour
 
     private bool isRecoiling = false;
 
-    public float warningOpacity = 0.5f;
+     float warningOpacity = 0.75f;
     public float flashTime = 0.2f;
 
     /// <summary>
