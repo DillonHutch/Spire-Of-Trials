@@ -8,7 +8,8 @@ public class SheildsScript : MonoBehaviour
     [SerializeField] private Transform centerShield;
     [SerializeField] private Transform rightShield;
 
-    private Coroutine activeRecoilCoroutine;
+    private Dictionary<Transform, Coroutine> activeRecoils = new Dictionary<Transform, Coroutine>();
+
     private bool isRecoiling = false;
 
     public float warningOpacity = 0.5f;
@@ -20,12 +21,18 @@ public class SheildsScript : MonoBehaviour
     public void TriggerShieldRecoil(int position, MonoBehaviour caller)
     {
         Transform shieldToRecoil = GetShieldByPosition(position);
-        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf && !isRecoiling)
+
+        if (shieldToRecoil != null && shieldToRecoil.gameObject.activeSelf)
         {
-            isRecoiling = true;
-            activeRecoilCoroutine = caller.StartCoroutine(ShieldRecoil(shieldToRecoil));
+            // Check if that shield is already recoiling
+            if (!activeRecoils.ContainsKey(shieldToRecoil))
+            {
+                Coroutine coroutine = caller.StartCoroutine(ShieldRecoil(shieldToRecoil));
+                activeRecoils.Add(shieldToRecoil, coroutine);
+            }
         }
     }
+
 
     private IEnumerator ShieldRecoil(Transform shield)
     {
@@ -36,9 +43,13 @@ public class SheildsScript : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         shield.position = originalPosition;
 
-        isRecoiling = false;
-        activeRecoilCoroutine = null;
+        // Remove this shield's coroutine tracker
+        if (activeRecoils.ContainsKey(shield))
+        {
+            activeRecoils.Remove(shield);
+        }
     }
+
 
     public IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite, MonoBehaviour caller)
     {
