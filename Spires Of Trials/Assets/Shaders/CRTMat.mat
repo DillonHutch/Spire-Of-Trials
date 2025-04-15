@@ -38,8 +38,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Blur_Offset: 0.00085
-    - _Number_Of_Scanlines: 250
-    - _Scan_Lines_Speed: -0.003
+    - _Number_Of_Scanlines: 200
+    - _Scan_Lines_Speed: 0
     m_Colors:
     - _Color: {r: 4.9245768, g: 4.9245768, b: 4.9245768, a: 0}
   m_BuildTextureStacks: []

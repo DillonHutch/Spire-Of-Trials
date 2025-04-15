@@ -629,7 +629,12 @@ public abstract class EnemyParent : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
 
             // Flash red effect on hit
-            StartCoroutine(FlashRed());
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+            }
+            flashCoroutine = StartCoroutine(FlashRed());
+
 
             // Spawn damage particles
             if (damageParticlePrefab != null)
