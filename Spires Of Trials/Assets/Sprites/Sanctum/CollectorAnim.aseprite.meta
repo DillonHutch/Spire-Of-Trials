@@ -1,0 +1,835 @@
+fileFormatVersion: 2
+guid: 968eaf75601d79e4db636ffe5437fc2c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 16
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638800022467635093
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: CollectorAnim
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 574
+      width: 104
+      height: 118
+    spriteID: a70e581ccf9b3864d97e0841ab447fde
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 574}
+  - name: CollectorAnim_Frame_1
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 700
+      width: 104
+      height: 118
+    spriteID: ffc0d7eced166dc4a8b6e4c6a250425e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 700}
+  - name: CollectorAnim_Frame_2
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 826
+      width: 104
+      height: 118
+    spriteID: 8b7d53f980cdcfb47897bf326149b18f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 826}
+  - name: CollectorAnim_Frame_3
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 4
+      width: 104
+      height: 118
+    spriteID: 35ececc58df555144985d71472fd91cd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 4}
+  - name: CollectorAnim_Frame_4
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 130
+      width: 104
+      height: 118
+    spriteID: 96c7b58ab07d9a744a9fe107804c0712
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 130}
+  - name: CollectorAnim_Frame_5
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 256
+      width: 104
+      height: 118
+    spriteID: a0710b924ec54ec40bc9820536876a6b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 256}
+  - name: CollectorAnim_Frame_6
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 382
+      width: 104
+      height: 118
+    spriteID: def40378f96a31944a9c84ab384b01ec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 382}
+  - name: CollectorAnim_Frame_7
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 508
+      width: 104
+      height: 118
+    spriteID: b1841cbad1396bf41a6a534564df7ab6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 508}
+  - name: CollectorAnim_Frame_8
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 634
+      width: 104
+      height: 118
+    spriteID: 1f6edfa56125a7e4aa1e36594b29de40
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 634}
+  - name: CollectorAnim_Frame_9
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 760
+      width: 104
+      height: 118
+    spriteID: 3c8027b8917f4f14aa55722a4548257e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 760}
+  - name: CollectorAnim_Frame_10
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 133
+      y: 886
+      width: 104
+      height: 118
+    spriteID: bfaf966656b22fc439b84d614917ebfe
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 133, y: 886}
+  - name: CollectorAnim_Frame_11
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 4
+      width: 104
+      height: 118
+    spriteID: 66cf34ed301f61e428a3932acaf93f0c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 4}
+  - name: CollectorAnim_Frame_12
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 130
+      width: 104
+      height: 118
+    spriteID: c1b473face0c3554288de5815a523c2a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 130}
+  - name: CollectorAnim_Frame_13
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 382
+      width: 104
+      height: 117
+    spriteID: 7f62cceebeccfb24cb23912cf3b431dd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 382}
+  - name: CollectorAnim_Frame_14
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 507
+      width: 104
+      height: 117
+    spriteID: 30f9ad64df96a1b4683749f62fa049d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 507}
+  - name: CollectorAnim_Frame_15
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 632
+      width: 104
+      height: 117
+    spriteID: c667f23ae0f231b44b70c85b0fb082bd
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 632}
+  - name: CollectorAnim_Frame_16
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 447
+      width: 104
+      height: 119
+    spriteID: 013b01d978646ff4cbb708ecf945b6cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 447}
+  - name: CollectorAnim_Frame_17
+    originalName: 
+    pivot: {x: 0.41346157, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 256
+      width: 104
+      height: 118
+    spriteID: 9e3003b54139f034fb442ab016b1c7d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 256}
+  - name: CollectorAnim_Frame_18
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 757
+      width: 104
+      height: 117
+    spriteID: 1c4c7aa1319e39742aa2f6d6560240ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 757}
+  - name: CollectorAnim_Frame_19
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 245
+      y: 882
+      width: 104
+      height: 117
+    spriteID: dc39390bfb2bd404d919d159a784af77
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 245, y: 882}
+  - name: CollectorAnim_Frame_20
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 357
+      y: 4
+      width: 104
+      height: 117
+    spriteID: d44b5ae6b04821b478f44456f28ede84
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 357, y: 4}
+  - name: CollectorAnim_Frame_21
+    originalName: 
+    pivot: {x: 0.39423078, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 314
+      width: 104
+      height: 125
+    spriteID: f256c28faac52bf4dbe73df9068cb756
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 314}
+  - name: CollectorAnim_Frame_22
+    originalName: 
+    pivot: {x: 0.47933882, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 121
+      height: 150
+    spriteID: 5439e6f6a352ff042b5c7791fa9b8cb4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: CollectorAnim_Frame_23
+    originalName: 
+    pivot: {x: 0.41121495, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 162
+      width: 107
+      height: 144
+    spriteID: 21c97e724098b65448dfca12ba5767c1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 162}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1251388132
+    name: CollectorAnim
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: CollectorAnim_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: a70e581ccf9b3864d97e0841ab447fde
+    - name: CollectorAnim_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: ffc0d7eced166dc4a8b6e4c6a250425e
+    - name: CollectorAnim_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 8b7d53f980cdcfb47897bf326149b18f
+    - name: CollectorAnim_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 35ececc58df555144985d71472fd91cd
+    - name: CollectorAnim_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 96c7b58ab07d9a744a9fe107804c0712
+    - name: CollectorAnim_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 118
+      spriteId: a0710b924ec54ec40bc9820536876a6b
+    - name: CollectorAnim_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 118
+      spriteId: def40378f96a31944a9c84ab384b01ec
+    - name: CollectorAnim_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: b1841cbad1396bf41a6a534564df7ab6
+    - name: CollectorAnim_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 1f6edfa56125a7e4aa1e36594b29de40
+    - name: CollectorAnim_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 3c8027b8917f4f14aa55722a4548257e
+    - name: CollectorAnim_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: bfaf966656b22fc439b84d614917ebfe
+    - name: CollectorAnim_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 66cf34ed301f61e428a3932acaf93f0c
+    - name: CollectorAnim_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 118
+      spriteId: c1b473face0c3554288de5815a523c2a
+    - name: CollectorAnim_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 117
+      spriteId: 7f62cceebeccfb24cb23912cf3b431dd
+    - name: CollectorAnim_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 117
+      spriteId: 30f9ad64df96a1b4683749f62fa049d7
+    - name: CollectorAnim_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 117
+      spriteId: c667f23ae0f231b44b70c85b0fb082bd
+    - name: CollectorAnim_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 119
+      spriteId: 013b01d978646ff4cbb708ecf945b6cc
+    - name: CollectorAnim_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 21
+        y: 0
+        width: 104
+        height: 118
+      spriteId: 9e3003b54139f034fb442ab016b1c7d9
+    - name: CollectorAnim_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 117
+      spriteId: 1c4c7aa1319e39742aa2f6d6560240ba
+    - name: CollectorAnim_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 117
+      spriteId: dc39390bfb2bd404d919d159a784af77
+    - name: CollectorAnim_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 117
+      spriteId: d44b5ae6b04821b478f44456f28ede84
+    - name: CollectorAnim_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 23
+        y: 0
+        width: 104
+        height: 125
+      spriteId: f256c28faac52bf4dbe73df9068cb756
+    - name: CollectorAnim_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 6
+        y: 0
+        width: 121
+        height: 150
+      spriteId: 5439e6f6a352ff042b5c7791fa9b8cb4
+    - name: CollectorAnim_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 20
+        y: 0
+        width: 107
+        height: 144
+      spriteId: 21c97e724098b65448dfca12ba5767c1
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 128, y: 160}
