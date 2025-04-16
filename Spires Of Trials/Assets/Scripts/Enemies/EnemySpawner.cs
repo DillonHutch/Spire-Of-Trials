@@ -142,6 +142,7 @@ public class EnemySpawner : MonoBehaviour
             
             Debug.Log("MiniBoss defeated. Loading Garden scene.");
             EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
+            RoundManager.ROUND_NUMBER = 0;
 
         }
 
@@ -164,7 +165,7 @@ public class EnemySpawner : MonoBehaviour
             if (AllEnemiesDestroyed() && !isSpawning)
             {
                 EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
-                Debug.Log("All enemies destroyed. Starting new spawn cycle.");
+                //Debug.Log("All enemies destroyed. Starting new spawn cycle.");
 
 
 
@@ -290,7 +291,7 @@ public class EnemySpawner : MonoBehaviour
         // Track the spawned MiniBoss
         spawnedEnemies.Add(currentMiniBoss);
 
-        Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
+        //Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
 
         isSpawning = false;
         yield return null;
@@ -352,27 +353,27 @@ public class EnemySpawner : MonoBehaviour
 
                         // Track the spawned enemy
                         spawnedEnemies.Add(spawnedEnemy);
-                        Debug.Log($"Spawned {enemyToSpawn.tag} at {spawnLocations[i].name}");
+                       // Debug.Log($"Spawned {enemyToSpawn.tag} at {spawnLocations[i].name}");
                     }
                     else
                     {
-                        Debug.Log($"No valid enemy to spawn at {spawnLocations[i].name}");
+                        //Debug.Log($"No valid enemy to spawn at {spawnLocations[i].name}");
                     }
                 }
                 else
                 {
-                    Debug.Log($"No enemy spawned at {spawnLocations[i].name}");
+                    //Debug.Log($"No enemy spawned at {spawnLocations[i].name}");
                 }
             }
 
             if (!atLeastOneSpawned)
             {
-                Debug.Log("No enemies spawned, retrying...");
+                //Debug.Log("No enemies spawned, retrying...");
                 yield return null;
             }
         }
 
-        Debug.Log("At least one enemy spawned. Spawning complete.");
+        //Debug.Log("At least one enemy spawned. Spawning complete.");
         isSpawning = false;
     }
 

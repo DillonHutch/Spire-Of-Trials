@@ -155,7 +155,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Setting music parameter: {music}");
+        //Debug.Log($"Setting music parameter: {music}");
         musicEventInstance.setParameterByName("Music", (float)music);
     }
 
@@ -206,7 +206,7 @@ public class AudioManager : MonoBehaviour
     {
         if (musicEventInstance.isValid())
         {
-            Debug.Log("Music event already initialized.");
+           // Debug.Log("Music event already initialized.");
             return; // Avoid reinitializing if already playing
         }
 
@@ -215,12 +215,12 @@ public class AudioManager : MonoBehaviour
 
         if (musicEventInstance.isValid())
         {
-            Debug.Log("Music event initialized successfully.");
+            //Debug.Log("Music event initialized successfully.");
             musicEventInstance.start();
         }
         else
         {
-            Debug.LogError("Failed to initialize music event.");
+            //Debug.LogError("Failed to initialize music event.");
         }
     }
 

@@ -86,6 +86,9 @@ public class MiniBoss : EnemyParent
     {
         attackSequence = new List<string>
     {
+
+            
+
          // Original 6
     "melee", "magic", "range", "heavy",
     "magic", "melee", "range", "heavy",
@@ -115,7 +118,13 @@ public class MiniBoss : EnemyParent
     };
     }
 
-   
+
+    protected override void Die()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDeath, transform.position);
+        base.Die();
+
+    }
 
     #endregion
 

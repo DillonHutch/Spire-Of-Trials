@@ -202,8 +202,8 @@ public abstract class EnemyParent : MonoBehaviour
 
 
 
-            
-            
+
+
         }
         else
         {
@@ -230,7 +230,7 @@ public abstract class EnemyParent : MonoBehaviour
         )>("InitializeAttackSprites", data =>
             InitializeAttackSprites(data.left, data.center, data.right, data.leftShield, data.centerShield, data.rightShield));
 
-      
+
 
         }
         else
@@ -272,7 +272,7 @@ public abstract class EnemyParent : MonoBehaviour
 
     #region ShieldMethods
 
-   
+
     /// <summary>
     /// Initializes attack sprites and shields by assigning references.
     /// </summary>
@@ -320,7 +320,7 @@ public abstract class EnemyParent : MonoBehaviour
         {
             // Determine a random attack interval within the min/max range, rounded to one decimal place
             float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
-            Debug.Log($"Next attack in {waitTime} seconds");
+           // Debug.Log($"Next attack in {waitTime} seconds");
 
             yield return new WaitForSeconds(waitTime);
 
@@ -368,12 +368,12 @@ public abstract class EnemyParent : MonoBehaviour
 
         yield return new WaitForSeconds(windUpTime);
 
- 
+
 
         // Check if the player successfully blocked the attack
         ResolveAttack(attackPosition);
 
-        
+
         // Clear attack visuals
         yield return new WaitForSeconds(0.2f);
         CleanupAttack(attackSprite, attackPosition);
@@ -422,7 +422,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected void ResolveAttack(int attackPosition)
     {
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
- 
+
         AttackSound();
 
         if (playerDodgePosition == attackPosition)
@@ -434,9 +434,9 @@ public abstract class EnemyParent : MonoBehaviour
         }
         else
         {
-            Debug.Log("Player failed to block! Taking damage.");
+            //Debug.Log("Player failed to block! Taking damage.");
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerMetal, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
         }
 
         //if(gameObject.tag == "Frog" && attackPosition == 0)
@@ -448,8 +448,8 @@ public abstract class EnemyParent : MonoBehaviour
         //    spriteRenderer.flipX = true;
         //}
 
-            // Play attack animation and sound
-        if(gameObject.tag == "Frog" && attackPosition == 0)
+        // Play attack animation and sound
+        if (gameObject.tag == "Frog" && attackPosition == 0)
         {
             animator.SetTrigger("AttackSide");
 
@@ -468,7 +468,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
 
 
-            
+
     }
 
     /// <summary>
@@ -480,7 +480,7 @@ public abstract class EnemyParent : MonoBehaviour
         SetAnimationState("ReturnToIdle");
         dodgeBarHighlighter?.ClearHighlight(attackPosition);
 
-        if(spriteRenderer != null) spriteRenderer.color = originalColor;
+        if (spriteRenderer != null) spriteRenderer.color = originalColor;
         if (iconRenderer != null) iconRenderer.color = iconOriginalColor;
 
         shieldManager?.ResetShieldPositions();
@@ -623,13 +623,18 @@ public abstract class EnemyParent : MonoBehaviour
         if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
         {
             currentSequenceIndex++;
-            Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
+            //Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
             // Play damage sound
             AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
 
             // Flash red effect on hit
-            StartCoroutine(FlashRed());
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+            }
+            flashCoroutine = StartCoroutine(FlashRed());
+
 
             // Spawn damage particles
             if (damageParticlePrefab != null)
@@ -641,7 +646,7 @@ public abstract class EnemyParent : MonoBehaviour
             // If phase is completed, move to the next phase
             if (currentSequenceIndex >= phaseEndIndex)
             {
-                Debug.Log($"Phase {currentPhase + 1} completed!");
+                //Debug.Log($"Phase {currentPhase + 1} completed!");
             }
 
             // If all phases are completed, the MiniBoss dies
@@ -655,7 +660,7 @@ public abstract class EnemyParent : MonoBehaviour
             }
 
 
-            if(player != null)
+            if (player != null)
             {
                 EventManager.Instance.TriggerEvent("UpdateCombo", true);
             }
@@ -714,7 +719,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-        Debug.Log($"{gameObject.name} died!");
+        //Debug.Log($"{gameObject.name} died!");
 
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
@@ -791,3 +796,4 @@ public abstract class EnemyParent : MonoBehaviour
     #endregion
 
 }
+

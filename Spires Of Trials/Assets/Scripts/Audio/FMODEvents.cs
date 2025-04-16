@@ -84,6 +84,9 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Knight Damage")]
     [field: SerializeField] public EventReference knightDamage { get; set; } // Knight damage sound
 
+    [field: Header("Knight Death")]
+    [field: SerializeField] public EventReference knightDeath { get; set; } // Knight damage sound
+
     #endregion
 
     #region Player Damage & Defense Sounds
