@@ -380,6 +380,12 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int i = 0; i < spawnLocations.Count; i++)
             {
+
+                // Skip if there is already an enemy in this location (background is assumed to be 1 child)
+                if (spawnLocations[i].transform.childCount > 0 && roundCounter == finalBossSpawnNumber)
+                    continue;
+
+
                 float randomValue = Random.value; // Generate a random value (0 to 1)
 
                 if (randomValue <= spawnChance) // If the random value is within the spawn chance, spawn an enemy
@@ -453,23 +459,10 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-    public void ForceSpawnEnemy(int laneIndex = -1)
+    public void ForceSpawnEnemy()
     {
-        if (laneIndex >= 0 && laneIndex < spawnLocations.Count)
-        {
-            if (spawnLocations[laneIndex].transform.childCount == 0)
-            {
-                GameObject enemyToSpawn = SelectEnemyForPosition(laneIndex);
-                if (enemyToSpawn != null)
-                {
-                    GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[laneIndex].transform.position, Quaternion.identity);
-                    spawnedEnemy.transform.SetParent(spawnLocations[laneIndex].transform);
-                    spawnedEnemies.Add(spawnedEnemy);
-                }
-            }
-        }
+        StartCoroutine(SpawnEnemies());
     }
-
 
 
     /// <summary>
@@ -520,9 +513,49 @@ public class EnemySpawner : MonoBehaviour
                     possibleEnemies.Add(enemy);
                 }
             }
-            else if (SceneManager.GetActiveScene().name == "Sanctum")
+            else if (SceneManager.GetActiveScene().name == "Sanctum" && !finalBossSpawned)
             {
                 if (enemyTag == "Devil" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Vampire" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Cleric" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+            }
+            else if(SceneManager.GetActiveScene().name == "Sanctum" && finalBossSpawned)
+            {
+                // Define valid positions for each enemy type
+                if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Goblin" && positionIndex == 1) // Goblins spawn only in the center
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Slime" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "VineSerpant" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Thornbrute" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Wendingo" && (positionIndex == 1)) // Slimes spawn only on the sides
+                {
+                    possibleEnemies.Add(enemy);
+                }
+                else if (enemyTag == "Devil" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
                 {
                     possibleEnemies.Add(enemy);
                 }

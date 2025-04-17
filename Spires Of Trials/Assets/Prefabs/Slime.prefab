@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -819123839
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 253197704510609552, guid: c21e4516f7ee4774c8a28f1df27939b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -133,6 +133,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  attackIntervalMin: 0.5
+  attackIntervalMax: 2
+  windUpTime: 1
   attackIndicator: {fileID: 5728279727907664379}
   meleeSprite: {fileID: 21300000, guid: fd2f08a1ea482a243b6c5a9999743422, type: 3}
   magicSprite: {fileID: 21300000, guid: cea764425c0a2a543a6d5f66c03c2786, type: 3}

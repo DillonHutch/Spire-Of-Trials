@@ -10,6 +10,8 @@ public class FinalBoss : EnemyParent
     [SerializeField] private GameObject[] spawnableEnemies;
     [SerializeField] private float spawnEnemyChance = 0.25f;
     [SerializeField] private float despawnDelay = 10f;
+    private Transform currentLane; // This is the actual spawn lane the boss is in
+
 
     private List<GameObject> summonedEnemies = new List<GameObject>();
 
@@ -39,7 +41,12 @@ public class FinalBoss : EnemyParent
         foreach (Transform point in spawnPoints)
             Debug.Log(point.name);
 
-        SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
+
+        currentLane = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+
+        SetNewParent(currentLane);
+        
+
 
     }
 
@@ -60,7 +67,7 @@ public class FinalBoss : EnemyParent
     /// Amount of burst attacks miniboss will throw
     /// </summary>
     /// <returns></returns>
-    private int GetAttackBurstCount() => Random.Range(1,1); // MiniBoss attacks in bursts
+    private int GetAttackBurstCount() => Random.Range(5,8); // MiniBoss attacks in bursts
 
     /// <summary>
     /// Continuously loops and waits for a random interval before requesting an attack.
@@ -70,60 +77,94 @@ public class FinalBoss : EnemyParent
     {
         while (true)
         {
-            int attackBurstCount = GetAttackBurstCount();
 
-            for (int i = 0; i < attackBurstCount; i++)
+            // Determine a random attack interval within the min/max range, rounded to one decimal place
+            float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
+            // Debug.Log($"Next attack in {waitTime} seconds");
+
+            yield return new WaitForSeconds(waitTime);
+
+            int attackOrConjure = Random.Range(1, 101);
+
+
+            // Request to attack
+            if(attackOrConjure < 85)
             {
-                // Determine a random attack interval within the min/max range, rounded to one decimal place
-                float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
-                yield return new WaitForSeconds(waitTime);
-                Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
-                if (randomSpawn == centerSpawn)
+                Transform randomSpawn = null;
+                foreach (Transform lane in spawnPoints)
                 {
-                    transform.localScale = new Vector3(.8f, .8f, .8f);
-                    transform.localPosition = new Vector3(0, -.9f, .0f);
+                    if (lane != currentLane && IsLaneEmpty(lane))
+                    {
+                        randomSpawn = lane;
+                        break;
+                    }
                 }
-                else
+
+                // If no other empty lane is found, stay in current lane
+                if (randomSpawn == null)
                 {
-                    transform.localScale = new Vector3(.9f, .9f, .9f);
-                    transform.localPosition = new Vector3(-.6f, 0f, .0f);
+                    randomSpawn = currentLane;
                 }
+
                 SetNewParent(randomSpawn);
-                yield return PerformAttack(); // Reuse parent attack logic with minor tweaks
-
+                currentLane = randomSpawn;
+                EnemyAttackQueue.RequestAttack(this);
             }
+            else
+            {
+                animator.SetTrigger("Conjure");
+                TrySpawnEnemyInOtherLane();
+                yield return new WaitForSeconds(1f);
 
+                animator.SetTrigger("ReturnToIdle");
+                yield return new WaitForSeconds(.5f);
+
+                
+            }
             
-            
-            
 
-            // **Rest Phase** - MiniBoss pauses after its attack burst
-            Debug.Log("MiniBoss is resting...");
-            animator.SetTrigger("ReturnToIdle");
+            // Ensure waitTime applies before restarting the loop
+            yield return new WaitForSeconds(waitTime);
 
-            //enemySpawner.ForceSpawnEnemy();
+           
 
 
-            yield return new WaitForSeconds(3f); // Punishment window
         }
     }
 
 
     private void TrySpawnEnemyInOtherLane()
     {
+        KillAllOtherEnemies();
+        enemySpawner.ForceSpawnEnemy();
+    }
 
-        for (int i = 0; i < spawnPoints.Count; i++)
+    private void KillAllOtherEnemies()
+    {
+        EnemyParent[] allEnemies = FindObjectsOfType<EnemyParent>();
+
+        foreach (EnemyParent enemy in allEnemies)
         {
-            if (spawnPoints[i] != this.transform.parent) // Not the boss's current lane
+            if (enemy != this)
             {
-                if (spawnPoints[i].childCount == 1) // Space is empty
-                {
-                    enemySpawner.ForceSpawnEnemy();
-                }
+                Destroy(enemy.gameObject);
             }
         }
     }
 
+
+
+    private bool IsLaneEmpty(Transform lane)
+    {
+        foreach (Transform child in lane)
+        {
+            if (child.GetComponent<EnemyParent>() != null && child.gameObject != this.gameObject)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 
