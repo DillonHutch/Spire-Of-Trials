@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4130121916553934674}
@@ -99,7 +99,7 @@ Animator:
   m_GameObject: {fileID: 5956038672238996150}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 359ec82845ffeeb4eb9a2c623072217b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9a66a180284d59d47a09aa436f7ee2b1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -165,6 +165,18 @@ MonoBehaviour:
   flashTime: 0.2
   damageParticlePrefab: {fileID: 7351758881579968959, guid: 47f8a4f379715ee4083149c8b4106d37, type: 3}
   partOrgin: {fileID: 763928239923889054}
+  spawnableEnemies:
+  - {fileID: 5956038672238996150, guid: 78044f8894a615747a2001a920cc2560, type: 3}
+  - {fileID: 5956038672238996150, guid: adf4bc2424cdcff49bb3c4203c3a26c6, type: 3}
+  - {fileID: 5956038672238996150, guid: c9d892c865a5bfa4cb759459350847fd, type: 3}
+  - {fileID: 4548580533598868436, guid: ecec639e469753a45a025df0423ce238, type: 3}
+  - {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
+  - {fileID: 6875418910693198597, guid: 594d80d9ea830f247983c5c1fb400891, type: 3}
+  - {fileID: 5956038672238996150, guid: 4ddbbda7067687643aa29c4a326d3ac8, type: 3}
+  - {fileID: 5956038672238996150, guid: f6f16fa3616bc7f43ab56e514d94dd2c, type: 3}
+  - {fileID: 5956038672238996150, guid: daea2d73ecb0ae341b47a41489d1485c, type: 3}
+  spawnEnemyChance: 1
+  despawnDelay: 10
 --- !u!1001 &935237016703649086
 PrefabInstance:
   m_ObjectHideFlags: 0

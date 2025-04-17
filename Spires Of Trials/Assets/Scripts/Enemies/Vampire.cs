@@ -11,7 +11,7 @@ public class Vampire : EnemyParent
         if (enemyAttackPosition == 0)
         {
             attackPos = 1;
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
             return attackPos;
         }
 
@@ -21,11 +21,11 @@ public class Vampire : EnemyParent
             attackPos = Random.Range(0, 2) == 0 ? 0 : 2;
             if (attackPos == 0)
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipX = true;
             }
             else
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipX = false;
             }
             return attackPos;
         }
@@ -33,6 +33,7 @@ public class Vampire : EnemyParent
         if (enemyAttackPosition == 2)
         {
             attackPos = 1;
+            spriteRenderer.flipX = true;
             return attackPos;
         }
 

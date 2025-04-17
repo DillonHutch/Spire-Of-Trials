@@ -6,6 +6,16 @@ public class FinalBoss : EnemyParent
 {
     #region Fields
 
+     private List<Transform> spawnPoints;
+    [SerializeField] private GameObject[] spawnableEnemies;
+    [SerializeField] private float spawnEnemyChance = 0.25f;
+    [SerializeField] private float despawnDelay = 10f;
+
+    private List<GameObject> summonedEnemies = new List<GameObject>();
+
+    private EnemySpawner enemySpawner;
+
+
 
     #endregion
 
@@ -20,7 +30,15 @@ public class FinalBoss : EnemyParent
         // Call base Start() to ensure parent class logic runs first
         base.Start();
 
-        // Set a random spawn position as the new parent
+        enemySpawner = FindObjectOfType<EnemySpawner>();
+
+
+        spawnPoints = new List<Transform> { leftSpawn, rightSpawn, centerSpawn };
+
+        Debug.Log("Spawn points initialized:");
+        foreach (Transform point in spawnPoints)
+            Debug.Log(point.name);
+
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
 
     }
@@ -42,7 +60,7 @@ public class FinalBoss : EnemyParent
     /// Amount of burst attacks miniboss will throw
     /// </summary>
     /// <returns></returns>
-    private int GetAttackBurstCount() => Random.Range(5, 8); // MiniBoss attacks in bursts
+    private int GetAttackBurstCount() => Random.Range(1,1); // MiniBoss attacks in bursts
 
     /// <summary>
     /// Continuously loops and waits for a random interval before requesting an attack.
@@ -60,17 +78,66 @@ public class FinalBoss : EnemyParent
                 float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
                 yield return new WaitForSeconds(waitTime);
                 Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+                if (randomSpawn == centerSpawn)
+                {
+                    transform.localScale = new Vector3(.8f, .8f, .8f);
+                    transform.localPosition = new Vector3(0, -.9f, .0f);
+                }
+                else
+                {
+                    transform.localScale = new Vector3(.9f, .9f, .9f);
+                    transform.localPosition = new Vector3(-.6f, 0f, .0f);
+                }
                 SetNewParent(randomSpawn);
                 yield return PerformAttack(); // Reuse parent attack logic with minor tweaks
 
             }
 
+            
+            
+            
+
             // **Rest Phase** - MiniBoss pauses after its attack burst
             Debug.Log("MiniBoss is resting...");
             animator.SetTrigger("ReturnToIdle");
+
+            //enemySpawner.ForceSpawnEnemy();
+
+
             yield return new WaitForSeconds(3f); // Punishment window
         }
     }
+
+
+    private void TrySpawnEnemyInOtherLane()
+    {
+
+        for (int i = 0; i < spawnPoints.Count; i++)
+        {
+            if (spawnPoints[i] != this.transform.parent) // Not the boss's current lane
+            {
+                if (spawnPoints[i].childCount == 1) // Space is empty
+                {
+                    enemySpawner.ForceSpawnEnemy();
+                }
+            }
+        }
+    }
+
+
+
+
+    private IEnumerator DespawnAfterDelay(GameObject enemy, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (enemy != null)
+        {
+            Destroy(enemy);
+            summonedEnemies.Remove(enemy);
+        }
+    }
+
+
 
 
     /// <summary>

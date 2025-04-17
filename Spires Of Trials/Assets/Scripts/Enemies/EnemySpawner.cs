@@ -341,7 +341,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
 
         // Instantiate the MiniBoss at the selected location
-        currentMiniBoss = Instantiate(frogBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 0, 0), Quaternion.identity);
+        currentMiniBoss = Instantiate(finalBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 0, 0), Quaternion.identity);
 
 
 
@@ -403,17 +403,22 @@ public class EnemySpawner : MonoBehaviour
                         // Special handling for Slime enemy position and adjustments
                         if (spawnedEnemy.tag == "Slime")
                         {
-                         
+
                             AdjustSlimePosition(spawnedEnemy, i);
                         }
                         else if (spawnedEnemy.tag == "VineSerpant")
                         {
-                          
+
                             AdjustSerpantPosition(spawnedEnemy, i);
+                        }
+                        else if (spawnedEnemy.tag == "Devil")
+                        {
+
+                            AdjustSlimePosition(spawnedEnemy, i);
                         }
 
 
-                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
                         // Scale enemies differently if they spawn in the middle position
                         if (i == 1) // Middle spawn location
@@ -446,6 +451,26 @@ public class EnemySpawner : MonoBehaviour
         //Debug.Log("At least one enemy spawned. Spawning complete.");
         isSpawning = false;
     }
+
+
+    public void ForceSpawnEnemy(int laneIndex = -1)
+    {
+        if (laneIndex >= 0 && laneIndex < spawnLocations.Count)
+        {
+            if (spawnLocations[laneIndex].transform.childCount == 0)
+            {
+                GameObject enemyToSpawn = SelectEnemyForPosition(laneIndex);
+                if (enemyToSpawn != null)
+                {
+                    GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[laneIndex].transform.position, Quaternion.identity);
+                    spawnedEnemy.transform.SetParent(spawnLocations[laneIndex].transform);
+                    spawnedEnemies.Add(spawnedEnemy);
+                }
+            }
+        }
+    }
+
+
 
     /// <summary>
     /// Selects an enemy type based on its valid spawn positions.
@@ -497,7 +522,7 @@ public class EnemySpawner : MonoBehaviour
             }
             else if (SceneManager.GetActiveScene().name == "Sanctum")
             {
-                if (enemyTag == "Devil" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
+                if (enemyTag == "Devil" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
                 {
                     possibleEnemies.Add(enemy);
                 }
