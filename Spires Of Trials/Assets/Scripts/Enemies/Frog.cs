@@ -190,7 +190,7 @@ public class Frog : EnemyParent
             currentSequenceIndex++;
             //Debug.LogError($"Frog hit correctly at weak spot {playerPosition}! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.frogDamage, transform.position);
             StartCoroutine(FlashRed());
 
             if (damageParticlePrefab != null)
@@ -274,7 +274,12 @@ public class Frog : EnemyParent
         return 1; // Default to center if unknown
     }
 
+    protected override void Die()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.frogDeath, transform.position);
+        base.Die();
 
+    }
 
 
     #endregion

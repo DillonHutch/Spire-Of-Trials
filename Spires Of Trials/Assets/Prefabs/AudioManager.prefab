@@ -128,6 +128,48 @@ MonoBehaviour:
       Data3: -355634552
       Data4: 1340504959
     Path: event:/SFX/SlimeWindUp
+  <wenAtk>k__BackingField:
+    Guid:
+      Data1: 479892809
+      Data2: 1175173616
+      Data3: 519763122
+      Data4: -2110908924
+    Path: event:/SFX/WendingoAttack
+  <wenWU>k__BackingField:
+    Guid:
+      Data1: -1393815029
+      Data2: 1228974284
+      Data3: -322781031
+      Data4: -107414829
+    Path: event:/SFX/WendingoWindUp
+  <thornAtk>k__BackingField:
+    Guid:
+      Data1: -138462018
+      Data2: 1190127593
+      Data3: -383683935
+      Data4: -443089667
+    Path: event:/SFX/ThornBruteAttack
+  <thornWU>k__BackingField:
+    Guid:
+      Data1: 1647262352
+      Data2: 1087906015
+      Data3: 219402155
+      Data4: 1178751862
+    Path: event:/SFX/ThornBruteWindUp
+  <serAtk>k__BackingField:
+    Guid:
+      Data1: -45957186
+      Data2: 1219358807
+      Data3: 96971927
+      Data4: -986336062
+    Path: event:/SFX/VineSerpantAttack
+  <serWU>k__BackingField:
+    Guid:
+      Data1: 1814663852
+      Data2: 1266510949
+      Data3: 865958835
+      Data4: -1603814949
+    Path: event:/SFX/VineSerpantWindUp
   <knightAttack>k__BackingField:
     Guid:
       Data1: -624841606
@@ -156,6 +198,34 @@ MonoBehaviour:
       Data3: 1640348817
       Data4: -405873485
     Path: event:/SFX/FallenKnightDeath
+  <frogAttack>k__BackingField:
+    Guid:
+      Data1: -876218771
+      Data2: 1310102760
+      Data3: -1542673006
+      Data4: -1863301815
+    Path: event:/SFX/FrogAttack
+  <frogWU>k__BackingField:
+    Guid:
+      Data1: -101571741
+      Data2: 1232794512
+      Data3: -1622854496
+      Data4: 1913962285
+    Path: event:/SFX/FrogWindUp
+  <frogDamage>k__BackingField:
+    Guid:
+      Data1: -1795690179
+      Data2: 1300527943
+      Data3: -816665940
+      Data4: 526769738
+    Path: event:/SFX/FrogPain
+  <frogDeath>k__BackingField:
+    Guid:
+      Data1: -502895812
+      Data2: 1307590188
+      Data3: 848053668
+      Data4: -1355022581
+    Path: event:/SFX/FrogDeath
   <playerHit>k__BackingField:
     Guid:
       Data1: -383150919

@@ -69,6 +69,25 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Slime Wind-Up")]
     [field: SerializeField] public EventReference slimeWU { get; set; } // Slime wind-up sound
 
+
+    [field: Header("Wendingo Attack")]
+    [field: SerializeField] public EventReference wenAtk { get; set; } // Goblin attack sound
+
+    [field: Header("Wendingo Wind-Up")]
+    [field: SerializeField] public EventReference wenWU { get; set; } // Goblin wind-up sound
+
+    [field: Header("Thornbrute Attack")]
+    [field: SerializeField] public EventReference thornAtk { get; set; } // Skeleton attack sound
+
+    [field: Header("Thornbrute Wind-Up")]
+    [field: SerializeField] public EventReference thornWU { get; set; } // Skeleton wind-up sound
+
+    [field: Header("Serpant Attack")]
+    [field: SerializeField] public EventReference serAtk { get; set; } // Slime attack sound
+
+    [field: Header("Serpant Wind-Up")]
+    [field: SerializeField] public EventReference serWU { get; set; } // Slime wind-up sound
+
     #endregion
 
     #region Knight Sounds
@@ -86,6 +105,25 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Knight Death")]
     [field: SerializeField] public EventReference knightDeath { get; set; } // Knight damage sound
+
+    #endregion
+
+
+    #region Frog Sounds
+
+    [field: Header("Frog Sounds")]
+
+    [field: Header("Frog Attack")]
+    [field: SerializeField] public EventReference frogAttack { get; set; } // Knight attack sound
+
+    [field: Header("Frog Wind-Up")]
+    [field: SerializeField] public EventReference frogWU { get; set; } // Knight wind-up sound
+
+    [field: Header("Frog Damage")]
+    [field: SerializeField] public EventReference frogDamage { get; set; } // Knight damage sound
+
+    [field: Header("Frog Death")]
+    [field: SerializeField] public EventReference frogDeath { get; set; } // Knight damage sound
 
     #endregion
 

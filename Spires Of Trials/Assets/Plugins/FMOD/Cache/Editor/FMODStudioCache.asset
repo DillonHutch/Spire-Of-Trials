@@ -47,6 +47,33 @@ MonoBehaviour:
   - Name: Desktop
     Value: 15640480
   Exists: 1
+--- !u!114 &-8349931161203528021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/WendingoAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/WendingoAttack
+  Guid:
+    Data1: 479892809
+    Data2: 1175173616
+    Data3: 519763122
+    Data4: -2110908924
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 991
 --- !u!114 &-8203754507938053636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +182,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 582
+--- !u!114 &-6070591111986436010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ThornBruteAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ThornBruteAttack
+  Guid:
+    Data1: -138462018
+    Data2: 1190127593
+    Data3: -383683935
+    Data4: -443089667
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &-5900095959566737261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,10 +224,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638802544772129633
+  lastModified: 638804344681094921
   FileSizes:
   - Name: Desktop
-    Value: 2164
+    Value: 2622
   Exists: 1
 --- !u!114 &-5828419515339961869
 MonoBehaviour:
@@ -337,6 +391,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 666
+--- !u!114 &-3659677957622979091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FrogAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FrogAttack
+  Guid:
+    Data1: -876218771
+    Data2: 1310102760
+    Data3: -1542673006
+    Data4: -1863301815
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1065
 --- !u!114 &-3343029927289553756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,11 +433,38 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638802544772119627
+  lastModified: 638804344681074922
   FileSizes:
   - Name: Desktop
     Value: 1486
   Exists: 1
+--- !u!114 &-3162989862554704486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/VineSerpantWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/VineSerpantWindUp
+  Guid:
+    Data1: 1814663852
+    Data2: 1266510949
+    Data3: 865958835
+    Data4: -1603814949
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 943
 --- !u!114 &-2873991134635602717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,6 +686,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-3616841144513641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/WendingoWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/WendingoWindUp
+  Guid:
+    Data1: -1393815029
+    Data2: 1228974284
+    Data3: -322781031
+    Data4: -107414829
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 775
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,12 +755,22 @@ MonoBehaviour:
   - {fileID: 843706876105287260}
   - {fileID: 1433389023076430879}
   - {fileID: -2538010486770295784}
+  - {fileID: -3616841144513641}
+  - {fileID: 2481128114067067593}
+  - {fileID: 3473217867957310358}
+  - {fileID: -8349931161203528021}
+  - {fileID: 8691600143694943114}
+  - {fileID: -3659677957622979091}
+  - {fileID: 7424519070813479074}
+  - {fileID: -3162989862554704486}
+  - {fileID: -6070591111986436010}
+  - {fileID: 6904354686349608887}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638802544982789161
+  cacheTime: 638804344687337566
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -789,6 +934,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2481128114067067593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FrogDeath
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FrogDeath
+  Guid:
+    Data1: -502895812
+    Data2: 1307590188
+    Data3: 848053668
+    Data4: -1355022581
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4077
 --- !u!114 &2736528152502921916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,6 +988,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3473217867957310358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FrogPain
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FrogPain
+  Guid:
+    Data1: -1795690179
+    Data2: 1300527943
+    Data3: -816665940
+    Data4: 526769738
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 600
 --- !u!114 &3550397977258303237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,10 +1057,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638802544982789161
+  lastModified: 638804344687337566
   FileSizes:
   - Name: Desktop
-    Value: 298272
+    Value: 411296
   Exists: 1
 --- !u!114 &5645940961067155302
 MonoBehaviour:
@@ -944,6 +1143,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &6904354686349608887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/VineSerpantAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/VineSerpantAttack
+  Guid:
+    Data1: -45957186
+    Data2: 1219358807
+    Data3: 96971927
+    Data4: -986336062
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 349
+--- !u!114 &7424519070813479074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/ThornBruteWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/ThornBruteWindUp
+  Guid:
+    Data1: 1647262352
+    Data2: 1087906015
+    Data3: 219402155
+    Data4: 1178751862
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 659
 --- !u!114 &7486844046975610317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,6 +1251,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
+--- !u!114 &8691600143694943114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FrogWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FrogWindUp
+  Guid:
+    Data1: -101571741
+    Data2: 1232794512
+    Data3: -1622854496
+    Data4: 1913962285
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 588
 --- !u!114 &8747005220439572358
 MonoBehaviour:
   m_ObjectHideFlags: 0

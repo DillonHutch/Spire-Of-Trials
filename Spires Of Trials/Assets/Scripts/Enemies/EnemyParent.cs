@@ -515,6 +515,26 @@ public abstract class EnemyParent : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeWU, transform.position);
         }
+        else if (this.gameObject.tag == "Wendingo")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.wenWU, transform.position);
+        }
+        else if (this.gameObject.tag == "VineSerpant")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.serWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Thornbrute")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.thornWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Knight")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Frog")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.frogWU, transform.position);
+        }
     }
 
     /// <summary>
@@ -534,6 +554,27 @@ public abstract class EnemyParent : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.slimeAtk, transform.position);
         }
+        else if (this.gameObject.tag == "Wendingo")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.wenAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "VineSerpant")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.serAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Thornbrute")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.thornAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Knight")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightAttack, transform.position);
+        }
+        else if (this.gameObject.tag == "Frog")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.frogAttack, transform.position);
+        }
+
     }
 
     #endregion
