@@ -77,8 +77,10 @@ public class Devil : EnemyParent
     protected override void DefineAttackSequence()
     {
         attackSequence = new List<string> {
-                "melee", "magic", "range", "heavy",   // Combo 1
-                "range", "melee", "heavy", "magic"    // Combo 2  
+                    "heavy", "melee", "magic", "range",   // Combo 1  
+                    "magic", "range", "melee", "heavy",   // Combo 2  
+                    "range", "melee", "heavy", "magic"    // Combo 3  
+
                 };
     }
 
