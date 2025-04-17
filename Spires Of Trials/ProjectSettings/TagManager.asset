@@ -21,6 +21,10 @@ TagManager:
   - Thornbrute
   - Wendingo
   - Frog
+  - Cleric
+  - Collector
+  - Devil
+  - Vampire
   layers:
   - Default
   - TransparentFX
