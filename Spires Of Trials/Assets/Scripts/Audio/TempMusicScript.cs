@@ -28,7 +28,11 @@ public class TempMusicScript : MonoBehaviour
         {
             AudioManager.instance.SetMusic(MusicEnum.Garden);
         }
-        
+        else if (SceneManager.GetActiveScene().name == "Sanctum")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Sanctum);
+        }
+
 
         // Get the current music instance
         currentMusic = AudioManager.instance.GetCurrentMusicInstance();

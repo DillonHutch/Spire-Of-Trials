@@ -1,0 +1,951 @@
+fileFormatVersion: 2
+guid: 0df320d66ae8e404b839186f6917a8e1
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackCloser
+    second: {fileID: 7400000, guid: 247a32cd00d3bfd40b62cee19c752c9d, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackFar
+    second: {fileID: 7400000, guid: ce44d512df70b4c48b308c5b25955542, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Idle
+    second: {fileID: 7400000, guid: f203b314a3b7f96409dacf3c683fbada, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Wind Up
+    second: {fileID: 7400000, guid: caa738e8747109f4ea57698bc2a7b8bd, type: 2}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 16
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638804197298065760
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: HellwardenAnim
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 848
+      width: 90
+      height: 97
+    spriteID: 7b1fdbf4e8c7d1a44857410f9ae77ba3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 848}
+  - name: HellwardenAnim_Frame_1
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 529
+      width: 90
+      height: 98
+    spriteID: d8d202dec02459d40b9efecfbdc956b5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 529}
+  - name: HellwardenAnim_Frame_2
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 635
+      width: 90
+      height: 98
+    spriteID: 9ec32186d3fd4664b9258241237ff5d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 635}
+  - name: HellwardenAnim_Frame_3
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 741
+      width: 90
+      height: 98
+    spriteID: d354d35c8006e934b8a75098caaa4dfb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 741}
+  - name: HellwardenAnim_Frame_4
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 847
+      width: 90
+      height: 98
+    spriteID: 6153a36ec8ba8924c8944e9c31e80a0a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 847}
+  - name: HellwardenAnim_Frame_5
+    originalName: 
+    pivot: {x: -0.18681322, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 317
+      width: 91
+      height: 98
+    spriteID: 7bcd5d1da43a0df46a25da2584ab55bc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 317}
+  - name: HellwardenAnim_Frame_6
+    originalName: 
+    pivot: {x: -0.18681322, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 423
+      width: 91
+      height: 98
+    spriteID: ef4b7a1719c36d04d84e82df1d98e7e5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 423}
+  - name: HellwardenAnim_Frame_7
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 212
+      width: 90
+      height: 98
+    spriteID: aa650e1ba1809a942ad549e1f7d67421
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 212}
+  - name: HellwardenAnim_Frame_8
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 318
+      width: 90
+      height: 98
+    spriteID: d0159d19aac3d6143a03348264937be4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 318}
+  - name: HellwardenAnim_Frame_9
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 424
+      width: 90
+      height: 98
+    spriteID: a271b730191145c4f8fba8ebc4d17ba4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 424}
+  - name: HellwardenAnim_Frame_10
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 530
+      width: 90
+      height: 98
+    spriteID: 38bdd753e225d664da704d18fa20f939
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 530}
+  - name: HellwardenAnim_Frame_11
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 636
+      width: 90
+      height: 98
+    spriteID: a58c202ef4001974094f3c41c51a06cc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 636}
+  - name: HellwardenAnim_Frame_12
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 105
+      y: 742
+      width: 90
+      height: 98
+    spriteID: 732d2f8f407f7a5448c9eea252124f8a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 105, y: 742}
+  - name: HellwardenAnim_Frame_13
+    originalName: 
+    pivot: {x: -0.19354837, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 212
+      width: 93
+      height: 97
+    spriteID: a57196c09d23e77448f3e53eef5da473
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 212}
+  - name: HellwardenAnim_Frame_14
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 4
+      width: 90
+      height: 97
+    spriteID: 4dd17ba6791389741b94035e373856df
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 4}
+  - name: HellwardenAnim_Frame_15
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 109
+      width: 90
+      height: 97
+    spriteID: e60a00ec6eed6fd47a85ed9268646f3f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 109}
+  - name: HellwardenAnim_Frame_16
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 214
+      width: 90
+      height: 97
+    spriteID: c66492e960f28b9419626ee2b402f1ed
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 214}
+  - name: HellwardenAnim_Frame_17
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 319
+      width: 90
+      height: 97
+    spriteID: 9ecc87900efa44140966601dc45573a2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 319}
+  - name: HellwardenAnim_Frame_18
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 424
+      width: 90
+      height: 97
+    spriteID: 470826bf3ad24b54fbbe49211302db57
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 424}
+  - name: HellwardenAnim_Frame_19
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 529
+      width: 90
+      height: 97
+    spriteID: e8dfabca166a1b04aa9af4258a99bb87
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 529}
+  - name: HellwardenAnim_Frame_20
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 634
+      width: 90
+      height: 97
+    spriteID: ec3f6c831bad59f469f0194756055cdc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 634}
+  - name: HellwardenAnim_Frame_21
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 739
+      width: 90
+      height: 97
+    spriteID: 54d0fcfc733cef94f8a1990fed099ffc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 739}
+  - name: HellwardenAnim_Frame_22
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 207
+      y: 844
+      width: 90
+      height: 97
+    spriteID: d63b10f73ed93b647abceeb65df86b30
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 207, y: 844}
+  - name: HellwardenAnim_Frame_23
+    originalName: 
+    pivot: {x: -0.19999999, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 305
+      y: 4
+      width: 90
+      height: 97
+    spriteID: 9b467f9741c4e634687f72dc3a5e0690
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 305, y: 4}
+  - name: HellwardenAnim_Frame_24
+    originalName: 
+    pivot: {x: -0.2134831, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 305
+      y: 109
+      width: 89
+      height: 98
+    spriteID: 4dfae58373dfee84188b9d60bff40ed4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 305, y: 109}
+  - name: HellwardenAnim_Frame_25
+    originalName: 
+    pivot: {x: 0.17557251, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 108
+      width: 131
+      height: 96
+    spriteID: 475e453a883a5c44db8488e5474f7519
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 108}
+  - name: HellwardenAnim_Frame_26
+    originalName: 
+    pivot: {x: 0.44615388, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 195
+      height: 96
+    spriteID: 711d969ec78c61642bb0603e7565558c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 249579097
+    name: HellwardenAnim
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: HellwardenAnim_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: 7b1fdbf4e8c7d1a44857410f9ae77ba3
+    - name: HellwardenAnim_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: d8d202dec02459d40b9efecfbdc956b5
+    - name: HellwardenAnim_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: 9ec32186d3fd4664b9258241237ff5d9
+    - name: HellwardenAnim_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: d354d35c8006e934b8a75098caaa4dfb
+    - name: HellwardenAnim_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: 6153a36ec8ba8924c8944e9c31e80a0a
+    - name: HellwardenAnim_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 129
+        y: 0
+        width: 91
+        height: 98
+      spriteId: 7bcd5d1da43a0df46a25da2584ab55bc
+    - name: HellwardenAnim_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 129
+        y: 0
+        width: 91
+        height: 98
+      spriteId: ef4b7a1719c36d04d84e82df1d98e7e5
+    - name: HellwardenAnim_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: aa650e1ba1809a942ad549e1f7d67421
+    - name: HellwardenAnim_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: d0159d19aac3d6143a03348264937be4
+    - name: HellwardenAnim_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: a271b730191145c4f8fba8ebc4d17ba4
+    - name: HellwardenAnim_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: 38bdd753e225d664da704d18fa20f939
+    - name: HellwardenAnim_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: a58c202ef4001974094f3c41c51a06cc
+    - name: HellwardenAnim_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 98
+      spriteId: 732d2f8f407f7a5448c9eea252124f8a
+    - name: HellwardenAnim_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 130
+        y: 0
+        width: 93
+        height: 97
+      spriteId: a57196c09d23e77448f3e53eef5da473
+    - name: HellwardenAnim_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: 4dd17ba6791389741b94035e373856df
+    - name: HellwardenAnim_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: e60a00ec6eed6fd47a85ed9268646f3f
+    - name: HellwardenAnim_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: c66492e960f28b9419626ee2b402f1ed
+    - name: HellwardenAnim_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: 9ecc87900efa44140966601dc45573a2
+    - name: HellwardenAnim_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: 470826bf3ad24b54fbbe49211302db57
+    - name: HellwardenAnim_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: e8dfabca166a1b04aa9af4258a99bb87
+    - name: HellwardenAnim_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: ec3f6c831bad59f469f0194756055cdc
+    - name: HellwardenAnim_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: 54d0fcfc733cef94f8a1990fed099ffc
+    - name: HellwardenAnim_Frame_22
+      frameIndex: 22
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: d63b10f73ed93b647abceeb65df86b30
+    - name: HellwardenAnim_Frame_23
+      frameIndex: 23
+      cellRect:
+        x: 130
+        y: 0
+        width: 90
+        height: 97
+      spriteId: 9b467f9741c4e634687f72dc3a5e0690
+    - name: HellwardenAnim_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 131
+        y: 0
+        width: 89
+        height: 98
+      spriteId: 4dfae58373dfee84188b9d60bff40ed4
+    - name: HellwardenAnim_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 89
+        y: 0
+        width: 131
+        height: 96
+      spriteId: 475e453a883a5c44db8488e5474f7519
+    - name: HellwardenAnim_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 25
+        y: 0
+        width: 195
+        height: 96
+      spriteId: 711d969ec78c61642bb0603e7565558c
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 224, y: 112}

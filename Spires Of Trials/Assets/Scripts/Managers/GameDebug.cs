@@ -13,10 +13,15 @@ public class GameDebug : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.O))
         {
             EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
             RoundManager.ROUND_NUMBER = 40;
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "Sanctum");
+            RoundManager.ROUND_NUMBER = 75;
         }
 
         //Debug.LogWarning(RoundManager.ROUND_NUMBER);

@@ -172,7 +172,7 @@ public class PlayerHealth : MonoBehaviour
         RoundManager.ROUND_NUMBER = 0;
 
         // Load the main menu scene upon death
-        SceneManager.LoadScene("MainMenu");
+        EventManager.Instance.TriggerEvent("LoadNextLevel", "MainMenu");
     }
 
     #endregion
