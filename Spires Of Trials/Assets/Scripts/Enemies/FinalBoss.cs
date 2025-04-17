@@ -108,6 +108,30 @@ public class FinalBoss : EnemyParent
 
                 SetNewParent(randomSpawn);
                 currentLane = randomSpawn;
+                if (randomSpawn == centerSpawn)
+                {
+                    transform.localScale = new Vector3(.8f, .8f, .8f);
+                    transform.localPosition = new Vector3(0, -.9f, .0f);
+                    
+                }
+                else if (randomSpawn == leftSpawn)
+                {
+                    transform.localScale = new Vector3(-.9f, .9f, .9f);
+                    transform.localPosition = new Vector3(0, 0f, .0f);
+                  
+                }
+                else if (randomSpawn == rightSpawn)
+                {
+
+                    transform.localScale = new Vector3(.9f, .9f, .9f);
+                    transform.localPosition = new Vector3(-.6f, 0f, .0f);
+
+
+             
+                }
+
+             
+                   
                 EnemyAttackQueue.RequestAttack(this);
             }
             else
