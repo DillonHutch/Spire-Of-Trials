@@ -347,7 +347,7 @@ public class EnemySpawner : MonoBehaviour
         AudioManager.instance.SetMusic(MusicEnum.Sanctum);
 
         // Choose a random spawn location for the MiniBoss
-        GameObject bossSpawnLocation = spawnLocations[0];
+        GameObject bossSpawnLocation = spawnLocations[2];
 
         // Instantiate the MiniBoss at the selected location
         currentMiniBoss = Instantiate(finalBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 0, 0), Quaternion.identity);
@@ -429,7 +429,7 @@ public class EnemySpawner : MonoBehaviour
                         else if (spawnedEnemy.tag == "Devil")
                         {
 
-                            AdjustSlimePosition(spawnedEnemy, i);
+                            AdjustDevilPosition(spawnedEnemy, i);
                         }
                         else if (spawnedEnemy.tag == "Cleric")
                         {
@@ -662,16 +662,64 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnLocation = spawnedEnemy.transform.position;
         spawnedEnemy.transform.position = spawnLocation;
 
-        
-            
 
-            spawnLocation.x -= .6f; // Adjust slime position further
+
+
+        spawnLocation.x -= .6f; // Adjust slime position further
+        spawnedEnemy.transform.position = spawnLocation;
+
+
+
+
+    }
+
+
+    /// <summary>
+    /// Adjusts the position, scaling, and child elements of Slime enemies.
+    /// Ensures proper placement and mirroring when needed.
+    /// </summary>
+    /// <param name="spawnedEnemy">The instantiated Slime enemy.</param>
+    /// <param name="spawnIndex">The spawn position index.</param>
+    private void AdjustDevilPosition(GameObject spawnedEnemy, int spawnIndex)
+    {
+        Vector3 spawnLocation = spawnedEnemy.transform.position;
+        spawnLocation.x -= 3.5f; // Offset slime spawn position
+
+        spawnedEnemy.transform.position = spawnLocation;
+
+        if (spawnIndex == 0) // If spawning in the leftmost position
+        {
+            spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
+            spriteRenderer.flipX = true; // Flip the sprite
+
+            spawnLocation.x += 7f; // Adjust slime position further
             spawnedEnemy.transform.position = spawnLocation;
 
-      
-        
- 
+            if (spawnedEnemy.transform.childCount > 0)
+            {
+                Transform childIcon = spawnedEnemy.transform.GetChild(0);
+                Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
+
+                // Adjust the positions of child elements
+                childIcon.localPosition = new Vector3(-3.5f, 0.62f, 0);
+                childPartOrgin.localPosition = new Vector3(-3.5f, 2.5f, 0);
+            }
+
+            Canvas snakeCanavs = spawnedEnemy.GetComponentInChildren<Canvas>();
+            if (snakeCanavs != null)
+            {
+                RectTransform canvasTransform = snakeCanavs.GetComponent<RectTransform>();
+                if (canvasTransform != null)
+                {
+                    canvasTransform.localPosition = new Vector3(1912.85f, 1080.036f, 0);
+                }
+            }
+        }
     }
+
+
+
+
     /// <summary>
     /// Adjusts the position, scaling, and child elements of Slime enemies.
     /// Ensures proper placement and mirroring when needed.

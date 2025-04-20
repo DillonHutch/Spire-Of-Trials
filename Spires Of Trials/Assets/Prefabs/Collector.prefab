@@ -392,6 +392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AttackIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 7477241976632296354, guid: bbf4a60413f70da4c891feb851ce91db, type: 3}
+      propertyPath: m_TagString
+      value: AttackIcon
+      objectReference: {fileID: 0}
     - target: {fileID: 8211066094933477631, guid: bbf4a60413f70da4c891feb851ce91db, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.96

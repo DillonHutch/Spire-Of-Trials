@@ -25,6 +25,7 @@ TagManager:
   - Collector
   - Devil
   - Vampire
+  - AttackIcon
   layers:
   - Default
   - TransparentFX

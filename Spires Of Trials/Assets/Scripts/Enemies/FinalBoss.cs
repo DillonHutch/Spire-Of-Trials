@@ -23,6 +23,9 @@ public class FinalBoss : EnemyParent
 
     #region UnityMethods
 
+
+   
+
     /// <summary>
     /// Called before the first frame update.
     /// Initializes variables, assigns references, and sets up the enemy's spawn location.
@@ -31,6 +34,8 @@ public class FinalBoss : EnemyParent
     {
         // Call base Start() to ensure parent class logic runs first
         base.Start();
+
+        SetNewParent(currentLane);
 
         enemySpawner = FindObjectOfType<EnemySpawner>();
 
@@ -44,7 +49,7 @@ public class FinalBoss : EnemyParent
 
         currentLane = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
 
-        SetNewParent(currentLane);
+        
         
 
 
@@ -88,7 +93,7 @@ public class FinalBoss : EnemyParent
 
 
             // Request to attack
-            if(attackOrConjure < 85)
+            if(attackOrConjure < 75)
             {
                 Transform randomSpawn = null;
                 foreach (Transform lane in spawnPoints)
@@ -112,7 +117,18 @@ public class FinalBoss : EnemyParent
                 {
                     transform.localScale = new Vector3(.8f, .8f, .8f);
                     transform.localPosition = new Vector3(0, -.9f, .0f);
-                    
+                    spriteRenderer.flipX = false;
+
+                    foreach (Transform child in transform)
+                    {
+                        if (child.gameObject.tag == "AttackIcon")
+                        {
+                            Vector3 localPos = child.localPosition;
+                            localPos.x = 0f; // Flip X position
+                            child.localPosition = localPos;
+                        }
+                    }
+
                 }
                 else if (randomSpawn == leftSpawn)
                 {
@@ -121,9 +137,13 @@ public class FinalBoss : EnemyParent
                    spriteRenderer.flipX = true;
                     foreach (Transform child in transform)
                     {
-                        Vector3 localPos = child.localPosition;
-                        localPos.x = -.9f; // Flip X position
-                        child.localPosition = localPos;
+                        if(child.gameObject.tag == "AttackIcon")
+                        {
+                            Vector3 localPos = child.localPosition;
+                            localPos.x = -.9f; // Flip X position
+                            child.localPosition = localPos;
+                        }
+     
                     }
 
 
@@ -135,7 +155,15 @@ public class FinalBoss : EnemyParent
                     transform.localPosition = new Vector3(-.6f, 0f, .0f);
                     spriteRenderer.flipX = false;
 
-
+                    foreach (Transform child in transform)
+                    {
+                        if (child.gameObject.tag == "AttackIcon")
+                        {
+                            Vector3 localPos = child.localPosition;
+                            localPos.x = 0f; // Flip X position
+                            child.localPosition = localPos;
+                        }
+                    }
 
                 }
 
