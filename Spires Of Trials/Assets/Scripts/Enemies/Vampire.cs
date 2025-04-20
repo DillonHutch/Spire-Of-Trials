@@ -49,8 +49,9 @@ public class Vampire : EnemyParent
     protected override void DefineAttackSequence()
     {
         attackSequence = new List<string> {
-                "melee", "magic", "range", "heavy",   // Combo 1
-                "range", "melee", "heavy", "magic"    // Combo 2  
+                "magic", "heavy", "range", "melee",   // Combo 1  
+                "range", "melee", "magic", "heavy",   // Combo 2  
+                "heavy", "magic", "melee", "range"    // Combo 3 
                 };
     }
 }

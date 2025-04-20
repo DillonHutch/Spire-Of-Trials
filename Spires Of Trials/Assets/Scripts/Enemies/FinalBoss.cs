@@ -216,30 +216,66 @@ public class FinalBoss : EnemyParent
 
             
 
-         // Original 6
-    "melee", "magic", "range", "heavy",
-    "magic", "melee", "range", "heavy",
-    "range", "magic", "melee", "heavy",
-    "magic", "range", "melee", "heavy",
-    "range", "melee", "magic", "heavy",
-    "melee", "range", "magic", "heavy",
+// Set 1 – Alphabetical order permutations
+"heavy", "magic", "melee", "range",
+"heavy", "melee", "magic", "range",
+"magic", "heavy", "range", "melee",
+"melee", "range", "magic", "heavy",
 
+// Set 2 – Reverse and rotate
+"magic", "range", "melee", "heavy",
+"range", "melee", "heavy", "magic",
+"melee", "heavy", "magic", "range",
+"heavy", "magic", "range", "melee",
 
-        // Variants with intention (e.g., alternating starts)
-    "melee", "magic", "range", "heavy",
-    "range", "melee", "magic", "heavy",
-    "magic", "range", "melee", "heavy",
-    "melee", "range", "magic", "heavy",
-    "range", "magic", "melee", "heavy",
-    "magic", "melee", "range", "heavy",
+// Set 3 – No repeats across positions (e.g., each slot gets a different lead once)
+"melee", "range", "magic", "heavy",
+"range", "magic", "heavy", "melee",
+"magic", "heavy", "melee", "range",
+"heavy", "melee", "range", "magic",
 
-    // New unique-feel combos (repeat permutations, vary rhythm/order)
-    "melee", "magic", "range", "heavy",   // repeat of 1
-    "magic", "melee", "range", "heavy",   // repeat of 2
-    "melee", "range", "magic", "heavy",   // repeat of 6
-    "range", "magic", "melee", "heavy",   // repeat of 3
-    "magic", "range", "melee", "heavy",   // repeat of 4
-    "range", "melee", "magic", "heavy",   // repeat of 5
+// Set 4 – Paired swapping (swap pairs)
+"melee", "magic", "range", "heavy",
+"magic", "melee", "heavy", "range",
+"range", "heavy", "melee", "magic",
+"heavy", "range", "magic", "melee",
+
+// Set 5 – Alternating magic/melee front
+"magic", "range", "melee", "heavy",
+"melee", "magic", "range", "heavy",
+"magic", "heavy", "range", "melee",
+"melee", "range", "heavy", "magic",
+
+// Set 6 – Center-focus (always put magic in 2nd)
+"melee", "magic", "range", "heavy",
+"range", "magic", "heavy", "melee",
+"heavy", "magic", "melee", "range",
+"magic", "magic", "melee", "range",  // intentional double for pattern break
+
+// Set 7 – Cascading (each moves one step right each combo)
+"melee", "range", "magic", "heavy",
+"heavy", "melee", "range", "magic",
+"magic", "heavy", "melee", "range",
+"range", "magic", "heavy", "melee",
+
+// Set 8 – Magic always last
+"melee", "heavy", "range", "magic",
+"range", "melee", "heavy", "magic",
+"heavy", "range", "melee", "magic",
+"magic", "melee", "range", "magic",  // magic start + end for twist
+
+// Set 9 – Palindrome pattern-ish (first = last, 2nd = 3rd)
+"melee", "range", "range", "melee",
+"heavy", "magic", "magic", "heavy",
+"range", "melee", "melee", "range",
+"magic", "heavy", "heavy", "magic",
+
+// Set 10 – Criss-cross groups (every second slot rotates in opposite order)
+"melee", "magic", "range", "heavy",
+"range", "heavy", "melee", "magic",
+"heavy", "range", "magic", "melee",
+"magic", "melee", "heavy", "range",
+
 
 
     };
