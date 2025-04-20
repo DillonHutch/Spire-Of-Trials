@@ -40,7 +40,7 @@ public class Devil : EnemyParent
                 attackNumber = 0;
             }
 
-            Debug.LogError(attackNumber);
+            //Debug.LogError(attackNumber);
             return attackPos;
         }
 

@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
     bool goneToGarden;
     bool goneToSanctum;
 
-
+    bool isTrans = false;
 
     #endregion
 
@@ -142,15 +142,21 @@ public class EnemySpawner : MonoBehaviour
     {
         if (bossSpawned && currentMiniBoss == null && !goneToGarden)
         {
+            isTrans = true;
+            roundCounter++;
+            RoundManager.ROUND_NUMBER = roundCounter;
             goneToGarden = true;
             Debug.Log("MiniBoss defeated. Loading Garden scene.");
+            
             EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
 
         }
 
         if (frogBossSpawned && currentMiniBoss == null)
         {
-
+            isTrans = true;
+            roundCounter++;
+            RoundManager.ROUND_NUMBER = roundCounter;
             Debug.Log("MiniBoss defeated. Loading Garden scene.");
             EventManager.Instance.TriggerEvent("LoadNextLevel", "Sanctum");
             
@@ -159,10 +165,13 @@ public class EnemySpawner : MonoBehaviour
 
         if (finalBossSpawned && currentMiniBoss == null)
         {
-
+            isTrans = true;
+            roundCounter++;
+            RoundManager.ROUND_NUMBER = roundCounter;
             Debug.Log("MiniBoss defeated. Loading Garden scene.");
             EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
             RoundManager.ROUND_NUMBER = 0;
+            
 
         }
 
@@ -182,7 +191,7 @@ public class EnemySpawner : MonoBehaviour
         {
     
 
-            if (AllEnemiesDestroyed() && !isSpawning)
+            if (AllEnemiesDestroyed() && !isSpawning && !isTrans)
             {
                 EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
                 //Debug.Log("All enemies destroyed. Starting new spawn cycle.");
