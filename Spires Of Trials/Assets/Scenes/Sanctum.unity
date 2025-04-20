@@ -1189,7 +1189,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 5494917596834356669, guid: 7af300f2ed044b44ba56dc5bbfd8f775, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.97271013, g: 0, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2362,7 +2362,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_Intensity
-      value: 2.21
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_FalloffIntensity
@@ -2713,7 +2713,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 5494917596834356669, guid: 7af300f2ed044b44ba56dc5bbfd8f775, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.97271013, g: 0, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4403,6 +4403,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 125256667}
     m_Modifications:
+    - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1345620353891370641, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_Name
       value: enemyLight (2)
@@ -4860,7 +4864,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_Intensity
-      value: 2.21
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 914814931318703068, guid: 6f97572cb0c822d47a7aee25b7516272, type: 3}
       propertyPath: m_PointLightInnerAngle
@@ -7289,7 +7293,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
+  m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -8258,7 +8262,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 5494917596834356669, guid: 7af300f2ed044b44ba56dc5bbfd8f775, type: 3}
-  m_Color: {r: 0, g: 0, b: 1, a: 0}
+  m_Color: {r: 0.97271013, g: 0, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

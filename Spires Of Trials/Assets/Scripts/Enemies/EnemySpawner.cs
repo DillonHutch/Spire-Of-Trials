@@ -422,9 +422,14 @@ public class EnemySpawner : MonoBehaviour
 
                             AdjustSlimePosition(spawnedEnemy, i);
                         }
+                        else if (spawnedEnemy.tag == "Cleric")
+                        {
+
+                            AdjustClericPosition(spawnedEnemy, i);
+                        }
 
 
-                            spawnedEnemy.transform.parent = spawnLocations[i].transform;
+                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
 
                         // Scale enemies differently if they spawn in the middle position
                         if (i == 1) // Middle spawn location
@@ -641,6 +646,23 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
+
+    private void AdjustClericPosition(GameObject spawnedEnemy, int spawnIndex)
+    {
+
+        Vector3 spawnLocation = spawnedEnemy.transform.position;
+        spawnedEnemy.transform.position = spawnLocation;
+
+        
+            
+
+            spawnLocation.x -= .6f; // Adjust slime position further
+            spawnedEnemy.transform.position = spawnLocation;
+
+      
+        
+ 
+    }
     /// <summary>
     /// Adjusts the position, scaling, and child elements of Slime enemies.
     /// Ensures proper placement and mirroring when needed.

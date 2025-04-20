@@ -2874,7 +2874,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
+  m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4722,7 +4722,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
+  m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -5694,7 +5694,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
+  m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -5814,7 +5814,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
+  m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -7109,7 +7109,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: bf5800130000000081292dcf672ced64c156dc1d69906a8a
+  m_ApplyToSortingLayers: bf58001300000000672ced64c156dc1d69906a8a
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -10692,6 +10692,7 @@ MonoBehaviour:
   - {fileID: 5956038672238996150, guid: f6f16fa3616bc7f43ab56e514d94dd2c, type: 3}
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   frogBossPrfab: {fileID: 5956038672238996150, guid: 8e3e257ab9dfb654b9481b5d277bcab4, type: 3}
+  finalBossPrfab: {fileID: 0}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
   leftFlash: {fileID: 426548162}

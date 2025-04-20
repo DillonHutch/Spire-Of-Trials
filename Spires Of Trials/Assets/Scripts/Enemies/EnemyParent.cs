@@ -737,23 +737,22 @@ public abstract class EnemyParent : MonoBehaviour
         if (spriteRenderer != null)
         {
             // Store original colors
-            Color originalColor = spriteRenderer.color;
-            SpriteRenderer iconRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>(); // Assumes the first child is the icon
-            Color iconOriginalColor = iconRenderer != null ? iconRenderer.color : Color.white;
+            Color storedMainColor = normalColor;
+            Color storedIconColor = iconOriginalColor;
 
-            // Change to red to indicate damage
-            spriteRenderer.color = Color.red;
+            spriteRenderer.color = damageColor;
             if (iconRenderer != null)
-                iconRenderer.color = Color.red;
+                iconRenderer.color = damageColor;
 
-            yield return new WaitForSeconds(0.2f); // Damage flash duration
+            yield return new WaitForSeconds(flashDuration);
 
-            // Restore original colors
-            spriteRenderer.color = originalColor;
+            // Forcefully restore colors even if attacking
+            spriteRenderer.color = storedMainColor;
             if (iconRenderer != null)
-                iconRenderer.color = iconOriginalColor;
+                iconRenderer.color = storedIconColor;
         }
     }
+
 
     /// <summary>
     /// Handles enemy death, including disabling UI elements, stopping effects, and destroying the object.
