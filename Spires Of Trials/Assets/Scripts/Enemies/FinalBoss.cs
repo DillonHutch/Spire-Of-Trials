@@ -116,18 +116,27 @@ public class FinalBoss : EnemyParent
                 }
                 else if (randomSpawn == leftSpawn)
                 {
-                    transform.localScale = new Vector3(-.9f, .9f, .9f);
+                    transform.localScale = new Vector3(.9f, .9f, .9f);
                     transform.localPosition = new Vector3(0, 0f, .0f);
-                  
+                   spriteRenderer.flipX = true;
+                    foreach (Transform child in transform)
+                    {
+                        Vector3 localPos = child.localPosition;
+                        localPos.x = -.9f; // Flip X position
+                        child.localPosition = localPos;
+                    }
+
+
                 }
                 else if (randomSpawn == rightSpawn)
                 {
 
                     transform.localScale = new Vector3(.9f, .9f, .9f);
                     transform.localPosition = new Vector3(-.6f, 0f, .0f);
+                    spriteRenderer.flipX = false;
 
 
-             
+
                 }
 
              
