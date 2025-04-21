@@ -4957,6 +4957,7 @@ GameObject:
   - component: {fileID: 766394175}
   - component: {fileID: 766394174}
   - component: {fileID: 766394173}
+  - component: {fileID: 766394176}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -5090,6 +5091,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766394171}
   m_CullTransparentMesh: 1
+--- !u!114 &766394176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766394171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &770923887
 GameObject:
   m_ObjectHideFlags: 0
@@ -10575,6 +10589,7 @@ MonoBehaviour:
   - {fileID: 4548580533598868436, guid: ecec639e469753a45a025df0423ce238, type: 3}
   miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   frogBossPrfab: {fileID: 5956038672238996150, guid: 8e3e257ab9dfb654b9481b5d277bcab4, type: 3}
+  finalBossPrfab: {fileID: 0}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
   leftFlash: {fileID: 426548162}
