@@ -89,6 +89,9 @@
 		<property name="length">
 			<value>77</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{9d986238-4f78-4c4f-9580-0c0c368243dc}</destination>
+		</relationship>
 		<relationship name="audioFile">
 			<destination>{975e200d-108c-4a41-b5bd-ab709dcf9cdf}</destination>
 		</relationship>
@@ -128,6 +131,17 @@
 	</object>
 	<object class="MixerBusPanner" id="{23f4d422-f9b6-40de-930e-d66d7ff6f789}" />
 	<object class="MixerBusFader" id="{bd7cafde-98b8-45ea-9bd3-cdc9862ddbcc}" />
+	<object class="ADSRModulator" id="{9d986238-4f78-4c4f-9580-0c0c368243dc}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{683aec5c-84b9-4cd5-8627-a97967b5161f}">
 		<relationship name="effects">
 			<destination>{e455ba55-4365-4e88-a32d-784ce5f6970b}</destination>

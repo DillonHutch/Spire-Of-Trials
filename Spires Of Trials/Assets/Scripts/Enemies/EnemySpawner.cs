@@ -344,7 +344,7 @@ public class EnemySpawner : MonoBehaviour
         Debug.Log("Spawning FinalBoss!");
 
         // Change background music for the boss fight
-        AudioManager.instance.SetMusic(MusicEnum.Sanctum);
+        AudioManager.instance.SetMusic(MusicEnum.FinalBoss);
 
         // Choose a random spawn location for the MiniBoss
         GameObject bossSpawnLocation = spawnLocations[2];
