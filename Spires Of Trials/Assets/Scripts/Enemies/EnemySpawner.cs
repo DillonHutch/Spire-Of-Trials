@@ -668,7 +668,16 @@ public class EnemySpawner : MonoBehaviour
         spawnLocation.x -= .6f; // Adjust slime position further
         spawnedEnemy.transform.position = spawnLocation;
 
-
+        // Adjust the Canvas position for Slime enemies
+        Canvas snakeCanavs = spawnedEnemy.GetComponentInChildren<Canvas>();
+        if (snakeCanavs != null)
+        {
+            RectTransform canvasTransform = snakeCanavs.GetComponent<RectTransform>();
+            if (canvasTransform != null)
+            {
+                canvasTransform.localPosition = new Vector3(1920.5f, 1081f, 0);
+            }
+        }
 
 
     }
