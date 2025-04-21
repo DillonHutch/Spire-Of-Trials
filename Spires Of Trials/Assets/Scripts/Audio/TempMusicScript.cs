@@ -32,6 +32,10 @@ public class TempMusicScript : MonoBehaviour
         {
             AudioManager.instance.SetMusic(MusicEnum.Sanctum);
         }
+        else if (SceneManager.GetActiveScene().name == "WinScreen")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Title);
+        }
 
 
         // Get the current music instance

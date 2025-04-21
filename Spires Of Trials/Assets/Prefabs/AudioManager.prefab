@@ -198,6 +198,27 @@ MonoBehaviour:
       Data3: 1640348817
       Data4: -405873485
     Path: event:/SFX/FallenKnightDeath
+  <menuClick>k__BackingField:
+    Guid:
+      Data1: -242446625
+      Data2: 1153049078
+      Data3: 416253073
+      Data4: -1477472857
+    Path: event:/SFX/MenuClick
+  <menuHover>k__BackingField:
+    Guid:
+      Data1: -1410791536
+      Data2: 1139891365
+      Data3: 469304209
+      Data4: -1743673479
+    Path: event:/SFX/MenuHover
+  <menuStart>k__BackingField:
+    Guid:
+      Data1: 299975534
+      Data2: 1294123277
+      Data3: -1799872863
+      Data4: 1354348481
+    Path: event:/SFX/MenuStart
   <frogAttack>k__BackingField:
     Guid:
       Data1: -876218771

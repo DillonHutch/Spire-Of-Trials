@@ -108,6 +108,22 @@ public class FMODEvents : MonoBehaviour
 
     #endregion
 
+    #region Menu sounds
+
+    [field: Header("Menu Sounds")]
+
+    [field: Header("MenuClick")]
+    [field: SerializeField] public EventReference menuClick { get; set; }
+
+    [field: Header("MenuHover")]
+    [field: SerializeField] public EventReference menuHover { get; set; }
+
+    [field: Header("MenuStart")]
+    [field: SerializeField] public EventReference menuStart { get; set; }
+
+
+    #endregion
+
 
     #region Frog Sounds
 

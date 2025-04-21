@@ -50,5 +50,32 @@ public class MenuManager : MonoBehaviour
         // Debug.Log("Quit Game called! (This will not work in the Unity editor)");
     }
 
+
+    public void Credit()
+    {
+        SceneManager.LoadScene("WinScreen"); // Closes the game
+        // Debug.Log("Quit Game called! (This will not work in the Unity editor)");
+    }
+
+
+    public void PlayHoverSound()
+    {
+
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuHover, transform.position);
+    }
+
+
+    public void PlayClickSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuClick, transform.position);
+    }
+
+
+
+    public void PlayStartSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.menuStart, transform.position);
+    }
+
     #endregion
 }
