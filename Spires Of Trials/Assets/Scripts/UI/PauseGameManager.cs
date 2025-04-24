@@ -99,6 +99,7 @@ public class PauseGameManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu"); // Load the Main Menu scene
         Time.timeScale = 1f; // Ensure time is running when switching scenes
+        RoundManager.ROUND_NUMBER = 0;
     }
 
     #endregion

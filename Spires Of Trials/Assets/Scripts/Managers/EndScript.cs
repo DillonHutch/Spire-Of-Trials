@@ -38,6 +38,7 @@ public class EndScript : MonoBehaviour
     public void GoToMainMenu()
     {
         SceneManager.LoadScene("MainMenu"); // Load the Main Menu scene
+        RoundManager.ROUND_NUMBER = 0;
     }
 
     /// <summary>
