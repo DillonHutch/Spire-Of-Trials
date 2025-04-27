@@ -451,16 +451,16 @@ public abstract class EnemyParent : MonoBehaviour
         // Play attack animation and sound
         if (gameObject.tag == "Frog" && attackPosition == 0)
         {
-            animator.SetTrigger("AttackSide");
+            animator.SetTrigger("AttackLeft");
 
         }
         else if (gameObject.tag == "Frog" && attackPosition == 1)
         {
-            animator.SetTrigger("AttackFront");
+            animator.SetTrigger("AttackMiddle");
         }
         else if (gameObject.tag == "Frog" && attackPosition == 2)
         {
-            animator.SetTrigger("AttackSide");
+            animator.SetTrigger("AttackRight");
         }
         else
         {

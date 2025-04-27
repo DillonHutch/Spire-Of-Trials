@@ -16,12 +16,12 @@ public class GameDebug : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.O))
         {
             EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
-            RoundManager.ROUND_NUMBER = 49;
+            RoundManager.ROUND_NUMBER = 50;
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
             EventManager.Instance.TriggerEvent("LoadNextLevel", "Sanctum");
-            RoundManager.ROUND_NUMBER = 74;
+            RoundManager.ROUND_NUMBER = 75;
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
