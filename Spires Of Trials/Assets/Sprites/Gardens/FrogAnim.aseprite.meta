@@ -76,6 +76,66 @@ ScriptedImporter:
   - first:
       type: UnityEngine:AnimationClip
       assembly: UnityEngine.AnimationModule
+      name: AttackRight_LeftBlue
+    second: {fileID: 7400000, guid: 18a2cefbdbd4055468f8c1cf1ef7affb, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_LeftGreen
+    second: {fileID: 7400000, guid: d5dc425cfe71a444e8cbd6db121563be, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_LeftRed
+    second: {fileID: 7400000, guid: 52046275f55782144b301506b10bfece, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_LeftYellow
+    second: {fileID: 7400000, guid: fdb3e0a8395ad0a4fb6d492b59d80a5b, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_RightBlue
+    second: {fileID: 7400000, guid: bd48281f470f02347ac5f2e1ea279b37, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_RightGreen
+    second: {fileID: 7400000, guid: fee83968c430284498179c7cdcf6530d, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_RightRed
+    second: {fileID: 7400000, guid: a904915376b638146aa29df0caf92101, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_RightYellow
+    second: {fileID: 7400000, guid: 8e464db41caff8345bfe069d5afb2b33, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_TopBlue
+    second: {fileID: 7400000, guid: ae82945eb7d76374389297e43b5a9cb8, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_TopGreen
+    second: {fileID: 7400000, guid: 878897cf9f7a1bb45b0d79e9fe0da560, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_TopRed
+    second: {fileID: 7400000, guid: 2992ed30aed81004fa3755aa6f64a447, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: AttackRight_TopYellow
+    second: {fileID: 7400000, guid: 897a9fb1d0a32ca4eaaa0bf2a9123981, type: 2}
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
       name: AttackSide
     second: {fileID: 7400000, guid: 2155d97a77375af43a8598db19313c89, type: 2}
   - first:
@@ -362,7 +422,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638792053900786051
+  platformSettingsDirtyTick: 638813589579881566
   textureAssetName: 
   singleSpriteImportData:
   - name: 
