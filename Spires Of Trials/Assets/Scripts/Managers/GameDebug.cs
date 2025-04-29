@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDebug : MonoBehaviour
 {
@@ -15,17 +16,17 @@ public class GameDebug : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.O))
         {
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
-            RoundManager.ROUND_NUMBER = 50;
+            SceneManager.LoadScene("Garden");
+            RoundManager.ROUND_NUMBER = 49;
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Sanctum");
-            RoundManager.ROUND_NUMBER = 75;
+            SceneManager.LoadScene("Sanctum");
+            RoundManager.ROUND_NUMBER = 74;
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Ruins");
+            SceneManager.LoadScene("Ruins");
             RoundManager.ROUND_NUMBER = 24;
         }
 

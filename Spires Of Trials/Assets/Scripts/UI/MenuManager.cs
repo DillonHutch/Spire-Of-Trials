@@ -37,7 +37,9 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
+        RoundManager.ROUND_NUMBER = 0;
         SceneManager.LoadScene("Ruins"); // Loads the game scene
+        
     }
 
     /// <summary>
@@ -75,6 +77,18 @@ public class MenuManager : MonoBehaviour
     public void PlayStartSound()
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.menuStart, transform.position);
+    }
+
+    public void RestartGame()
+    {
+        EventManager.Instance.TriggerEvent("LoadNextLevel", "Ruins");
+        RoundManager.ROUND_NUMBER = 0;
+    }
+
+    public void BackToMainMenu()
+    {
+        EventManager.Instance.TriggerEvent("LoadNextLevel", "MainMenu");
+        RoundManager.ROUND_NUMBER = 0;
     }
 
     #endregion

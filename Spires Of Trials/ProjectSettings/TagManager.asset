@@ -26,6 +26,7 @@ TagManager:
   - Devil
   - Vampire
   - AttackIcon
+  - CreditNames
   layers:
   - Default
   - TransparentFX

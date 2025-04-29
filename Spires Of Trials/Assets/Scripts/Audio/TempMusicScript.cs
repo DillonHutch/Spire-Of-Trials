@@ -36,6 +36,10 @@ public class TempMusicScript : MonoBehaviour
         {
             AudioManager.instance.SetMusic(MusicEnum.Title);
         }
+        else if (SceneManager.GetActiveScene().name == "DeathScreen")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Title);
+        }
 
 
         // Get the current music instance
