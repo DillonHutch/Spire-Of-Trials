@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Keeps track of players health 
@@ -19,6 +20,12 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private SpriteRenderer[] spriteRenderers; // Array of sprite renderers (assigned in Inspector)
     private Color originalColor; // Stores the player's original color for flashing effect
     private float flashDuration = 0.2f; // Duration the player flashes red when damaged
+
+
+    [Header("Screen Flash")]
+    [SerializeField] private Image damageFlashImage; // Drag your DamageFlash panel's Image here
+    [SerializeField] private float flashFadeSpeed = 5f; // How fast the flash fades away
+    private bool isFlashing = false;
 
     #endregion
 
@@ -123,20 +130,44 @@ public class PlayerHealth : MonoBehaviour
     /// <returns>IEnumerator for coroutine execution.</returns>
     private IEnumerator FlashRed()
     {
-        // Change all sprite renderers to red
+        // Flash player sprites
         foreach (var sprite in spriteRenderers)
         {
             sprite.color = Color.red;
         }
 
-        // Wait for the duration of the flash effect
+        // Flash the screen
+        if (damageFlashImage != null)
+        {
+            isFlashing = true;
+            damageFlashImage.color = new Color(1f, 0f, 0f, 0.5f); // Red with 50% opacity
+        }
+
         yield return new WaitForSeconds(flashDuration);
 
-        // Reset all sprite renderers to their original color
+        // Reset player sprites
         foreach (var sprite in spriteRenderers)
         {
             sprite.color = originalColor;
         }
+
+        // Begin fading out the screen flash
+        if (damageFlashImage != null)
+        {
+            StartCoroutine(FadeFlash());
+        }
+    }
+
+    private IEnumerator FadeFlash()
+    {
+        while (damageFlashImage.color.a > 0)
+        {
+            Color currentColor = damageFlashImage.color;
+            currentColor.a -= flashFadeSpeed * Time.deltaTime;
+            damageFlashImage.color = currentColor;
+            yield return null;
+        }
+        isFlashing = false;
     }
 
     /// <summary>

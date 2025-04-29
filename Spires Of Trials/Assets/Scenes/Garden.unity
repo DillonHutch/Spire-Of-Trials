@@ -369,6 +369,8 @@ MonoBehaviour:
   - {fileID: 2067732342}
   - {fileID: 1265966356}
   - {fileID: 1289765996}
+  damageFlashImage: {fileID: 0}
+  flashFadeSpeed: 5
 --- !u!1 &40957936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,6 +1740,11 @@ PrefabInstance:
     - target: {fileID: 1425189391467753180, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583861786261753313, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_text
+      value: "In the Collector\u2019s Sanctum, echoes never rest. What was taken
+        shall return at his behest."
       objectReference: {fileID: 0}
     - target: {fileID: 7532710226897751222, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_Name
