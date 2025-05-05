@@ -144,7 +144,7 @@ public class Frog : EnemyParent
             // 💤 Rest Phase
             Debug.Log("MiniBoss is resting...");
             animator.SetTrigger("ReturnToIdle");
-            yield return new WaitForSeconds(3f);
+            //yield return new WaitForSeconds(3f);
 
             // 🛠️ Prepare next weak spot visuals after rest
             if (currentSequenceIndex < weakSpotsPerHit.Count)
