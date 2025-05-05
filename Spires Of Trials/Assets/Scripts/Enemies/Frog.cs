@@ -141,8 +141,8 @@ public class Frog : EnemyParent
                 yield return PerformAttack();
             }
 
-            // 💤 Rest Phase
-            Debug.Log("MiniBoss is resting...");
+           
+           // Debug.Log("MiniBoss is resting...");
             animator.SetTrigger("ReturnToIdle");
             //yield return new WaitForSeconds(3f);
 
