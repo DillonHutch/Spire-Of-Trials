@@ -1561,13 +1561,25 @@ PrefabInstance:
         return\u2014and when I do, I\u2019ll be stronger than ever."
       objectReference: {fileID: 0}
     - target: {fileID: 5583861786261753313, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_margin.x
+      value: -208.82452
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583861786261753313, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_margin.z
+      value: -503.87268
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583861786261753313, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 16777215
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 5807234249169257098, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 5963601579508047812, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -124
+      objectReference: {fileID: 0}
     - target: {fileID: 7532710226897751222, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_Name
       value: LevelLoader
