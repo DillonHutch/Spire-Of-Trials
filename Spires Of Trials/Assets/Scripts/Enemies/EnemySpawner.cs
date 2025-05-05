@@ -666,7 +666,7 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-        spawnLocation.x -= .6f; // Adjust slime position further
+        spawnLocation.x -= .4f; // Adjust slime position further
         spawnedEnemy.transform.position = spawnLocation;
 
         // Adjust the Canvas position for Slime enemies
