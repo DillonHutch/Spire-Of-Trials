@@ -1556,8 +1556,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5583861786261753313, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
+      propertyPath: m_text
+      value: "You may have won this time, but don\u2019t get comfortable. I\u2019ll
+        return\u2014and when I do, I\u2019ll be stronger than ever."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583861786261753313, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 3876257536
+      value: 16777215
       objectReference: {fileID: 0}
     - target: {fileID: 5807234249169257098, guid: 03f3f4d1935c7964cafcb001d777e646, type: 3}
       propertyPath: m_Camera
