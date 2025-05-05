@@ -16,10 +16,15 @@ public class GoToMainMenu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MainMenu");
-            RoundManager.ROUND_NUMBER = 0;
+            GoToMainMenuButton();
         }
 
 
+    }
+
+    public void GoToMainMenuButton()
+    {
+        SceneManager.LoadScene("MainMenu");
+        RoundManager.ROUND_NUMBER = 0;
     }
 }
