@@ -59,6 +59,8 @@ public class FinalBoss : EnemyParent
 
     #region OverrideRegions
 
+
+
     /// <summary>
     /// returns position of miniboss
     /// </summary>
@@ -95,6 +97,8 @@ public class FinalBoss : EnemyParent
             // Request to attack
             if(attackOrConjure < 75)
             {
+
+                
                 Transform randomSpawn = null;
                 foreach (Transform lane in spawnPoints)
                 {
@@ -174,6 +178,7 @@ public class FinalBoss : EnemyParent
             else
             {
                 animator.SetTrigger("Conjure");
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.collectorSummon, this.transform.position);
                 TrySpawnEnemyInOtherLane();
                 yield return new WaitForSeconds(1f);
 
@@ -203,15 +208,17 @@ public class FinalBoss : EnemyParent
     private void KillAllOtherEnemies()
     {
         EnemyParent[] allEnemies = FindObjectsOfType<EnemyParent>();
-
         foreach (EnemyParent enemy in allEnemies)
         {
             if (enemy != this)
             {
+                // tell the queue this enemy is done
+                EnemyAttackQueue.AttackFinished(enemy);
                 Destroy(enemy.gameObject);
             }
         }
     }
+
 
 
 
@@ -321,7 +328,7 @@ public class FinalBoss : EnemyParent
 
     protected override void Die()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDeath, transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.collectorDeath, transform.position);
         base.Die();
 
     }

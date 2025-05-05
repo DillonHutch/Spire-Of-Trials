@@ -347,10 +347,11 @@ public class EnemySpawner : MonoBehaviour
         AudioManager.instance.SetMusic(MusicEnum.FinalBoss);
 
         // Choose a random spawn location for the MiniBoss
-        GameObject bossSpawnLocation = spawnLocations[2];
+        GameObject bossSpawnLocation = spawnLocations[0];
 
         // Instantiate the MiniBoss at the selected location
         currentMiniBoss = Instantiate(finalBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 0, 0), Quaternion.identity);
+        
 
 
 

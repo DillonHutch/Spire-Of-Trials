@@ -11,6 +11,7 @@ public enum MusicEnum
     Sanctum = 4,
     RuinsBoss = 5,
     GardenBoss = 6,
-    FinalBoss = 7
+    FinalBoss = 7,
+    Death = 8
    
 }

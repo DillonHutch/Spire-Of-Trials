@@ -170,6 +170,48 @@ MonoBehaviour:
       Data3: 865958835
       Data4: -1603814949
     Path: event:/SFX/VineSerpantWindUp
+  <cultistAtk>k__BackingField:
+    Guid:
+      Data1: -688418621
+      Data2: 1105249021
+      Data3: 1643708343
+      Data4: 551734188
+    Path: event:/SFX/CultistAttack
+  <CultistWU>k__BackingField:
+    Guid:
+      Data1: -173410999
+      Data2: 1103578563
+      Data3: -2089188449
+      Data4: -454585968
+    Path: event:/SFX/CultistWindup
+  <demonAtk>k__BackingField:
+    Guid:
+      Data1: -1701229052
+      Data2: 1182940701
+      Data3: 446281890
+      Data4: 1260381650
+    Path: event:/SFX/DemonAttack
+  <demonWU>k__BackingField:
+    Guid:
+      Data1: 425926388
+      Data2: 1096042050
+      Data3: -1659037261
+      Data4: -1967670505
+    Path: event:/SFX/DemonWindUp
+  <vampireAtk>k__BackingField:
+    Guid:
+      Data1: 1167111552
+      Data2: 1324425802
+      Data3: 1420431781
+      Data4: 1495425090
+    Path: event:/SFX/VampireAttack
+  <vampireWU>k__BackingField:
+    Guid:
+      Data1: -1368733286
+      Data2: 1174933449
+      Data3: -1065593420
+      Data4: -2051715784
+    Path: event:/SFX/VampireWindup
   <knightAttack>k__BackingField:
     Guid:
       Data1: -624841606
@@ -247,6 +289,41 @@ MonoBehaviour:
       Data3: 848053668
       Data4: -1355022581
     Path: event:/SFX/FrogDeath
+  <collectorAttack>k__BackingField:
+    Guid:
+      Data1: 227474321
+      Data2: 1333924752
+      Data3: -1840271960
+      Data4: -353809656
+    Path: event:/SFX/CollectorAttack
+  <collectorWU>k__BackingField:
+    Guid:
+      Data1: 1018123436
+      Data2: 1341511628
+      Data3: 1406987923
+      Data4: -1867694418
+    Path: event:/SFX/CollectorWindup
+  <collectorDamage>k__BackingField:
+    Guid:
+      Data1: -1853158768
+      Data2: 1075125587
+      Data3: 1550631569
+      Data4: 1448656847
+    Path: event:/SFX/CollectorDamage
+  <collectorDeath>k__BackingField:
+    Guid:
+      Data1: 682069036
+      Data2: 1125037434
+      Data3: -1901745256
+      Data4: 1904806627
+    Path: event:/SFX/CollectorDeath
+  <collectorSummon>k__BackingField:
+    Guid:
+      Data1: 1887890778
+      Data2: 1316643980
+      Data3: -1220487286
+      Data4: -95550496
+    Path: event:/SFX/CollectorSummon
   <playerHit>k__BackingField:
     Guid:
       Data1: -383150919

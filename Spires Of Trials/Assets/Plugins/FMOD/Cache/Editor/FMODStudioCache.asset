@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638815400579681750
+  lastModified: 638820556504457824
   FileSizes:
   - Name: Desktop
-    Value: 19288960
+    Value: 19883136
   Exists: 1
 --- !u!114 &-8349931161203528021
 MonoBehaviour:
@@ -155,6 +155,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 490
+--- !u!114 &-7413123753600938193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/DemonWindUp
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/DemonWindUp
+  Guid:
+    Data1: 425926388
+    Data2: 1096042050
+    Data3: -1659037261
+    Data4: -1967670505
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 516
 --- !u!114 &-6745708671492751643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,10 +278,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638808536231823303
+  lastModified: 638820556494204607
   FileSizes:
   - Name: Desktop
-    Value: 2756
+    Value: 3282
   Exists: 1
 --- !u!114 &-5828419515339961869
 MonoBehaviour:
@@ -282,7 +309,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 340
+  Length: 315
 --- !u!114 &-5164981725338322892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +336,34 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 340
+  Length: 300
+--- !u!114 &-4968874010845122615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/VampireAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/VampireAttack
+  Guid:
+    Data1: 1167111552
+    Data2: 1324425802
+    Data3: 1420431781
+    Data4: 1495425090
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 369
 --- !u!114 &-4661491924204614401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,6 +418,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 520
+--- !u!114 &-4491481262671966973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CollectorSummon
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CollectorSummon
+  Guid:
+    Data1: 1887890778
+    Data2: 1316643980
+    Data3: -1220487286
+    Data4: -95550496
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 995
+--- !u!114 &-4244195105554039255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CultistAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CultistAttack
+  Guid:
+    Data1: -688418621
+    Data2: 1105249021
+    Data3: 1643708343
+    Data4: 551734188
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 970
 --- !u!114 &-3919416569881902564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +499,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-3870831434472088429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CultistWindup
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CultistWindup
+  Guid:
+    Data1: -173410999
+    Data2: 1103578563
+    Data3: -2089188449
+    Data4: -454585968
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 617
 --- !u!114 &-3724979697605840433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +595,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638808536231798190
+  lastModified: 638820556494184616
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -616,7 +751,7 @@ MonoBehaviour:
   Name: Music
   StudioPath: 
   Min: 0
-  Max: 7
+  Max: 8
   Default: 0
   ID:
     data1: 403884887
@@ -632,7 +767,35 @@ MonoBehaviour:
   - RuinsBoss
   - GardenBoss
   - FinalBoss
+  - Death
   Exists: 1
+--- !u!114 &-1917953503152775644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/VampireWindup
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/VampireWindup
+  Guid:
+    Data1: -1368733286
+    Data2: 1174933449
+    Data3: -1065593420
+    Data4: -2051715784
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 675
 --- !u!114 &-1162848138560153866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,12 +959,23 @@ MonoBehaviour:
   - {fileID: 1880155209348444024}
   - {fileID: -6745708671492751643}
   - {fileID: 384575493262390498}
+  - {fileID: 1487146454659820346}
+  - {fileID: 7230612294792823334}
+  - {fileID: -3870831434472088429}
+  - {fileID: -4491481262671966973}
+  - {fileID: -4968874010845122615}
+  - {fileID: 1089911899837249178}
+  - {fileID: 8236236227085218329}
+  - {fileID: -1917953503152775644}
+  - {fileID: 2418849549478804943}
+  - {fileID: -4244195105554039255}
+  - {fileID: -7413123753600938193}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638815400579681750
+  cacheTime: 638820574948347285
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -938,6 +1112,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1089911899837249178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CollectorDamage
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CollectorDamage
+  Guid:
+    Data1: -1853158768
+    Data2: 1075125587
+    Data3: 1550631569
+    Data4: 1448656847
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1430
 --- !u!114 &1193128878835185884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -992,6 +1193,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1487146454659820346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/DemonAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/DemonAttack
+  Guid:
+    Data1: -1701229052
+    Data2: 1182940701
+    Data3: 446281890
+    Data4: 1260381650
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 693
 --- !u!114 &1880155209348444024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1019,6 +1247,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2418849549478804943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CollectorWindup
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CollectorWindup
+  Guid:
+    Data1: 1018123436
+    Data2: 1341511628
+    Data3: 1406987923
+    Data4: -1867694418
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2267
 --- !u!114 &2481128114067067593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1142,10 +1397,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638808536235109016
+  lastModified: 638820574948347285
   FileSizes:
   - Name: Desktop
-    Value: 428768
+    Value: 554688
   Exists: 1
 --- !u!114 &5645940961067155302
 MonoBehaviour:
@@ -1255,6 +1510,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 349
+--- !u!114 &7230612294792823334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CollectorDeath
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CollectorDeath
+  Guid:
+    Data1: 682069036
+    Data2: 1125037434
+    Data3: -1901745256
+    Data4: 1904806627
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4224
 --- !u!114 &7424519070813479074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,6 +1591,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 800
+--- !u!114 &8236236227085218329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/CollectorAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/CollectorAttack
+  Guid:
+    Data1: 227474321
+    Data2: 1333924752
+    Data3: -1840271960
+    Data4: -353809656
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1579
 --- !u!114 &8268199626674060905
 MonoBehaviour:
   m_ObjectHideFlags: 0

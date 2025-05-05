@@ -5,7 +5,7 @@
 			<value>Unstopable</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{981fee60-f1ef-4b4b-9091-c93ff54ec3f9}</destination>
@@ -84,7 +84,7 @@
 	</object>
 	<object class="MultiSound" id="{cf560e0c-0baa-418e-9e8d-006a5b640933}">
 		<relationship name="sounds">
-			<destination>{c545abb1-82cf-4453-bd7b-6fe0bfa00505}</destination>
+			<destination>{60087d0b-7b4c-4422-9dde-2d4afe1b95a3}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{0f70d3b1-e2d9-45e0-90f3-aff10efae19a}">
@@ -99,9 +99,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{1a298422-7445-4a4a-9c6e-7275d53e6b3d}" />
-	<object class="SingleSound" id="{c545abb1-82cf-4453-bd7b-6fe0bfa00505}">
+	<object class="SingleSound" id="{60087d0b-7b4c-4422-9dde-2d4afe1b95a3}">
 		<relationship name="audioFile">
-			<destination>{333e0292-6cc6-4b5c-9f8d-caea7a414a24}</destination>
+			<destination>{96ac1210-649a-468e-96b3-8d3f1f6437d2}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{6f25882e-f95a-4c09-a798-351bbcc370cf}" />

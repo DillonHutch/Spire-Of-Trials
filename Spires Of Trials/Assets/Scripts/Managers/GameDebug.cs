@@ -8,13 +8,13 @@ public class GameDebug : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             SceneManager.LoadScene("Garden");
             RoundManager.ROUND_NUMBER = 49;
@@ -22,7 +22,7 @@ public class GameDebug : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             SceneManager.LoadScene("Sanctum");
-            RoundManager.ROUND_NUMBER = 74;
+            RoundManager.ROUND_NUMBER = 75;
         }
         if (Input.GetKeyDown(KeyCode.I))
         {

@@ -179,7 +179,6 @@ public class Frog : EnemyParent
 
 
 
-
         int expectedPosition = weakSpotsPerHit[currentSequenceIndex];
         SetFakePosition(expectedPosition);
 

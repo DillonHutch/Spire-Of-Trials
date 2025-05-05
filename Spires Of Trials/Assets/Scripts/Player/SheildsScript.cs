@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,43 +36,57 @@ public class SheildsScript : MonoBehaviour
 
     private IEnumerator ShieldRecoil(Transform shield)
     {
-        Vector3 originalPosition = shield.position;
-        Vector3 recoilPosition = originalPosition + new Vector3(0, -0.2f, 0);
+        // capture original local pos
+        Vector3 originalLocalPos = shield.localPosition;
+        Vector3 recoilLocalPos = originalLocalPos + new Vector3(0, -0.5f, 0);
 
-        shield.position = recoilPosition;
-        yield return new WaitForSeconds(0.1f);
-        shield.position = originalPosition;
-
-        // Remove this shield's coroutine tracker
-        if (activeRecoils.ContainsKey(shield))
+        try
         {
+            shield.localPosition = recoilLocalPos;
+            yield return new WaitForSeconds(0.1f);
+        }
+        finally
+        {
+            // always restore, even if the coroutine is stopped early
+            shield.localPosition = originalLocalPos;
             activeRecoils.Remove(shield);
         }
     }
 
 
-    public IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite, MonoBehaviour caller)
+    // ShieldsScript
+    public IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
     {
         if (attackSprite == null) yield break;
 
+        // show it
         attackSprite.gameObject.SetActive(true);
         attackSprite.enabled = true;
-
-        yield return caller.StartCoroutine(FlashRoutine(attackSprite));
-    }
-
-    private IEnumerator FlashRoutine(SpriteRenderer attackSprite)
-    {
         Color originalColor = attackSprite.color;
+
+        // flash 3 times
         for (int i = 0; i < 3; i++)
         {
-            attackSprite.color = new Color(originalColor.r, originalColor.g, originalColor.b, warningOpacity);
+            // semi‑opaque
+            attackSprite.color = new Color(
+                originalColor.r,
+                originalColor.g,
+                originalColor.b,
+                warningOpacity
+            );
             yield return new WaitForSeconds(flashTime);
+
+            // back to normal
             attackSprite.color = originalColor;
             yield return new WaitForSeconds(flashTime);
         }
-        attackSprite.enabled = true;
+
+        // now hide it
+        attackSprite.color = originalColor;
+        attackSprite.enabled = false;
+        attackSprite.gameObject.SetActive(false);
     }
+
 
     public void InitializeShields(Transform left, Transform center, Transform right)
     {
@@ -97,6 +111,17 @@ public class SheildsScript : MonoBehaviour
         if (leftShield != null) leftShield.localPosition = new Vector3(-11f, -9.92f, 0f);
         if (centerShield != null) centerShield.localPosition = new Vector3(0f, -9.92f, 0f);
         if (rightShield != null) rightShield.localPosition = new Vector3(11f, -9.92f, 0f);
+    }
+
+
+    private void OnDisable()
+    {
+        // stop any ongoing recoil coroutines
+        foreach (var recoiler in activeRecoils.Values)
+            StopCoroutine(recoiler);
+
+        activeRecoils.Clear();
+        ResetShieldPositions();
     }
 
 }

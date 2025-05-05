@@ -268,6 +268,13 @@ public abstract class EnemyParent : MonoBehaviour
             rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
     }
 
+    protected virtual void OnDestroy()
+    {
+        // if this enemy was ever in the queue, make sure it's un‑queued
+        EnemyAttackQueue.AttackFinished(this);
+    }
+
+
     #endregion
 
     #region ShieldMethods
@@ -396,17 +403,13 @@ public abstract class EnemyParent : MonoBehaviour
         };
     }
 
-    /// <summary>
-    /// Handles flashing the attack indicator.
-    /// </summary>
+    // EnemyParent.ShowAttackIndicator
     protected IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
     {
-        attackSprite.gameObject.SetActive(true);
-        attackSprite.enabled = true;
-        flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(attackSprite, this));
-
+        flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(attackSprite));
         yield return null;
     }
+
 
     /// <summary>
     /// Sets the animation states for wind-up and attack.
@@ -535,6 +538,22 @@ public abstract class EnemyParent : MonoBehaviour
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.frogWU, transform.position);
         }
+        else if (this.gameObject.tag == "Cleric")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.CultistWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Devil")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.demonWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Vampire")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.vampireWU, transform.position);
+        }
+        else if (this.gameObject.tag == "Collector")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.collectorWU, transform.position);
+        }
     }
 
     /// <summary>
@@ -573,6 +592,22 @@ public abstract class EnemyParent : MonoBehaviour
         else if (this.gameObject.tag == "Frog")
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.frogAttack, transform.position);
+        }
+        else if (this.gameObject.tag == "Cleric")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.cultistAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Devil")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.demonAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Vampire")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.vampireAtk, transform.position);
+        }
+        else if (this.gameObject.tag == "Collector")
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.collectorAttack, transform.position);
         }
 
     }
@@ -666,9 +701,16 @@ public abstract class EnemyParent : MonoBehaviour
             currentSequenceIndex++;
             //Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
-            // Play damage sound
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
 
+
+            if (this.gameObject.tag == "Knight")
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
+            }
+            if (this.gameObject.tag == "Collector")
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.collectorDamage, this.transform.position);
+            }
             // Flash red effect on hit
             if (flashCoroutine != null)
             {

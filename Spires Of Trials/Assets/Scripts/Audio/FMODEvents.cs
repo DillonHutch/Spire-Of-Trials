@@ -88,6 +88,24 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Serpant Wind-Up")]
     [field: SerializeField] public EventReference serWU { get; set; } // Slime wind-up sound
 
+    [field: Header("Cultist Attack")]
+    [field: SerializeField] public EventReference cultistAtk { get; set; } // Slime attack sound
+
+    [field: Header("Cultist Wind-Up")]
+    [field: SerializeField] public EventReference CultistWU { get; set; } // Slime wind-up sound
+
+    [field: Header("Demon Attack")]
+    [field: SerializeField] public EventReference demonAtk { get; set; } // Slime attack sound
+
+    [field: Header("Demon Wind-Up")]
+    [field: SerializeField] public EventReference demonWU { get; set; } // Slime wind-up sound
+
+    [field: Header("Vampire Attack")]
+    [field: SerializeField] public EventReference vampireAtk { get; set; } // Slime attack sound
+
+    [field: Header("Vampire Wind-Up")]
+    [field: SerializeField] public EventReference vampireWU { get; set; } // Slime wind-up sound
+
     #endregion
 
     #region Knight Sounds
@@ -124,7 +142,6 @@ public class FMODEvents : MonoBehaviour
 
     #endregion
 
-
     #region Frog Sounds
 
     [field: Header("Frog Sounds")]
@@ -140,6 +157,27 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Frog Death")]
     [field: SerializeField] public EventReference frogDeath { get; set; } // Knight damage sound
+
+    #endregion
+
+    #region Final Boss Sounds
+
+    [field: Header("Frog Sounds")]
+
+    [field: Header("CollectorAttack")]
+    [field: SerializeField] public EventReference collectorAttack { get; set; } // Knight attack sound
+
+    [field: Header("CollectorWindup")]
+    [field: SerializeField] public EventReference collectorWU { get; set; } // Knight wind-up sound
+
+    [field: Header("CollectorDamage")]
+    [field: SerializeField] public EventReference collectorDamage { get; set; } // Knight damage sound
+
+    [field: Header("CollectorDeath")]
+    [field: SerializeField] public EventReference collectorDeath { get; set; } // Knight damage sound
+
+    [field: Header("CollectorSummon")]
+    [field: SerializeField] public EventReference collectorSummon { get; set; } // Knight damage sound
 
     #endregion
 
