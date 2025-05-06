@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class CreditsManager : MonoBehaviour
 {
     [SerializeField] float scrollSpeed = 40f;
-     float endPositionY = 2376f; // <-- Set this in Inspector or adjust based on your credits height
+     float endPositionY = 2365f; // <-- Set this in Inspector or adjust based on your credits height
     [SerializeField] string mainMenuSceneName = "MainMenu"; // <-- Name of your Main Menu scene
 
     private RectTransform rectTransform;
