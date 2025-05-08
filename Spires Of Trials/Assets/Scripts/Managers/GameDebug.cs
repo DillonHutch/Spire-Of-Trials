@@ -12,24 +12,24 @@ public class GameDebug : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SceneManager.LoadScene("Garden");
-            RoundManager.ROUND_NUMBER = 49;
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SceneManager.LoadScene("Sanctum");
-            RoundManager.ROUND_NUMBER = 74;
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            SceneManager.LoadScene("Ruins");
-            RoundManager.ROUND_NUMBER = 24;
-        }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.O))
+    //    {
+    //        SceneManager.LoadScene("Garden");
+    //        RoundManager.ROUND_NUMBER = 49;
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        SceneManager.LoadScene("Sanctum");
+    //        RoundManager.ROUND_NUMBER = 74;
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.I))
+    //    {
+    //        SceneManager.LoadScene("Ruins");
+    //        RoundManager.ROUND_NUMBER = 24;
+    //    }
 
-        //Debug.LogWarning(RoundManager.ROUND_NUMBER);
-    }
+    //    //Debug.LogWarning(RoundManager.ROUND_NUMBER);
+    //}
 }

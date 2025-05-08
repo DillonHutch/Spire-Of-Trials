@@ -155,6 +155,7 @@ public class EnemySpawner : MonoBehaviour
         if (frogBossSpawned && currentMiniBoss == null)
         {
             isTrans = true;
+            StopAllCoroutines();
             roundCounter++;
             RoundManager.ROUND_NUMBER = roundCounter;
             Debug.Log("MiniBoss defeated. Loading Garden scene.");
