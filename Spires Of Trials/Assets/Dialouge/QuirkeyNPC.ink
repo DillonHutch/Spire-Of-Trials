@@ -9,7 +9,17 @@ I'm not like the other skeletons. #speaker:Dr. Green #portrait:dr_green_neutral 
 === main ===
 I don't have the <b><color=\#FF1E35>guts</color></b> to hurt anyone! #portrait:dr_green_happy
 
-So you need some help down here?  #portrait:dr_green_neutral
+
+That was a good one! #portrait:ms_yellow_happy #layout:right #audio:animalcrossinglow
+
+Wait sorry I am an evil skeleton. I hate what you just said. #portrait:ms_yellow_sad
+
+(muffled sounds of skeletal violence) #portrait:ms_yellow_neutral
+
+
+uhh... okay then...#portrait:dr_green_neutral #layout:left #audio:animalcrossing
+
+Anyway you need some help?  
 + [Yes]
     Well then let me help you! #portrait:dr_green_happy
 
@@ -19,7 +29,7 @@ So you need some help down here?  #portrait:dr_green_neutral
 
         -> help
 +[No]
-    Oh..... okay then. #portrait:dr_green_sad  #audio:beep_3
+    Oh..... cool, yeah I honestly wasn't feeling a connection anyway. #portrait:dr_green_sad 
     
     
 

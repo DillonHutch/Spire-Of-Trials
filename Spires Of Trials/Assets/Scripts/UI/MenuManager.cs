@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
     public void StartGame()
     {
         RoundManager.ROUND_NUMBER = 0;
-        SceneManager.LoadScene("Ruins"); // Loads the game scene
+        SceneManager.LoadScene("RPGtestScreen"); // Loads the game scene
         
     }
 

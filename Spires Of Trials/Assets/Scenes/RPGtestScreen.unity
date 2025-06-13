@@ -4762,6 +4762,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 342002a88121f17438f2dc0e115ee947, type: 2}
   - {fileID: 11400000, guid: 2bcef76c8eecb0844b9e041512b75fc5, type: 2}
   - {fileID: 11400000, guid: ba4b214c56779cc40893c3452376d2ef, type: 2}
+  - {fileID: 11400000, guid: 5c5d0fb67671ca74589280f97ac54b21, type: 2}
+  - {fileID: 11400000, guid: 841aa69d017b4d648b263d86d8641891, type: 2}
   dialoguePanel: {fileID: 1108702554}
   dialogueText: {fileID: 616684708}
   displayNameText: {fileID: 1625431128}
