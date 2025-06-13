@@ -28,6 +28,7 @@ TagManager:
   - AttackIcon
   - CreditNames
   - OverworldPlayer
+  - BattleController
   layers:
   - Default
   - TransparentFX

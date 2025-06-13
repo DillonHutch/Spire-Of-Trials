@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject finalBossPrfab;
     [SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
 
+    BattleSceneController battleController;
+
     #endregion
 
     #region UI & Round Management
@@ -105,6 +107,9 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
 
+        battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+
+
         // Validate that all necessary spawn points and enemy prefabs are assigned
         if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
         {
@@ -142,8 +147,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (roundCounter == 5)
         {
-            roundCounter = 0;
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "RPGtestScreen");
+            
+            battleController.EndBattle();
 
         }
 
@@ -470,7 +475,7 @@ public class EnemySpawner : MonoBehaviour
             //Debug.LogError(goneToGarden);
 
             // If rounds are 1-5, only Skeletons spawn
-            if(SceneManager.GetActiveScene().name == "Ruins")
+            if(SceneManager.GetActiveScene().name == "Battle")
             {
                 // Define valid positions for each enemy type
                 if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))

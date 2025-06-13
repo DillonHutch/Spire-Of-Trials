@@ -20,7 +20,7 @@ public class TempMusicScript : MonoBehaviour
 
         // Ensure music is set
 
-        if(SceneManager.GetActiveScene().name == "Ruins")
+        if(SceneManager.GetActiveScene().name == "Battle")
         {
             AudioManager.instance.SetMusic(MusicEnum.Ruins);
 
@@ -39,6 +39,10 @@ public class TempMusicScript : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "DeathScreen")
         {
             AudioManager.instance.SetMusic(MusicEnum.Death);
+        }
+        else if (SceneManager.GetActiveScene().name == "RPGtestScreen")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Title);
         }
 
 
