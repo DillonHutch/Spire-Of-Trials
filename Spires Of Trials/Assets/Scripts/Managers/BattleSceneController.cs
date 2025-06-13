@@ -36,23 +36,31 @@ public class BattleSceneController : MonoBehaviour
 
     public void EndBattle()
     {
-        foreach (var obj in objectsToDisable)
-            obj.SetActive(true);
-        StartCoroutine(UnloadBattleScene());
+        StartCoroutine(EndBattleSequence());
     }
 
-    private IEnumerator UnloadBattleScene()
+    private IEnumerator EndBattleSequence()
     {
+        // 1) Fade out to black
         yield return StartCoroutine(screenFader.FadeOut());
-        var unloadOp = SceneManager.UnloadSceneAsync(battleSceneName);
-        yield return unloadOp;
+
+        // 2) Unload the battle scene
+        yield return SceneManager.UnloadSceneAsync(battleSceneName);
+
+        // 3) Switch back & re-enable your gameplay objects
         var original = SceneManager.GetSceneByName(_previousSceneName);
         if (original.IsValid())
             SceneManager.SetActiveScene(original);
+
+        foreach (var obj in objectsToDisable)
+            obj.SetActive(true);
+
+        // 4) Fade back in
         yield return StartCoroutine(screenFader.FadeIn());
-        
-        //yield return new WaitForSeconds(.5f);
+
+        // Finally, allow player movement again
         playerMovement.canMove = true;
     }
+
 }
 

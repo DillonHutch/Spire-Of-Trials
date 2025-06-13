@@ -168,7 +168,7 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private IEnumerator CheckAndSpawnEnemies()
     {
-        while (true)
+        while (roundCounter < 5)
         {
     
 
