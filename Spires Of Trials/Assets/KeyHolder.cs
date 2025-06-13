@@ -37,7 +37,7 @@ public class KeyHolder : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Door")
+        if (collision.gameObject.tag == "Door" && keysHeld > 0)
         {
             keysHeld--;
             Destroy(collision.gameObject);

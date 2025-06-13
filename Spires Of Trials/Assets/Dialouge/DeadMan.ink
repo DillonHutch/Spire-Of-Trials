@@ -1,4 +1,4 @@
-Hey I am dead! #portrait:ms_yellow_happy #layout:right
+Hey I am dead! #portrait:ms_yellow_happy #layout:right #object:false
 
 Does that make me double dead? #portrait:ms_yellow_neutral
 
