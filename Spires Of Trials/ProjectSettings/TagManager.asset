@@ -29,6 +29,10 @@ TagManager:
   - CreditNames
   - OverworldPlayer
   - BattleController
+  - Object
+  - Key
+  - Door
+  - Ladder
   layers:
   - Default
   - TransparentFX

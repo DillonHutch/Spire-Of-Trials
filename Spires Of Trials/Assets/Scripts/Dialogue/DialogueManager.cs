@@ -141,35 +141,37 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
-
-        if (currentStory.canContinue)
+        if (!currentStory.canContinue)
         {
-
-
-            if(displayLineCoroutine != null)
-            {
-                StopCoroutine(displayLineCoroutine);
-            }
-
-             displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
-
-            
-
-            HandleTags(currentStory.currentTags);
+            StartCoroutine(ExitDialogueMode());
+            return;
         }
-        else
-        {
-           StartCoroutine( ExitDialogueMode());
-        }
+
+        // 1) stop any existing coroutine
+        if (displayLineCoroutine != null)
+            StopCoroutine(displayLineCoroutine);
+
+        // 2) grab the next line
+        string line = currentStory.Continue();
+
+        // 3) apply speaker/portrait/layout/object tags *before* rendering
+        HandleTags(currentStory.currentTags);
+
+        // 4) now start typing it out
+        displayLineCoroutine = StartCoroutine(DisplayLine(line));
     }
+
 
 
     private IEnumerator DisplayLine(string line)
     {
 
+
+        // apply tags right *before* any text goes up
+        HandleTags(currentStory.currentTags);
+
         dialogueText.text = line;
         dialogueText.maxVisibleCharacters = 0;
-
         continueIcon.SetActive(false);
         HideChoices();
 

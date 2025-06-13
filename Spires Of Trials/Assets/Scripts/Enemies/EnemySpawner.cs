@@ -150,6 +150,7 @@ public class EnemySpawner : MonoBehaviour
             roundCounter = 0;
             RoundManager.ROUND_NUMBER = roundCounter;
             battleController.EndBattle();
+            AudioManager.instance.SetMusic(MusicEnum.Title);
 
         }
 

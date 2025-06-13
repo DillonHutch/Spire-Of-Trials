@@ -1,5 +1,7 @@
 INCLUDE globals.ink
 
+
+
 I'm not like the other skeletons. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #object:false
 
 -> main
@@ -18,6 +20,10 @@ So you need some help down here?  #portrait:dr_green_neutral
         -> help
 +[No]
     Oh..... okay then. #portrait:dr_green_sad
+    
+    
+
+
 
 
 ->END
