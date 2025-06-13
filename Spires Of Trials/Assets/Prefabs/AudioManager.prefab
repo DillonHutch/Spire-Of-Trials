@@ -366,6 +366,25 @@ MonoBehaviour:
       Data3: -1474314316
       Data4: -813039904
     Path: event:/SFX/Legendary
+  <beep>k__BackingField:
+  - Guid:
+      Data1: -894560966
+      Data2: 1149283318
+      Data3: -1054695027
+      Data4: -820740286
+    Path: event:/SFX/Beep
+  - Guid:
+      Data1: 1351731905
+      Data2: 1331125441
+      Data3: -1521769
+      Data4: 171864848
+    Path: event:/SFX/Beep 2
+  - Guid:
+      Data1: 1173387570
+      Data2: 1302514523
+      Data3: 438827710
+      Data4: 505286244
+    Path: event:/SFX/Beep 3
 --- !u!1 &5313083338162673164
 GameObject:
   m_ObjectHideFlags: 0

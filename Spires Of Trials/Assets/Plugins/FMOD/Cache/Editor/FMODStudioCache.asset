@@ -128,6 +128,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8099303371192057274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Beep 2
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Beep 2
+  Guid:
+    Data1: 1351731905
+    Data2: 1331125441
+    Data3: -1521769
+    Data4: 171864848
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7829987530572406116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +182,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 490
+--- !u!114 &-7784863430933849089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Beep 3
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Beep 3
+  Guid:
+    Data1: 1173387570
+    Data2: 1302514523
+    Data3: 438827710
+    Data4: 505286244
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7413123753600938193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +254,33 @@ MonoBehaviour:
     Data2: 1139891365
     Data3: 469304209
     Data4: -1743673479
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6418480359745745580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Y
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Y
+  Guid:
+    Data1: 1896512849
+    Data2: 1120877342
+    Data3: -29026891
+    Data4: 2105920950
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -278,10 +359,10 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638820556494204607
+  lastModified: 638854236146681423
   FileSizes:
   - Name: Desktop
-    Value: 3282
+    Value: 3606
   Exists: 1
 --- !u!114 &-5828419515339961869
 MonoBehaviour:
@@ -595,7 +676,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638820556494184616
+  lastModified: 638854236146658393
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -653,6 +734,33 @@ MonoBehaviour:
   - HoMSlow
   - HoMFast
   Exists: 1
+--- !u!114 &-2817177974205620375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/U
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/U
+  Guid:
+    Data1: 1763175679
+    Data2: 1322556370
+    Data3: 1696570763
+    Data4: -1913316177
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-2538010486770295784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,12 +1078,21 @@ MonoBehaviour:
   - {fileID: 2418849549478804943}
   - {fileID: -4244195105554039255}
   - {fileID: -7413123753600938193}
+  - {fileID: 6237326136293989948}
+  - {fileID: -7784863430933849089}
+  - {fileID: -8099303371192057274}
+  - {fileID: 2834926438634557400}
+  - {fileID: 5524537142912833803}
+  - {fileID: -6418480359745745580}
+  - {fileID: 7200692884957667350}
+  - {fileID: 4504392775046951135}
+  - {fileID: -2817177974205620375}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638820574948347285
+  cacheTime: 638854236147420010
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -1328,6 +1445,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &2834926438634557400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/E
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/E
+  Guid:
+    Data1: 736034858
+    Data2: 1119060370
+    Data3: 581570998
+    Data4: 1756668572
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &3473217867957310358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1397,11 +1541,65 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638820574948347285
+  lastModified: 638854236147420010
   FileSizes:
   - Name: Desktop
-    Value: 554688
+    Value: 574176
   Exists: 1
+--- !u!114 &4504392775046951135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/I
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/I
+  Guid:
+    Data1: 177500259
+    Data2: 1101353812
+    Data3: 1564047005
+    Data4: -1394569302
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5524537142912833803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/A
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/A
+  Guid:
+    Data1: -1046158528
+    Data2: 1322422388
+    Data3: 1889850778
+    Data4: -1160809500
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &5645940961067155302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1420,6 +1618,33 @@ MonoBehaviour:
     Data2: 1186967271
     Data3: 830270880
     Data4: -570401753
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6237326136293989948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Beep
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Beep
+  Guid:
+    Data1: -894560966
+    Data2: 1149283318
+    Data3: -1054695027
+    Data4: -820740286
   Banks:
   - {fileID: 3830511604902927485}
   IsStream: 0
@@ -1510,6 +1735,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 349
+--- !u!114 &7200692884957667350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/O
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/O
+  Guid:
+    Data1: -904737455
+    Data2: 1118696055
+    Data3: 1018464159
+    Data4: -521770657
+  Banks:
+  - {fileID: 3830511604902927485}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &7230612294792823334
 MonoBehaviour:
   m_ObjectHideFlags: 0

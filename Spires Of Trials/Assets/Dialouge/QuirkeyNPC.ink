@@ -2,7 +2,7 @@ INCLUDE globals.ink
 
 
 
-I'm not like the other skeletons. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #object:false
+I'm not like the other skeletons. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #object:false #audio:animalcrossing
 
 -> main
 
@@ -19,7 +19,7 @@ So you need some help down here?  #portrait:dr_green_neutral
 
         -> help
 +[No]
-    Oh..... okay then. #portrait:dr_green_sad
+    Oh..... okay then. #portrait:dr_green_sad  #audio:beep_3
     
     
 
@@ -29,7 +29,7 @@ So you need some help down here?  #portrait:dr_green_neutral
 ->END
 
 === help ===
-Watch out for my fellow skeletons!
+Watch out for my fellow skeletons! 
 
 If you run into them they will fight you, along with their friends!
 
