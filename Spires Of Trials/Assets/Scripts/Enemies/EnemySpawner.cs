@@ -147,7 +147,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (roundCounter == 5)
         {
-            
+            roundCounter = 0;
+            RoundManager.ROUND_NUMBER = roundCounter;
             battleController.EndBattle();
 
         }

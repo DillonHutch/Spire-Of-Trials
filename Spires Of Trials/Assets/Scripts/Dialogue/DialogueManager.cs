@@ -26,8 +26,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private TextMeshProUGUI displayNameText;
-
+    [SerializeField] private GameObject portraitFrame;
     [SerializeField] private Animator portraitAnimator;
+
+    
 
 
     private Animator layoutAnimator;
@@ -49,6 +51,8 @@ public class DialogueManager : MonoBehaviour
     private const string PORTRAIT_TAG = "portrait";
 
     private const string LAYOUT_TAG = "layout";
+
+    private const string OBJECT_TAG = "object";
 
     private DialogueVariables dialogueVariables;
 
@@ -178,6 +182,12 @@ public class DialogueManager : MonoBehaviour
         foreach(char letter in line.ToCharArray())
         {
 
+            if (Input.GetKey(KeyCode.Q))
+            {
+                dialogueText.maxVisibleCharacters = line.Length;
+                break;
+            }
+
             if(letter == '<' || isAddingRichTextTag)
             {
                 isAddingRichTextTag = true;
@@ -246,6 +256,11 @@ public class DialogueManager : MonoBehaviour
                     break;
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagvalue);
+                    break;
+                case OBJECT_TAG:
+                    bool isObject;
+                    if(tagvalue == "true") { isObject = false; } else { isObject = true; }
+                    portraitFrame.SetActive(isObject);
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);

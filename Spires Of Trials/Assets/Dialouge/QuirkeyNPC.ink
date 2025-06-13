@@ -1,6 +1,6 @@
 INCLUDE globals.ink
 
-I'm not like the other skeletons. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left
+I'm not like the other skeletons. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #object:false
 
 -> main
 
@@ -25,19 +25,21 @@ So you need some help down here?  #portrait:dr_green_neutral
 === help ===
 Watch out for my fellow skeletons!
 
-If you run into them they will fight you along with their friend!
+If you run into them they will fight you, along with their friends!
 
-You'll want to block their with your sheild.
+You'll want to block their attacks with your sheild.
 
-Then make sure you are in the same spot where they are...
+Then when you want to attack.
 
-and hit them with the correct attack. 
+Make sure your sheild is facing where they are.
+
+and then hit them with the correct attack!
 
 They should only need four hits to go down. 
 
 So did you get all that?
 +[Yes]
-    Wounderful!!! You forget feel free to come back and talk to me!
+    Wounderful!!! If you forget feel free to come back and talk to me!
     -> DONE
     
 +[No]
