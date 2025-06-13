@@ -140,41 +140,14 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (bossSpawned && currentMiniBoss == null && !goneToGarden)
+        if (roundCounter == 5)
         {
-            isTrans = true;
-            roundCounter++;
-            RoundManager.ROUND_NUMBER = roundCounter;
-            goneToGarden = true;
-            Debug.Log("MiniBoss defeated. Loading Garden scene.");
-            
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
+            roundCounter = 0;
+            EventManager.Instance.TriggerEvent("LoadNextLevel", "RPGtestScreen");
 
         }
 
-        if (frogBossSpawned && currentMiniBoss == null)
-        {
-            isTrans = true;
-            StopAllCoroutines();
-            roundCounter++;
-            RoundManager.ROUND_NUMBER = roundCounter;
-            Debug.Log("MiniBoss defeated. Loading Garden scene.");
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Sanctum");
-            
 
-        }
-
-        if (finalBossSpawned && currentMiniBoss == null)
-        {
-            isTrans = true;
-            roundCounter++;
-            RoundManager.ROUND_NUMBER = roundCounter;
-            Debug.Log("MiniBoss defeated. Loading Garden scene.");
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
-            RoundManager.ROUND_NUMBER = 0;
-            
-
-        }
 
     }
 

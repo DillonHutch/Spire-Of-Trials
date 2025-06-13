@@ -163,7 +163,8 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator DisplayLine(string line)
     {
 
-        dialogueText.text = "";
+        dialogueText.text = line;
+        dialogueText.maxVisibleCharacters = 0;
 
         continueIcon.SetActive(false);
         HideChoices();
@@ -180,7 +181,7 @@ public class DialogueManager : MonoBehaviour
             if(letter == '<' || isAddingRichTextTag)
             {
                 isAddingRichTextTag = true;
-                dialogueText.text += letter;
+                //dialogueText.text += letter;
                 if(letter == '>')
                 {
                     isAddingRichTextTag = false;
@@ -188,7 +189,7 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                dialogueText.text += letter;
+                dialogueText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(typingSpeed);
             }
 
