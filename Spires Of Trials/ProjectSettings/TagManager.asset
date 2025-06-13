@@ -27,6 +27,7 @@ TagManager:
   - Vampire
   - AttackIcon
   - CreditNames
+  - OverworldPlayer
   layers:
   - Default
   - TransparentFX
