@@ -60,6 +60,8 @@ public class EnemySpawner : MonoBehaviour
     private int frogBossSpawnNumber = 50;
     private int finalBossSpawnNumber = 75;
 
+    private ENEMY enemy;
+
     #endregion
 
     #region Flash & Shield Effects
@@ -179,7 +181,7 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-                if (roundCounter == miniBossSpawnNumber && !bossSpawned)
+                if (EncounterManager.ENEMY_TYPE == ENEMY.Knight)
                 {
                     
                     bossSpawned = true;

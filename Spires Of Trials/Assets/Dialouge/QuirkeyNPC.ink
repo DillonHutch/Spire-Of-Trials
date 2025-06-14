@@ -12,7 +12,9 @@ I don't have the <b><color=\#FF1E35>guts</color></b> to hurt anyone! #portrait:d
 
 That was a good one! #portrait:ms_yellow_happy #layout:right #audio:animalcrossinglow
 
-Wait sorry I am an evil skeleton. I hate what you just said. #portrait:ms_yellow_sad
+Wait sorry I'm supposed to be the evil skeleton... Whoops! #portrait:ms_yellow_neutral
+
+I hate what you just said. #portrait:ms_yellow_sad
 
 (muffled sounds of skeletal violence) #portrait:ms_yellow_neutral
 
