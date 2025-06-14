@@ -24,7 +24,7 @@ Anyway wanna hear a joke?
     -> DONE 
     
 +[Bone meal?]
-    AHAHAH nope but that's funny! Try agian! #portrait:ms_yellow_happy
+    AHAHAH! Nope but that's funny! Try agian! #portrait:ms_yellow_happy
     -> yes
     
 +[Nevermind]
