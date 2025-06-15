@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1389c69eb5abda14dac5590da711762d, type: 3}
+  m_Name: animalcrossing
+  m_EditorClassIdentifier: 
+  id: animalcrossing
+  dialogueTypingSoundClips:
+  - Guid:
+      Data1: -1046158528
+      Data2: 1322422388
+      Data3: 1889850778
+      Data4: -1160809500
+    Path: event:/SFX/A
+  - Guid:
+      Data1: 736034858
+      Data2: 1119060370
+      Data3: 581570998
+      Data4: 1756668572
+    Path: event:/SFX/E
+  - Guid:
+      Data1: 177500259
+      Data2: 1101353812
+      Data3: 1564047005
+      Data4: -1394569302
+    Path: event:/SFX/I
+  - Guid:
+      Data1: -904737455
+      Data2: 1118696055
+      Data3: 1018464159
+      Data4: -521770657
+    Path: event:/SFX/O
+  - Guid:
+      Data1: 1763175679
+      Data2: 1322556370
+      Data3: 1696570763
+      Data4: -1913316177
+    Path: event:/SFX/U
+  - Guid:
+      Data1: 1896512849
+      Data2: 1120877342
+      Data3: -29026891
+      Data4: 2105920950
+    Path: event:/SFX/Y
+  stopAudioSource: 1
+  frequencyLevel: 2
+  minPitch: 1
+  maxPitch: 3

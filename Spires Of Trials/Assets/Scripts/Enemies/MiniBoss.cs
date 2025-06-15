@@ -11,6 +11,7 @@ public class MiniBoss : EnemyParent
 
     #region Fields
 
+    BattleSceneController battleController;
 
     #endregion
 
@@ -25,8 +26,13 @@ public class MiniBoss : EnemyParent
         // Call base Start() to ensure parent class logic runs first
         base.Start(); 
 
+
+
         // Set a random spawn position as the new parent
         SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
+
+        battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+
 
     }
 
@@ -122,6 +128,7 @@ public class MiniBoss : EnemyParent
     protected override void Die()
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDeath, transform.position);
+        battleController.EndBattle();
         base.Die();
 
     }

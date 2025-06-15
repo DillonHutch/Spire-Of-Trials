@@ -22,6 +22,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject finalBossPrfab;
     [SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
 
+    BattleSceneController battleController;
+
     #endregion
 
     #region UI & Round Management
@@ -57,6 +59,8 @@ public class EnemySpawner : MonoBehaviour
     private int miniBossSpawnNumber = 25; // The round number when the MiniBoss will appear
     private int frogBossSpawnNumber = 50;
     private int finalBossSpawnNumber = 75;
+
+    private ENEMY enemy;
 
     #endregion
 
@@ -105,6 +109,9 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
 
+        battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+
+
         // Validate that all necessary spawn points and enemy prefabs are assigned
         if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
         {
@@ -140,41 +147,16 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (bossSpawned && currentMiniBoss == null && !goneToGarden)
+        if (roundCounter == 5)
         {
-            isTrans = true;
-            roundCounter++;
+            roundCounter = 0;
             RoundManager.ROUND_NUMBER = roundCounter;
-            goneToGarden = true;
-            Debug.Log("MiniBoss defeated. Loading Garden scene.");
-            
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Garden");
+            battleController.EndBattle();
+            AudioManager.instance.SetMusic(MusicEnum.Title);
 
         }
 
-        if (frogBossSpawned && currentMiniBoss == null)
-        {
-            isTrans = true;
-            StopAllCoroutines();
-            roundCounter++;
-            RoundManager.ROUND_NUMBER = roundCounter;
-            Debug.Log("MiniBoss defeated. Loading Garden scene.");
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "Sanctum");
-            
 
-        }
-
-        if (finalBossSpawned && currentMiniBoss == null)
-        {
-            isTrans = true;
-            roundCounter++;
-            RoundManager.ROUND_NUMBER = roundCounter;
-            Debug.Log("MiniBoss defeated. Loading Garden scene.");
-            EventManager.Instance.TriggerEvent("LoadNextLevel", "WinScreen");
-            RoundManager.ROUND_NUMBER = 0;
-            
-
-        }
 
     }
 
@@ -188,7 +170,7 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private IEnumerator CheckAndSpawnEnemies()
     {
-        while (true)
+        while (roundCounter < 5)
         {
     
 
@@ -199,7 +181,7 @@ public class EnemySpawner : MonoBehaviour
 
 
 
-                if (roundCounter == miniBossSpawnNumber && !bossSpawned)
+                if (EncounterManager.ENEMY_TYPE == ENEMY.Knight)
                 {
                     
                     bossSpawned = true;
@@ -497,7 +479,7 @@ public class EnemySpawner : MonoBehaviour
             //Debug.LogError(goneToGarden);
 
             // If rounds are 1-5, only Skeletons spawn
-            if(SceneManager.GetActiveScene().name == "Ruins")
+            if(SceneManager.GetActiveScene().name == "Battle")
             {
                 // Define valid positions for each enemy type
                 if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))

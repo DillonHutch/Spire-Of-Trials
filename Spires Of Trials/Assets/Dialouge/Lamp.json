@@ -1,0 +1,1 @@
+﻿{"inkVersion":21,"root":[["^(You touch the torch) ","#","^object:true ","/#","#","^portrait:Default","/#","\n","^(It blushes, and touches you back)","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}

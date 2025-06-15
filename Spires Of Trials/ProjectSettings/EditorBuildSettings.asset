@@ -21,6 +21,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Sanctum.unity
     guid: fa8f9fb4bd2eba8448bc3bf3e3d93713
   - enabled: 1
+    path: Assets/Scenes/RPGtestScreen.unity
+    guid: cfe7efc8cf43c41429f069db24c6ed70
+  - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: 35d0858243ec54f42b25d461e1aae347
+  - enabled: 1
     path: Assets/Scenes/DeathScreen.unity
     guid: 5347eac155891e2499a5343e74b1bbc7
   m_configObjects: {}

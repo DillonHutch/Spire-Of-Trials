@@ -27,7 +27,16 @@ public class DialougeTrigger : MonoBehaviour
     {
         if(playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
         {
-            visualCue.SetActive(true);
+            if(visualCue.tag == "Object")
+            {
+                visualCue.SetActive(false);
+            }
+            else
+            {
+                visualCue.SetActive(true);
+            }
+                
+            
             if (Input.GetKeyDown(KeyCode.E))
             {
                 DialogueManager.GetInstance().EnterDialogueMode(inkJSON);

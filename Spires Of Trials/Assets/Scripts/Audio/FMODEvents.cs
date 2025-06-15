@@ -211,6 +211,10 @@ public class FMODEvents : MonoBehaviour
 
     #endregion
 
+    [field: Header("beep")]
+    [field: SerializeField] public EventReference[] beep { get; set; } // Sound effect for reaching a combo milestone
+
+
     #region UnityMethods
 
     /// <summary>
