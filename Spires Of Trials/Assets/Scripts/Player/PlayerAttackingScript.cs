@@ -231,7 +231,7 @@ public class PlayerAttackingScript : MonoBehaviour
         yield return new WaitUntil(() => AudioManager.instance != null);
 
         // Set the background music to "Ruins" theme
-        AudioManager.instance.SetMusic(MusicEnum.Ruins);
+        //AudioManager.instance.SetMusic(MusicEnum.Ruins);
 
         // Get the current music instance
         currentMusic = AudioManager.instance.GetCurrentMusicInstance();

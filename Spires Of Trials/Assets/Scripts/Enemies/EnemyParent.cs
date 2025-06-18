@@ -33,7 +33,7 @@ public abstract class EnemyParent : MonoBehaviour
     [SerializeField] protected float attackIntervalMin = 0.5f;
     [SerializeField] protected float attackIntervalMax = 2f;
     [SerializeField] protected float windUpTime = 1f;
-    protected bool isAttacking = false;
+    public bool isAttacking = false;
     protected int enemyAttackPosition;
     protected List<string> attackSequence = new List<string>();
     protected int currentSequenceIndex = 0;
@@ -92,19 +92,27 @@ public abstract class EnemyParent : MonoBehaviour
 
     protected SheildsScript shieldManager;
 
+    private bool fightStarted;
+
+    public bool IsAttacking
+    {
+        get { return isAttacking; }
+
+    }
+
 
     #endregion
 
-    #region UnityMethods
+        #region UnityMethods
 
-    /// <summary>
-    /// Called when the script instance is first initialized. 
-    /// Sets up references, starts coroutines, and initializes health values.
-    /// </summary>
-    /// <summary>
-    /// Called when the script instance is first initialized. 
-    /// Sets up references, starts coroutines, and initializes health values.
-    /// </summary>
+        /// <summary>
+        /// Called when the script instance is first initialized. 
+        /// Sets up references, starts coroutines, and initializes health values.
+        /// </summary>
+        /// <summary>
+        /// Called when the script instance is first initialized. 
+        /// Sets up references, starts coroutines, and initializes health values.
+        /// </summary>
     protected virtual void Start()
     {
         StartCoroutine(MonitorColorReset());
@@ -152,7 +160,7 @@ public abstract class EnemyParent : MonoBehaviour
         {
             StopCoroutine(attackCoroutine);
         }
-        attackCoroutine = StartCoroutine(AttackLoop());
+        //attackCoroutine = StartCoroutine(AttackLoop());
 
         // Find the player in the scene
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -166,6 +174,27 @@ public abstract class EnemyParent : MonoBehaviour
         shieldManager = FindObjectOfType<SheildsScript>();
 
     }
+
+
+    public void StartFight()
+    {
+        if (!fightStarted)
+        {
+            fightStarted = true;
+            attackCoroutine = StartCoroutine(AttackLoop());
+        }
+    }
+
+
+    public void StopFight()
+    {
+        if(fightStarted)
+        {
+            fightStarted = false;
+            StopCoroutine(attackCoroutine);
+        }
+    }
+
 
 
     /// <summary>
