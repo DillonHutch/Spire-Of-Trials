@@ -1072,8 +1072,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: -15.1}
+  m_SizeDelta: {x: 900, y: 24.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196600868
 MonoBehaviour:
@@ -8477,7 +8477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1136737823
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11926,14 +11926,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movingImage: {fileID: 1450291284}
-  moveRange: 400
+  moveRange: 450
   moveSpeed: 1000
+  rangeIndicator: {fileID: 196600867}
   minTimeAward: 1
-  maxTimeAward: 5
+  maxTimeAward: 10
   awardedTimeText: {fileID: 2124377263}
-  onTimerFinished:
-    m_PersistentCalls:
-      m_Calls: []
   movingPanel: {fileID: 1136737822}
   animator: {fileID: 2092247123}
 --- !u!4 &1863390270

@@ -13,6 +13,11 @@ public class TimingController : MonoBehaviour
     [Tooltip("Speed in pixels per second.")]
     public float moveSpeed = 200f;
 
+    [Header("Range Indicator (new)")]
+    [Tooltip("UI Image/RectTransform that shows the full range.")]
+    public RectTransform rangeIndicator;
+
+
     [Header("Time Awards (seconds)")]
     [Tooltip("Time awarded when image is all the way left.")]
     public float minTimeAward = 30f;
@@ -25,7 +30,7 @@ public class TimingController : MonoBehaviour
 
     [Header("Timer Events")]
     [Tooltip("Methods to run when the awarded timer expires.")]
-    public UnityEvent onTimerFinished;
+    private UnityEvent onTimerFinished;
 
     // +1 moving right, –1 moving left
     private int direction = +1;
@@ -33,9 +38,30 @@ public class TimingController : MonoBehaviour
     [SerializeField] private GameObject movingPanel;
     [SerializeField] private Animator animator;
 
+    void OnValidate()
+    {
+        // update in Editor when you change moveRange
+        if (rangeIndicator != null)
+        {
+            var size = rangeIndicator.sizeDelta;
+            size.x = 2f * moveRange;
+            rangeIndicator.sizeDelta = size;
+            rangeIndicator.anchoredPosition = new Vector2(0f, rangeIndicator.anchoredPosition.y);
+        }
+    }
+
     void Start()
     {
-        // Start at the left extreme
+        // init range graphic
+        if (rangeIndicator != null)
+        {
+            var size = rangeIndicator.sizeDelta;
+            size.x = 2f * moveRange;
+            rangeIndicator.sizeDelta = size;
+            rangeIndicator.anchoredPosition = new Vector2(0f, rangeIndicator.anchoredPosition.y);
+        }
+
+        // your existing Start logic
         if (movingImage != null)
             movingImage.anchoredPosition = new Vector2(-moveRange, movingImage.anchoredPosition.y);
     }
@@ -141,6 +167,8 @@ public class TimingController : MonoBehaviour
         // now safely end the fight on all of them
         foreach (var e in enemies)
             e.StopFight();
+
+        EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
 
         // play your “fight ended” animation
         animator.Play("fightEnded");
