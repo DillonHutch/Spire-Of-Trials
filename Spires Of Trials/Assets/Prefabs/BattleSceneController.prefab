@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5970268575401691821}
   m_Layer: 0
   m_Name: BattleSceneController
-  m_TagString: Untagged
+  m_TagString: BattleController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,3 +50,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  screenFader: {fileID: 0}
+  playerMovement: {fileID: 0}

@@ -5,6 +5,17 @@ using TMPro;
 
 public class TimingController : MonoBehaviour
 {
+
+    public static TimingController Instance { get; private set; }
+    public bool FightActive { get; private set; } = false;
+
+    private float timeLeft;
+
+    private bool timerPaused = false;
+    public void PauseTimer() => timerPaused = true;
+    public void ResumeTimer() => timerPaused = false;
+
+
     [Header("Moving Image")]
     [Tooltip("The UI element (RectTransform) to move left/right.")]
     public RectTransform movingImage;
@@ -38,6 +49,8 @@ public class TimingController : MonoBehaviour
     [SerializeField] private GameObject movingPanel;
     [SerializeField] private Animator animator;
 
+    private Coroutine timerRoutine = null;
+
     void OnValidate()
     {
         // update in Editor when you change moveRange
@@ -48,6 +61,27 @@ public class TimingController : MonoBehaviour
             rangeIndicator.sizeDelta = size;
             rangeIndicator.anchoredPosition = new Vector2(0f, rangeIndicator.anchoredPosition.y);
         }
+    }
+
+
+    public void AddTime(float extraSeconds)
+    {
+        // increase the clock
+        timeLeft += extraSeconds;
+        // update UI immediately
+        if (awardedTimeText != null)
+            awardedTimeText.text = FormatMMSS(timeLeft);
+
+        // restart the countdown so no partial-delta sneakily runs
+        if (timerRoutine != null)
+            StopCoroutine(timerRoutine);
+        timerRoutine = StartCoroutine(TimerCoroutine(timeLeft));
+    }
+
+
+    void Awake()
+    {
+        Instance = this;
     }
 
     void Start()
@@ -71,7 +105,8 @@ public class TimingController : MonoBehaviour
         if (movingImage != null)
             MoveImage();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        // only award time on Space if the mini-game panel is still open
+        if (movingPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.Space))
             AwardTime();
     }
 
@@ -101,34 +136,35 @@ public class TimingController : MonoBehaviour
     private void AwardTime()
     {
         movingPanel.SetActive(false);
-
-        // play your fight animation
         animator.Play("fightClicked");
-
-        // start the fight logic on all enemies
         foreach (var enemy in FindObjectsOfType<EnemyParent>())
             enemy.StartFight();
 
-        // Normalize: 0 at left, 1 at right
         float norm = (movingImage.anchoredPosition.x + moveRange) / (2f * moveRange);
         float awarded = Mathf.Lerp(minTimeAward, maxTimeAward, norm);
 
-        Debug.Log($"Hit at {norm:P0}, awarding {awarded:F1} seconds");
+        // stop the old timer if it’s still running
+        if (timerRoutine != null)
+            StopCoroutine(timerRoutine);
+        timerRoutine = StartCoroutine(TimerCoroutine(awarded));
 
-        // kick off the countdown coroutine
-        StartCoroutine(TimerCoroutine(awarded));
+        FightActive = true;
+        EventManager.Instance.TriggerEvent("OnStartFight");
     }
 
     private IEnumerator TimerCoroutine(float duration)
     {
-        float timeLeft = duration;
+        timeLeft = duration;
         if (awardedTimeText != null)
             awardedTimeText.text = FormatMMSS(timeLeft);
 
         while (timeLeft > 0f)
         {
-            timeLeft -= Time.deltaTime;
-            awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
+            if (!timerPaused)
+            {
+                timeLeft -= Time.deltaTime;
+                awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
+            }
             yield return null;
         }
 
@@ -170,7 +206,8 @@ public class TimingController : MonoBehaviour
 
         EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
 
-        // play your “fight ended” animation
+        FightActive = false;
+        EventManager.Instance.TriggerEvent("OnStopFight");
         animator.Play("fightEnded");
     }
 
