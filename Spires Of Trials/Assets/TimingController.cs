@@ -7,8 +7,13 @@ public class TimingController : MonoBehaviour
 {
 
     public static TimingController Instance { get; private set; }
+    public bool FightActive { get; private set; } = false;
 
     private float timeLeft;
+
+    private bool timerPaused = false;
+    public void PauseTimer() => timerPaused = true;
+    public void ResumeTimer() => timerPaused = false;
 
 
     [Header("Moving Image")]
@@ -61,11 +66,18 @@ public class TimingController : MonoBehaviour
 
     public void AddTime(float extraSeconds)
     {
+        // increase the clock
         timeLeft += extraSeconds;
-        // immediately update your UI
+        // update UI immediately
         if (awardedTimeText != null)
             awardedTimeText.text = FormatMMSS(timeLeft);
+
+        // restart the countdown so no partial-delta sneakily runs
+        if (timerRoutine != null)
+            StopCoroutine(timerRoutine);
+        timerRoutine = StartCoroutine(TimerCoroutine(timeLeft));
     }
+
 
     void Awake()
     {
@@ -135,6 +147,9 @@ public class TimingController : MonoBehaviour
         if (timerRoutine != null)
             StopCoroutine(timerRoutine);
         timerRoutine = StartCoroutine(TimerCoroutine(awarded));
+
+        FightActive = true;
+        EventManager.Instance.TriggerEvent("OnStartFight");
     }
 
     private IEnumerator TimerCoroutine(float duration)
@@ -145,8 +160,11 @@ public class TimingController : MonoBehaviour
 
         while (timeLeft > 0f)
         {
-            timeLeft -= Time.deltaTime;
-            awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
+            if (!timerPaused)
+            {
+                timeLeft -= Time.deltaTime;
+                awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
+            }
             yield return null;
         }
 
@@ -188,7 +206,8 @@ public class TimingController : MonoBehaviour
 
         EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
 
-        // play your “fight ended” animation
+        FightActive = false;
+        EventManager.Instance.TriggerEvent("OnStopFight");
         animator.Play("fightEnded");
     }
 

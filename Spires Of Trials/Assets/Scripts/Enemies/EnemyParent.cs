@@ -100,6 +100,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected SheildsScript shieldManager;
 
     private bool fightStarted;
+   
 
     public bool IsAttacking
     {
@@ -182,6 +183,9 @@ public abstract class EnemyParent : MonoBehaviour
 
         shieldManager = FindObjectOfType<SheildsScript>();
 
+        if (TimingController.Instance.FightActive)
+            StartFight();
+
     }
 
 
@@ -220,6 +224,8 @@ public abstract class EnemyParent : MonoBehaviour
             // Update the health bar fill color based on remaining health
             healthBarFill.color = healthGradient.Evaluate(healthPercentage);
         }
+
+      
     }
 
 
@@ -227,6 +233,10 @@ public abstract class EnemyParent : MonoBehaviour
     {
         if (EventManager.Instance != null)
         {
+
+
+            EventManager.Instance.StartListening("OnStartFight", StartFight);
+            EventManager.Instance.StartListening("OnStopFight", StopFight);
 
             EventManager.Instance.StartListening<(
             SpriteRenderer left,
@@ -237,11 +247,6 @@ public abstract class EnemyParent : MonoBehaviour
             Transform rightShield
         )>("InitializeAttackSprites", data =>
             InitializeAttackSprites(data.left, data.center, data.right, data.leftShield, data.centerShield, data.rightShield));
-
-
-
-
-
         }
         else
         {
@@ -258,6 +263,9 @@ public abstract class EnemyParent : MonoBehaviour
         if (EventManager.Instance != null)
         {
 
+            EventManager.Instance.StopListening("OnStartFight", StartFight);
+            EventManager.Instance.StopListening("OnStopFight", StopFight);
+
             EventManager.Instance.StopListening<(
             SpriteRenderer left,
             SpriteRenderer center,
@@ -267,9 +275,6 @@ public abstract class EnemyParent : MonoBehaviour
             Transform rightShield
         )>("InitializeAttackSprites", data =>
             InitializeAttackSprites(data.left, data.center, data.right, data.leftShield, data.centerShield, data.rightShield));
-
-
-
         }
         else
         {
@@ -411,6 +416,8 @@ public abstract class EnemyParent : MonoBehaviour
         SetAnimationState("WindUp");
         WindUpSound();
 
+        
+
         if (parryWindow < windUpTime)
             yield return new WaitForSeconds(windUpTime - parryWindow);
         else
@@ -420,6 +427,7 @@ public abstract class EnemyParent : MonoBehaviour
         float t = 0f;
         while (t < parryWindow)
         {
+            TimingController.Instance.PauseTimer();
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 // successful parry!
@@ -430,7 +438,7 @@ public abstract class EnemyParent : MonoBehaviour
             yield return null;
         }
 
-
+        TimingController.Instance.ResumeTimer();
 
         // Check if the player successfully blocked the attack
         ResolveAttack(attackPosition);
