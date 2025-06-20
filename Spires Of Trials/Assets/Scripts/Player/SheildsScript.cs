@@ -15,6 +15,67 @@ public class SheildsScript : MonoBehaviour
      float warningOpacity = 0.75f;
     public float flashTime = 0.2f;
 
+
+    [Header("Parry Motion Settings")]
+    [Tooltip("How high the shields pop up when you parry.")]
+    public float parryRecoilHeight = 0.5f;
+    [Tooltip("How long (seconds) to return back down.")]
+    public float parryReturnDuration = 1f;
+
+    // Tracks whether we’re mid-descent
+    private bool parryInProgress = false;
+    public bool ParryInProgress => parryInProgress;
+
+    // Cache originals
+    private Vector3 leftOrig, centerOrig, rightOrig;
+
+    void Awake()
+    {
+        leftOrig = leftShield.localPosition;
+        centerOrig = centerShield.localPosition;
+        rightOrig = rightShield.localPosition;
+    }
+
+    /// <summary>
+    /// Call this whenever the player presses Space to parry.
+    /// </summary>
+    public void TriggerGlobalParry()
+    {
+        if (!parryInProgress)
+            StartCoroutine(GlobalParryCoroutine());
+    }
+
+    private IEnumerator GlobalParryCoroutine()
+    {
+        parryInProgress = true;
+        Vector3 upOffset = Vector3.up * parryRecoilHeight;
+
+        // snap all shields to “up” position
+        leftShield.localPosition = leftOrig + upOffset;
+        centerShield.localPosition = centerOrig + upOffset;
+        rightShield.localPosition = rightOrig + upOffset;
+
+        // slowly lerp them back down over parryReturnDuration
+        float elapsed = 0f;
+        while (elapsed < parryReturnDuration)
+        {
+            float t = elapsed / parryReturnDuration;
+            leftShield.localPosition = Vector3.Lerp(leftOrig + upOffset, leftOrig, t);
+            centerShield.localPosition = Vector3.Lerp(centerOrig + upOffset, centerOrig, t);
+            rightShield.localPosition = Vector3.Lerp(rightOrig + upOffset, rightOrig, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // ensure exact reset
+        leftShield.localPosition = leftOrig;
+        centerShield.localPosition = centerOrig;
+        rightShield.localPosition = rightOrig;
+
+        parryInProgress = false;
+    }
+
     /// <summary>
     /// Triggers recoil effect on the given shield position (0=left, 1=center, 2=right)
     /// </summary>

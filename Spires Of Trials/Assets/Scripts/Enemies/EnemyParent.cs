@@ -13,7 +13,7 @@ public abstract class EnemyParent : MonoBehaviour
     #region Fields
 
     [Header("Parry Settings")]
-    [SerializeField] protected float parryWindow = 0.3f;  // length of the input window in seconds
+     protected float parryWindow = 0.3f;  // length of the input window in seconds
     [SerializeField] protected float parryBonusTime = 5f;    // seconds to add to your timer
 
 
@@ -108,21 +108,21 @@ public abstract class EnemyParent : MonoBehaviour
 
     }
 
-
+    private bool parryWindowActive = false;
 
 
     #endregion
 
-        #region UnityMethods
+    #region UnityMethods
 
-        /// <summary>
-        /// Called when the script instance is first initialized. 
-        /// Sets up references, starts coroutines, and initializes health values.
-        /// </summary>
-        /// <summary>
-        /// Called when the script instance is first initialized. 
-        /// Sets up references, starts coroutines, and initializes health values.
-        /// </summary>
+    /// <summary>
+    /// Called when the script instance is first initialized. 
+    /// Sets up references, starts coroutines, and initializes health values.
+    /// </summary>
+    /// <summary>
+    /// Called when the script instance is first initialized. 
+    /// Sets up references, starts coroutines, and initializes health values.
+    /// </summary>
     protected virtual void Start()
     {
         StartCoroutine(MonitorColorReset());
@@ -215,6 +215,16 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Space)
+       && !parryWindowActive
+       && !shieldManager.ParryInProgress
+       && !TimingController.Instance.FightPanelUp)
+        {
+            shieldManager.TriggerGlobalParry();
+        }
+
+
         if (healthBar != null)
         {
             // Update health bar value based on remaining attack sequence
@@ -424,24 +434,28 @@ public abstract class EnemyParent : MonoBehaviour
             yield return new WaitForSeconds(windUpTime);
 
         // — listen for Space during the parry window —
+        parryWindowActive = true;
         float t = 0f;
+        TimingController.Instance.PauseTimer();
+
         while (t < parryWindow)
         {
-            TimingController.Instance.PauseTimer();
-            if (Input.GetKeyDown(KeyCode.Space))
+            // now also check that a previous parry descent isn't happening
+            if (Input.GetKeyDown(KeyCode.Space)
+                && !shieldManager.ParryInProgress)
             {
-                // successful parry!
                 TimingController.Instance.AddTime(parryBonusTime);
-                break; // only one parry per attack
+                
+                break;
             }
             t += Time.deltaTime;
             yield return null;
         }
 
+        parryWindowActive = false;
         TimingController.Instance.ResumeTimer();
 
-        // Check if the player successfully blocked the attack
-        ResolveAttack(attackPosition);
+        ResolveAttack(GetAttackPosition());
 
 
         // Clear attack visuals
@@ -488,10 +502,11 @@ public abstract class EnemyParent : MonoBehaviour
     protected void ResolveAttack(int attackPosition)
     {
         int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+        bool shieldBusy = shieldManager.ParryInProgress;
 
         AttackSound();
 
-        if (playerDodgePosition == attackPosition)
+        if (playerDodgePosition == attackPosition && !shieldBusy)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             //if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);

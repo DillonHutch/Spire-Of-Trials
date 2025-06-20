@@ -51,6 +51,14 @@ public class TimingController : MonoBehaviour
 
     private Coroutine timerRoutine = null;
 
+
+    private bool fightPanelUp = true;
+    public bool FightPanelUp
+    {
+        get => fightPanelUp;
+        private set => fightPanelUp = value;
+    }
+
     void OnValidate()
     {
         // update in Editor when you change moveRange
@@ -82,6 +90,8 @@ public class TimingController : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        fightPanelUp = true;
+   
     }
 
     void Start()
@@ -107,7 +117,12 @@ public class TimingController : MonoBehaviour
 
         // only award time on Space if the mini-game panel is still open
         if (movingPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.Space))
+        {
+            
             AwardTime();
+            
+        }
+            
     }
 
     private void MoveImage()
@@ -135,6 +150,7 @@ public class TimingController : MonoBehaviour
 
     private void AwardTime()
     {
+        // --- your existing AwardTime logic ---
         movingPanel.SetActive(false);
         animator.Play("fightClicked");
         foreach (var enemy in FindObjectsOfType<EnemyParent>())
@@ -143,13 +159,21 @@ public class TimingController : MonoBehaviour
         float norm = (movingImage.anchoredPosition.x + moveRange) / (2f * moveRange);
         float awarded = Mathf.Lerp(minTimeAward, maxTimeAward, norm);
 
-        // stop the old timer if it’s still running
-        if (timerRoutine != null)
-            StopCoroutine(timerRoutine);
+        if (timerRoutine != null) StopCoroutine(timerRoutine);
         timerRoutine = StartCoroutine(TimerCoroutine(awarded));
 
         FightActive = true;
         EventManager.Instance.TriggerEvent("OnStartFight");
+
+        // now defer clearing the “panel up” flag:
+        StartCoroutine(ClearPanelUpNextFrame());
+    }
+
+    private IEnumerator ClearPanelUpNextFrame()
+    {
+        // wait one engine frame
+        yield return null;
+        FightPanelUp = false;
     }
 
     private IEnumerator TimerCoroutine(float duration)
@@ -208,6 +232,7 @@ public class TimingController : MonoBehaviour
 
         FightActive = false;
         EventManager.Instance.TriggerEvent("OnStopFight");
+        FightPanelUp = true;
         animator.Play("fightEnded");
     }
 
