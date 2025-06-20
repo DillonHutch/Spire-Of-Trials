@@ -11,6 +11,13 @@ using UnityEngine.UI;
 public abstract class EnemyParent : MonoBehaviour
 {
     #region Fields
+
+    [Header("Parry Settings")]
+    [SerializeField] protected float parryWindow = 0.3f;  // length of the input window in seconds
+    [SerializeField] protected float parryBonusTime = 5f;    // seconds to add to your timer
+
+
+
     // Health and UI Elements
     [SerializeField] protected Slider healthBar;
     [SerializeField] protected Image healthBarFill; // Assign the Fill Image in Inspector
@@ -99,6 +106,8 @@ public abstract class EnemyParent : MonoBehaviour
         get { return isAttacking; }
 
     }
+
+
 
 
     #endregion
@@ -297,11 +306,11 @@ public abstract class EnemyParent : MonoBehaviour
             rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
     }
 
-    protected virtual void OnDestroy()
-    {
-        // if this enemy was ever in the queue, make sure it's un‑queued
-        EnemyAttackQueue.AttackFinished(this);
-    }
+    //protected virtual void OnDestroy()
+    //{
+    //    // if this enemy was ever in the queue, make sure it's un‑queued
+    //    EnemyAttackQueue.AttackFinished(this);
+    //}
 
 
     #endregion
@@ -402,7 +411,24 @@ public abstract class EnemyParent : MonoBehaviour
         SetAnimationState("WindUp");
         WindUpSound();
 
-        yield return new WaitForSeconds(windUpTime);
+        if (parryWindow < windUpTime)
+            yield return new WaitForSeconds(windUpTime - parryWindow);
+        else
+            yield return new WaitForSeconds(windUpTime);
+
+        // — listen for Space during the parry window —
+        float t = 0f;
+        while (t < parryWindow)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // successful parry!
+                TimingController.Instance.AddTime(parryBonusTime);
+                break; // only one parry per attack
+            }
+            t += Time.deltaTime;
+            yield return null;
+        }
 
 
 
@@ -470,15 +496,6 @@ public abstract class EnemyParent : MonoBehaviour
             EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
         }
-
-        //if(gameObject.tag == "Frog" && attackPosition == 0)
-        //{
-        //    spriteRenderer.flipX = false;
-        //}
-        //else if (gameObject.tag == "Frog" && attackPosition == 2)
-        //{
-        //    spriteRenderer.flipX = true;
-        //}
 
         // Play attack animation and sound
         if (gameObject.tag == "Frog" && attackPosition == 0)
@@ -867,8 +884,8 @@ public abstract class EnemyParent : MonoBehaviour
             flashCoroutine = null;
         }
 
-        // Notify the attack manager that this enemy is no longer active
-        EnemyAttackQueue.AttackFinished(this);
+        if (isAttacking)
+            EnemyAttackQueue.AttackFinished(this);
 
         // Destroy the enemy game object
         Destroy(gameObject);
