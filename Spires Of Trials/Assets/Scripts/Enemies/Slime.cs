@@ -33,5 +33,14 @@ public class Slime : EnemyParent
         attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
     }
 
+    protected override void DefineEnemyAttackPattern()
+    {
+        // e.g. two parry attacks, then a dodge, then repeat
+        enemyAttackPattern = new List<EnemyAttackType>
+        {
+            EnemyAttackType.Parry,
+        };
+    }
+
     #endregion
 }

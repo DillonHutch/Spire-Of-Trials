@@ -51,4 +51,14 @@ public class Thornbrute : EnemyParent
                 "melee", "magic", "range", "heavy"    // Combo 2
 };
     }
+
+
+    protected override void DefineEnemyAttackPattern()
+    {
+        // e.g. two parry attacks, then a dodge, then repeat
+        enemyAttackPattern = new List<EnemyAttackType>
+        {
+            EnemyAttackType.Parry,
+        };
+    }
 }

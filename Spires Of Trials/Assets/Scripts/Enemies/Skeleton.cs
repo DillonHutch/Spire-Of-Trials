@@ -27,6 +27,15 @@ public class Skeleton : EnemyParent
         attackSequence = new List<string> { "melee", "heavy", "range", "magic",  };
     }
 
+    protected override void DefineEnemyAttackPattern()
+    {
+        // e.g. two parry attacks, then a dodge, then repeat
+        enemyAttackPattern = new List<EnemyAttackType>
+        {
+            EnemyAttackType.Dodge,
+        };
+    }
+
 
     #endregion
 

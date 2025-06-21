@@ -280,6 +280,15 @@ public class Frog : EnemyParent
 
     }
 
+    protected override void DefineEnemyAttackPattern()
+    {
+        // e.g. two parry attacks, then a dodge, then repeat
+        enemyAttackPattern = new List<EnemyAttackType>
+        {
+            EnemyAttackType.Parry,
+        };
+    }
+
 
     #endregion
 

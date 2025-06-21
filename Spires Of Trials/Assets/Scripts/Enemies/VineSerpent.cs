@@ -28,4 +28,14 @@ public class VineSerpent : EnemyParent
     {
         attackSequence = new List<string> { "heavy", "range", "heavy", "melee", "magic", "melee", "heavy", "melee" };
     }
+
+
+    protected override void DefineEnemyAttackPattern()
+    {
+        // e.g. two parry attacks, then a dodge, then repeat
+        enemyAttackPattern = new List<EnemyAttackType>
+        {
+            EnemyAttackType.Parry,
+        };
+    }
 }

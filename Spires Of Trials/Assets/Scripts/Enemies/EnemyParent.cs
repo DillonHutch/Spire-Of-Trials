@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+public enum EnemyAttackType
+{
+    Parry,   // player must block with shield/parry
+    Dodge    // player must move the dodge slider away
+}
+
 /// <summary>
 /// Enemy Parent Class
 /// </summary>
@@ -100,7 +106,11 @@ public abstract class EnemyParent : MonoBehaviour
     protected SheildsScript shieldManager;
 
     private bool fightStarted;
-   
+
+
+    protected List<EnemyAttackType> enemyAttackPattern = new List<EnemyAttackType>();
+    protected int enemyPatternIndex = 0;
+
 
     public bool IsAttacking
     {
@@ -185,6 +195,8 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (TimingController.Instance.FightActive)
             StartFight();
+
+        DefineEnemyAttackPattern();
 
     }
 
@@ -356,6 +368,13 @@ public abstract class EnemyParent : MonoBehaviour
 
     #region EnemyAttacking
 
+
+    /// <summary>
+    /// Child classes implement this to say when they want parry vs dodge attacks.
+    /// </summary>
+    protected abstract void DefineEnemyAttackPattern();
+
+
     /// <summary>
     /// Defines the attack sequence for the enemy.
     /// This method should be implemented in child classes.
@@ -407,64 +426,57 @@ public abstract class EnemyParent : MonoBehaviour
     {
         isAttacking = true;
 
-        // Select the attack sprite based on position
-        int attackPosition = GetAttackPosition();
-        SpriteRenderer attackSprite = GetAttackSprite(attackPosition);
+        // pick this turn’s attack type
+        EnemyAttackType atkType = enemyAttackPattern[enemyPatternIndex];
+        enemyPatternIndex = (enemyPatternIndex + 1) % enemyAttackPattern.Count;
 
-        // Flip sprite if enemy is a goblin
-        if (gameObject.CompareTag("Goblin"))
-            spriteRenderer.flipX = attackPosition == 2;
+        int attackPos = GetAttackPosition();
+        SpriteRenderer atkSprite = GetAttackSprite(attackPos);
 
-
-        // Show attack sprite indicator
-        if (attackSprite != null)
-            StartCoroutine(ShowAttackIndicator(attackSprite));
-        else
-            Debug.LogError("Attack Sprite is NULL!");
-
-        // Play wind-up animation and sound
-        SetAnimationState("WindUp");
-        WindUpSound();
-
-        
-
-        if (parryWindow < windUpTime)
-            yield return new WaitForSeconds(windUpTime - parryWindow);
-        else
-            yield return new WaitForSeconds(windUpTime);
-
-        // — listen for Space during the parry window —
-        parryWindowActive = true;
-        float t = 0f;
-        TimingController.Instance.PauseTimer();
-
-        while (t < parryWindow)
+        // — show correct warning flash —
+        if (atkSprite != null)
         {
-            // now also check that a previous parry descent isn't happening
-            if (Input.GetKeyDown(KeyCode.Space)
-                && !shieldManager.ParryInProgress)
-            {
-                TimingController.Instance.AddTime(parryBonusTime);
-                
-                break;
-            }
-            t += Time.deltaTime;
-            yield return null;
+            if (atkType == EnemyAttackType.Dodge)
+                flashCoroutine = StartCoroutine(shieldManager.FlashDodgeIndicator(atkSprite));
+            else
+                flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(atkSprite));
         }
 
-        parryWindowActive = false;
-        TimingController.Instance.ResumeTimer();
+        // wind-up
+        SetAnimationState("WindUp");
+        WindUpSound();
+        yield return new WaitForSeconds(windUpTime);
 
-        ResolveAttack(GetAttackPosition());
+        // only Parry attacks get the space-bar window
+        if (atkType == EnemyAttackType.Parry)
+        {
+            parryWindowActive = true;
+            float t = 0f;
+            TimingController.Instance.PauseTimer();
 
+            while (t < parryWindow)
+            {
+                if (Input.GetKeyDown(KeyCode.Space) && !shieldManager.ParryInProgress)
+                {
+                    TimingController.Instance.AddTime(parryBonusTime);
+                    break;
+                }
+                t += Time.deltaTime;
+                yield return null;
+            }
 
-        // Clear attack visuals
+            parryWindowActive = false;
+            TimingController.Instance.ResumeTimer();
+        }
+
+        // resolve using the new overload
+        ResolveAttack(attackPos, atkType);
+
         yield return new WaitForSeconds(0.2f);
-        CleanupAttack(attackSprite, attackPosition);
-
-        // Notify attack queue
+        CleanupAttack(atkSprite, attackPos);
         EnemyAttackQueue.AttackFinished(this);
     }
+
 
     /// <summary>
     /// Gets the appropriate attack sprite based on position.
@@ -499,38 +511,51 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Determines whether the player dodged successfully and applies the appropriate effects.
     /// </summary>
-    protected void ResolveAttack(int attackPosition)
+    protected void ResolveAttack(int attackPos, EnemyAttackType atkType)
     {
-        int playerDodgePosition = Mathf.RoundToInt(dodgeSlider.value);
+        int playerPos = Mathf.RoundToInt(dodgeSlider.value);
         bool shieldBusy = shieldManager.ParryInProgress;
-
         AttackSound();
 
-        if (playerDodgePosition == attackPosition && !shieldBusy)
+        if (atkType == EnemyAttackType.Dodge)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
-            //if (activeRecoilCoroutine != null) StopCoroutine(activeRecoilCoroutine);
-            shieldManager?.TriggerShieldRecoil(attackPosition, this);
+            // dodge success if _not_ standing on the attack spot
+            if (playerPos != attackPos)
+            {
+                // dodged—no damage
+            }
+            else
+            {
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
+            }
+        }
+        else // Parry
+        {
+            if (playerPos == attackPos && !shieldBusy)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+                shieldManager?.TriggerShieldRecoil(attackPos, this);
+            }
+            else
+            {
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
+            }
+        }
 
-        }
-        else
-        {
-            //Debug.Log("Player failed to block! Taking damage.");
-            EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
-        }
 
         // Play attack animation and sound
-        if (gameObject.tag == "Frog" && attackPosition == 0)
+        if (gameObject.tag == "Frog" && attackPos == 0)
         {
             animator.SetTrigger("AttackLeft");
 
         }
-        else if (gameObject.tag == "Frog" && attackPosition == 1)
+        else if (gameObject.tag == "Frog" && attackPos == 1)
         {
             animator.SetTrigger("AttackMiddle");
         }
-        else if (gameObject.tag == "Frog" && attackPosition == 2)
+        else if (gameObject.tag == "Frog" && attackPos == 2)
         {
             animator.SetTrigger("AttackRight");
         }

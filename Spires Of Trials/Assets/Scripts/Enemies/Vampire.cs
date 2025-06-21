@@ -54,4 +54,14 @@ public class Vampire : EnemyParent
                 "heavy", "magic", "melee", "range"    // Combo 3 
                 };
     }
+
+
+    protected override void DefineEnemyAttackPattern()
+    {
+        // e.g. two parry attacks, then a dodge, then repeat
+        enemyAttackPattern = new List<EnemyAttackType>
+        {
+            EnemyAttackType.Parry,
+        };
+    }
 }

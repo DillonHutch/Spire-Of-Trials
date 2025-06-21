@@ -149,6 +149,30 @@ public class SheildsScript : MonoBehaviour
     }
 
 
+    public IEnumerator FlashDodgeIndicator(SpriteRenderer attackSprite)
+    {
+        if (attackSprite == null) yield break;
+
+        attackSprite.gameObject.SetActive(true);
+        attackSprite.enabled = true;
+        Color orig = attackSprite.color;
+        Color redFlash = new Color(1f, 0f, 0f, warningOpacity);
+
+        for (int i = 0; i < 3; i++)
+        {
+            attackSprite.color = redFlash;
+            yield return new WaitForSeconds(flashTime);
+            attackSprite.color = orig;
+            yield return new WaitForSeconds(flashTime);
+        }
+
+        attackSprite.color = orig;
+        attackSprite.enabled = false;
+        attackSprite.gameObject.SetActive(false);
+    }
+
+
+
     public void InitializeShields(Transform left, Transform center, Transform right)
     {
         leftShield = left;
