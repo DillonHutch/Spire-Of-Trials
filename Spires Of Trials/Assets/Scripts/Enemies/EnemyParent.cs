@@ -448,8 +448,7 @@ public abstract class EnemyParent : MonoBehaviour
         yield return new WaitForSeconds(windUpTime);
 
         // only Parry attacks get the space-bar window
-        if (atkType == EnemyAttackType.Parry)
-        {
+
             parryWindowActive = true;
             float t = 0f;
             TimingController.Instance.PauseTimer();
@@ -467,7 +466,7 @@ public abstract class EnemyParent : MonoBehaviour
 
             parryWindowActive = false;
             TimingController.Instance.ResumeTimer();
-        }
+        
 
         // resolve using the new overload
         ResolveAttack(attackPos, atkType);
@@ -519,18 +518,19 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (atkType == EnemyAttackType.Dodge)
         {
-            // dodge success if _not_ standing on the attack spot
-            if (playerPos != attackPos)
+            // if you’re off the spot OR you parried, it’s a success
+            if (playerPos != attackPos || !shieldBusy)
             {
-                // dodged—no damage
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             }
             else
             {
+                // failed both dodge _and_ parry
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
-        else // Parry
+        else // Parry attack
         {
             if (playerPos == attackPos && !shieldBusy)
             {

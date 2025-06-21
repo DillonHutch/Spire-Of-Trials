@@ -33,6 +33,7 @@ public class Skeleton : EnemyParent
         enemyAttackPattern = new List<EnemyAttackType>
         {
             EnemyAttackType.Dodge,
+            EnemyAttackType.Parry,
         };
     }
 
