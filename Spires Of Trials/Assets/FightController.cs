@@ -23,7 +23,7 @@ public class FightController : MonoBehaviour
     private void OnFightPressed()
     {
         // play your fight animation
-        //animator.Play("fightClicked");
+        animator.Play("fightButtonClicked");
 
 
         // start the fight logic on all enemies
@@ -36,5 +36,7 @@ public class FightController : MonoBehaviour
         // show/start the mini-game
         if (timingController != null)
             miniGamePanel.SetActive(true);
+
+      
     }
 }

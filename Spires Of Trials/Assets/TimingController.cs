@@ -152,7 +152,7 @@ public class TimingController : MonoBehaviour
     {
         // --- your existing AwardTime logic ---
         movingPanel.SetActive(false);
-        animator.Play("fightClicked");
+        animator.Play("closeMenu");
         foreach (var enemy in FindObjectsOfType<EnemyParent>())
             enemy.StartFight();
 
@@ -234,6 +234,7 @@ public class TimingController : MonoBehaviour
         EventManager.Instance.TriggerEvent("OnStopFight");
         FightPanelUp = true;
         animator.Play("fightEnded");
+        
     }
 
     private string FormatMMSS(float totalSeconds)
