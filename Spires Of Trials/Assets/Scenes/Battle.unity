@@ -2534,7 +2534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typingSpeed: 0.04
   continueIcon: {fileID: 1071619182}
-  loadGlobalsJSON: {fileID: 4900000, guid: a0f920a1631973f43966b52325c145ad, type: 3}
+  loadGlobalsJSON: {fileID: 4900000, guid: a5df2622d444b5b4cb38267eb2e327ee, type: 3}
   defaultAudioInfo: {fileID: 11400000, guid: ba4b214c56779cc40893c3452376d2ef, type: 2}
   makePredictable: 1
   audioInfos: []
@@ -11606,7 +11606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf1c46f21d6f2e341b85230a56b6877b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSON: {fileID: 4900000, guid: e3e86c3988ae3f7418e5393cec9ab399, type: 3}
+  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
 --- !u!4 &1742642034
 Transform:
   m_ObjectHideFlags: 0
