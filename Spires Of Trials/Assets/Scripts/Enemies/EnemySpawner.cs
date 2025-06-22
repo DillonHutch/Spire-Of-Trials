@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -81,6 +81,13 @@ public class EnemySpawner : MonoBehaviour
     #region Miscellaneous
 
     private SpriteRenderer spriteRenderer; // Reference to the spawner's sprite renderer (if needed)
+
+
+    /// <summary>
+    /// If non‐null, the spawner will immediately spawn this prefab as the battle’s
+    /// first enemy, then clear the reference.
+    /// </summary>
+    public static GameObject NextBattleEnemyPrefab;
 
     #endregion
 
@@ -170,6 +177,40 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private IEnumerator CheckAndSpawnEnemies()
     {
+
+        // if someone told us “spawn exactly this prefab first,” do it now:
+        if (EncounterManager.NextBattleEnemyPrefab != null)
+        {
+            // bump up the round counter, update UI, etc.:
+            roundCounter++;
+            RoundManager.ROUND_NUMBER = roundCounter;
+            UpdateRoundUI();
+
+            // pick a spawn location (e.g. center):
+            var spawnLoc = spawnLocations[1];
+            var go = Instantiate(
+                EncounterManager.NextBattleEnemyPrefab,
+                spawnLoc.transform.position,
+                Quaternion.identity
+            );
+            // initialize attack sprites on it too:
+            EventManager.Instance.TriggerEvent(
+                "InitializeAttackSprites",
+                (leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield)
+            );
+            go.transform.SetParent(spawnLoc.transform, true);
+            spawnedEnemies.Add(go);
+
+            // clear the static so later rounds fall back to random
+            EncounterManager.NextBattleEnemyPrefab = null;
+
+            // we’re done with this special spawn—wait one frame then continue normal loop:
+            yield return null;
+        }
+
+
+
+
         while (roundCounter < 5)
         {
     
