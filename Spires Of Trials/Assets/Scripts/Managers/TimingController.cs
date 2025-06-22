@@ -59,6 +59,9 @@ public class TimingController : MonoBehaviour
         private set => fightPanelUp = value;
     }
 
+
+    private float lastAwardedDuration;
+
     void OnValidate()
     {
         // update in Editor when you change moveRange
@@ -150,22 +153,25 @@ public class TimingController : MonoBehaviour
 
     private void AwardTime()
     {
-        // --- your existing AwardTime logic ---
         movingPanel.SetActive(false);
         animator.Play("closeMenu");
         foreach (var enemy in FindObjectsOfType<EnemyParent>())
             enemy.StartFight();
 
+        // calculate awarded time
         float norm = (movingImage.anchoredPosition.x + moveRange) / (2f * moveRange);
         float awarded = Mathf.Lerp(minTimeAward, maxTimeAward, norm);
 
+        // 2) store it here
+        lastAwardedDuration = awarded;
+
+        // restart timer coroutine with awarded seconds
         if (timerRoutine != null) StopCoroutine(timerRoutine);
         timerRoutine = StartCoroutine(TimerCoroutine(awarded));
 
         FightActive = true;
         EventManager.Instance.TriggerEvent("OnStartFight");
 
-        // now defer clearing the “panel up” flag:
         StartCoroutine(ClearPanelUpNextFrame());
     }
 
@@ -204,17 +210,15 @@ public class TimingController : MonoBehaviour
     /// </summary>
     private IEnumerator StopFightAfterAttacks()
     {
-        // grab all enemies once
+        // wait for any in-flight attacks to finish
         EnemyParent[] enemies = FindObjectsOfType<EnemyParent>();
-
-        // wait until every enemy has finished attacking
         bool anyAttacking;
         do
         {
             anyAttacking = false;
             foreach (var e in enemies)
             {
-                if (e.IsAttacking)  
+                if (e.IsAttacking)
                 {
                     anyAttacking = true;
                     break;
@@ -224,17 +228,22 @@ public class TimingController : MonoBehaviour
         }
         while (anyAttacking);
 
-        // now safely end the fight on all of them
+        // end fight on all enemies
         foreach (var e in enemies)
             e.StopFight();
-
-        EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
 
         FightActive = false;
         EventManager.Instance.TriggerEvent("OnStopFight");
         FightPanelUp = true;
         animator.Play("fightEnded");
-        
+
+        // 3) only if there are survivors, apply damage = awarded duration
+        var survivors = FindObjectsOfType<EnemyParent>();
+        if (survivors.Length > 0)
+        {
+            int damage = Mathf.RoundToInt(lastAwardedDuration);
+            EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
+        }
     }
 
     private string FormatMMSS(float totalSeconds)

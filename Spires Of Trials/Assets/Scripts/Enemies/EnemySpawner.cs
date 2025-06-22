@@ -176,7 +176,7 @@ public class EnemySpawner : MonoBehaviour
 
             if (AllEnemiesDestroyed() && !isSpawning && !isTrans)
             {
-                EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
+                //EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
                 //Debug.Log("All enemies destroyed. Starting new spawn cycle.");
 
 

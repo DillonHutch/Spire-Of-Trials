@@ -133,6 +133,10 @@ public class PlayerAttackingScript : MonoBehaviour
     /// </summary>
     void Update()
     {
+
+        if (!TimingController.Instance.FightActive)
+            return;
+
         // Track attack speed for rhythm-based mechanics
         UpdateAttackSpeed();
 

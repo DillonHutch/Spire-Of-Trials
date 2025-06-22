@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour
     #region Fields
 
     // **Health Properties**
-    [SerializeField] private int maxHealth = 3; // Maximum health of the player
+    private int maxHealth = 100; // Maximum health of the player
     private int currentHealth; // Current health of the player, dynamically updated
 
     // **Visual Feedback**
