@@ -1,1 +1,1 @@
-﻿{"inkVersion":21,"root":[["^Test","\n","^quiz","\n","^sex","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
+﻿{"inkVersion":21,"root":[[{"->":"main"},["done",{"#f":5,"#n":"g-0"}],null],"done",{"main":["^The skeleton stares at you with evil intent!","\n","^Why do skeletons remain calm under pressure?","\n","^Nothing gets under their skin.","\n",{"->":".^"},{"#f":1}],"#f":1}],"listDefs":{}}

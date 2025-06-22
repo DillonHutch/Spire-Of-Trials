@@ -53,4 +53,4 @@ MonoBehaviour:
   stopAudioSource: 1
   frequencyLevel: 2
   minPitch: 0
-  maxPitch: 0.6
+  maxPitch: 0.2

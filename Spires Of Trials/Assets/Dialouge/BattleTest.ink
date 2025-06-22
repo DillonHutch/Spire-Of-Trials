@@ -1,5 +1,14 @@
-Test
+-> main 
 
-quiz
+=== main ===
 
-sex
+The skeleton stares at you with evil intent!
+
+
+Why do skeletons remain calm under pressure?
+
+
+Nothing gets under their skin.
+
+
+-> main
