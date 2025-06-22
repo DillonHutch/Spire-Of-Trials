@@ -12794,6 +12794,12 @@ MonoBehaviour:
   finalBossPrfab: {fileID: 0}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
+  spawnWaves:
+  - {fileID: 11400000, guid: 4499b06548582384ead5d4c36dce4aa0, type: 2}
+  defaultEntries:
+  - prefab: {fileID: 5956038672238996150, guid: f6f16fa3616bc7f43ab56e514d94dd2c, type: 3}
+    spawnChance: 0.5
+    validPositions: 01000000
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}
