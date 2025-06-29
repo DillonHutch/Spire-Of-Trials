@@ -8,6 +8,8 @@ public class BadNPCScript : MonoBehaviour
 
     [SerializeField] BattleSceneController battleController;
 
+    [SerializeField] private GameObject battlePrefab; // assign in inspector
+
 
 
     // Start is called before the first frame update
@@ -26,6 +28,9 @@ public class BadNPCScript : MonoBehaviour
     {
         if(collision.gameObject.tag == "OverworldPlayer")
         {
+
+            EncounterManager.NextBattleEnemyPrefab = battlePrefab;
+
             battleController.StartBattle();
         }
 

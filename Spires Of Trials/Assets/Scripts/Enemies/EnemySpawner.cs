@@ -1,8 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using FMODUnity;
 
 
 /// <summary>
@@ -31,8 +33,22 @@ public class EnemySpawner : MonoBehaviour
     [Header("Round System")]
     [SerializeField] private TextMeshProUGUI roundText; // UI element displaying the current round number
     private int roundCounter = RoundManager.ROUND_NUMBER; // Tracks the current round, starting at Round 1
+    private int maxRounds = 5;
 
-    
+
+    [Header("Data-Driven Waves")]
+    [Tooltip("Drag in all your SpawnWave assets, sorted by roundNumber.")]
+    public List<SpawnWave> spawnWaves;
+
+    private Dictionary<int, SpawnWave> _wavesByRound;
+
+
+    [Header("Fallback Settings")]
+    [Tooltip("Used if you forgot to author a SpawnWave for a given round.")]
+    [SerializeField]
+    private List<EnemySpawnEntry> defaultEntries;
+
+
 
     private GameObject currentMiniBoss;
 
@@ -82,6 +98,13 @@ public class EnemySpawner : MonoBehaviour
 
     private SpriteRenderer spriteRenderer; // Reference to the spawner's sprite renderer (if needed)
 
+
+    /// <summary>
+    /// If non‐null, the spawner will immediately spawn this prefab as the battle’s
+    /// first enemy, then clear the reference.
+    /// </summary>
+    public static GameObject NextBattleEnemyPrefab;
+
     #endregion
 
 
@@ -99,6 +122,16 @@ public class EnemySpawner : MonoBehaviour
     private void OnDisable()
     {
         
+    }
+
+
+    private void Awake()
+    {
+       
+        // Build a quick lookup table
+        _wavesByRound = spawnWaves
+            .ToDictionary(w => w.roundNumber, w => w);
+       
     }
 
     /// <summary>
@@ -170,192 +203,55 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private IEnumerator CheckAndSpawnEnemies()
     {
-        while (roundCounter < 5)
+        while (roundCounter < maxRounds)
         {
-    
+            yield return new WaitUntil(AllEnemiesDestroyed);
 
-            if (AllEnemiesDestroyed() && !isSpawning && !isTrans)
+            roundCounter++;
+            UpdateRoundUI();
+
+            if (_wavesByRound.TryGetValue(roundCounter, out var wave))
             {
-                //EventManager.Instance.TriggerEvent("healDamageEvent", 1); // Heal the player after each round
-                //Debug.Log("All enemies destroyed. Starting new spawn cycle.");
-
-
-
-                if (EncounterManager.ENEMY_TYPE == ENEMY.Knight)
+                if (wave.waveType != WaveType.Regular)
                 {
-                    
-                    bossSpawned = true;
-                    yield return StartCoroutine(SpawnMiniBoss());
-                    continue;
+                    // boss spawn
+                    yield return SpawnBoss(
+                      wave.bossPrefab,
+                      wave.bossOffset,
+                      wave.waveType
+                    );
                 }
-                else if (roundCounter == frogBossSpawnNumber && !frogBossSpawned)
-                {
-                    frogBossSpawned = true;
-                    yield return StartCoroutine(SpawnFrogBoss());
-                    continue;
-                }
-                else if(roundCounter == finalBossSpawnNumber && !finalBossSpawned)
-                {
-                    finalBossSpawned = true;
-                    yield return StartCoroutine(SpawnFinalBoss());
-                    continue;
-                }
-
-                // THEN handle spawnChance for regular enemies
-                if (roundCounter <= 5)
-                    spawnChance = .05f;
-                else if (roundCounter < 10)
-                    spawnChance = 0.2f;
-                else if (roundCounter < 15)
-                    spawnChance = 0.3f;
                 else
-                    spawnChance = 0.5f;
-
-                roundCounter++; // Increase round count
-                RoundManager.ROUND_NUMBER = roundCounter;
-                UpdateRoundUI(); // Update UI
-
-                //Debug.LogWarning(roundCounter);
-
-                if (!bossSpawned) { yield return StartCoroutine(SpawnEnemies()); }
-                
+                {
+                    // regular enemies
+                    yield return SpawnRegularEnemies(wave.regularSpawns);
+                }
             }
-
-            yield return new WaitForSeconds(0.5f);
+            else
+            {
+                // fallback if you forgot to author a wave
+                yield return SpawnRegularEnemies(defaultEntries);
+            }
         }
     }
 
 
-    /// <summary>
-    /// Spawns the MiniBoss at a random spawn location and updates game states accordingly.
-    /// </summary>
-    private IEnumerator SpawnMiniBoss()
+    private IEnumerator SpawnBoss(GameObject prefab, Vector3 offset, WaveType type)
     {
         isSpawning = true;
-        bossSpawned = true; // Ensure the boss spawns only once
-
-        Debug.Log("Spawning MiniBoss!");
-
-        // Change background music for the boss fight
         AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
-
-        // Choose a random spawn location for the MiniBoss
-        GameObject bossSpawnLocation = spawnLocations[Random.Range(0, spawnLocations.Count)];
-
-        // Instantiate the MiniBoss at the selected location
-        currentMiniBoss = Instantiate(miniBossPrefab, bossSpawnLocation.transform.position, Quaternion.identity);
-
-
-
+        var loc = spawnLocations[1];
+        var boss = Instantiate(prefab, loc.transform.position, Quaternion.identity);
         EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
-                                                                        leftFlash,
-                                                                        centerFlash,
-                                                                        rightFlash,
-                                                                        leftShield,
-                                                                        centerShield,
-                                                                        rightShield
-                                                                                    ));
-
-
-
-
-        // Set the MiniBoss as a child of the spawn location
-        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
-
-        // Track the spawned MiniBoss
-        spawnedEnemies.Add(currentMiniBoss);
-
-        Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
-
-        isSpawning = false;
-        yield return null;
-    }
-
-
-    /// <summary>
-    /// Spawns the MiniBoss at a random spawn location and updates game states accordingly.
-    /// </summary>
-    private IEnumerator SpawnFrogBoss()
-    {
-        isSpawning = true;
-        frogBossSpawned = true; // Ensure the boss spawns only once
-
-        Debug.Log("Spawning MiniBoss!");
-
-        // Change background music for the boss fight
-        AudioManager.instance.SetMusic(MusicEnum.GardenBoss);
-
-        // Choose a random spawn location for the MiniBoss
-        GameObject bossSpawnLocation = spawnLocations[1];
-
-        // Instantiate the MiniBoss at the selected location
-        currentMiniBoss = Instantiate(frogBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 1.3f, 0), Quaternion.identity);
-
-
-
-        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
-                                                                        leftFlash,
-                                                                        centerFlash,
-                                                                        rightFlash,
-                                                                        leftShield,
-                                                                        centerShield,
-                                                                        rightShield
-                                                                                    ));
-
-
-        // Set the MiniBoss as a child of the spawn location
-        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
-
-        // Track the spawned MiniBoss
-        spawnedEnemies.Add(currentMiniBoss);
-
-        //Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
-
-        isSpawning = false;
-        yield return null;
-    }
-
-
-    /// <summary>
-    /// Spawns the MiniBoss at a random spawn location and updates game states accordingly.
-    /// </summary>
-    private IEnumerator SpawnFinalBoss()
-    {
-        isSpawning = true;
-        finalBossSpawned = true; // Ensure the boss spawns only once
-
-        Debug.Log("Spawning FinalBoss!");
-
-        // Change background music for the boss fight
-        AudioManager.instance.SetMusic(MusicEnum.FinalBoss);
-
-        // Choose a random spawn location for the MiniBoss
-        GameObject bossSpawnLocation = spawnLocations[0];
-
-        // Instantiate the MiniBoss at the selected location
-        currentMiniBoss = Instantiate(finalBossPrfab, bossSpawnLocation.transform.position - new Vector3(0, 0, 0), Quaternion.identity);
-        
-
-
-
-        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
-                                                                        leftFlash,
-                                                                        centerFlash,
-                                                                        rightFlash,
-                                                                        leftShield,
-                                                                        centerShield,
-                                                                        rightShield
-                                                                                    ));
-
-
-        // Set the MiniBoss as a child of the spawn location
-        currentMiniBoss.transform.SetParent(bossSpawnLocation.transform, true);
-
-        // Track the spawned MiniBoss
-        spawnedEnemies.Add(currentMiniBoss);
-
-        //Debug.Log($"MiniBoss spawned at {bossSpawnLocation.name}");
-
+                                          leftFlash,
+                                          centerFlash,
+                                          rightFlash,
+                                          leftShield,
+                                          centerShield,
+                                          rightShield
+                                                      ));
+        boss.transform.SetParent(loc.transform, true);
+        spawnedEnemies.Add(boss);
         isSpawning = false;
         yield return null;
     }
@@ -364,103 +260,58 @@ public class EnemySpawner : MonoBehaviour
     /// Spawns regular enemies at random locations based on spawn chances.
     /// Ensures at least one enemy is spawned per round.
     /// </summary>
-    private IEnumerator SpawnEnemies()
+    private IEnumerator SpawnRegularEnemies(List<EnemySpawnEntry> entries)
     {
         isSpawning = true;
-        bool atLeastOneSpawned = false;
 
-        while (!atLeastOneSpawned)
+        // ensure at least one spawn...
+        bool atLeastOne = false;
+        while (!atLeastOne)
         {
-            for (int i = 0; i < spawnLocations.Count; i++)
+            foreach (var entry in entries)
             {
-
-                // Skip if there is already an enemy in this location (background is assumed to be 1 child)
-                if (spawnLocations[i].transform.childCount > 0 && roundCounter == finalBossSpawnNumber)
-                    continue;
-
-
-                float randomValue = Random.value; // Generate a random value (0 to 1)
-
-                if (randomValue <= spawnChance) // If the random value is within the spawn chance, spawn an enemy
+                foreach (int pos in entry.validPositions)
                 {
-                    GameObject enemyToSpawn = SelectEnemyForPosition(i);
-
-                    if (enemyToSpawn != null)
+                    if (Random.value <= entry.spawnChance)
                     {
-                        atLeastOneSpawned = true; // Ensure at least one enemy is spawned
-
-                        // Spawn the enemy and set its parent to the spawn location
-                        GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocations[i].transform.position, Quaternion.identity);
+                        var loc = spawnLocations[pos];
+                        var go = Instantiate(entry.prefab, loc.transform.position, Quaternion.identity);
                         EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
-                                                                 leftFlash,
-                                                                 centerFlash,
-                                                                 rightFlash,
-                                                                 leftShield,
-                                                                 centerShield,
-                                                                 rightShield
-                                                                             ));
-                        // Special handling for Slime enemy position and adjustments
-                        if (spawnedEnemy.tag == "Slime")
-                        {
-
-                            AdjustSlimePosition(spawnedEnemy, i);
-                        }
-                        else if (spawnedEnemy.tag == "VineSerpant")
-                        {
-
-                            AdjustSerpantPosition(spawnedEnemy, i);
-                        }
-                        else if (spawnedEnemy.tag == "Devil")
-                        {
-
-                            AdjustDevilPosition(spawnedEnemy, i);
-                        }
-                        else if (spawnedEnemy.tag == "Cleric")
-                        {
-
-                            AdjustClericPosition(spawnedEnemy, i);
-                        }
-
-
-                        spawnedEnemy.transform.parent = spawnLocations[i].transform;
-
-                        // Scale enemies differently if they spawn in the middle position
-                        if (i == 1) // Middle spawn location
-                        {
-                            spawnedEnemy.transform.localScale = new Vector3(0.8f, 0.8f, 1f);
-                        }
-
-                        // Track the spawned enemy
-                        spawnedEnemies.Add(spawnedEnemy);
-                       // Debug.Log($"Spawned {enemyToSpawn.tag} at {spawnLocations[i].name}");
-                    }
-                    else
-                    {
-                        //Debug.Log($"No valid enemy to spawn at {spawnLocations[i].name}");
+                                         leftFlash,
+                                         centerFlash,
+                                         rightFlash,
+                                         leftShield,
+                                         centerShield,
+                                         rightShield
+                                                     ));
+                        go.transform.SetParent(loc.transform, true);
+                        
+                        spawnedEnemies.Add(go);
+                        atLeastOne = true;
                     }
                 }
-                else
-                {
-                    //Debug.Log($"No enemy spawned at {spawnLocations[i].name}");
-                }
             }
-
-            if (!atLeastOneSpawned)
-            {
-                //Debug.Log("No enemies spawned, retrying...");
-                yield return null;
-            }
+            if (!atLeastOne)
+                yield return null;  // try again next frame
         }
 
-        //Debug.Log("At least one enemy spawned. Spawning complete.");
         isSpawning = false;
     }
 
 
     public void ForceSpawnEnemy()
     {
-        StartCoroutine(SpawnEnemies());
+        if (_wavesByRound.TryGetValue(roundCounter, out var wave)
+            && wave.waveType == WaveType.Regular)
+        {
+            StartCoroutine(SpawnRegularEnemies(wave.regularSpawns));
+        }
+        else
+        {
+            StartCoroutine(SpawnRegularEnemies(defaultEntries));
+        }
     }
+
 
 
     /// <summary>

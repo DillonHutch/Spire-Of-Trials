@@ -8280,6 +8280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
+  battlePrefab: {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
 --- !u!4 &895533196
 Transform:
   m_ObjectHideFlags: 0
@@ -10274,6 +10275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
+  battlePrefab: {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
 --- !u!4 &1190320965
 Transform:
   m_ObjectHideFlags: 0
@@ -11906,6 +11908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
+  battlePrefab: {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
 --- !u!4 &1561547498
 Transform:
   m_ObjectHideFlags: 0
@@ -13548,6 +13551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
+  battlePrefab: {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
 --- !u!4 &1811441736
 Transform:
   m_ObjectHideFlags: 0

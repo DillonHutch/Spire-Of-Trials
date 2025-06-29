@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a394c8b187ea58439779faa6d1f87f6, type: 3}
+  m_Name: skeleton
+  m_EditorClassIdentifier: 
+  roundNumber: 1
+  waveType: 0
+  bossPrefab: {fileID: 0}
+  bossOffset: {x: 0, y: 0, z: 0}
+  regularSpawns:
+  - prefab: {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
+    spawnChance: 0.5
+    validPositions: 000000000100000002000000
