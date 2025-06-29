@@ -11,11 +11,46 @@ public class QuestManager : MonoBehaviour
         questMap = CreateQuestMap();
 
         Quest quest = GetQuestById("CollectCoinsQuest");
-        Debug.Log(quest.info.displayName);
-        Debug.Log(quest.info.levelRequirments);
-        Debug.Log(quest.state);
-        Debug.Log(quest.CurrentStepExists());
 
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.StartListening<string>("startQuest", StartQuest);
+        EventManager.Instance.StartListening<string>("advanceQuest", AdvanceQuest);
+        EventManager.Instance.StartListening<string>("finishQuest", FinishQuest);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.StopListening<string>("startQuest", StartQuest);
+        EventManager.Instance.StopListening<string>("advanceQuest", AdvanceQuest);
+        EventManager.Instance.StopListening<string>("finishQuest", FinishQuest);
+    }
+
+
+    private void Start()
+    {
+        foreach(Quest quest in questMap.Values)
+        {
+            EventManager.Instance.TriggerEvent("questStateChange", quest);
+        }
+    }
+
+
+    private void StartQuest(string id)
+    {
+        Debug.Log("Start Quest: " + id);
+    }
+
+    private void AdvanceQuest(string id)
+    {
+        Debug.Log("Advance Quest: " + id);
+    }
+
+    private void FinishQuest(string id)
+    {
+        Debug.Log("Finish Quest: " + id);
     }
 
 
