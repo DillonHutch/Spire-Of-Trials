@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d834a7adf94a4d74ab08adb55a5a7eb4, type: 3}
+  m_Name: Potion of Healing
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Potion of Healing
+  <Description>k__BackingField: the stuff for ya bones
+  <Sprite>k__BackingField: {fileID: -1088339292, guid: e648136d157ae8549b229b2c2d017d04, type: 3}
+  <DestroyOnUse>k__BackingField: 1
+  <IsCombatItem>k__BackingField: 1
+  <HealthModifier>k__BackingField: 5
