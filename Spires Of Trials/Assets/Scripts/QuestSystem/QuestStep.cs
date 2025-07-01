@@ -35,9 +35,11 @@ public abstract class QuestStep : MonoBehaviour
 
     }
 
-    protected void ChangeState(string newState)
+    protected void ChangeState(string newState, string newStatus)
     {
-        EventManager.Instance.TriggerEvent("questStepStateChange", (questId, stepIndex, new QuestStepState(newState)));
+        EventManager.Instance.TriggerEvent("questStepStateChange", (questId
+            , stepIndex
+            , new QuestStepState(newState, newStatus)));
     }
 
     protected abstract void SetQuestStepState(string state);

@@ -89,6 +89,7 @@ public class Quest
         if(stepIndex < questStepStates.Length)
         {
             questStepStates[stepIndex].state = questStepState.state;
+            questStepStates[stepIndex].status = questStepState.status;  
         }
         else
         {
@@ -100,6 +101,41 @@ public class Quest
     public QuestData GetQuestData()
     {
         return new QuestData(state, currentQuestStepIndex, questStepStates);
+    }
+
+    public string GetFullStatusText()
+    {
+
+        string fullStatus = "";
+
+        if(state == QuestState.REQUIREMENTS_NOT_MET)
+        {
+            fullStatus = "Requirments are not yet met to start this quest.";
+        }
+        else if(state == QuestState.CAN_START)
+        {
+            fullStatus = "This quest can be started!";
+        }
+        else
+        {
+            for(int i = 0; i < currentQuestStepIndex; i++)
+            {
+                fullStatus += "<s>" + questStepStates[i].status + "</s>\n";
+            }
+
+            if (CurrentStepExists())
+            {
+                fullStatus += questStepStates[currentQuestStepIndex].status;
+            }
+
+            if(state == QuestState.FINSIHED)
+            {
+                fullStatus += "The quest has been completed!";
+            }
+        }
+
+        return fullStatus;
+
     }
 
 }

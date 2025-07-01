@@ -8,6 +8,9 @@ using UnityEngine;
 public class QuestPoint : MonoBehaviour
 {
 
+    [Header("Dialogue (optional)")]
+    [SerializeField] private string dialogueKnotName;
+
     [Header("Quest")]
     [SerializeField] private QuestInfoSO questInfoForPoint;
 
@@ -49,18 +52,22 @@ public class QuestPoint : MonoBehaviour
                 return;
             }
 
-            if(currentQuestState.Equals(QuestState.CAN_START) && startpoint)
+            if (!dialogueKnotName.Equals(""))
             {
-                EventManager.Instance.TriggerEvent("startQuest", questId);
+                EventManager.Instance.TriggerEvent("enterDialogue", dialogueKnotName);
             }
-            else if(currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+            else
             {
-                EventManager.Instance.TriggerEvent("finishQuest", questId);
+                if (currentQuestState.Equals(QuestState.CAN_START) && startpoint)
+                {
+                    EventManager.Instance.TriggerEvent("startQuest", questId);
+                }
+                else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+                {
+                    EventManager.Instance.TriggerEvent("finishQuest", questId);
+                }
             }
-
         }
-
-
     }
 
     private void Update()

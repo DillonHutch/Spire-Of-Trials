@@ -10,6 +10,11 @@ public class CollectCoinsQuestStep : QuestStep
 
     private int coinsToComplete = 5;
 
+    private void Start()
+    {
+        UpdateState();
+    }
+
     private void OnEnable()
     {
         EventManager.Instance.StartListening("coinCollected", CoinCollected);
@@ -43,7 +48,8 @@ public class CollectCoinsQuestStep : QuestStep
     {
 
         string state = coinsCollected.ToString();
-        ChangeState(state);
+        string status = "Collected " + coinsCollected + " / " + coinsToComplete + " coins.";
+        ChangeState(state, status);
 
     }
 
