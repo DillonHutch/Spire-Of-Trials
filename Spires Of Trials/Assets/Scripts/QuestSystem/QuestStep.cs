@@ -7,6 +7,20 @@ public abstract class QuestStep : MonoBehaviour
 
     private bool isFinished = false;
 
+    private string questId;
+
+    private int stepIndex;
+
+    public void InitializeQuestStep(string questId, int stepIndex, string questSteptState)
+    {
+        this.questId = questId;
+        this.stepIndex = stepIndex;
+        if(questSteptState != null && questSteptState != "")
+        {
+            SetQuestStepState(questSteptState);
+        }
+    }
+
     protected void FinishQuestStep()
     {
 
@@ -14,11 +28,18 @@ public abstract class QuestStep : MonoBehaviour
         {
             isFinished = true;
 
-
+            EventManager.Instance.TriggerEvent("advanceQuest", questId);
             Destroy(this.gameObject);
         }
 
 
     }
+
+    protected void ChangeState(string newState)
+    {
+        EventManager.Instance.TriggerEvent("questStepStateChange", (questId, stepIndex, new QuestStepState(newState)));
+    }
+
+    protected abstract void SetQuestStepState(string state);
 
 }

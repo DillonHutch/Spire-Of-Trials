@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db137a07d1b89ed409be6a9d50344b47, type: 3}
   m_Name: CollectCoinsQuest
   m_EditorClassIdentifier: 
-  <id>k__BackingField: 
-  displayName: 
+  <id>k__BackingField: CollectCoinsQuest
+  displayName: Collect the Coins!
   levelRequirments: 0
   questPrerequisites: []
-  questStepPrefabs: []
-  goldReward: 0
-  experienceReward: 0
+  questStepPrefabs:
+  - {fileID: 2576054883008320828, guid: 8bff91ba4db3fb74aa48208ebbf5b7cd, type: 3}
+  goldReward: 50
+  experienceReward: 250
