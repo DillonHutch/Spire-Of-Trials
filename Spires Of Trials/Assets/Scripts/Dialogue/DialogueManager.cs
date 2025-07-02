@@ -7,61 +7,27 @@ using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEditor.Rendering;
 
 
 
 public class DialogueManager : MonoBehaviour
 {
 
-    [Header("Params")]
-    [SerializeField] private float typingSpeed = 0.04f;
+    [Header("Ink Story")]
 
-    [SerializeField] private GameObject continueIcon;
+    [SerializeField] private TextAsset inkJson;
 
-    [Header("Globals Ink File")]
+    private Story story;
 
-    [SerializeField] private TextAsset loadGlobalsJSON;
+    private int currentChoiceIndex = -1;
 
-    [Header("Audio")]
+    private bool dialoguePlaying = false;
 
-    [SerializeField] private DialogueAudioInfoSO defaultAudioInfo;
+    private InkExternalFunctions inkExternalFunctions;
 
-    [SerializeField] private bool makePredictable;
+    private InkDialogueVariables inkDialogueVariables;
 
-    [SerializeField] private DialogueAudioInfoSO[] audioInfos;
-    private Dictionary<string, DialogueAudioInfoSO> audioInfosDictionary;
-
-    private DialogueAudioInfoSO currentAudioInfo;
-
-
-
-
-    private static DialogueManager instance;
-
-
-    [Header("Dialogue UI")]
-    [SerializeField] private GameObject dialoguePanel;
-    [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private TextMeshProUGUI displayNameText;
-    [SerializeField] private GameObject portraitFrame;
-    [SerializeField] private Animator portraitAnimator;
-
-    
-
-
-    private Animator layoutAnimator;
-
-    private Story currentStory;
-
-    [Header("Choices UI")]
-    [SerializeField] private GameObject[] choices;
-    private TextMeshProUGUI[] choicesText;
-
-
-    public bool dialogueIsPlaying { get; private set; }
-
-
-    private Coroutine displayLineCoroutine;
 
     private const string SPEAKER_TAG = "speaker";
 
@@ -69,301 +35,210 @@ public class DialogueManager : MonoBehaviour
 
     private const string LAYOUT_TAG = "layout";
 
-    private const string OBJECT_TAG = "object";
-
     private const string AUDIO_TAG = "audio";
 
-    private DialogueVariables dialogueVariables;
 
+    private const string OBJECT_TAG = "object";
+
+
+
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject dialoguePanel;
+    //[SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI displayNameText;
+    [SerializeField] private GameObject portraitFrame;
+    [SerializeField] private Animator portraitAnimator;
+
+
+
+
+
+    private Animator layoutAnimator;
 
     private bool canContinueToNextLine = false;
 
     private void Awake()
     {
+        story = new Story(inkJson.text);
 
-        instance = this;
+        inkExternalFunctions = new InkExternalFunctions();
 
-        if (instance == null)
-        {
-            Debug.LogWarning("Found multiple Dialouge Managers");
-        }
-        
+        inkExternalFunctions.Bind(story);
 
-        dialogueVariables = new DialogueVariables(loadGlobalsJSON);    
-
-        currentAudioInfo = defaultAudioInfo;
-
-    }
-
-    public static DialogueManager GetInstance()
-    {
-        return instance;
+        inkDialogueVariables = new InkDialogueVariables(story);
     }
 
     private void Start()
     {
-        dialogueIsPlaying = false;
-        dialoguePanel.SetActive(false);
-
-
         layoutAnimator = dialoguePanel.GetComponent<Animator>();
+    }
 
-        choicesText = new TextMeshProUGUI[choices.Length];
-        int index = 0;
-        foreach(GameObject choice in choices)
-        {
-            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-            index++;
-        }
-
-        InitializeAudioInfoDictionary();
+    private void OnDestroy()
+    {
+        inkExternalFunctions.Unbind(story);
     }
 
 
-    private void InitializeAudioInfoDictionary()
+    private void OnEnable()
     {
-        audioInfosDictionary = new Dictionary<string, DialogueAudioInfoSO>();
-        audioInfosDictionary.Add(defaultAudioInfo.id, defaultAudioInfo);
-        foreach(DialogueAudioInfoSO audioInfo in audioInfos)
-        {
-            audioInfosDictionary.Add(audioInfo.id, audioInfo);
-        }
+        EventManager.Instance.StartListening<string>("enterDialogue", EnterDialogue);
+        EventManager.Instance.StartListening<InputEventContext>("submitPressed", SubmitPressed);
+        EventManager.Instance.StartListening<int>("updateChoiceIndex", UpdateChoiceIndex);
+        EventManager.Instance.StartListening<(string, Ink.Runtime.Object)>(
+                                                              "updateInkDialogueVariable",
+                                                              data => UpdateInkDialogueVariable(data.Item1, data.Item2)
+                                                            );
+        EventManager.Instance.StartListening<Quest>("questStateChange", QuestStateChange);
+
+        EventManager.Instance.StartListening("dialogueLineFinishedTyping", OnLineFinishedTyping);
     }
 
-    private void SetCurrentAudioInfo(string id)
+    private void OnDisable()
     {
-        DialogueAudioInfoSO audioInfo = null;
-        audioInfosDictionary.TryGetValue(id, out audioInfo);
-        if(audioInfo != null)
+        EventManager.Instance.StopListening<string>("enterDialogue", EnterDialogue);
+        EventManager.Instance.StopListening<InputEventContext>("submitPressed", SubmitPressed);
+        EventManager.Instance.StopListening<int>("updateChoiceIndex", UpdateChoiceIndex);
+        EventManager.Instance.StopListening<(string, Ink.Runtime.Object)>(
+                                                      "updateInkDialogueVariable",
+                                                      data => UpdateInkDialogueVariable(data.Item1, data.Item2)
+                                                    );
+        EventManager.Instance.StopListening<Quest>("questStateChange", QuestStateChange);
+
+        EventManager.Instance.StopListening("dialogueLineFinishedTyping", OnLineFinishedTyping);
+    }
+
+    private void QuestStateChange(Quest quest)
+    {
+            EventManager.Instance.TriggerEvent(
+                  "updateInkDialogueVariable",
+                  (quest.info.id + "State", (Ink.Runtime.Object)new StringValue(quest.state.ToString()))
+                            );
+    }
+
+    private void UpdateInkDialogueVariable(string name, Ink.Runtime.Object value)
+    {
+        inkDialogueVariables.UpdateVariableState(name, value);
+       
+    }
+
+    private void UpdateChoiceIndex(int choiceIndex)
+    {
+        this.currentChoiceIndex = choiceIndex;
+    }
+
+
+
+    private void SubmitPressed(InputEventContext inputeventContext)
+    {
+
+        if (!inputeventContext.Equals(InputEventContext.DIALOGUE)) return;
+
+
+        if (!canContinueToNextLine)
+            return;
+
+        canContinueToNextLine = false;
+        ContinueOrExitStory();
+    }
+
+
+
+    private void EnterDialogue(string knotName)
+    {
+
+        if (dialoguePlaying)
         {
-            this.currentAudioInfo = audioInfo;
+            return;
+        }
+        dialoguePlaying = true;
+
+        EventManager.Instance.TriggerEvent("dialogueStarted");
+
+        EventManager.Instance.TriggerEvent("StopPlayerMovement");
+
+        EventManager.Instance.ChangeInputEventContext(InputEventContext.DIALOGUE);
+
+        if (!knotName.Equals(""))
+        {
+            story.ChoosePathString(knotName);
         }
         else
         {
-            Debug.LogWarning("Failed to find audio info for id: " + id);
-        }
-    }
-
-
-    private void Update()
-    {
-        if (!dialogueIsPlaying)
-        {
-            return;
+            Debug.LogWarning("knot name was the empty string when entering dialogue.");
         }
 
-        if (currentStory.currentChoices.Count == 0 && canContinueToNextLine && Input.GetKeyDown(KeyCode.E))
-        {
-            ContinueStory();
-        }
-
-    }
-
-    public void EnterDialogueMode(TextAsset inkJSON)
-    {
-        currentStory = new Story(inkJSON.text);
-        dialogueIsPlaying = true;
-        dialoguePanel.SetActive(true);
-
-
-        dialogueVariables.StartListening(currentStory);
-
+        inkDialogueVariables.SyncVariablesAndStartListening(story);
 
         displayNameText.text = "???";
-        portraitAnimator.Play("default");
+        portraitAnimator.Play("Default");
         layoutAnimator.Play("right");
-
-        ContinueStory();
-
-    }
-
-    private IEnumerator ExitDialogueMode()
-    {
-        yield return new WaitForSeconds(0.2f);
-
-        dialogueVariables.StopListening(currentStory);
-
-        dialogueIsPlaying = false;
-        dialoguePanel.SetActive(false);
-        dialogueText.text = "";
-
-
-        SetCurrentAudioInfo(defaultAudioInfo.id);
-    }
-
-    private void ContinueStory()
-    {
-        if (!currentStory.canContinue)
-        {
-            StartCoroutine(ExitDialogueMode());
-            return;
-        }
-
-        // 1) stop any existing coroutine
-        if (displayLineCoroutine != null)
-            StopCoroutine(displayLineCoroutine);
-
-        // 2) grab the next line
-        string line = currentStory.Continue();
-
-        // 3) apply speaker/portrait/layout/object tags *before* rendering
-        HandleTags(currentStory.currentTags);
-
-        // 4) now start typing it out
-        displayLineCoroutine = StartCoroutine(DisplayLine(line));
-    }
-
-
-
-    private IEnumerator DisplayLine(string line)
-    {
-
-
-        // apply tags right *before* any text goes up
-        HandleTags(currentStory.currentTags);
-
-        dialogueText.text = line;
-        dialogueText.maxVisibleCharacters = 0;
-        continueIcon.SetActive(false);
-        HideChoices();
-
-
-        canContinueToNextLine = false;
-
-        bool isAddingRichTextTag = false;
-
-
-        foreach(char letter in line.ToCharArray())
-        {
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                dialogueText.maxVisibleCharacters = line.Length;
-                break;
-            }
-
-            if(letter == '<' || isAddingRichTextTag)
-            {
-                isAddingRichTextTag = true;
-                //dialogueText.text += letter;
-                if(letter == '>')
-                {
-                    isAddingRichTextTag = false;
-                }
-            }
-            else
-            {
-
-                PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
-                dialogueText.maxVisibleCharacters++;               
-                yield return new WaitForSeconds(typingSpeed);
-            }
-
-
-
-        }
-
-
-        List<Choice> currentChoices = currentStory.currentChoices;
-
-        if (currentChoices.Count == 0)
-        {
-            continueIcon.SetActive(true);
-        }
-
+        portraitFrame.gameObject.SetActive(true);
         
-        DisplayChoices();
 
-        canContinueToNextLine = true;
+
+
+        ContinueOrExitStory();
+
+
+
+
     }
 
-
-    private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
+    private void ContinueOrExitStory()
     {
 
-        EventReference[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
-        int frequencyLevel = currentAudioInfo.frequencyLevel;
-        float minPitch = currentAudioInfo.minPitch;
-        float maxPitch = currentAudioInfo.maxPitch;
-        bool stopAudioSource = currentAudioInfo.stopAudioSource;
-
-
-
-        if (currentDisplayedCharacterCount % frequencyLevel == 0)
+        if(story.currentChoices.Count > 0 && currentChoiceIndex != -1)
         {
+            story.ChooseChoiceIndex(currentChoiceIndex);
 
-            int randomIndex = Random.Range(0, dialogueTypingSoundClips.Length);
-
-     
-            EventInstance beepInstance = RuntimeManager.CreateInstance(dialogueTypingSoundClips[randomIndex]);
+            currentChoiceIndex = -1;
+        }
 
 
-            if (stopAudioSource)
+        if (story.canContinue)
+        {
+            string dialogueLine = story.Continue();
+            HandleTags(story.currentTags);
+
+            while (IsLineBlank(dialogueLine) && story.canContinue)
             {
-                beepInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                dialogueLine = story.Continue();
             }
 
-            if(makePredictable)
+            if(IsLineBlank(dialogueLine) && !story.canContinue)
             {
-                int hashCode = currentCharacter.GetHashCode();
-
-                int predictableIndex = hashCode % dialogueTypingSoundClips.Length;
-                
-
-                int minPitchInt = (int)(minPitch * 100);
-                int maxPitchInt = (int)(maxPitch * 100);
-                int pitchRangeInt = maxPitchInt - minPitchInt;
-
-
-                if(pitchRangeInt != 0)
-                {
-                    int predictablePitchInt = (hashCode % pitchRangeInt) + minPitchInt;
-                    float predictablePitch = predictablePitchInt / 100f;
-                    beepInstance.setPitch(predictablePitch);
-                }
-                else
-                {
-                    beepInstance.setPitch(minPitch);
-                }
-
+                ExitDialogue();
             }
-
             else
             {
 
-                
-               // beepInstance.setPitch(Random.Range(minPitch, maxPitch));
+                canContinueToNextLine = false;
+                EventManager.Instance.TriggerEvent("displayDialogue", (dialogueLine, story.currentChoices));
+            }
 
             
-            }
-            beepInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-            beepInstance.start();
-            beepInstance.release();
+
 
         }
-    }
-
-    private void HideChoices()
-    {
-        foreach(GameObject choiceButton in choices)
+        else if(story.currentChoices.Count == 0)
         {
-            choiceButton.SetActive(false);
+            ExitDialogue();
         }
     }
 
-
+   
 
     private void HandleTags(List<string> currentTags)
     {
         foreach (string tag in currentTags)
         {
             string[] splitTag = tag.Split(':');
-            if(splitTag.Length != 2)
+            if (splitTag.Length != 2)
             {
                 Debug.LogError("Tag could not be appropriately parsed: " + tag);
             }
 
-            string tagkey  = splitTag[0].Trim();
+            string tagkey = splitTag[0].Trim();
             string tagvalue = splitTag[1].Trim();
 
 
@@ -379,13 +254,13 @@ public class DialogueManager : MonoBehaviour
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagvalue);
                     break;
+                case AUDIO_TAG:
+                    EventManager.Instance.TriggerEvent("setDialogueAudio", tagvalue);
+                    break;
                 case OBJECT_TAG:
                     bool isObject;
-                    if(tagvalue == "true") { isObject = false; } else { isObject = true; }
+                    if (tagvalue == "true") { isObject = false; } else { isObject = true; }
                     portraitFrame.SetActive(isObject);
-                    break;
-                case AUDIO_TAG:
-                    SetCurrentAudioInfo(tagvalue);
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
@@ -394,63 +269,33 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void DisplayChoices()
+    private void ExitDialogue()
     {
+       
+        
 
-        List<Choice> currentChoices = currentStory.currentChoices;
+        dialoguePlaying = false;
 
-        if(currentChoices.Count > choices.Length)
-        {
-            Debug.LogError("more choices were given then the UI can support. Number of choices given: " + currentChoices.Count);
-        }
+        EventManager.Instance.TriggerEvent("dialogueFinished");
 
-        int index = 0;
+        EventManager.Instance.TriggerEvent("StartPlayerMovement");
 
-        foreach (Choice choice in currentChoices)
-        {
-            choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
-            index++;
-        }
+        EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
 
+        inkDialogueVariables.StopListening(story);
 
-        for(int i = index; i < choices.Length; i++)
-        {
-            choices[i].gameObject.SetActive(false);
-        }
-
-       StartCoroutine(SelectFirstChoice());
-
+        story.ResetState();
     }
 
 
-    private IEnumerator SelectFirstChoice()
+    private bool IsLineBlank(string dialogueLine)
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        yield return new WaitForEndOfFrame();
-        EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+        return dialogueLine.Trim().Equals("") || dialogueLine.Trim().Equals("\n");
     }
 
-    public void MakeChoice(int choiceIndex)
+    public void OnLineFinishedTyping()
     {
-
-        if(canContinueToNextLine)
-        {
-            currentStory.ChooseChoiceIndex(choiceIndex);
-            ContinueStory();
-        }      
+        canContinueToNextLine = true;
     }
-
-    public Ink.Runtime.Object GetVariableState(string variableName)
-    {
-        Ink.Runtime.Object variableValue = null;
-        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
-        if(variableValue != null)
-        {
-            Debug.LogWarning("Ink Variable was found to be null: " + variableName);
-        }
-        return variableValue;
-    }
-
 
 }
