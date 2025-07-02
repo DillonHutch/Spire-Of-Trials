@@ -14,6 +14,14 @@ public class DialoguePanelUI : MonoBehaviour
 
     [SerializeField] private DialogueChoiceButton[] choiceButtons;
 
+
+    [Header("Type-writer Settings")]
+    [SerializeField] private float typingSpeed = 0.04f;
+    [SerializeField] private GameObject continueIcon;      // optional little arrow
+    private Coroutine typingCoroutine;
+
+  
+
     private void Awake()
     {
         contentParent.SetActive(false);
@@ -54,48 +62,92 @@ public class DialoguePanelUI : MonoBehaviour
 
     private void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices)
     {
-        dialogueText.text = dialogueLine;
+        // stop any previous typing
+        if (typingCoroutine != null)
+            StopCoroutine(typingCoroutine);
+
+        typingCoroutine = StartCoroutine(TypeDialogue(dialogueLine, dialogueChoices));
+    }
 
 
+    private IEnumerator TypeDialogue(string line, List<Choice> dialogueChoices)
+    {
+        // prepare the text
+        dialogueText.text = line;
+        dialogueText.maxVisibleCharacters = 0;
+        continueIcon.SetActive(false);
+        HideAllChoices();
 
-        if (dialogueChoices.Count > choiceButtons.Length)
+        bool isAddingRichTextTag = false;
+        int totalVisible = 0;
+
+        foreach (char c in line)
         {
-            Debug.LogError("More dialogue choices (" +
-                dialogueChoices.Count + ") came through than are supported ("
-                + choiceButtons.Length + ").");
+            //if (Input.GetKeyDown(KeyCode.E))
+            //{
+            //    dialogueText.maxVisibleCharacters = line.Length;
+            //    EventManager.Instance.TriggerEvent("dialogueLineFinishedTyping");
+            //    break;
+            //}
 
-
+            if (c == '<' || isAddingRichTextTag)
+            {
+                isAddingRichTextTag = true;
+                if (c == '>')
+                    isAddingRichTextTag = false;
+            }
+            else
+            {
+                dialogueText.maxVisibleCharacters = ++totalVisible;
+                yield return new WaitForSeconds(typingSpeed);
+            }
         }
 
-            foreach(DialogueChoiceButton choiceButton in choiceButtons)
-            {
-                choiceButton.gameObject.SetActive(false);
-            }
+        // all text is now visible
+        dialogueText.maxVisibleCharacters = line.Length;
 
+        // only show the continue-arrow if there are no choices
+        if (dialogueChoices.Count == 0)
+            continueIcon.SetActive(true);
+        else
+            continueIcon.SetActive(false);
 
-            int choiceButtonIndex = dialogueChoices.Count - 1;
-            for(int inkChoiceIndex = 0; inkChoiceIndex < dialogueChoices.Count; inkChoiceIndex++)
-            {
-                Choice dialogueChoice = dialogueChoices[inkChoiceIndex];
-                DialogueChoiceButton choiceButton = choiceButtons[inkChoiceIndex];
+        // now show choices (if any)
+        ShowChoices(dialogueChoices);
 
-                choiceButton.gameObject.SetActive(true);    
-                choiceButton.SetChoiceText(dialogueChoice.text);
-                choiceButton.SetChoiceIndex(inkChoiceIndex);
+        EventManager.Instance.TriggerEvent("dialogueLineFinishedTyping");
 
-                if(inkChoiceIndex == 0)
-                {
-                    choiceButton.SelectButton();
-                    EventManager.Instance.TriggerEvent("updateChoiceIndex", 0);
-                }
-
-
-                
-            }
-
-
-        
+        typingCoroutine = null;
     }
+
+    private void HideAllChoices()
+    {
+        foreach (var btn in choiceButtons)
+            btn.gameObject.SetActive(false);
+    }
+
+    private void ShowChoices(List<Choice> dialogueChoices)
+    {
+        if (dialogueChoices.Count > choiceButtons.Length)
+            Debug.LogError($"Too many choices: {dialogueChoices.Count}");
+
+        for (int i = 0; i < dialogueChoices.Count; i++)
+        {
+            var btn = choiceButtons[i];
+            btn.gameObject.SetActive(true);
+            btn.SetChoiceText(dialogueChoices[i].text);
+            btn.SetChoiceIndex(i);
+
+            if (i == 0)
+            {
+                btn.SelectButton();
+                EventManager.Instance.TriggerEvent("updateChoiceIndex", 0);
+            }
+        }
+    }
+
+
+
 
     private void ResetPanel()
     {

@@ -1,4 +1,4 @@
-=== collectCoinsStart ===
+=== collectCoinsStart ===  
 {CollectCoinsQuestState :
     - "REQUIREMENTS_NOT_MET": -> requirementsNotMet
     - "CAN_START": -> canStart
@@ -8,12 +8,14 @@
     - else: -> END
     }
     
+
+    
  = requirementsNotMet
  Come Back when you are a higher level!
  -> END
  
  = canStart
-Will you collect 5 coins and bring them to my friend over there?
+Will you collect 5 coins and bring them to my friend over there? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #object:false
 
 * [Yes]
     ~ StartQuest("CollectCoinsQuest")
