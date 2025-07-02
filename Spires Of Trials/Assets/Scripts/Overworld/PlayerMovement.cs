@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
 
+    private Animator anim;
+
     [Tooltip("Toggled by your BattleSceneController or dialogue system")]
     public bool canMove = true;
 
@@ -20,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         wasCanMove = canMove;
         inputLocked = false;
+        anim = GetComponent<Animator>();
     }
 
     void OnEnable()
@@ -69,6 +72,9 @@ public class PlayerMovement : MonoBehaviour
         float mx = canMove ? Input.GetAxisRaw("Horizontal") : 0f;
         float my = canMove ? Input.GetAxisRaw("Vertical") : 0f;
         movement = new Vector2(mx, my).normalized;
+
+        anim.SetFloat("MoveX", movement.x);
+        anim.SetFloat("MoveY", movement.y);
     }
 
     void FixedUpdate()

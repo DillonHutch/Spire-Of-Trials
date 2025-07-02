@@ -180,10 +180,11 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if (roundCounter == 5)
+        if (roundCounter == 2)
         {
             roundCounter = 0;
             RoundManager.ROUND_NUMBER = roundCounter;
+            EventManager.Instance.TriggerEvent("killEnemies");
             battleController.EndBattle();
             AudioManager.instance.SetMusic(MusicEnum.Title);
 

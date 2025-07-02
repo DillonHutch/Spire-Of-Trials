@@ -142,7 +142,7 @@ public class QuestManager : MonoBehaviour
 
     private void ClaimRewards(Quest quest)
     {
-        EventManager.Instance.TriggerEvent("takeDamageEvent", 50);
+        EventManager.Instance.TriggerEvent("takeDamageEvent", quest.info.timeTaken);
         Debug.Log("Quest Done");
     }
 

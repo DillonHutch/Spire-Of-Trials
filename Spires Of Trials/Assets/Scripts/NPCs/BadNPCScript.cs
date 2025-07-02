@@ -35,6 +35,7 @@ public class BadNPCScript : MonoBehaviour
         }
 
         battleController.objectsToDisable.Remove(gameObject);
+        
         Destroy(gameObject);
     }
 

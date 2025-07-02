@@ -21,6 +21,9 @@ public abstract class QuestStep : MonoBehaviour
         }
     }
 
+
+
+
     protected void FinishQuestStep()
     {
 

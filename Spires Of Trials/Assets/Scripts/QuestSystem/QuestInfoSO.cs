@@ -28,6 +28,8 @@ public class QuestInfoSO : ScriptableObject
 
     public int experienceReward;
 
+    public int timeTaken;
+
     private void OnValidate()
     {
         #if UNITY_EDITOR

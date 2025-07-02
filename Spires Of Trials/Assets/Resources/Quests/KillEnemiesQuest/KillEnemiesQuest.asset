@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db137a07d1b89ed409be6a9d50344b47, type: 3}
+  m_Name: KillEnemiesQuest
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: KillEnemiesQuest
+  displayName: Kill All Enemies!
+  levelRequirments: 0
+  questPrerequisites:
+  - {fileID: 11400000, guid: aef56556bd2e2244292d9388ada66205, type: 2}
+  questStepPrefabs: []
+  goldReward: 200
+  experienceReward: 1000
+  timeTaken: 20

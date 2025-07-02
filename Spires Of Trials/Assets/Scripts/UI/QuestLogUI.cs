@@ -113,7 +113,7 @@ public class QuestLogUI : MonoBehaviour
             questRequirementsText.text += prerequisiteQuestInfo.displayName + "\n";
         }
 
-        goldRewardsText.text = quest.info.goldReward + " Gold";
+        goldRewardsText.text = quest.info.timeTaken + " seconds of TIME";
         experienceRewardsText.text = quest.info.experienceReward + " XP";
     }
 

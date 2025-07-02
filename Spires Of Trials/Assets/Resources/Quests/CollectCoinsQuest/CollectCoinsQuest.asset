@@ -20,3 +20,4 @@ MonoBehaviour:
   - {fileID: 2576054883008320828, guid: 8bff91ba4db3fb74aa48208ebbf5b7cd, type: 3}
   goldReward: 50
   experienceReward: 250
+  timeTaken: 50
