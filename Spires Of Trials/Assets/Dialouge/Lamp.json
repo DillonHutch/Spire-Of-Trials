@@ -1,1 +1,1 @@
-﻿{"inkVersion":21,"root":[[["done",{"#f":5,"#n":"g-0"}],null],"done",{"lamp":["^(You touch the torch) ","#","^object:true ","/#","#","^portrait:Default","/#","\n","^(It blushes, and touches you back)","\n","end",{"#f":1}],"#f":1}],"listDefs":{}}
+﻿{"inkVersion":21,"root":[[["done",{"#f":5,"#n":"g-0"}],null],"done",{"lamp":["#","^portrait:Default","/#","#","^audio:animalcrossinglow ","/#","#","^object:true","/#","^(You touch the torch)","\n","^(It blushes, and touches you back)","\n","end",{"#f":1}],"#f":1}],"listDefs":{}}
