@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEditor.Rendering;
 
 
 
@@ -27,6 +28,35 @@ public class DialogueManager : MonoBehaviour
 
     private InkDialogueVariables inkDialogueVariables;
 
+
+    private const string SPEAKER_TAG = "speaker";
+
+    private const string PORTRAIT_TAG = "portrait";
+
+    private const string LAYOUT_TAG = "layout";
+
+    private const string AUDIO_TAG = "audio";
+
+
+    private const string OBJECT_TAG = "object";
+
+
+
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject dialoguePanel;
+    //[SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI displayNameText;
+    [SerializeField] private GameObject portraitFrame;
+    [SerializeField] private Animator portraitAnimator;
+
+
+
+
+
+    private Animator layoutAnimator;
+
+    private bool canContinueToNextLine = false;
+
     private void Awake()
     {
         story = new Story(inkJson.text);
@@ -36,6 +66,11 @@ public class DialogueManager : MonoBehaviour
         inkExternalFunctions.Bind(story);
 
         inkDialogueVariables = new InkDialogueVariables(story);
+    }
+
+    private void Start()
+    {
+        layoutAnimator = dialoguePanel.GetComponent<Animator>();
     }
 
     private void OnDestroy()
@@ -54,6 +89,8 @@ public class DialogueManager : MonoBehaviour
                                                               data => UpdateInkDialogueVariable(data.Item1, data.Item2)
                                                             );
         EventManager.Instance.StartListening<Quest>("questStateChange", QuestStateChange);
+
+        EventManager.Instance.StartListening("dialogueLineFinishedTyping", OnLineFinishedTyping);
     }
 
     private void OnDisable()
@@ -66,6 +103,8 @@ public class DialogueManager : MonoBehaviour
                                                       data => UpdateInkDialogueVariable(data.Item1, data.Item2)
                                                     );
         EventManager.Instance.StopListening<Quest>("questStateChange", QuestStateChange);
+
+        EventManager.Instance.StopListening("dialogueLineFinishedTyping", OnLineFinishedTyping);
     }
 
     private void QuestStateChange(Quest quest)
@@ -93,6 +132,12 @@ public class DialogueManager : MonoBehaviour
     {
 
         if (!inputeventContext.Equals(InputEventContext.DIALOGUE)) return;
+
+
+        if (!canContinueToNextLine)
+            return;
+
+        canContinueToNextLine = false;
         ContinueOrExitStory();
     }
 
@@ -124,6 +169,12 @@ public class DialogueManager : MonoBehaviour
 
         inkDialogueVariables.SyncVariablesAndStartListening(story);
 
+        displayNameText.text = "???";
+        portraitAnimator.Play("Default");
+        layoutAnimator.Play("right");
+        portraitFrame.gameObject.SetActive(true);
+        
+
 
 
         ContinueOrExitStory();
@@ -147,7 +198,7 @@ public class DialogueManager : MonoBehaviour
         if (story.canContinue)
         {
             string dialogueLine = story.Continue();
-
+            HandleTags(story.currentTags);
 
             while (IsLineBlank(dialogueLine) && story.canContinue)
             {
@@ -160,12 +211,14 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
+
+                canContinueToNextLine = false;
                 EventManager.Instance.TriggerEvent("displayDialogue", (dialogueLine, story.currentChoices));
             }
 
-   
-
             
+
+
         }
         else if(story.currentChoices.Count == 0)
         {
@@ -173,9 +226,53 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+   
+
+    private void HandleTags(List<string> currentTags)
+    {
+        foreach (string tag in currentTags)
+        {
+            string[] splitTag = tag.Split(':');
+            if (splitTag.Length != 2)
+            {
+                Debug.LogError("Tag could not be appropriately parsed: " + tag);
+            }
+
+            string tagkey = splitTag[0].Trim();
+            string tagvalue = splitTag[1].Trim();
+
+
+
+            switch (tagkey)
+            {
+                case SPEAKER_TAG:
+                    displayNameText.text = tagvalue;
+                    break;
+                case PORTRAIT_TAG:
+                    portraitAnimator.Play(tagvalue);
+                    break;
+                case LAYOUT_TAG:
+                    layoutAnimator.Play(tagvalue);
+                    break;
+                case AUDIO_TAG:
+                    EventManager.Instance.TriggerEvent("setDialogueAudio", tagvalue);
+                    break;
+                case OBJECT_TAG:
+                    bool isObject;
+                    if (tagvalue == "true") { isObject = false; } else { isObject = true; }
+                    portraitFrame.SetActive(isObject);
+                    break;
+                default:
+                    Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
+                    break;
+            }
+        }
+    }
+
     private void ExitDialogue()
     {
        
+        
 
         dialoguePlaying = false;
 
@@ -194,6 +291,11 @@ public class DialogueManager : MonoBehaviour
     private bool IsLineBlank(string dialogueLine)
     {
         return dialogueLine.Trim().Equals("") || dialogueLine.Trim().Equals("\n");
+    }
+
+    public void OnLineFinishedTyping()
+    {
+        canContinueToNextLine = true;
     }
 
 }

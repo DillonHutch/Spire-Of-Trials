@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 4038554030764264363}
   - component: {fileID: 8701567084689185283}
   - component: {fileID: 5104809674648454776}
+  - component: {fileID: 4807468295929246918}
   m_Layer: 0
   m_Name: QuestSkeleton
   m_TagString: Untagged
@@ -175,7 +176,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 0.8
 --- !u!114 &5104809674648454776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,9 +189,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f52528f6123e043b928ed491c852f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueKnotName: 
   questInfoForPoint: {fileID: 11400000, guid: aef56556bd2e2244292d9388ada66205, type: 2}
   startpoint: 0
   finishPoint: 1
+--- !u!61 &4807468295929246918
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798058157483248625}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.15463734, y: -0.027491152}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4982872, y: 0.8075621}
+  m_EdgeRadius: 0
 --- !u!1 &3361023255946163789
 GameObject:
   m_ObjectHideFlags: 0

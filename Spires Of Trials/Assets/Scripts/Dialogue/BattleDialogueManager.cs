@@ -177,6 +177,7 @@ public class BattleDialogueManager : MonoBehaviour
         displayNameText.text = "???";
         portraitAnimator.Play("default");
         layoutAnimator.Play("right");
+        EventManager.Instance.TriggerEvent("setDialogueAudio", defaultAudioInfo.id);
 
         ContinueStory();
 

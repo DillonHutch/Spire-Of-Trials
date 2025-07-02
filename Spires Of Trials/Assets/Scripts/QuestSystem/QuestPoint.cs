@@ -28,8 +28,15 @@ public class QuestPoint : MonoBehaviour
 
     private void Awake()
     {
+        if (questInfoForPoint == null)
+        {
+            return;
+        }
         questId = questInfoForPoint.id;
-        questIcon = GetComponentInChildren<QuestIcon>();    
+     
+        questIcon = GetComponentInChildren<QuestIcon>();
+
+ 
     }
 
     private void OnEnable()
