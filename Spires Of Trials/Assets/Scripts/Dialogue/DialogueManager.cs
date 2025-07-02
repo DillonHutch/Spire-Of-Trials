@@ -49,6 +49,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Animator portraitAnimator;
 
 
+
+
+
     private Animator layoutAnimator;
 
     private bool canContinueToNextLine = false;
@@ -127,7 +130,11 @@ public class DialogueManager : MonoBehaviour
     private void SubmitPressed(InputEventContext inputeventContext)
     {
 
-        if (canContinueToNextLine && !inputeventContext.Equals(InputEventContext.DIALOGUE)) return;
+        if (!inputeventContext.Equals(InputEventContext.DIALOGUE)) return;
+
+
+        if (!canContinueToNextLine)
+            return;
 
         canContinueToNextLine = false;
         ContinueOrExitStory();
@@ -162,8 +169,9 @@ public class DialogueManager : MonoBehaviour
         inkDialogueVariables.SyncVariablesAndStartListening(story);
 
         displayNameText.text = "???";
-        portraitAnimator.Play("default");
+        portraitAnimator.Play("Default");
         layoutAnimator.Play("right");
+        portraitFrame.gameObject.SetActive(true);
 
 
 
@@ -250,7 +258,7 @@ public class DialogueManager : MonoBehaviour
                     portraitFrame.SetActive(isObject);
                     break;
                 case AUDIO_TAG:
-                    //SetCurrentAudioInfo(tagvalue);
+                    EventManager.Instance.TriggerEvent("setDialogueAudio", tagvalue);
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
@@ -262,6 +270,7 @@ public class DialogueManager : MonoBehaviour
     private void ExitDialogue()
     {
        
+        
 
         dialoguePlaying = false;
 
