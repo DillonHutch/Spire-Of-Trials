@@ -112,6 +112,7 @@ public class DialoguePanelUI : MonoBehaviour
 
     private void DialogueStarted()
     {
+
         contentParent.SetActive(true);
     }
 

@@ -1,6 +1,10 @@
 === lamp ===
 
-(You touch the torch) #object:true #portrait:Default
+
+ #portrait:Default 
+#audio:animalcrossinglow #object:true
+
+(You touch the torch) 
 
 (It blushes, and touches you back)
 

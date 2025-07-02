@@ -35,9 +35,10 @@ public class DialogueManager : MonoBehaviour
 
     private const string LAYOUT_TAG = "layout";
 
-    private const string OBJECT_TAG = "object";
-
     private const string AUDIO_TAG = "audio";
+
+
+    private const string OBJECT_TAG = "object";
 
 
 
@@ -172,6 +173,7 @@ public class DialogueManager : MonoBehaviour
         portraitAnimator.Play("Default");
         layoutAnimator.Play("right");
         portraitFrame.gameObject.SetActive(true);
+        
 
 
 
@@ -196,7 +198,7 @@ public class DialogueManager : MonoBehaviour
         if (story.canContinue)
         {
             string dialogueLine = story.Continue();
-
+            HandleTags(story.currentTags);
 
             while (IsLineBlank(dialogueLine) && story.canContinue)
             {
@@ -214,9 +216,9 @@ public class DialogueManager : MonoBehaviour
                 EventManager.Instance.TriggerEvent("displayDialogue", (dialogueLine, story.currentChoices));
             }
 
-            HandleTags(story.currentTags);
-
             
+
+
         }
         else if(story.currentChoices.Count == 0)
         {
@@ -252,13 +254,13 @@ public class DialogueManager : MonoBehaviour
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagvalue);
                     break;
+                case AUDIO_TAG:
+                    EventManager.Instance.TriggerEvent("setDialogueAudio", tagvalue);
+                    break;
                 case OBJECT_TAG:
                     bool isObject;
                     if (tagvalue == "true") { isObject = false; } else { isObject = true; }
                     portraitFrame.SetActive(isObject);
-                    break;
-                case AUDIO_TAG:
-                    EventManager.Instance.TriggerEvent("setDialogueAudio", tagvalue);
                     break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
