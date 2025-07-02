@@ -25,27 +25,27 @@ public class DialougeTrigger : MonoBehaviour
 
     private void Update()
     {
-        if(playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            if(visualCue.tag == "Object")
-            {
-                visualCue.SetActive(false);
-            }
-            else
-            {
-                visualCue.SetActive(true);
-            }
+        //if(playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+        //{
+        //    if(visualCue.tag == "Object")
+        //    {
+        //        visualCue.SetActive(false);
+        //    }
+        //    else
+        //    {
+        //        visualCue.SetActive(true);
+        //    }
                 
             
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-            }
-        }
-        else
-        {
-            visualCue.SetActive(false); 
-        }
+        //    if (Input.GetKeyDown(KeyCode.E))
+        //    {
+        //        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+        //    }
+        //}
+        //else
+        //{
+        //    visualCue.SetActive(false); 
+        //}
     }
 
 

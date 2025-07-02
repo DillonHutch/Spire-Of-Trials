@@ -44,7 +44,7 @@ public class QuestLogButton : MonoBehaviour, ISelectHandler
             case QuestState.CAN_FINISH:
                 buttonText.color = Color.yellow;
                 break;
-            case QuestState.FINSIHED:
+            case QuestState.FINISHED:
                 buttonText.color = Color.green;
                 break;
             default:

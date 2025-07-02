@@ -35,26 +35,27 @@ public class QuestPoint : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.StartListening<Quest>("questStateChange", QuestStateChange);
+        EventManager.Instance.StartListening<InputEventContext>("submitPressed", SubmitPressed);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.StopListening<Quest>("questStateChange", QuestStateChange);
+        EventManager.Instance.StopListening<InputEventContext>("submitPressed", SubmitPressed);
     }
 
-    private void SubmitPressed()
+    private void SubmitPressed(InputEventContext inputEventContext)
     {
 
-        if(Input.GetKeyUp(KeyCode.Z))
-        {
-            if (!playerIsNear)
+       
+            if (!playerIsNear || !inputEventContext.Equals(InputEventContext.DEFAULT))
             {
                 return;
             }
 
             if (!dialogueKnotName.Equals(""))
             {
-                EventManager.Instance.TriggerEvent("enterDialogue", dialogueKnotName);
+                    EventManager.Instance.TriggerEvent("enterDialogue", dialogueKnotName);
             }
             else
             {
@@ -67,12 +68,7 @@ public class QuestPoint : MonoBehaviour
                     EventManager.Instance.TriggerEvent("finishQuest", questId);
                 }
             }
-        }
-    }
-
-    private void Update()
-    {
-        SubmitPressed();
+        
     }
 
 

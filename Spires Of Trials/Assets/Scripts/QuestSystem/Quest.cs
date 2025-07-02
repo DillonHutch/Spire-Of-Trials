@@ -128,7 +128,7 @@ public class Quest
                 fullStatus += questStepStates[currentQuestStepIndex].status;
             }
 
-            if(state == QuestState.FINSIHED)
+            if(state == QuestState.FINISHED)
             {
                 fullStatus += "The quest has been completed!";
             }

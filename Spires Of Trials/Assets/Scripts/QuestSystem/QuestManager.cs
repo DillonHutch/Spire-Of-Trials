@@ -137,7 +137,7 @@ public class QuestManager : MonoBehaviour
     {
         Quest quest = GetQuestById(id);
         ClaimRewards(quest);
-        ChangeQuestState(quest.info.id, QuestState.FINSIHED);
+        ChangeQuestState(quest.info.id, QuestState.FINISHED);
     }
 
     private void ClaimRewards(Quest quest)

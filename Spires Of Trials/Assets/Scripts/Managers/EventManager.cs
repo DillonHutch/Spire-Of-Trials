@@ -142,6 +142,15 @@ public class EventManager : MonoBehaviour
 
     #endregion
 
+
+    public InputEventContext inputEventContext { get; private set; } = InputEventContext.DEFAULT;
+
+
+    public void ChangeInputEventContext(InputEventContext newContext)
+    { 
+        this.inputEventContext = newContext;
+    }
+
     #region TriggerEventMethods
 
     /// <summary>

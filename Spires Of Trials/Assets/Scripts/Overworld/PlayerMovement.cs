@@ -12,9 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Toggled by your BattleSceneController or dialogue system")]
     public bool canMove = true;
 
-    private bool inputLocked;    // swallow held keys until released
-    private bool wasCanMove;     // track canMove changes
-
+    private bool inputLocked;
+    private bool wasCanMove;
 
     void Awake()
     {
@@ -23,33 +22,50 @@ public class PlayerMovement : MonoBehaviour
         inputLocked = false;
     }
 
+    void OnEnable()
+    {
+        // subscribe to your start/stop events
+        EventManager.Instance.StartListening("StartPlayerMovement", StartMovement);
+        EventManager.Instance.StartListening("StopPlayerMovement", StopMovement);
+    }
+
+    void OnDisable()
+    {
+        // unsubscribe when disabled
+        EventManager.Instance.StopListening("StartPlayerMovement", StartMovement);
+        EventManager.Instance.StopListening("StopPlayerMovement", StopMovement);
+    }
+
+    // called when you fire the "StartPlayerMovement" event
+    private void StartMovement()
+    {
+        canMove = true;
+        // re-lock so held keys don’t immediately move
+        inputLocked = true;
+    }
+
+    // called when you fire the "StopPlayerMovement" event
+    private void StopMovement()
+    {
+        canMove = false;
+        // optionally clear velocity here:
+        rb.velocity = Vector2.zero;
+    }
+
     void Update()
     {
-        // 1) When movement just becomes allowed, re-lock input
-        if (canMove && !wasCanMove)
-            inputLocked = true;
+        // (your existing lock/unlock logic)
+        if (canMove && !wasCanMove) inputLocked = true;
         wasCanMove = canMove;
 
-        // 2) If dialogue (or battle) is active, zero out movement
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            movement = Vector2.zero;
-            return;
-        }
-
-        // 3) If we’re still locked, wait for all axes to return to zero
         if (inputLocked)
         {
-            if (Input.GetAxisRaw("Horizontal") == 0f &&
-                Input.GetAxisRaw("Vertical") == 0f)
-            {
+            if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
                 inputLocked = false;
-            }
             movement = Vector2.zero;
             return;
         }
 
-        // 4) Otherwise, sample axes normally (only when canMove)
         float mx = canMove ? Input.GetAxisRaw("Horizontal") : 0f;
         float my = canMove ? Input.GetAxisRaw("Vertical") : 0f;
         movement = new Vector2(mx, my).normalized;
@@ -57,14 +73,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Don’t slide if dialogue is blocking
-        if (DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            rb.velocity = Vector2.zero;
-            return;
-        }
-
-        // Apply the movement vector
         rb.velocity = movement * moveSpeed;
     }
 }

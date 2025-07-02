@@ -34,7 +34,7 @@ public class QuestIcon : MonoBehaviour
             case QuestState.CAN_FINISH:
                 if (finishPoint) { canFinishIcon.SetActive(true); }
                 break;
-            case QuestState.FINSIHED:
+            case QuestState.FINISHED:
                 break;
             default:
                 Debug.LogWarning("Quest State not recognized by switch statement for quest icon: " + newState);
