@@ -32,14 +32,14 @@ public class FollowPathScript : MonoBehaviour
     {
         if(waypointIndex <= waypoints.Length - 1)
         {
-            if (DialogueManager.GetInstance().dialogueIsPlaying)
-            {
-                moveSpeed = 0;
-            }
-            else
-            {
-                moveSpeed = 2f;
-            }
+            //if (DialogueManager.GetInstance().dialogueIsPlaying)
+            //{
+            //    moveSpeed = 0;
+            //}
+            //else
+            //{
+            //    moveSpeed = 2f;
+            //}
 
             transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].transform.position, moveSpeed * Time.deltaTime); 
 
