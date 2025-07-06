@@ -43,7 +43,7 @@ public class Skeleton : EnemyParent
         // e.g. two parry attacks, then a dodge, then repeat
         enemyAttackPattern = new List<EnemyAttackType>
         {
-            EnemyAttackType.Dodge,
+            //EnemyAttackType.Dodge,
             EnemyAttackType.Parry,
         };
     }
