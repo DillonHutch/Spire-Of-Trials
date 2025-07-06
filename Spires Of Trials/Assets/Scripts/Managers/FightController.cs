@@ -13,6 +13,7 @@ public class FightController : MonoBehaviour
 
     // Drag your TimingController (the one with OpenMiniGame()) here
     [SerializeField] private TimingController timingController;
+    [SerializeField] private ArrowMiniGameController arrowMiniGame;
 
     private void Awake()
     {
@@ -64,10 +65,10 @@ public class FightController : MonoBehaviour
         animator.Play("fightButtonClicked");
 
 
-
-        // show/start the mini-game
-        if (timingController != null)
-            miniGamePanel.SetActive(true);
+        if (arrowMiniGame != null)
+        {
+            arrowMiniGame.StartSequence();
+        }
 
     }
 

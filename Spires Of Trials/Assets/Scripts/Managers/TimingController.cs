@@ -7,7 +7,7 @@ public class TimingController : MonoBehaviour
 {
 
     public static TimingController Instance { get; private set; }
-    public bool FightActive { get; private set; } = false;
+    public bool FightActive { get;  set; } = false;
 
     private float timeLeft;
 
