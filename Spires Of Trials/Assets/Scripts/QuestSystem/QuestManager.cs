@@ -87,11 +87,15 @@ public class QuestManager : MonoBehaviour
             meetsRequirments = false;
         }
 
-        foreach(QuestInfoSO prerequisiteQuestInfo in quest.info.questPrerequisites)
+        // check quest prerequisites for completion
+        foreach (QuestInfoSO prerequisiteQuestInfo in quest.info.questPrerequisites)
         {
-            meetsRequirments = false;
-            break;
-
+            if (GetQuestById(prerequisiteQuestInfo.id).state != QuestState.FINISHED)
+            {
+                meetsRequirments = false;
+                // add this break statement here so that we don't continue on to the next quest, since we've proven meetsRequirements to be false at this point.
+                break;
+            }
         }
         return meetsRequirments;
     }

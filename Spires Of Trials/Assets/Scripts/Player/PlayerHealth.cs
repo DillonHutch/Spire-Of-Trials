@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +12,8 @@ public class PlayerHealth : MonoBehaviour
 
     #region Fields
 
+    public static PlayerHealth Instance { get; private set; }
+
     // **Health Properties**
     private int maxHealth = 100; // Maximum health of the player
     private int currentHealth; // Current health of the player, dynamically updated
@@ -22,10 +24,18 @@ public class PlayerHealth : MonoBehaviour
     private float flashDuration = 0.2f; // Duration the player flashes red when damaged
 
 
-    [Header("Screen Flash")]
-    [SerializeField] private Image damageFlashImage; // Drag your DamageFlash panel's Image here
-    [SerializeField] private float flashFadeSpeed = 5f; // How fast the flash fades away
-    private bool isFlashing = false;
+    private int damageTakenThisRound = 0;
+
+
+    public int MaxHealth
+    {
+        get { return maxHealth; }
+    }
+
+    public int CurrentHealth
+    {
+        get { return currentHealth; }
+    }
 
     #endregion
 
@@ -37,11 +47,43 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if (spriteRenderers.Length > 0)
+        if (Instance == null)
         {
-            originalColor = spriteRenderers[0].color; // Store original color from the first sprite in the array
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            // only initialize health once
+            currentHealth = maxHealth;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
+
+    private void Update()
+    {
+        Debug.Log(currentHealth);
+    }
+
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+
+
+        // force the UI to re-sync
+        EventManager.Instance.TriggerEvent(
+            "OnHealthChanged",
+            currentHealth
+        );
+    }
+
 
     /// <summary>
     /// Called when the object is enabled.
@@ -54,6 +96,7 @@ public class PlayerHealth : MonoBehaviour
             // Listen for damage and healing events, ensuring the correct methods are called when triggered
             EventManager.Instance.StartListening<int>("takeDamageEvent", TakeDamage);
             EventManager.Instance.StartListening<int>("healDamageEvent", Heal);
+            EventManager.Instance.StartListening("OnStartFight", ResetRoundDamage);
         }
         else
         {
@@ -71,7 +114,14 @@ public class PlayerHealth : MonoBehaviour
         {
             EventManager.Instance.StopListening<int>("takeDamageEvent", TakeDamage);
             EventManager.Instance.StopListening<int>("healDamageEvent", Heal);
+            EventManager.Instance.StopListening("OnStartFight", ResetRoundDamage);
         }
+    }
+
+
+    private void ResetRoundDamage()
+    {
+        damageTakenThisRound = 0;
     }
 
     /// <summary>
@@ -83,7 +133,8 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth; // Set the player's health to the maximum at the start of the game
 
         // Notify the system that the player's health has been initialized
-        EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
+        if (Instance == this)
+            EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
     }
 
 
@@ -100,6 +151,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (this == null) return; // Prevent execution if the player object has been destroyed
 
+        damageTakenThisRound += damage;
+
         // Reduce the player's health and ensure it doesn't go below 0
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -110,12 +163,7 @@ public class PlayerHealth : MonoBehaviour
             EventManager.Instance.TriggerEvent("OnHealthChanged", currentHealth);
         }
 
-        // Apply visual feedback by flashing red if there are sprite renderers
-        if (spriteRenderers.Length > 0)
-        {
-            StartCoroutine(FlashRed());
-        }
-
+    
         // Check if the player has run out of health
         if (currentHealth <= 0)
         {
@@ -123,53 +171,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Temporarily flashes the player's sprite red to indicate damage taken.
-    /// Returns to the original color after a short delay.
-    /// </summary>
-    /// <returns>IEnumerator for coroutine execution.</returns>
-    private IEnumerator FlashRed()
-    {
-        // Flash player sprites
-        foreach (var sprite in spriteRenderers)
-        {
-            sprite.color = Color.red;
-        }
-
-        // Flash the screen
-        if (damageFlashImage != null)
-        {
-            isFlashing = true;
-            damageFlashImage.color = new Color(1f, 0f, 0f, 0.5f); // Red with 50% opacity
-        }
-
-        yield return new WaitForSeconds(flashDuration);
-
-        // Reset player sprites
-        foreach (var sprite in spriteRenderers)
-        {
-            sprite.color = originalColor;
-        }
-
-        // Begin fading out the screen flash
-        if (damageFlashImage != null)
-        {
-            StartCoroutine(FadeFlash());
-        }
-    }
-
-    private IEnumerator FadeFlash()
-    {
-        while (damageFlashImage.color.a > 0)
-        {
-            Color currentColor = damageFlashImage.color;
-            currentColor.a -= flashFadeSpeed * Time.deltaTime;
-            damageFlashImage.color = currentColor;
-            yield return null;
-        }
-        isFlashing = false;
-    }
-
+    
     /// <summary>
     /// Heals the player by the specified amount and ensures health does not exceed the maximum.
     /// Triggers an event to update the UI.
@@ -204,6 +206,15 @@ public class PlayerHealth : MonoBehaviour
 
         // Load the main menu scene upon death
         SceneManager.LoadScene("DeathScreen");
+    }
+
+
+    /// <summary>
+    /// How much damage the player took during the just‐finished round
+    /// </summary>
+    public int GetDamageTakenThisRound()
+    {
+        return damageTakenThisRound;
     }
 
     #endregion

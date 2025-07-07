@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,49 +36,52 @@ public class FightController : MonoBehaviour
 
     private void OnFightPressed()
     {
-        // play your fight animation
         animator.Play("fightButtonClicked");
-
-
-
-        // show/start the mini-game
         if (timingController != null)
+        {
             miniGamePanel.SetActive(true);
-      
+            timingController.StartCombatTimer();
+        }
     }
 
     private void OnItemPressed()
     {
-        // play your fight animation
         animator.Play("fightButtonClicked");
-
-
-
-        // show/start the mini-game
         if (timingController != null)
+        {
             miniGamePanel.SetActive(true);
-
+            timingController.StartCombatTimer();
+        }
     }
 
     private void OnSkillPressed()
     {
-        // play your fight animation
         animator.Play("fightButtonClicked");
-
-        TimingController.Instance.StartSkillPhase();
         if (arrowMiniGame != null)
         {
             arrowMiniGame.StartSequence();
         }
-
+        if (timingController != null)
+        {
+            timingController.StartCombatTimer();
+        }
     }
 
 
     private void OnRunPressed()
     {
-       battleController.EndBattle();
-
+        EventManager.Instance.TriggerEvent("takeDamageEvent", 50);
+        // wait one frame so listeners still exist
+        StartCoroutine(EndBattleNextFrame());
     }
+
+    private IEnumerator EndBattleNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        battleController.EndBattle();
+    }
+
+   
 
 
 

@@ -33,6 +33,7 @@ TagManager:
   - Key
   - Door
   - Ladder
+  - DamageFlash
   layers:
   - Default
   - TransparentFX

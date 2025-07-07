@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// BattleSceneController.cs
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,14 +11,16 @@ public class BattleSceneController : MonoBehaviour
     [SerializeField] private ScreenFader screenFader;
     [SerializeField] private PlayerMovement playerMovement;
     private string _previousSceneName;
-
     private bool isInBattle;
 
-    private void Awake() => DontDestroyOnLoad(gameObject);
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void StartBattle()
     {
-   
+        
         _previousSceneName = SceneManager.GetActiveScene().name;
         playerMovement.canMove = false;
         isInBattle = true;
@@ -27,13 +30,18 @@ public class BattleSceneController : MonoBehaviour
     private IEnumerator LoadBattleScene()
     {
         yield return StartCoroutine(screenFader.FadeOut());
-        foreach (var obj in objectsToDisable)
-            obj.SetActive(false);
-        var loadOp = SceneManager.LoadSceneAsync(battleSceneName, LoadSceneMode.Additive);
+        for (int i = 0; i < objectsToDisable.Count; i++)
+        {
+            objectsToDisable[i].SetActive(false);
+        }
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(battleSceneName, LoadSceneMode.Additive);
         yield return loadOp;
-        var battleScene = SceneManager.GetSceneByName(battleSceneName);
+        Scene battleScene = SceneManager.GetSceneByName(battleSceneName);
         if (battleScene.IsValid())
+        {
             SceneManager.SetActiveScene(battleScene);
+            TimingController.Instance.ResetCombatTimer();
+        }
         yield return StartCoroutine(screenFader.FadeIn());
     }
 
@@ -45,26 +53,22 @@ public class BattleSceneController : MonoBehaviour
 
     private IEnumerator EndBattleSequence()
     {
-        // 1) Fade out to black
         yield return StartCoroutine(screenFader.FadeOut());
-
-        // 2) Unload the battle scene
         yield return SceneManager.UnloadSceneAsync(battleSceneName);
 
-        // 3) Switch back & re-enable your gameplay objects
-        var original = SceneManager.GetSceneByName(_previousSceneName);
+        Scene original = SceneManager.GetSceneByName(_previousSceneName);
         if (original.IsValid())
+        {
             SceneManager.SetActiveScene(original);
-
-        foreach (var obj in objectsToDisable)
-            obj.SetActive(true);
-
-        // 4) Fade back in
+        }
+        for (int i = 0; i < objectsToDisable.Count; i++)
+        {
+            objectsToDisable[i].SetActive(true);
+        }
         yield return StartCoroutine(screenFader.FadeIn());
-
-        // Finally, allow player movement again
         playerMovement.canMove = true;
+
+        int damage = Mathf.RoundToInt(TimingController.Instance.CombatTimer);
+        EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
     }
-
 }
-

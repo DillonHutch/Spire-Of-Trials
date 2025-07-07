@@ -89,14 +89,31 @@ public class ArrowMiniGameController : MonoBehaviour
     private void Succeed()
     {
         Debug.Log("Arrow mini-game: SUCCESS!");
+
+        // 1) heal any damage from last round (as before)
+        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            int damageToHeal = playerHealth.GetDamageTakenThisRound();
+            if (damageToHeal > 0)
+            {
+                EventManager.Instance.TriggerEvent("healDamageEvent", damageToHeal);
+            }
+        }
+
+        // 2) skip damage at end of this upcoming timer
+        TimingController.Instance.SkipNextDamageForThisRound();
+
         EndSequence();
 
-        TimingController.Instance.StartTimer(defenceTime);
-        EventManager.Instance.TriggerEvent("OnStartFight");
-        animator.Play("closeMenu");
-        TimingController.Instance.FightActive = true;
-
+        // 3) restart the fight timer (still 5s) and re-enter fight
+        //TimingController.Instance.StartTimer(defenceTime);
+        //TimingController.Instance.FightActive = true;
+        //EventManager.Instance.TriggerEvent("OnStartFight");
+        animator.Play("fightEnded");
     }
+
+
 
     private void Fail()
     {
@@ -113,6 +130,7 @@ public class ArrowMiniGameController : MonoBehaviour
     {
         this.isRunning = false;
         this.panel.SetActive(false);
+        TimingController.Instance.StopCombatTimer();
 
         // reset for next time
         for (int i = 0; i < this.arrowSlots.Length; i++)

@@ -40,14 +40,16 @@ public class HealthBar : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        if (EventManager.Instance != null)
-        {
-            EventManager.Instance.StartListening<object>("OnHealthChanged", UpdateHealthBar);
-        }
-        else
-        {
-            Debug.LogError("EventManager instance is null. Ensure it is present in the scene.");
-        }
+        // subscribe
+        EventManager.Instance.StartListening<int>(
+            "OnHealthChanged",
+            UpdateHealthBar
+        );
+
+        // pull in the current values
+        PlayerHealth playerHealth = PlayerHealth.Instance;
+        healthSlider.maxValue = playerHealth.MaxHealth;
+        UpdateHealthBar(playerHealth.CurrentHealth);
     }
 
     /// <summary>
@@ -56,11 +58,14 @@ public class HealthBar : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        if (EventManager.Instance != null)
-        {
-            EventManager.Instance.StopListening<object>("OnHealthChanged", UpdateHealthBar);
-        }
+        EventManager.Instance.StopListening<int>(
+            "OnHealthChanged",
+            UpdateHealthBar
+        );
     }
+
+
+
 
     #endregion
 
@@ -70,19 +75,11 @@ public class HealthBar : MonoBehaviour
     /// This method is triggered by the "OnHealthChanged" event.
     /// </summary>
     /// <param name="health">The current health value, passed as an object.</param>
-    private void UpdateHealthBar(object health)
+    private void UpdateHealthBar(int currentHealth)
     {
-        // Convert the received health object to an integer
-        int currentHealth = (int)health;
-
-        // Update the health slider's value to reflect the new health
         healthSlider.value = currentHealth;
-
-        // Calculate the health percentage (normalized between 0 and 1)
-        float healthPercentage = healthSlider.normalizedValue;
-
-        // Adjust the fill image color based on the current health percentage using a gradient
-        fillImage.color = healthGradient.Evaluate(healthPercentage);
+        float normalized = healthSlider.normalizedValue;
+        fillImage.color = healthGradient.Evaluate(normalized);
     }
 
 

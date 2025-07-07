@@ -53,6 +53,18 @@ public class TimingController : MonoBehaviour
     [SerializeField] private Animator animator;
 
     private Coroutine timerRoutine = null;
+    private Coroutine combatTimerRoutine = null;
+
+
+
+
+    private float lastAwardedDuration;
+
+    // whether to skip the next end-of-round damage
+    private bool skipNextDamage = false;
+
+
+    private float combatTimer = 0f;
 
 
     private bool fightPanelUp = true;
@@ -63,8 +75,36 @@ public class TimingController : MonoBehaviour
     }
 
 
-    private float lastAwardedDuration;
 
+    public float CombatTimer => combatTimer;
+
+    [Header("Combat Timer UI")]
+    [SerializeField] private TextMeshProUGUI combatTimerText;
+
+
+    /// <summary>
+    /// Call this to prevent takeDamageEvent from firing
+    /// at the end of the upcoming fight round.
+    /// </summary>
+    public void SkipNextDamageForThisRound()
+    {
+        skipNextDamage = true;
+    }
+
+    // call this at the very start of the battle
+    public void ResetCombatTimer()
+    {
+        combatTimer = 0f;
+        if (combatTimerText != null)
+            combatTimerText.text = FormatMMSS(combatTimer);
+
+        // make sure the old coroutine is dead
+        if (combatTimerRoutine != null)
+        {
+            StopCoroutine(combatTimerRoutine);
+            combatTimerRoutine = null;
+        }
+    }
 
 
     public bool SkillPhase { get; private set; }
@@ -106,6 +146,41 @@ public class TimingController : MonoBehaviour
         if (timerRoutine != null)
             StopCoroutine(timerRoutine);
         timerRoutine = StartCoroutine(TimerCoroutine(timeLeft));
+    }
+
+    public void StartCombatTimer()
+    {
+        // if it’s already running, do nothing
+        if (combatTimerRoutine != null)
+            return;
+
+        combatTimerRoutine = StartCoroutine(CombatTimerCoroutine());
+    }
+
+
+    private IEnumerator CombatTimerCoroutine()
+    {
+        while (true)
+        {
+            if (!timerPaused)
+            {
+                combatTimer += Time.deltaTime;
+                if (combatTimerText != null)
+                    combatTimerText.text = FormatMMSS(combatTimer);
+            }
+            yield return null;
+        }
+    }
+
+
+
+    public void StopCombatTimer()
+    {
+        if (combatTimerRoutine != null)
+        {
+            StopCoroutine(combatTimerRoutine);
+            combatTimerRoutine = null;
+        }
     }
 
 
@@ -220,29 +295,29 @@ public class TimingController : MonoBehaviour
         FightPanelUp = false;
     }
 
-private IEnumerator TimerCoroutine(float duration)
-{
-    Debug.Log($"[Timing] TimerCoroutine START (duration={duration:F2})");
-    timeLeft = duration;
-    if (awardedTimeText != null)
-        awardedTimeText.text = FormatMMSS(timeLeft);
-
-    while (timeLeft > 0f)
+    private IEnumerator TimerCoroutine(float duration)
     {
-        if (!timerPaused)
+        // remove any combatTimer += ... logic from here
+        timeLeft = duration;
+        if (awardedTimeText != null)
         {
-            timeLeft -= Time.deltaTime;
-            awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
+            awardedTimeText.text = FormatMMSS(timeLeft);
         }
-        yield return null;
+        while (timeLeft > 0f)
+        {
+            if (!timerPaused)
+            {
+                timeLeft -= Time.deltaTime;
+                if (awardedTimeText != null)
+                {
+                    awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
+                }
+            }
+            yield return null;
+        }
+        onTimerFinished?.Invoke();
+        StartCoroutine(StopFightAfterAttacks());
     }
-
-    //Debug.Log("[Timing] TimerCoroutine FINISHED — about to invoke onTimerFinished");
-    onTimerFinished?.Invoke();
-
-    //Debug.Log("[Timing] Starting StopFightAfterAttacks()");
-    StartCoroutine(StopFightAfterAttacks());
-}
 
 
     /// <summary>
@@ -275,19 +350,24 @@ private IEnumerator TimerCoroutine(float duration)
         while (anyAttacking);
 
         // 3) fire your end‐of‐fight logic
+
         FightActive = false;
         EventManager.Instance.TriggerEvent("OnStopFight");
         EndSkillPhase();
+        StopCombatTimer();
         FightPanelUp = true;
         animator.Play("fightEnded");
 
         // 4) (optional) damage survivors, etc.
-        var survivors = FindObjectsOfType<EnemyParent>();
-        if (survivors.Length > 0)
+        EnemyParent[] survivors = FindObjectsOfType<EnemyParent>();
+        if (skipNextDamage == false && survivors.Length > 0)
         {
             int damage = Mathf.RoundToInt(lastAwardedDuration);
             EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
         }
+
+        // reset the flag
+        skipNextDamage = false;
     }
 
 
