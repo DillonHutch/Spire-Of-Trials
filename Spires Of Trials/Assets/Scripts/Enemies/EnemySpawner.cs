@@ -241,21 +241,25 @@ public class EnemySpawner : MonoBehaviour
     {
         isSpawning = true;
         AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
-        var loc = spawnLocations[1];
-        var boss = Instantiate(prefab, loc.transform.position, Quaternion.identity);
-        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
-                                          leftFlash,
-                                          centerFlash,
-                                          rightFlash,
-                                          leftShield,
-                                          centerShield,
-                                          rightShield
-                                                      ));
+        int bossIndex = 1;
+        GameObject loc = spawnLocations[bossIndex];
+
+        GameObject boss = Instantiate(prefab, loc.transform.position, Quaternion.identity);
+
+        // boss is on spawner[1] too, so shrink it
+        boss.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
+        EventManager.Instance.TriggerEvent(
+            "InitializeAttackSprites",
+            (leftFlash, centerFlash, rightFlash,
+              leftShield, centerShield, rightShield)
+        );
         boss.transform.SetParent(loc.transform, true);
         spawnedEnemies.Add(boss);
         isSpawning = false;
         yield return null;
     }
+
 
     /// <summary>
     /// Spawns regular enemies at random locations based on spawn chances.
@@ -264,8 +268,6 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator SpawnRegularEnemies(List<EnemySpawnEntry> entries)
     {
         isSpawning = true;
-
-        // ensure at least one spawn...
         bool atLeastOne = false;
         while (!atLeastOne)
         {
@@ -275,29 +277,33 @@ public class EnemySpawner : MonoBehaviour
                 {
                     if (Random.value <= entry.spawnChance)
                     {
-                        var loc = spawnLocations[pos];
-                        var go = Instantiate(entry.prefab, loc.transform.position, Quaternion.identity);
-                        EventManager.Instance.TriggerEvent("InitializeAttackSprites", (
-                                         leftFlash,
-                                         centerFlash,
-                                         rightFlash,
-                                         leftShield,
-                                         centerShield,
-                                         rightShield
-                                                     ));
-                        go.transform.SetParent(loc.transform, true);
-                        
+                        Vector3 spawnPos = spawnLocations[pos].transform.position;
+                        GameObject go = Instantiate(entry.prefab, spawnPos, Quaternion.identity);
+
+                        // if this is spawn point 1, scale it down
+                        if (pos == 1)
+                            go.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
+                        EventManager.Instance.TriggerEvent(
+                            "InitializeAttackSprites",
+                            (leftFlash, centerFlash, rightFlash,
+                              leftShield, centerShield, rightShield)
+                        );
+
+                        go.transform.SetParent(spawnLocations[pos].transform, true);
                         spawnedEnemies.Add(go);
                         atLeastOne = true;
                     }
                 }
             }
+
             if (!atLeastOne)
-                yield return null;  // try again next frame
+                yield return null;
         }
 
         isSpawning = false;
     }
+
 
 
     public void ForceSpawnEnemy()

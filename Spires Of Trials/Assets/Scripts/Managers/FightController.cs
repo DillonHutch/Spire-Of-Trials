@@ -64,7 +64,7 @@ public class FightController : MonoBehaviour
         // play your fight animation
         animator.Play("fightButtonClicked");
 
-
+        TimingController.Instance.StartSkillPhase();
         if (arrowMiniGame != null)
         {
             arrowMiniGame.StartSequence();

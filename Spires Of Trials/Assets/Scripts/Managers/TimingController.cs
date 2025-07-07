@@ -16,6 +16,9 @@ public class TimingController : MonoBehaviour
     public void ResumeTimer() => timerPaused = false;
 
 
+
+
+
     [Header("Moving Image")]
     [Tooltip("The UI element (RectTransform) to move left/right.")]
     public RectTransform movingImage;
@@ -61,6 +64,22 @@ public class TimingController : MonoBehaviour
 
 
     private float lastAwardedDuration;
+
+
+
+    public bool SkillPhase { get; private set; }
+
+    public void StartSkillPhase()
+    {
+        SkillPhase = true;
+        // (Optionally) notify UI, play VFX, etc.
+    }
+
+    public void EndSkillPhase()
+    {
+        SkillPhase = false;
+    }
+
 
     void OnValidate()
     {
@@ -151,6 +170,25 @@ public class TimingController : MonoBehaviour
         movingImage.anchoredPosition = pos;
     }
 
+    public void StartTimer(float duration)
+    {
+        // stop any previous timer
+        if (timerRoutine != null)
+            StopCoroutine(timerRoutine);
+
+        // immediately show the correct UI (if you want)
+        if (awardedTimeText != null)
+            awardedTimeText.text = FormatMMSS(duration);
+
+        // start the fight!
+        FightActive = true;
+        EventManager.Instance.TriggerEvent("OnStartFight");
+
+        // begin the countdown
+        timerRoutine = StartCoroutine(TimerCoroutine(duration));
+    }
+
+
     private void AwardTime()
     {
         movingPanel.SetActive(false);
@@ -182,36 +220,44 @@ public class TimingController : MonoBehaviour
         FightPanelUp = false;
     }
 
-    private IEnumerator TimerCoroutine(float duration)
+private IEnumerator TimerCoroutine(float duration)
+{
+    Debug.Log($"[Timing] TimerCoroutine START (duration={duration:F2})");
+    timeLeft = duration;
+    if (awardedTimeText != null)
+        awardedTimeText.text = FormatMMSS(timeLeft);
+
+    while (timeLeft > 0f)
     {
-        timeLeft = duration;
-        if (awardedTimeText != null)
-            awardedTimeText.text = FormatMMSS(timeLeft);
-
-        while (timeLeft > 0f)
+        if (!timerPaused)
         {
-            if (!timerPaused)
-            {
-                timeLeft -= Time.deltaTime;
-                awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
-            }
-            yield return null;
+            timeLeft -= Time.deltaTime;
+            awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
         }
-
-        // fire inspector‐hooked events
-        onTimerFinished?.Invoke();
-
-        // instead of EndFight(), wait for attacks to finish first
-        StartCoroutine(StopFightAfterAttacks());
+        yield return null;
     }
+
+    //Debug.Log("[Timing] TimerCoroutine FINISHED — about to invoke onTimerFinished");
+    onTimerFinished?.Invoke();
+
+    //Debug.Log("[Timing] Starting StopFightAfterAttacks()");
+    StartCoroutine(StopFightAfterAttacks());
+}
+
 
     /// <summary>
     /// Waits until no enemy is in mid‐attack, then stops the fight.
     /// </summary>
     private IEnumerator StopFightAfterAttacks()
     {
-        // wait for any in-flight attacks to finish
-        EnemyParent[] enemies = FindObjectsOfType<EnemyParent>();
+        // grab everyone
+        var enemies = FindObjectsOfType<EnemyParent>();
+
+        // 1) stop them from ever scheduling new attacks
+        foreach (var e in enemies)
+            e.StopFight();
+
+        // 2) now wait just for any *in-flight* attacks to finish
         bool anyAttacking;
         do
         {
@@ -228,16 +274,14 @@ public class TimingController : MonoBehaviour
         }
         while (anyAttacking);
 
-        // end fight on all enemies
-        foreach (var e in enemies)
-            e.StopFight();
-
+        // 3) fire your end‐of‐fight logic
         FightActive = false;
         EventManager.Instance.TriggerEvent("OnStopFight");
+        EndSkillPhase();
         FightPanelUp = true;
         animator.Play("fightEnded");
 
-        // 3) only if there are survivors, apply damage = awarded duration
+        // 4) (optional) damage survivors, etc.
         var survivors = FindObjectsOfType<EnemyParent>();
         if (survivors.Length > 0)
         {
@@ -245,6 +289,7 @@ public class TimingController : MonoBehaviour
             EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
         }
     }
+
 
     private string FormatMMSS(float totalSeconds)
     {

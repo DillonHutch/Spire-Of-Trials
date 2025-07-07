@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,9 +20,9 @@ public class PlayerAttackingScript : MonoBehaviour
 
     // **Shield References**
     [Header("Shield References")]
-    [SerializeField] private GameObject leftSheild;   // Left shield object
-    [SerializeField] private GameObject rightSheild;  // Right shield object
-    [SerializeField] private GameObject middleSheild; // Middle shield object
+    [SerializeField] private GameObject leftShield;   // Left shield object
+    [SerializeField] private GameObject rightShield;  // Right shield object
+    [SerializeField] private GameObject middleShield; // Middle shield object
 
     // **Player Sprites**
     [Header("Player Sprites")]
@@ -133,93 +133,85 @@ public class PlayerAttackingScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-
         if (!TimingController.Instance.FightActive)
             return;
 
-        // Track attack speed for rhythm-based mechanics
-        UpdateAttackSpeed();
+        // 1) Always handle dodge movement & shield positioning  
+        //    (A/D keys move slider, switch sprites, etc.)
+        HandleDodgeMovement();
 
-        // **Dodge Movement Handling (Using A and D keys)**
-        if (Input.GetKey(KeyCode.A)) // Move left
+        // 2) Only skip *attacks* in skill‐phase—don’t return early here!
+        if (!TimingController.Instance.SkillPhase)
         {
-            attackSlider.value = 0; // Update slider to left position
-            ShowSideSprite(facingLeft: true); // Show left-facing sprite
-
-            // Activate the correct shield
-            leftSheild.SetActive(true);
-            rightSheild.SetActive(false);
-            middleSheild.SetActive(false);
-        }
-        else if (Input.GetKey(KeyCode.D)) // Move right
-        {
-            attackSlider.value = 2; // Update slider to right position
-            ShowSideSprite(facingLeft: false); // Show right-facing sprite
-
-            // Activate the correct shield
-            leftSheild.SetActive(false);
-            rightSheild.SetActive(true);
-            middleSheild.SetActive(false);
-        }
-        else // Stay in center
-        {
-            attackSlider.value = 1; // Update slider to center position
-            ShowForwardSprite(); // Show forward-facing sprite
-
-            // Activate center shield only
-            leftSheild.SetActive(false);
-            rightSheild.SetActive(false);
-            middleSheild.SetActive(true);
+            HandleAttackInputs();
         }
 
-        // Store the selected dodge position
-        selectedPosition = Mathf.RoundToInt(attackSlider.value);
-
-        // **Attack Handling (Using Arrow Keys)**
-
-        // Heavy Attack (Up Arrow)
-        if (Input.GetKeyDown(KeyCode.UpArrow) && heavyCooldownTimer <= 0f)
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, this.transform.position);
-            Attack("heavy");
-            RegisterAttack(); // Log the attack for combo/tracking
-        }
-
-        // Melee Attack (Left Arrow)
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && meleeCooldownTimer <= 0f)
-        {
-            Attack("melee");
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.meleeAttack, this.transform.position);
-            RegisterAttack();
-        }
-
-        // Ranged Attack (Right Arrow)
-        if (Input.GetKeyDown(KeyCode.RightArrow) && rangeCooldownTimer <= 0f)
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, this.transform.position);
-            Attack("range");
-            RegisterAttack();
-        }
-
-        // Magic Attack (Down Arrow)
-        if (Input.GetKeyDown(KeyCode.DownArrow) && magicCooldownTimer <= 0f)
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, this.transform.position);
-            Attack("magic");
-            RegisterAttack();
-        }
-
-        // **Round Completion Check**
-        // If all enemies are destroyed, trigger the round completion logic
+        // 3) Your round-complete check still runs as normal
         if (isRoundActive && AllEnemiesDestroyed())
         {
             OnAllEnemiesDestroyed();
         }
-
-
-        //Debug.LogWarning($"Current Player Position: {selectedPosition}");
-
     }
+
+
+    private void HandleDodgeMovement()
+{
+    if (Input.GetKey(KeyCode.A))
+    {
+        attackSlider.value = 0;
+        ShowSideSprite(facingLeft: true);
+        leftShield.SetActive(true);
+        middleShield.SetActive(false);
+        rightShield.SetActive(false);
+    }
+    else if (Input.GetKey(KeyCode.D))
+    {
+        attackSlider.value = 2;
+        ShowSideSprite(facingLeft: false);
+        rightShield.SetActive(true);
+        middleShield.SetActive(false);
+        leftShield.SetActive(false);
+    }
+    else
+    {
+        attackSlider.value = 1;
+        ShowForwardSprite();
+        middleShield.SetActive(true);
+        leftShield.SetActive(false);
+        rightShield.SetActive(false);
+    }
+    selectedPosition = Mathf.RoundToInt(attackSlider.value);
+}
+
+private void HandleAttackInputs()
+{
+    if (Input.GetKeyDown(KeyCode.UpArrow) && heavyCooldownTimer <= 0f)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, transform.position);
+        Attack("heavy");
+        RegisterAttack();
+    }
+    if (Input.GetKeyDown(KeyCode.LeftArrow) && meleeCooldownTimer <= 0f)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.meleeAttack, transform.position);
+        Attack("melee");
+        RegisterAttack();
+    }
+    if (Input.GetKeyDown(KeyCode.RightArrow) && rangeCooldownTimer <= 0f)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, transform.position);
+        Attack("range");
+        RegisterAttack();
+    }
+    if (Input.GetKeyDown(KeyCode.DownArrow) && magicCooldownTimer <= 0f)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, transform.position);
+        Attack("magic");
+        RegisterAttack();
+    }
+}
+
+
 
     #endregion
 

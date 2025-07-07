@@ -15,12 +15,24 @@ public class ArrowMiniGameController : MonoBehaviour
     [SerializeField] private Sprite leftSprite;
     [SerializeField] private Sprite rightSprite;
 
+    float defenceTime = 5f;
+
     private List<KeyCode> sequence = new List<KeyCode>();
     private int currentIndex;
     private bool isRunning;
 
 
     [SerializeField] private Animator animator;
+
+
+    [Header("Mini-Game Rewards & Penalties")]
+    [Tooltip("Seconds added to the fight timer on success")]
+    [SerializeField] private float timeReward = 5f;
+    [Tooltip("Seconds subtracted from the fight timer on failure")]
+    [SerializeField] private float timePenalty = 5f;
+    [Tooltip("Damage dealt to the player on failure (if you have a health system)")]
+    [SerializeField] private int healthDamage = 5;
+
 
     public void StartSequence()
     {
@@ -79,6 +91,7 @@ public class ArrowMiniGameController : MonoBehaviour
         Debug.Log("Arrow mini-game: SUCCESS!");
         EndSequence();
 
+        TimingController.Instance.StartTimer(defenceTime);
         EventManager.Instance.TriggerEvent("OnStartFight");
         animator.Play("closeMenu");
         TimingController.Instance.FightActive = true;
@@ -90,6 +103,7 @@ public class ArrowMiniGameController : MonoBehaviour
         Debug.Log("Arrow mini-game: FAILURE!");
         EndSequence();
 
+        TimingController.Instance.StartTimer(defenceTime);
         EventManager.Instance.TriggerEvent("OnStartFight");
         animator.Play("closeMenu");
         TimingController.Instance.FightActive = true;

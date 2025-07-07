@@ -43,9 +43,9 @@ public abstract class EnemyParent : MonoBehaviour
     protected float flashDuration = 0.2f;
 
     // Attack System
-    [SerializeField] protected float attackIntervalMin = 0.5f;
-    [SerializeField] protected float attackIntervalMax = 2f;
-    [SerializeField] protected float windUpTime = 1f;
+     protected float attackIntervalMin = 1f;
+     protected float attackIntervalMax = 1f;
+     protected float windUpTime = 1f;
     public bool isAttacking = false;
     protected int enemyAttackPosition;
     protected List<string> attackSequence = new List<string>();
@@ -216,6 +216,7 @@ public abstract class EnemyParent : MonoBehaviour
         if(fightStarted)
         {
             fightStarted = false;
+            animator.SetTrigger("ReturnToIdle");
             StopCoroutine(attackCoroutine);
         }
     }
@@ -397,16 +398,21 @@ public abstract class EnemyParent : MonoBehaviour
     {
         while (true)
         {
-            // Determine a random attack interval within the min/max range, rounded to one decimal place
-            float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
-           // Debug.Log($"Next attack in {waitTime} seconds");
+            // pick a base interval
+            float baseMin = attackIntervalMin;
+            float baseMax = attackIntervalMax;
 
+            // if skill phase, shrink intervals (e.g. twice as fast)
+            if (TimingController.Instance.SkillPhase)
+            {
+                baseMin = .1f;
+                baseMax = .1f;
+            }
+
+            float waitTime = Mathf.Round(Random.Range(baseMin, baseMax) * 10f) / 10f;
             yield return new WaitForSeconds(waitTime);
 
-            // Request to attack
             EnemyAttackQueue.RequestAttack(this);
-
-            // Ensure waitTime applies before restarting the loop
             yield return new WaitForSeconds(waitTime);
         }
     }
@@ -441,6 +447,12 @@ public abstract class EnemyParent : MonoBehaviour
             else
                 flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(atkSprite));
         }
+
+
+        // determine current wind-up duration
+        float currentWindUp = TimingController.Instance.SkillPhase
+            ? windUpTime = .25f   // half as long in Skill-Phase
+            : windUpTime;         // normal otherwise
 
         // wind-up
         SetAnimationState("WindUp");
