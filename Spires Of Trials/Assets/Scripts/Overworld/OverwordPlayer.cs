@@ -20,10 +20,21 @@ public class OverwordPlayer : MonoBehaviour
         if (other.gameObject.layer == _enemyLayer)
         {
 
-             
+            //Debug.Log($"[Overworld] Trigger hit: {other.name} (layer {other.gameObject.layer}, tag {other.tag})");
+
+            //if (other.gameObject.layer != _enemyLayer)
+            //{
+            //    Debug.Log("[Overworld] Not on Enemy layer, exiting");
+            //    return;
+            //}
+
+            //Debug.Log("[Overworld] Enemy layer OK, starting battle...");
+
+
+
             // stash the enemy’s tag
             BattleContext.PendingEnemyTag = other.tag;
-            other.gameObject.SetActive(false);
+            
 
             // load the battle
             var bc = FindObjectOfType<BattleSceneController>();

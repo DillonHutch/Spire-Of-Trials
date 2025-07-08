@@ -160,8 +160,12 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private void Start()
     {
-
-        battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+        
+        if(battleController == null)
+        {
+            battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+        }
+        
 
         // if we came here with a pending tag, immediately kick off combat
         if (!string.IsNullOrEmpty(BattleContext.PendingEnemyTag))
@@ -190,6 +194,9 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     public void StartCombat(string enemyTag)
     {
+
+        ResetSpawner();
+
         _combatEnemyTag = enemyTag;
 
         if (!settingsByTag.TryGetValue(enemyTag, out var settings))
@@ -620,6 +627,28 @@ public class EnemySpawner : MonoBehaviour
         if (roundText != null)
             roundText.text = $"Round: {roundCounter}/{maxRounds}";
     }
+
+
+    public void ResetSpawner()
+    {
+     
+
+        // round and wave tracking
+        roundCounter = 0;
+        maxRounds = RoundManager.ROUND_NUMBER;
+
+        // clear out anything we’ve spawned
+        spawnedEnemies.Clear();
+
+        // reset our boss-spawn flags
+        bossSpawned = false;
+        frogBossSpawned = false;
+        finalBossSpawned = false;
+
+        // forget whatever tag we were fighting
+        _combatEnemyTag = string.Empty;
+    }
+
 
     #endregion
 

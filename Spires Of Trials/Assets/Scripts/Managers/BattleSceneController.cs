@@ -16,7 +16,21 @@ public class BattleSceneController : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+
+        // auto-assign the fader & player if you forgot in Inspector
+        if (screenFader == null)
+            screenFader = FindObjectOfType<ScreenFader>();
+        if (playerMovement == null)
+            playerMovement = FindObjectOfType<PlayerMovement>();
+
+        if (playerMovement == null)
+            Debug.LogError("BattleSceneController: no PlayerMovement found in scene!");
+        if (screenFader == null)
+            Debug.LogError("BattleSceneController: no ScreenFader found in scene!");
+
+
     }
+
 
     public void StartBattle()
     {
@@ -30,11 +44,13 @@ public class BattleSceneController : MonoBehaviour
     private IEnumerator LoadBattleScene()
     {
         yield return StartCoroutine(screenFader.FadeOut());
-        for (int i = 0; i < objectsToDisable.Count; i++)
-        {
-            objectsToDisable[i].SetActive(false);
-        }
-        AsyncOperation loadOp = SceneManager.LoadSceneAsync(battleSceneName, LoadSceneMode.Additive);
+
+        // only loop if we actually have items
+        foreach (var go in objectsToDisable)
+            if (go != null)
+                go.SetActive(false);
+
+        var loadOp = SceneManager.LoadSceneAsync(battleSceneName, LoadSceneMode.Additive);
         yield return loadOp;
         Scene battleScene = SceneManager.GetSceneByName(battleSceneName);
         if (battleScene.IsValid())
@@ -54,21 +70,23 @@ public class BattleSceneController : MonoBehaviour
     private IEnumerator EndBattleSequence()
     {
 
- 
+
 
 
         yield return StartCoroutine(screenFader.FadeOut());
         yield return SceneManager.UnloadSceneAsync(battleSceneName);
+
+        // re-enable
+        foreach (var go in objectsToDisable)
+            if (go != null)
+                go.SetActive(true);
 
         Scene original = SceneManager.GetSceneByName(_previousSceneName);
         if (original.IsValid())
         {
             SceneManager.SetActiveScene(original);
         }
-        for (int i = 0; i < objectsToDisable.Count; i++)
-        {
-            objectsToDisable[i].SetActive(true);
-        }
+
         yield return StartCoroutine(screenFader.FadeIn());
         playerMovement.canMove = true;
 

@@ -26,9 +26,9 @@ public class Skeleton : EnemyParent
     {
         attackSequence = new List<string> { 
             "melee", "heavy", "range", "magic",
-            "melee", "range", "heavy", "magic",
-            "melee", "range", "melee", "range",
-            "magic", "range", "heavy", "melee",
+            //"melee", "range", "heavy", "magic",
+            //"melee", "range", "melee", "range",
+            //"magic", "range", "heavy", "melee",
 
         };
     }
