@@ -1,21 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public class OverwordPlayer : MonoBehaviour
 {
 
+
     [SerializeField] BattleSceneController battleController;
 
-    // Start is called before the first frame update
-    void Start()
+    // cache the layer mask for performance
+    int _enemyLayer;
+
+    private void Awake()
     {
-        battleController.objectsToDisable.Add(gameObject);
+        _enemyLayer = LayerMask.NameToLayer("Enemy");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.layer == _enemyLayer)
+        {
+
+             
+            // stash the enemy’s tag
+            BattleContext.PendingEnemyTag = other.tag;
+            other.gameObject.SetActive(false);
+
+            // load the battle
+            var bc = FindObjectOfType<BattleSceneController>();
+            if (bc != null)
+                bc.StartBattle();
+            else
+                Debug.LogError("No BattleSceneController found!");
+            battleController.objectsToDisable.Remove(other.gameObject);
+            Destroy(other.gameObject);
+
+        }
     }
 }

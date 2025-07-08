@@ -53,6 +53,10 @@ public class BattleSceneController : MonoBehaviour
 
     private IEnumerator EndBattleSequence()
     {
+
+ 
+
+
         yield return StartCoroutine(screenFader.FadeOut());
         yield return SceneManager.UnloadSceneAsync(battleSceneName);
 

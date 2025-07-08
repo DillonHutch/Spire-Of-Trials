@@ -24,19 +24,19 @@ public class BadNPCScript : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "OverworldPlayer")
-        {
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if(collision.gameObject.tag == "OverworldPlayer")
+    //    {
 
-            EncounterManager.NextBattleEnemyPrefab = battlePrefab;
+    //        EncounterManager.NextBattleEnemyPrefab = battlePrefab;
 
-            battleController.StartBattle();
-        }
+    //        battleController.StartBattle();
+    //    }
 
-        battleController.objectsToDisable.Remove(gameObject);
+    //    battleController.objectsToDisable.Remove(gameObject);
         
-        Destroy(gameObject);
-    }
+    //    Destroy(gameObject);
+    //}
 
 }

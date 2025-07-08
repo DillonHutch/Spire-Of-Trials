@@ -202,7 +202,7 @@ public class FinalBoss : EnemyParent
     private void TrySpawnEnemyInOtherLane()
     {
         KillAllOtherEnemies();
-        enemySpawner.ForceSpawnEnemy();
+        
     }
 
     private void KillAllOtherEnemies()

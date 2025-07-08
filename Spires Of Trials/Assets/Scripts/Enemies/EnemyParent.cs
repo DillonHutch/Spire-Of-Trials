@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public enum EnemyAttackType
 {
     Parry,   // player must block with shield/parry
-    Dodge    // player must move the dodge slider away
+    Dodge,   // player must move the dodge slider away
+    Crouch   // hold button down when enemy does a sweeping attack to the player 
+
 }
 
 /// <summary>
@@ -444,8 +446,10 @@ public abstract class EnemyParent : MonoBehaviour
         {
             if (atkType == EnemyAttackType.Dodge)
                 flashCoroutine = StartCoroutine(shieldManager.FlashDodgeIndicator(atkSprite));
-            else
+            else if (atkType == EnemyAttackType.Parry)
                 flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(atkSprite));
+            else
+                flashCoroutine = StartCoroutine(shieldManager.FlashCrouchIndicator(atkSprite));
         }
 
 
@@ -530,19 +534,19 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (atkType == EnemyAttackType.Dodge)
         {
-            // if you’re off the spot OR you parried, it’s a success
-            if (playerPos != attackPos || !shieldBusy)
+            // success if the player is NOT standing in the attack position
+            if (playerPos != attackPos)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             }
             else
             {
-                // failed both dodge _and_ parry
+                // failed to dodge, take damage
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
-        else // Parry attack
+        else if(atkType == EnemyAttackType.Parry) // Parry attack
         {
             if (playerPos == attackPos && !shieldBusy)
             {
@@ -551,6 +555,23 @@ public abstract class EnemyParent : MonoBehaviour
             }
             else
             {
+                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
+            }
+        }
+        else if(atkType == EnemyAttackType.Crouch)
+        {
+            // Did the player hold LeftShift at the moment of attack?
+            bool crouched = Input.GetKey(KeyCode.LeftShift);
+
+            if (crouched)
+            {
+                // successful crouch—no damage
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+            }
+            else
+            {
+                // failed to crouch—take damage
                 EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }

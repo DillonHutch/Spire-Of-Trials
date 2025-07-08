@@ -31684,9 +31684,9 @@ GameObject:
   - component: {fileID: 895533195}
   - component: {fileID: 895533194}
   - component: {fileID: 895533197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BADNPC (1)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31720,7 +31720,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -35579,9 +35579,9 @@ GameObject:
   - component: {fileID: 1411769899}
   - component: {fileID: 1411769898}
   - component: {fileID: 1411769897}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BADNPC (2)
-  m_TagString: Untagged
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35646,7 +35646,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -36796,9 +36796,9 @@ GameObject:
   - component: {fileID: 1547890767}
   - component: {fileID: 1547890766}
   - component: {fileID: 1547890765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BADNPC (2)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36863,7 +36863,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -38966,9 +38966,9 @@ GameObject:
   - component: {fileID: 1811441735}
   - component: {fileID: 1811441734}
   - component: {fileID: 1811441733}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BADNPC (2)
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39017,7 +39017,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

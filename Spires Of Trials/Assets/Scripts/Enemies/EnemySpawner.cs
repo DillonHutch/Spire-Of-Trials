@@ -7,6 +7,16 @@ using System.Linq;
 using FMODUnity;
 
 
+[System.Serializable]
+public class EnemyCombatSettings
+{
+    public string enemyTag;   // must match the GameObject.tag
+    public int minRounds;   // inclusive
+    public int maxRounds;   // inclusive
+}
+
+
+
 /// <summary>
 /// is enemy spawner
 /// </summary>
@@ -36,18 +46,25 @@ public class EnemySpawner : MonoBehaviour
     private int maxRounds = 5;
 
 
-    [Header("Data-Driven Waves")]
-    [Tooltip("Drag in all your SpawnWave assets, sorted by roundNumber.")]
-    public List<SpawnWave> spawnWaves;
+    [Header("Combat Settings per Enemy")]
+    [Tooltip("Configure how many rounds each enemy type should generate.")]
+    public List<EnemyCombatSettings> combatSettings;
 
-    private Dictionary<int, SpawnWave> _wavesByRound;
+    // lookup table
+    private Dictionary<string, EnemyCombatSettings> _settingsByTag;
+
+    // override the fixed maxRounds
+    private int _dynamicMaxRounds;
 
 
-    [Header("Fallback Settings")]
-    [Tooltip("Used if you forgot to author a SpawnWave for a given round.")]
-    [SerializeField]
-    private List<EnemySpawnEntry> defaultEntries;
 
+ 
+
+    private Dictionary<string, EnemyCombatSettings> settingsByTag;
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+
+
+    private string _combatEnemyTag;
 
 
     private GameObject currentMiniBoss;
@@ -61,7 +78,6 @@ public class EnemySpawner : MonoBehaviour
 
     #region Spawn Tracking
 
-    private List<GameObject> spawnedEnemies = new List<GameObject>(); // List to keep track of active spawned enemies
     private bool isSpawning = false; // Ensures only one spawn process runs at a time
     private bool bossSpawned = false; // Prevents the MiniBoss from spawning more than once
     private bool frogBossSpawned = false;
@@ -127,12 +143,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
-       
-        // Build a quick lookup table
-        _wavesByRound = spawnWaves
-            .ToDictionary(w => w.roundNumber, w => w);
-       
+        // build quick tag → settings map
+        settingsByTag = new Dictionary<string, EnemyCombatSettings>();
+        foreach (var s in combatSettings)
+            settingsByTag[s.enemyTag] = s;
+
+
+        
     }
+
 
     /// <summary>
     /// Called when the script starts.
@@ -144,180 +163,142 @@ public class EnemySpawner : MonoBehaviour
 
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
 
-
-        // Validate that all necessary spawn points and enemy prefabs are assigned
-        if (spawnLocations.Count == 0 || enemyPrefabs.Count == 0 || miniBossPrefab == null)
+        // if we came here with a pending tag, immediately kick off combat
+        if (!string.IsNullOrEmpty(BattleContext.PendingEnemyTag))
         {
-            Debug.LogError("Spawn locations, enemy prefabs, or MiniBoss prefab not assigned!");
-            return; // Prevent execution if any critical assignment is missing
+            StartCombat(BattleContext.PendingEnemyTag);
+            BattleContext.PendingEnemyTag = null;
         }
 
-        UpdateRoundUI(); // Initialize the round counter text display
-        StartCoroutine(CheckAndSpawnEnemies()); // Begin enemy spawning routine
-
-
-        if (SceneManager.GetActiveScene().name == "Ruins")
-        {
-            goneToGarden = false;
-            goneToSanctum = false;
-        }
-
-        if (SceneManager.GetActiveScene().name == "Garden")
-        {
-            goneToGarden = true;
-            goneToSanctum = false;
-        }
-
-        if (SceneManager.GetActiveScene().name == "Sanctum")
-        {
-            goneToSanctum = true;
-        }
+        // now wire up UI & controller as before
+        roundText = GetComponentInChildren<TextMeshProUGUI>();
+        
     }
 
-    /// <summary>
-    /// Called once per frame.
-    /// Checks if the MiniBoss has been defeated, and if so, loads the Win Screen.
-    /// </summary>
-    private void Update()
-    {
-        if (roundCounter == 2)
-        {
-            roundCounter = 0;
-            RoundManager.ROUND_NUMBER = roundCounter;
-            EventManager.Instance.TriggerEvent("killEnemies");
-            battleController.EndBattle();
-            AudioManager.instance.SetMusic(MusicEnum.Title);
 
-        }
-
-
-
-    }
 
     #endregion
 
     #region Spawning
 
-    /// <summary>
-    /// Continuously checks if all enemies are destroyed before starting a new spawn cycle.
-    /// Triggers healing, updates the round UI, and decides whether to spawn regular enemies or the MiniBoss.
-    /// </summary>
-    private IEnumerator CheckAndSpawnEnemies()
-    {
-        while (roundCounter < maxRounds)
-        {
-            yield return new WaitUntil(AllEnemiesDestroyed);
 
-            roundCounter++;
-            UpdateRoundUI();
-
-            if (_wavesByRound.TryGetValue(roundCounter, out var wave))
-            {
-                if (wave.waveType != WaveType.Regular)
-                {
-                    // boss spawn
-                    yield return SpawnBoss(
-                      wave.bossPrefab,
-                      wave.bossOffset,
-                      wave.waveType
-                    );
-                }
-                else
-                {
-                    // regular enemies
-                    yield return SpawnRegularEnemies(wave.regularSpawns);
-                }
-            }
-            else
-            {
-                // fallback if you forgot to author a wave
-                yield return SpawnRegularEnemies(defaultEntries);
-            }
-        }
-    }
-
-
-    private IEnumerator SpawnBoss(GameObject prefab, Vector3 offset, WaveType type)
-    {
-        isSpawning = true;
-        AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
-        int bossIndex = 1;
-        GameObject loc = spawnLocations[bossIndex];
-
-        GameObject boss = Instantiate(prefab, loc.transform.position, Quaternion.identity);
-
-        // boss is on spawner[1] too, so shrink it
-        boss.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-
-        EventManager.Instance.TriggerEvent(
-            "InitializeAttackSprites",
-            (leftFlash, centerFlash, rightFlash,
-              leftShield, centerShield, rightShield)
-        );
-        boss.transform.SetParent(loc.transform, true);
-        spawnedEnemies.Add(boss);
-        isSpawning = false;
-        yield return null;
-    }
 
 
     /// <summary>
-    /// Spawns regular enemies at random locations based on spawn chances.
-    /// Ensures at least one enemy is spawned per round.
+    /// Called by the player trigger when combat should start.
+    /// Picks a random round count for that enemy type, then begins spawning.
     /// </summary>
-    private IEnumerator SpawnRegularEnemies(List<EnemySpawnEntry> entries)
+    public void StartCombat(string enemyTag)
     {
-        isSpawning = true;
-        bool atLeastOne = false;
-        while (!atLeastOne)
+        _combatEnemyTag = enemyTag;
+
+        if (!settingsByTag.TryGetValue(enemyTag, out var settings))
         {
-            foreach (var entry in entries)
-            {
-                foreach (int pos in entry.validPositions)
-                {
-                    if (Random.value <= entry.spawnChance)
-                    {
-                        Vector3 spawnPos = spawnLocations[pos].transform.position;
-                        GameObject go = Instantiate(entry.prefab, spawnPos, Quaternion.identity);
-
-                        // if this is spawn point 1, scale it down
-                        if (pos == 1)
-                            go.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-
-                        EventManager.Instance.TriggerEvent(
-                            "InitializeAttackSprites",
-                            (leftFlash, centerFlash, rightFlash,
-                              leftShield, centerShield, rightShield)
-                        );
-
-                        go.transform.SetParent(spawnLocations[pos].transform, true);
-                        spawnedEnemies.Add(go);
-                        atLeastOne = true;
-                    }
-                }
-            }
-
-            if (!atLeastOne)
-                yield return null;
-        }
-
-        isSpawning = false;
-    }
-
-
-
-    public void ForceSpawnEnemy()
-    {
-        if (_wavesByRound.TryGetValue(roundCounter, out var wave)
-            && wave.waveType == WaveType.Regular)
-        {
-            StartCoroutine(SpawnRegularEnemies(wave.regularSpawns));
+            Debug.LogWarning($"No settings for '{enemyTag}', defaulting to 3 rounds.");
+            maxRounds = 3;
         }
         else
         {
-            StartCoroutine(SpawnRegularEnemies(defaultEntries));
+            maxRounds = Random.Range(settings.minRounds, settings.maxRounds + 1);
+        }
+
+        roundCounter = 0;
+        spawnedEnemies.Clear();
+        UpdateRoundUI();
+        StartCoroutine(CombatRoutine());
+    }
+
+
+    private IEnumerator CombatRoutine()
+    {
+        // For each wave 1 through maxRounds:
+        while (roundCounter < maxRounds)
+        {
+            // start the next wave
+            roundCounter++;
+            UpdateRoundUI();
+
+            // spawn that wave
+            yield return SpawnRandomEnemies();
+
+            // wait until the player kills every enemy in this wave
+            yield return new WaitUntil(AllEnemiesCleared);
+        }
+
+        // all waves are done—exit combat
+        battleController.EndBattle();
+    }
+
+
+
+    private IEnumerator SpawnRandomEnemies()
+    {
+        bool anySpawned = false;
+
+        // build candidate list once per call
+        var candidates = enemyPrefabs
+            .Where(p => p.tag == _combatEnemyTag)
+            .ToList();
+
+        while (!anySpawned)
+        {
+            for (int i = 0; i < spawnLocations.Count; i++)
+            {
+                if (Random.value <= spawnChance)
+                {
+                    // pick from matching-tag prefabs, or fallback
+                    var prefab = (candidates.Count > 0)
+                        ? candidates[Random.Range(0, candidates.Count)]
+                        : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
+                    var spawnPoint = spawnLocations[i].transform;
+                    var enemy = Instantiate(
+                        prefab,
+                        spawnPoint.position,
+                        Quaternion.identity,
+                        spawnPoint
+                    );
+
+                    // scale down if center position (i == 1)
+                    if (i == 1)
+                        enemy.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
+                    // initialize attack sprites exactly as before
+                    EventManager.Instance.TriggerEvent(
+                        "InitializeAttackSprites",
+                        (leftFlash, centerFlash, rightFlash,
+                         leftShield, centerShield, rightShield)
+                    );
+
+
+                    switch (enemy.tag)
+                    {
+                        case "Slime":
+                            AdjustSlimePosition(enemy, i);
+                            break;
+                        case "Devil":
+                            AdjustDevilPosition(enemy, i);
+                            break;
+                        case "Cleric":
+                            AdjustClericPosition(enemy, i);
+                            break;
+                        case "VineSerpant":
+                            AdjustSerpantPosition(enemy, i);
+                            break;
+                            // add more cases as needed
+                    }
+                    spawnedEnemies.Add(enemy);
+                    anySpawned = true;
+                    break; // exit for‐loop once we've spawned one
+                }
+            }
+
+            if (!anySpawned)
+                yield return null;
         }
     }
+
+
 
 
 
@@ -624,12 +605,9 @@ public class EnemySpawner : MonoBehaviour
     /// Returns true if there are no remaining enemies in the list.
     /// </summary>
     /// <returns>True if all enemies are destroyed, otherwise false.</returns>
-    private bool AllEnemiesDestroyed()
+    private bool AllEnemiesCleared()
     {
-        // Remove any null references from the spawnedEnemies list (enemies that have been destroyed)
-        spawnedEnemies.RemoveAll(enemy => enemy == null);
-
-        // If no enemies remain, return true
+        spawnedEnemies.RemoveAll(e => e == null);
         return spawnedEnemies.Count == 0;
     }
 
@@ -640,13 +618,7 @@ public class EnemySpawner : MonoBehaviour
     private void UpdateRoundUI()
     {
         if (roundText != null)
-        {
-            roundText.text = roundCounter.ToString(); // Display the current round number
-        }
-        else
-        {
-            Debug.LogWarning("Round UI Text is not assigned! Ensure roundText is set in the Inspector.");
-        }
+            roundText.text = $"Round: {roundCounter}/{maxRounds}";
     }
 
     #endregion

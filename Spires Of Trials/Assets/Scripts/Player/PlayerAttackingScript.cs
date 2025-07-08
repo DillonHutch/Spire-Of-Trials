@@ -66,6 +66,8 @@ public class PlayerAttackingScript : MonoBehaviour
     private bool isShaking = false; // Prevents multiple screen shakes from running simultaneously
     private EventInstance currentMusic; // Reference to the current background music event
 
+    private bool isCrouching = false;
+
     #endregion
 
 
@@ -136,22 +138,39 @@ public class PlayerAttackingScript : MonoBehaviour
         if (!TimingController.Instance.FightActive)
             return;
 
-        // 1) Always handle dodge movement & shield positioning  
-        //    (A/D keys move slider, switch sprites, etc.)
+        // 1) Always handle dodge movement & shield positioning
         HandleDodgeMovement();
 
-        // 2) Only skip *attacks* in skill‐phase—don’t return early here!
+        // 2) Check for crouch (Shift held)
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (!isCrouching)
+            {
+                isCrouching = true;
+                
+            }
+            // while crouching, do not process any attack inputs:
+            return;
+        }
+        else if (isCrouching)
+        {
+            isCrouching = false;
+            
+        }
+
+        // 3) Only skip attacks in skill‐phase
         if (!TimingController.Instance.SkillPhase)
         {
             HandleAttackInputs();
         }
 
-        // 3) Your round-complete check still runs as normal
+        // 4) Round‐complete check
         if (isRoundActive && AllEnemiesDestroyed())
         {
             OnAllEnemiesDestroyed();
         }
     }
+
 
 
     private void HandleDodgeMovement()

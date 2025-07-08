@@ -61,11 +61,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Debug.Log(currentHealth);
-    }
-
 
     private void OnDestroy()
     {
