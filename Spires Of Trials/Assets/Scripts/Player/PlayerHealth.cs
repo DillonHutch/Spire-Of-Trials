@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
     // **Visual Feedback**
     [SerializeField] private SpriteRenderer[] spriteRenderers; // Array of sprite renderers (assigned in Inspector)
     private Color originalColor; // Stores the player's original color for flashing effect
-    private float flashDuration = 0.2f; // Duration the player flashes red when damaged
+    
 
 
     private int damageTakenThisRound = 0;

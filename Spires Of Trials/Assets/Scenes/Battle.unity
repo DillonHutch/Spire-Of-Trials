@@ -3255,7 +3255,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 434356827}
-  - component: {fileID: 434356826}
   m_Layer: 0
   m_Name: BattleStateMachine
   m_TagString: Untagged
@@ -3263,18 +3262,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &434356826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434356825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c15d9431cb4a77d4aa1de12dba1a1a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &434356827
 Transform:
   m_ObjectHideFlags: 0
@@ -12987,6 +12974,10 @@ PrefabInstance:
       value: BattleSceneController
       objectReference: {fileID: 0}
     - target: {fileID: 2804119603198755686, guid: 0936fa967ad856f41a2a491bde4d187f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804119603198755686, guid: 0936fa967ad856f41a2a491bde4d187f, type: 3}
       propertyPath: m_TagString
       value: BattleController
       objectReference: {fileID: 0}
@@ -14333,9 +14324,7 @@ MonoBehaviour:
   - {fileID: 6875418910693198597, guid: 594d80d9ea830f247983c5c1fb400891, type: 3}
   - {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
   - {fileID: 4548580533598868436, guid: ecec639e469753a45a025df0423ce238, type: 3}
-  miniBossPrefab: {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
-  frogBossPrfab: {fileID: 5956038672238996150, guid: 8e3e257ab9dfb654b9481b5d277bcab4, type: 3}
-  finalBossPrfab: {fileID: 0}
+  - {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
   spawnChance: 0.5
   roundText: {fileID: 931438609}
   combatSettings:
@@ -14343,6 +14332,9 @@ MonoBehaviour:
     minRounds: 1
     maxRounds: 1
   - enemyTag: Slime
+    minRounds: 1
+    maxRounds: 1
+  - enemyTag: Knight
     minRounds: 1
     maxRounds: 1
   leftFlash: {fileID: 426548162}

@@ -11,7 +11,7 @@ public class BattleSceneController : MonoBehaviour
     [SerializeField] private ScreenFader screenFader;
     [SerializeField] private PlayerMovement playerMovement;
     private string _previousSceneName;
-    private bool isInBattle;
+   
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class BattleSceneController : MonoBehaviour
         
         _previousSceneName = SceneManager.GetActiveScene().name;
         playerMovement.canMove = false;
-        isInBattle = true;
+        
         StartCoroutine(LoadBattleScene());
     }
 
@@ -63,7 +63,7 @@ public class BattleSceneController : MonoBehaviour
 
     public void EndBattle()
     {
-        isInBattle = false;
+        
         StartCoroutine(EndBattleSequence());
     }
 

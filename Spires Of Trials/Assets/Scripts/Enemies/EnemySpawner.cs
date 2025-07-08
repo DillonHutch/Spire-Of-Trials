@@ -29,9 +29,6 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private List<GameObject> spawnLocations; // List of possible enemy spawn locations
     [SerializeField] private List<GameObject> enemyPrefabs;   // List of enemy prefabs to spawn
-    [SerializeField] private GameObject miniBossPrefab;       // Reference to the MiniBoss prefab
-    [SerializeField] private GameObject frogBossPrfab;
-    [SerializeField] private GameObject finalBossPrfab;
     [SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
 
     BattleSceneController battleController;
@@ -72,27 +69,7 @@ public class EnemySpawner : MonoBehaviour
     bool goneToGarden;
     bool goneToSanctum;
 
-    bool isTrans = false;
-
-    #endregion
-
-    #region Spawn Tracking
-
-    private bool isSpawning = false; // Ensures only one spawn process runs at a time
-    private bool bossSpawned = false; // Prevents the MiniBoss from spawning more than once
-    private bool frogBossSpawned = false;
-    private bool finalBossSpawned = false;
-
-    #endregion
-
-    #region MiniBoss Settings
-
-    [Header("MiniBoss Settings")]
-    private int miniBossSpawnNumber = 25; // The round number when the MiniBoss will appear
-    private int frogBossSpawnNumber = 50;
-    private int finalBossSpawnNumber = 75;
-
-    private ENEMY enemy;
+   
 
     #endregion
 
@@ -120,9 +97,6 @@ public class EnemySpawner : MonoBehaviour
     /// first enemy, then clear the reference.
     /// </summary>
     public static GameObject NextBattleEnemyPrefab;
-
-    #endregion
-
 
     #endregion
 
@@ -165,6 +139,10 @@ public class EnemySpawner : MonoBehaviour
         {
             battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
         }
+        else
+        {
+            Debug.Log("WTF");
+        }
         
 
         // if we came here with a pending tag, immediately kick off combat
@@ -185,7 +163,9 @@ public class EnemySpawner : MonoBehaviour
 
     #region Spawning
 
+    private ENEMY enemy;
 
+    #endregion
 
 
     /// <summary>
@@ -325,7 +305,7 @@ public class EnemySpawner : MonoBehaviour
             //Debug.LogError(goneToGarden);
 
             // If rounds are 1-5, only Skeletons spawn
-            if(SceneManager.GetActiveScene().name == "Battle")
+            if (SceneManager.GetActiveScene().name == "Battle")
             {
                 // Define valid positions for each enemy type
                 if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
@@ -341,76 +321,6 @@ public class EnemySpawner : MonoBehaviour
                     possibleEnemies.Add(enemy);
                 }
 
-            }
-            else if (SceneManager.GetActiveScene().name == "Garden")
-            {
-                if (enemyTag == "VineSerpant" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Thornbrute" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Wendingo" && (positionIndex == 1)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-            }
-            else if (SceneManager.GetActiveScene().name == "Sanctum" && !finalBossSpawned)
-            {
-                if (enemyTag == "Devil" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Vampire" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Cleric" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-            }
-            else if(SceneManager.GetActiveScene().name == "Sanctum" && finalBossSpawned)
-            {
-                // Define valid positions for each enemy type
-                if (enemyTag == "Skeleton" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2))
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Goblin" && positionIndex == 1) // Goblins spawn only in the center
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Slime" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "VineSerpant" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Thornbrute" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Wendingo" && (positionIndex == 1)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Devil" && (positionIndex == 0 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Vampire" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
-                else if (enemyTag == "Cleric" && (positionIndex == 0 || positionIndex == 1 || positionIndex == 2)) // Slimes spawn only on the sides
-                {
-                    possibleEnemies.Add(enemy);
-                }
             }
         }
 
@@ -639,11 +549,6 @@ public class EnemySpawner : MonoBehaviour
 
         // clear out anything we’ve spawned
         spawnedEnemies.Clear();
-
-        // reset our boss-spawn flags
-        bossSpawned = false;
-        frogBossSpawned = false;
-        finalBossSpawned = false;
 
         // forget whatever tag we were fighting
         _combatEnemyTag = string.Empty;

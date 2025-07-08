@@ -8,8 +8,8 @@ public class FinalBoss : EnemyParent
 
      private List<Transform> spawnPoints;
     [SerializeField] private GameObject[] spawnableEnemies;
-    [SerializeField] private float spawnEnemyChance = 0.25f;
-    [SerializeField] private float despawnDelay = 10f;
+    
+    
     private Transform currentLane; // This is the actual spawn lane the boss is in
 
 

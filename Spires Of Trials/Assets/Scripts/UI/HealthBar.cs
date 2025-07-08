@@ -33,24 +33,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Called when the object becomes enabled and active.
-    /// Subscribes to the "OnHealthChanged" event to update the health bar when the player's health changes.
-    /// Ensures the EventManager instance exists before subscribing.
-    /// </summary>
-    private void OnEnable()
-    {
-        // subscribe
-        EventManager.Instance.StartListening<int>(
-            "OnHealthChanged",
-            UpdateHealthBar
-        );
 
-        // pull in the current values
-        PlayerHealth playerHealth = PlayerHealth.Instance;
-        healthSlider.maxValue = playerHealth.MaxHealth;
-        UpdateHealthBar(playerHealth.CurrentHealth);
-    }
 
     /// <summary>
     /// Called when the object is disabled.
@@ -64,7 +47,29 @@ public class HealthBar : MonoBehaviour
         );
     }
 
+    private IEnumerator Start()
+    {
+        // wait until PlayerHealth has initialized its Instance
+        yield return new WaitUntil(() => PlayerHealth.Instance != null);
 
+        // sanity-check your references
+        if (healthSlider == null)
+        {
+            Debug.LogError("HealthBar: healthSlider is not assigned!");
+            yield break;
+        }
+
+        if (EventManager.Instance == null)
+        {
+            Debug.LogError("HealthBar: EventManager.Instance is null!");
+            yield break;
+        }
+
+        // now safe to subscribe and pull initial values
+        EventManager.Instance.StartListening<int>("OnHealthChanged", UpdateHealthBar);
+        healthSlider.maxValue = PlayerHealth.Instance.MaxHealth;
+        UpdateHealthBar(PlayerHealth.Instance.CurrentHealth);
+    }
 
 
     #endregion
@@ -78,8 +83,7 @@ public class HealthBar : MonoBehaviour
     private void UpdateHealthBar(int currentHealth)
     {
         healthSlider.value = currentHealth;
-        float normalized = healthSlider.normalizedValue;
-        fillImage.color = healthGradient.Evaluate(normalized);
+        fillImage.color = healthGradient.Evaluate(healthSlider.normalizedValue);
     }
 
 

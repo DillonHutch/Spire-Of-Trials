@@ -25,13 +25,13 @@ public class ArrowMiniGameController : MonoBehaviour
     [SerializeField] private Animator animator;
 
 
-    [Header("Mini-Game Rewards & Penalties")]
-    [Tooltip("Seconds added to the fight timer on success")]
-    [SerializeField] private float timeReward = 5f;
-    [Tooltip("Seconds subtracted from the fight timer on failure")]
-    [SerializeField] private float timePenalty = 5f;
-    [Tooltip("Damage dealt to the player on failure (if you have a health system)")]
-    [SerializeField] private int healthDamage = 5;
+    //[Header("Mini-Game Rewards & Penalties")]
+    //[Tooltip("Seconds added to the fight timer on success")]
+    //[SerializeField] private float timeReward = 5f;
+    //[Tooltip("Seconds subtracted from the fight timer on failure")]
+    //[SerializeField] private float timePenalty = 5f;
+    //[Tooltip("Damage dealt to the player on failure (if you have a health system)")]
+    //[SerializeField] private int healthDamage = 5;
 
 
     public void StartSequence()

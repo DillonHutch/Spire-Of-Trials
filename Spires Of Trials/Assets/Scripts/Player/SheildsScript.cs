@@ -10,7 +10,7 @@ public class SheildsScript : MonoBehaviour
 
     private Dictionary<Transform, Coroutine> activeRecoils = new Dictionary<Transform, Coroutine>();
 
-    private bool isRecoiling = false;
+    
 
      float warningOpacity = 0.75f;
     public float flashTime = 0.2f;

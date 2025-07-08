@@ -9,7 +9,7 @@ public class Frog : EnemyParent
     private List<string> weakSpotColorsPerHit = new List<string>();
 
 
-    private int currentWeakSpotPosition = 1; // Default to center
+    
 
     public enum WeakSpotPosition
     {
