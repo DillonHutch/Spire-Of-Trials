@@ -23,13 +23,10 @@ public class TempMusicScript : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "Battle")
         {
 
-            if(EncounterManager.ENEMY_TYPE != ENEMY.Knight)
-            {
-                AudioManager.instance.SetMusic(MusicEnum.Ruins);
-            }
-            
+            AudioManager.instance.SetMusic(MusicEnum.Ruins);
 
-        }else if(SceneManager.GetActiveScene().name == "Garden")
+        }
+        else if(SceneManager.GetActiveScene().name == "Garden")
         {
             AudioManager.instance.SetMusic(MusicEnum.Garden);
         }

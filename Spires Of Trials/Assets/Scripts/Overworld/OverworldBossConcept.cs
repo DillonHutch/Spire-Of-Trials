@@ -24,7 +24,7 @@ public class OverworldBossConcept : MonoBehaviour
         if(collision.gameObject.tag == "OverworldPlayer")
         {
 
-            EncounterManager.ENEMY_TYPE = ENEMY.Knight;
+            //EncounterManager.ENEMY_TYPE = ENEMY.Knight;
 
             battleController.StartBattle();
             battleController.objectsToDisable.Remove(gameObject);

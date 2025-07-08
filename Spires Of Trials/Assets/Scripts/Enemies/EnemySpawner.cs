@@ -19,6 +19,8 @@ public class EnemyCombatSettings
     public bool spawnLeft = true;
     public bool spawnCenter = true;
     public bool spawnRight = true;
+
+
 }
 
 
@@ -167,11 +169,6 @@ public class EnemySpawner : MonoBehaviour
 
     #endregion
 
-    #region Spawning
-
-    private ENEMY enemy;
-
-    #endregion
 
 
     /// <summary>
@@ -180,20 +177,19 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     public void StartCombat(string enemyTag)
     {
-
         ResetSpawner();
-
         _combatEnemyTag = enemyTag;
 
-        if (!settingsByTag.TryGetValue(enemyTag, out var settings))
+        // pull settings (or default)
+        if (!settingsByTag.TryGetValue(enemyTag, out var cfg))
         {
-            Debug.LogWarning($"No settings for '{enemyTag}', defaulting to 3 rounds.");
-            maxRounds = 3;
+            Debug.LogWarning($"No combat settings for '{enemyTag}'");
         }
-        else
-        {
-            maxRounds = Random.Range(settings.minRounds, settings.maxRounds + 1);
-        }
+
+        // determine wave count...
+        maxRounds = cfg != null
+            ? Random.Range(cfg.minRounds, cfg.maxRounds + 1)
+            : 3;
 
         roundCounter = 0;
         spawnedEnemies.Clear();
