@@ -30,6 +30,7 @@ public class DialoguePanelUI : MonoBehaviour
     private Dictionary<string, DialogueAudioInfoSO> audioInfosDictionary;
     private DialogueAudioInfoSO currentAudioInfo;
 
+    [SerializeField] private SineWaveText sineWaveText;
 
 
 
@@ -131,8 +132,20 @@ public class DialoguePanelUI : MonoBehaviour
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
 
-        typingCoroutine = StartCoroutine(TypeDialogue(dialogueLine, dialogueChoices));
+        // Apply wave effect if possible
+        if (sineWaveText != null)
+        {
+            sineWaveText.PrepareWaveText(dialogueLine);
+            sineWaveText.enabled = true;
+        }
+        else
+        {
+            dialogueText.text = System.Text.RegularExpressions.Regex.Replace(dialogueLine, @"\[(\/?)wave\]", "");
+        }
+
+        typingCoroutine = StartCoroutine(TypeDialogue(dialogueText.text, dialogueChoices));
     }
+
 
 
     private IEnumerator TypeDialogue(string line, List<Choice> dialogueChoices)

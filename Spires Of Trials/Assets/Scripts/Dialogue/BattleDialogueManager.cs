@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 using FMODUnity;
 using FMOD.Studio;
+using System.Text.RegularExpressions;
 
 public class BattleDialogueManager : MonoBehaviour
 {
@@ -70,6 +71,10 @@ public class BattleDialogueManager : MonoBehaviour
     private const string OBJECT_TAG = "object";
 
     private const string AUDIO_TAG = "audio";
+
+    private const string WAVE_TAG = "wave";
+    private bool isWavyLine = false;
+
 
     private DialogueVariables dialogueVariables;
 
@@ -223,65 +228,54 @@ public class BattleDialogueManager : MonoBehaviour
 
     private IEnumerator DisplayLine(string line)
     {
-
-
-        // apply tags right *before* any text goes up
         HandleTags(currentStory.currentTags);
 
-        dialogueText.text = line;
+        // Get and prepare sine wave animation
+        SineWaveText waveScript = dialogueText.GetComponent<SineWaveText>();
+        if (waveScript != null)
+        {
+            waveScript.PrepareWaveText(line); // this sets .text and computes wave indices
+            waveScript.enabled = true;
+        }
+        else
+        {
+            dialogueText.text = Regex.Replace(line, @"\[(\/?)wave\]", ""); // fallback clean
+        }
+
         dialogueText.maxVisibleCharacters = 0;
         continueIcon.SetActive(false);
         HideChoices();
 
-
         canContinueToNextLine = false;
-
         bool isAddingRichTextTag = false;
 
-
-        foreach (char letter in line.ToCharArray())
+        foreach (char letter in dialogueText.text.ToCharArray())
         {
-
             if (Input.GetKey(KeyCode.Q))
             {
-                dialogueText.maxVisibleCharacters = line.Length;
+                dialogueText.maxVisibleCharacters = dialogueText.text.Length;
                 break;
             }
 
             if (letter == '<' || isAddingRichTextTag)
             {
                 isAddingRichTextTag = true;
-                //dialogueText.text += letter;
-                if (letter == '>')
-                {
-                    isAddingRichTextTag = false;
-                }
+                if (letter == '>') isAddingRichTextTag = false;
             }
             else
             {
-
-                PlayDialogueSound(dialogueText.maxVisibleCharacters, dialogueText.text[dialogueText.maxVisibleCharacters]);
+                PlayDialogueSound(dialogueText.maxVisibleCharacters, letter);
                 dialogueText.maxVisibleCharacters++;
                 yield return new WaitForSeconds(typingSpeed);
             }
-
-
-
         }
-
-
-        List<Choice> currentChoices = currentStory.currentChoices;
-
-        if (currentChoices.Count == 0)
-        {
-            //continueIcon.SetActive(true);
-        }
-
 
         DisplayChoices();
-
         canContinueToNextLine = true;
     }
+
+
+
 
 
     private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
@@ -393,6 +387,10 @@ public class BattleDialogueManager : MonoBehaviour
                 case AUDIO_TAG:
                     SetCurrentAudioInfo(tagvalue);
                     break;
+                case WAVE_TAG:
+                    isWavyLine = tagvalue == "true";
+                    break;
+
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;

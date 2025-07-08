@@ -2046,6 +2046,7 @@ GameObject:
   - component: {fileID: 262250070}
   - component: {fileID: 262250072}
   - component: {fileID: 262250071}
+  - component: {fileID: 262250073}
   m_Layer: 5
   m_Name: DialogueText
   m_TagString: Untagged
@@ -2169,6 +2170,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262250069}
   m_CullTransparentMesh: 1
+--- !u!114 &262250073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 262250069}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d099cbd68c99b4f9fefad7f2697315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveAmplitude: 5
+  waveFrequency: 1
+  waveSpeed: 2
 --- !u!1 &273981122
 GameObject:
   m_ObjectHideFlags: 0

@@ -30716,7 +30716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
 --- !u!1 &470128336
 GameObject:
   m_ObjectHideFlags: 0
@@ -32407,6 +32407,7 @@ GameObject:
   - component: {fileID: 616684707}
   - component: {fileID: 616684709}
   - component: {fileID: 616684708}
+  - component: {fileID: 616684710}
   m_Layer: 5
   m_Name: DialogueText
   m_TagString: Untagged
@@ -32530,6 +32531,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 616684706}
   m_CullTransparentMesh: 1
+--- !u!114 &616684710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616684706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d099cbd68c99b4f9fefad7f2697315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waveAmplitude: 5
+  waveFrequency: 1
+  waveSpeed: 2
 --- !u!1 &618129735
 GameObject:
   m_ObjectHideFlags: 0
@@ -72673,7 +72689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
 --- !u!114 &1077148814 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5970268575401691821, guid: 0936fa967ad856f41a2a491bde4d187f, type: 3}
@@ -72987,6 +73003,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2bcef76c8eecb0844b9e041512b75fc5, type: 2}
   - {fileID: 11400000, guid: 342002a88121f17438f2dc0e115ee947, type: 2}
   makePredictable: 1
+  sineWaveText: {fileID: 616684710}
 --- !u!1 &1102622170
 GameObject:
   m_ObjectHideFlags: 3
@@ -93901,7 +93918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
 --- !u!1001 &1651058921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95523,7 +95540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
 --- !u!1 &1811441732
 GameObject:
   m_ObjectHideFlags: 0

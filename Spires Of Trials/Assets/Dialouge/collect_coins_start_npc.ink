@@ -15,7 +15,7 @@
  -> END
  
  = canStart
-Will you collect 5 coins and bring them to my friend over there? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left  #audio:animalcrossing #object:false
+Will you collect 5 [wave]coins[/wave] and bring them to my friend over there? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left  #audio:animalcrossing #object:false
 
 * [Yes]
     ~ StartQuest("CollectCoinsQuest")
