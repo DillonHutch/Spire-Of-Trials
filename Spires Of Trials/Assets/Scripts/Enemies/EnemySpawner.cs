@@ -13,6 +13,12 @@ public class EnemyCombatSettings
     public string enemyTag;   // must match the GameObject.tag
     public int minRounds;   // inclusive
     public int maxRounds;   // inclusive
+
+
+    [Header("Allowed Spawn Positions (0=Left,1=Center,2=Right)")]
+    public bool spawnLeft = true;
+    public bool spawnCenter = true;
+    public bool spawnRight = true;
 }
 
 
@@ -221,62 +227,61 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator SpawnRandomEnemies()
     {
         bool anySpawned = false;
-
-        // build candidate list once per call
         var candidates = enemyPrefabs
             .Where(p => p.tag == _combatEnemyTag)
             .ToList();
 
+        // pull the flags for this tag
+        EnemyCombatSettings cfg = settingsByTag[_combatEnemyTag];
+
+        // build list of allowed indices
+        var allowedIndices = new List<int>();
+        if (cfg.spawnLeft) allowedIndices.Add(0);
+        if (cfg.spawnCenter) allowedIndices.Add(1);
+        if (cfg.spawnRight) allowedIndices.Add(2);
+
         while (!anySpawned)
         {
-            for (int i = 0; i < spawnLocations.Count; i++)
+            foreach (int i in allowedIndices)
             {
+                if (i >= spawnLocations.Count)
+                    continue;
+
                 if (Random.value <= spawnChance)
                 {
-                    // pick from matching-tag prefabs, or fallback
-                    var prefab = (candidates.Count > 0)
+                    var prefab = candidates.Count > 0
                         ? candidates[Random.Range(0, candidates.Count)]
                         : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 
                     var spawnPoint = spawnLocations[i].transform;
-                    var enemy = Instantiate(
-                        prefab,
-                        spawnPoint.position,
-                        Quaternion.identity,
-                        spawnPoint
-                    );
+                    var enemy = Instantiate(prefab,
+                                            spawnPoint.position,
+                                            Quaternion.identity,
+                                            spawnPoint);
 
-                    // scale down if center position (i == 1)
+                    // center‐scale tweak, if you still want it
                     if (i == 1)
-                        enemy.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                        enemy.transform.localScale = Vector3.one * 0.8f;
 
-                    // initialize attack sprites exactly as before
+                    // initialize attack sprites…
                     EventManager.Instance.TriggerEvent(
-                        "InitializeAttackSprites",
-                        (leftFlash, centerFlash, rightFlash,
-                         leftShield, centerShield, rightShield)
+                      "InitializeAttackSprites",
+                      (leftFlash, centerFlash, rightFlash,
+                       leftShield, centerShield, rightShield)
                     );
 
-
+                    // your per‐type position adjustments
                     switch (enemy.tag)
                     {
                         case "Slime":
                             AdjustSlimePosition(enemy, i);
                             break;
-                        case "Devil":
-                            AdjustDevilPosition(enemy, i);
-                            break;
-                        case "Cleric":
-                            AdjustClericPosition(enemy, i);
-                            break;
-                        case "VineSerpant":
-                            AdjustSerpantPosition(enemy, i);
-                            break;
-                            // add more cases as needed
+                            // … etc …
                     }
+
                     spawnedEnemies.Add(enemy);
                     anySpawned = true;
-                    break; // exit for‐loop once we've spawned one
+                    break;
                 }
             }
 

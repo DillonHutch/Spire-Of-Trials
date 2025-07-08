@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 125256667}
   - component: {fileID: 125256666}
   m_Layer: 0
-  m_Name: SpawnController
+  m_Name: SpawnHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14283,7 +14283,7 @@ GameObject:
   - component: {fileID: 1928229706}
   - component: {fileID: 1928229707}
   m_Layer: 0
-  m_Name: EnemyController
+  m_Name: EnemySpawnManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14331,12 +14331,21 @@ MonoBehaviour:
   - enemyTag: Skeleton
     minRounds: 1
     maxRounds: 1
+    spawnLeft: 1
+    spawnCenter: 1
+    spawnRight: 1
   - enemyTag: Slime
     minRounds: 1
     maxRounds: 1
+    spawnLeft: 1
+    spawnCenter: 0
+    spawnRight: 1
   - enemyTag: Knight
     minRounds: 1
     maxRounds: 1
+    spawnLeft: 1
+    spawnCenter: 1
+    spawnRight: 1
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}
