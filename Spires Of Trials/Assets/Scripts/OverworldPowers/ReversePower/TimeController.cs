@@ -19,10 +19,7 @@ public class TimeController : MonoBehaviour
 
     void Update()
     {
-        // toggle rewind mode
-        IsRewinding = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-
-        // for each object, either record or rewind
+        // shift-detection moved into PowerController
         foreach (var obj in objects)
         {
             if (IsRewinding)
@@ -31,6 +28,12 @@ public class TimeController : MonoBehaviour
                 obj.RecordState();
         }
     }
+
+    public void SetRewinding(bool rewinding)
+    {
+        IsRewinding = rewinding;
+    }
+
 
     public void Register(IRewindable obj)
     {

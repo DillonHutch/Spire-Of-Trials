@@ -18,13 +18,13 @@ public class DoorController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // true while you hold either Shift key
-        bool shouldOpen = Input.GetKey(KeyCode.LeftShift)
-                       || Input.GetKey(KeyCode.RightShift);
+        // only open when the rewind power is active
+        bool shouldOpen = TimeController.Instance != null
+                       && TimeController.Instance.IsRewinding;
 
         Vector3 target = shouldOpen
-            ? openPosition
-            : closedPosition;
+                       ? openPosition
+                       : closedPosition;
 
         transform.position = Vector3.MoveTowards(
             transform.position,

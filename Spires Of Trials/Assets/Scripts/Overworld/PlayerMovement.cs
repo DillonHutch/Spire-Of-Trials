@@ -3,8 +3,11 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Tooltip("Units per second")]
+    [Tooltip("Units per second (base)")]
     public float moveSpeed = 5f;
+
+    // multiplier for power effects (e.g. SuperSpeed)
+    private float speedMultiplier = 1f;
 
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -27,44 +30,39 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnable()
     {
-        // subscribe to your start/stop events
         EventManager.Instance.StartListening("StartPlayerMovement", StartMovement);
         EventManager.Instance.StartListening("StopPlayerMovement", StopMovement);
     }
 
     void OnDisable()
     {
-        // unsubscribe when disabled
         EventManager.Instance.StopListening("StartPlayerMovement", StartMovement);
         EventManager.Instance.StopListening("StopPlayerMovement", StopMovement);
     }
 
-    // called when you fire the "StartPlayerMovement" event
     private void StartMovement()
     {
         canMove = true;
-        // re-lock so held keys don’t immediately move
         inputLocked = true;
     }
 
-    // called when you fire the "StopPlayerMovement" event
     private void StopMovement()
     {
         canMove = false;
-        // optionally clear velocity here:
         rb.velocity = Vector2.zero;
     }
 
     void Update()
     {
-        // (your existing lock/unlock logic)
-        if (canMove && !wasCanMove) inputLocked = true;
+        if (canMove && !wasCanMove)
+            inputLocked = true;
         wasCanMove = canMove;
 
         if (inputLocked)
         {
             if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
                 inputLocked = false;
+
             movement = Vector2.zero;
             return;
         }
@@ -79,6 +77,23 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = movement * moveSpeed;
+        // apply base speed and any multiplier
+        rb.velocity = movement * moveSpeed * speedMultiplier;
+    }
+
+    /// <summary>
+    /// Called by PowerController to adjust movement speed (e.g. SuperSpeed)
+    /// </summary>
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+    }
+
+    /// <summary>
+    /// Reset speed multiplier back to normal
+    /// </summary>
+    public void ResetSpeedMultiplier()
+    {
+        speedMultiplier = 1f;
     }
 }
