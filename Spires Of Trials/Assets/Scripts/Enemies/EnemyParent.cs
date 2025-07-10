@@ -968,6 +968,8 @@ public abstract class EnemyParent : MonoBehaviour
         if (isAttacking)
             EnemyAttackQueue.AttackFinished(this);
 
+        ResourceManager.Instance.AddResource("enemiesKilled", 1);
+
         // Destroy the enemy game object
         Destroy(gameObject);
     }

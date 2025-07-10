@@ -212,7 +212,11 @@ public class BattleDialogueManager : MonoBehaviour
 
         // 1) stop any existing coroutine
         if (displayLineCoroutine != null)
+        {
+            // this check prevents calling StopCoroutine on a destroyed object
             StopCoroutine(displayLineCoroutine);
+            displayLineCoroutine = null;
+        }
 
         // 2) grab the next line
         string line = currentStory.Continue();
@@ -455,5 +459,18 @@ public class BattleDialogueManager : MonoBehaviour
         }
         return variableValue;
     }
+
+
+    private void OnDestroy()
+    {
+        // Guard in case EventManager is already torn down
+        if (EventManager.Instance != null)
+            EventManager.Instance.StopListening("OnStopFight", OnBattleEnd);
+
+        // Clear the static instance so nobody accidentally talks to us
+        if (instance == this)
+            instance = null;
+    }
+
 
 }

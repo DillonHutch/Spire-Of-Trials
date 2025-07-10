@@ -6,52 +6,53 @@ using UnityEngine;
 
 public class KillEnemiesQuestStep : QuestStep
 {
-    int enemiesKilled = 0;
-    int enemiesToKill = 4;
+    [Tooltip("Must match the key used in ResourceManager")]
+    [SerializeField] private string resourceName = "enemiesKilled";
+    [SerializeField] private int enemiesToKill = 4;
 
+    private int enemiesKilled;
+
+    private void Start()
+    {
+        // catch up on any kills before this quest started
+        enemiesKilled = ResourceManager.Instance.GetResourceCount(resourceName);
+        UpdateState();
+
+        if (enemiesKilled >= enemiesToKill)
+            FinishQuestStep();
+    }
 
     private void OnEnable()
     {
-        EventManager.Instance.StartListening("killEnemies", KillEnemies);
+        EventManager.Instance.StartListening($"resourceAdded_{resourceName}", OnEnemyKilled);
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.StopListening("killEnemies", KillEnemies);
+        EventManager.Instance.StopListening($"resourceAdded_{resourceName}", OnEnemyKilled);
+    }
+
+    private void OnEnemyKilled()
+    {
+        enemiesKilled = ResourceManager.Instance.GetResourceCount(resourceName);
+        UpdateState();
+
+        if (enemiesKilled >= enemiesToKill)
+            FinishQuestStep();
     }
 
     private void UpdateState()
     {
-
-        string state = enemiesKilled.ToString();
-        string status = "Killed " + enemiesKilled + " / " + enemiesToKill + " enemies.";
-        ChangeState(state, status);
-
+        ChangeState(
+            enemiesKilled.ToString(),
+            $"Killed {enemiesKilled} / {enemiesToKill} enemies."
+        );
     }
 
     protected override void SetQuestStepState(string state)
     {
-        this.enemiesKilled = System.Int32.Parse(state);
+        enemiesKilled = int.Parse(state);
         UpdateState();
-    }
-
-
-    private void KillEnemies()
-    {
-
-        if (enemiesKilled < enemiesToKill)
-        {
-            enemiesKilled++;
-            UpdateState();
-        }
-
-
-        if (enemiesKilled >= enemiesToKill)
-        {
-            FinishQuestStep();
-        }
-
-
     }
 
 }

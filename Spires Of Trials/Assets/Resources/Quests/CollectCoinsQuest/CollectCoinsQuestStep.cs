@@ -6,56 +6,55 @@ using UnityEngine;
 public class CollectCoinsQuestStep : QuestStep
 {
 
-    private int coinsCollected = 0;
+    [Tooltip("Name must match the key you use in ResourceManager")]
+    [SerializeField] private string resourceName;
 
-    private int coinsToComplete = 5;
+    [Tooltip("How many of that resource to collect")]
+    [SerializeField] private int targetAmount = 5;
 
-    private void Start()
+    private int currentAmount;
+
+    void Start()
     {
+        // catch up on anything collected before this quest started
+        currentAmount = ResourceManager.Instance.GetResourceCount(resourceName);
         UpdateState();
-    }
 
-    private void OnEnable()
-    {
-        EventManager.Instance.StartListening("coinCollected", CoinCollected);
-    }
-
-    private void OnDisable()
-    {
-        EventManager.Instance.StopListening("coinCollected", CoinCollected);
-    }
-
-
-    private void CoinCollected()
-    {
-
-        if (coinsCollected < coinsToComplete)
-        {
-            coinsCollected++;
-            UpdateState();
-        }
-
-
-        if(coinsCollected >= coinsToComplete)
-        {
+        if (currentAmount >= targetAmount)
             FinishQuestStep();
-        }
+    }
 
+    void OnEnable()
+    {
+        // listen for only this resource
+        EventManager.Instance.StartListening($"resourceAdded_{resourceName}", OnResourceAdded);
+    }
 
+    void OnDisable()
+    {
+        EventManager.Instance.StopListening($"resourceAdded_{resourceName}", OnResourceAdded);
+    }
+
+    private void OnResourceAdded()
+    {
+        currentAmount = ResourceManager.Instance.GetResourceCount(resourceName);
+        UpdateState();
+
+        if (currentAmount >= targetAmount)
+            FinishQuestStep();
     }
 
     private void UpdateState()
     {
-
-        string state = coinsCollected.ToString();
-        string status = "Collected " + coinsCollected + " / " + coinsToComplete + " coins.";
-        ChangeState(state, status);
-
+        ChangeState(
+            currentAmount.ToString(),
+            $"Collected {currentAmount} / {targetAmount} {resourceName}"
+        );
     }
 
     protected override void SetQuestStepState(string state)
     {
-        this.coinsCollected = System.Int32.Parse(state);
+        currentAmount = int.Parse(state);
         UpdateState();
     }
 
