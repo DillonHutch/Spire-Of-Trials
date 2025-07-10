@@ -6,17 +6,26 @@ public enum PowerType
 {
     Rewind,
     SuperSpeed,
-    SlowTime
+    SlowTime,
+    Ghost,
+    CameraLook
 }
 
 public class PowerController : MonoBehaviour
 {
-    
+
+    public static PowerController Instance { get; private set; }
+
+    // at the top of PowerController
     private PowerType[] powers = {
-        PowerType.Rewind,
-        PowerType.SuperSpeed,
-        PowerType.SlowTime    // ← include it in the cycle
-    };
+    PowerType.Rewind,
+    PowerType.SuperSpeed,
+    PowerType.SlowTime,
+    PowerType.Ghost,
+    PowerType.CameraLook // ← add it here
+
+};
+
     [SerializeField] private TextMeshProUGUI powerText;
     [SerializeField]
     [Tooltip("How much faster SuperSpeed makes you")]
@@ -26,6 +35,29 @@ public class PowerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private Animator playerAnimator;
     private float normalFixedDelta;
+
+
+    // somewhere in the class, e.g. under your fields:
+    public PowerType CurrentPower
+    {
+        get => powers[currentPowerIndex];
+    }
+
+
+    void Awake()
+    {
+        // Singleton setup
+        if (Instance == null)
+        {
+            Instance = this;
+            // (optional) DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     void Start()
     {
@@ -82,6 +114,12 @@ public class PowerController : MonoBehaviour
                 if (playerAnimator != null)
                     playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 break;
+            case PowerType.Ghost:
+                // no logic here—GhostController will kick in based on CurrentPower+Shift
+                break;
+            case PowerType.CameraLook:
+                // no logic here—GhostController will kick in based on CurrentPower+Shift
+                break;
         }
     }
 
@@ -104,6 +142,12 @@ public class PowerController : MonoBehaviour
                 playerMovement.ResetSpeedMultiplier();
                 if (playerAnimator != null)
                     playerAnimator.updateMode = AnimatorUpdateMode.Normal;
+                break;
+            case PowerType.Ghost:
+                // no logic here—GhostController will kick in based on CurrentPower+Shift
+                break;
+            case PowerType.CameraLook:
+                // no logic here—GhostController will kick in based on CurrentPower+Shift
                 break;
         }
     }
