@@ -633,9 +633,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 526590938}
   - {fileID: 415855236}
+  moveSpeed: 2
 --- !u!61 &40402098
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29829,11 +29831,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 804517026}
   - {fileID: 2064473986}
   - {fileID: 1236554031}
   - {fileID: 1842272195}
+  moveSpeed: 2
 --- !u!61 &387479122
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -30366,6 +30370,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 442886270}
   m_CullTransparentMesh: 1
+--- !u!1 &452541783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452541784}
+  m_Layer: 0
+  m_Name: OverworldPowers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452541784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452541783}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.246258, y: -5.821355, z: -0.08072128}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2034952561}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &455510015
 GameObject:
   m_ObjectHideFlags: 0
@@ -30655,9 +30691,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 249786072}
   - {fileID: 615257567}
+  moveSpeed: 2
 --- !u!61 &461801910
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -70340,6 +70378,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &859642715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 859642717}
+  - component: {fileID: 859642716}
+  m_Layer: 0
+  m_Name: ResourceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &859642716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859642715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225f9a53dcde4694284dc9c46559ddf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &859642717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859642715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -41.49764, y: -12.288127, z: 0.006617879}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &877867021
 GameObject:
   m_ObjectHideFlags: 0
@@ -70556,9 +70638,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 1653807090}
   - {fileID: 44812304}
+  moveSpeed: 2
 --- !u!61 &893191983
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -70724,11 +70808,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 281974855}
   - {fileID: 141648488}
   - {fileID: 730873649}
   - {fileID: 675065950}
+  moveSpeed: 2
 --- !u!1 &914436759
 GameObject:
   m_ObjectHideFlags: 0
@@ -72626,11 +72712,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 1462574065}
   - {fileID: 1460716462}
   - {fileID: 1619692483}
   - {fileID: 1752167833}
+  moveSpeed: 2
 --- !u!61 &1070071619
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -74671,9 +74759,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 132516077}
   - {fileID: 1243302791}
+  moveSpeed: 2
 --- !u!61 &1289802795
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -91453,9 +91543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 10
   waypoints:
   - {fileID: 1988405359}
   - {fileID: 307982718}
+  moveSpeed: 2
 --- !u!61 &1411769898
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -92734,9 +92826,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 1297368289}
   - {fileID: 1880165045}
+  moveSpeed: 2
 --- !u!61 &1547890766
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -93857,9 +93951,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 946725459}
   - {fileID: 1848445355}
+  moveSpeed: 2
 --- !u!61 &1639007244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95479,9 +95575,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 12708424}
   - {fileID: 2137892274}
+  moveSpeed: 2
 --- !u!61 &1793977328
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95572,9 +95670,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863e8dab2c09a08418d67f77875a7d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bufferDuration: 5
   waypoints:
   - {fileID: 416768704}
   - {fileID: 692411728}
+  moveSpeed: 2
 --- !u!61 &1811441734
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -98046,6 +98146,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c4c1dc4334236a4680e6f86332342c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2034952560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2034952561}
+  - component: {fileID: 2034952562}
+  m_Layer: 0
+  m_Name: ReversePower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2034952561
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034952560}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 452541784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2034952562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034952560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5351f927fd5319841b25d48b6964eb17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2053340689
 GameObject:
   m_ObjectHideFlags: 0
@@ -99977,3 +100121,5 @@ SceneRoots:
   - {fileID: 1896999225}
   - {fileID: 1571642950}
   - {fileID: 877867022}
+  - {fileID: 859642717}
+  - {fileID: 452541784}

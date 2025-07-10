@@ -2,57 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPathScript : MonoBehaviour
+// 3) Waypoint follower that also rewinds its index
+public class FollowPathScript : RewindableMono
 {
-    [SerializeField]
-    private Transform[] waypoints;
+    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private float moveSpeed = 2f;
+    private int waypointIndex;
 
-
-    private float moveSpeed = 2f;
-
-
-    private int waypointIndex = 0;
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void OnEnable()
     {
-        transform.position = waypoints[waypointIndex].transform.position;
+        base.OnEnable();
+        waypointIndex = 0;
+        if (waypoints != null && waypoints.Length > 0)
+            transform.position = waypoints[0].position;
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override int GetExtraInt()
     {
-        Move();
+        return waypointIndex;
     }
 
+    protected override void ApplyExtraInt(int extraInt)
+    {
+        waypointIndex = extraInt;
+    }
+
+    void FixedUpdate()
+    {
+        if (!TimeController.Instance.IsRewinding)
+            Move();
+    }
 
     private void Move()
     {
-        if(waypointIndex <= waypoints.Length - 1)
-        {
-            //if (DialogueManager.GetInstance().dialogueIsPlaying)
-            //{
-            //    moveSpeed = 0;
-            //}
-            //else
-            //{
-            //    moveSpeed = 2f;
-            //}
+        if (waypoints == null || waypoints.Length == 0)
+            return;
 
-            transform.position = Vector2.MoveTowards(transform.position, waypoints[waypointIndex].transform.position, moveSpeed * Time.deltaTime); 
+        if (waypointIndex >= waypoints.Length)
+            waypointIndex = 0;
 
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            waypoints[waypointIndex].position,
+            moveSpeed * Time.fixedDeltaTime
+        );
 
-            if(transform.position == waypoints[waypointIndex].transform.position )
-            {
-                waypointIndex++;
-                
-            }
-        }
-        else
-        {
-            waypointIndex =  0;
-        }
+        if (Vector2.Distance(transform.position, waypoints[waypointIndex].position) < 0.01f)
+            waypointIndex++;
     }
 }
