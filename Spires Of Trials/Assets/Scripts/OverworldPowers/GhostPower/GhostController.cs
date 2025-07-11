@@ -7,7 +7,7 @@ public class GhostController : MonoBehaviour
     [Tooltip("Seconds of history to record")]
     [SerializeField] private float bufferDuration = 10f;
     [Tooltip("How far behind the ghost should be")]
-    [SerializeField] private float ghostDelay = 1f;
+     private float ghostDelay = 2f;
     [Tooltip("Your translucent ghost prefab")]
     [SerializeField] private GameObject ghostPrefab;
 

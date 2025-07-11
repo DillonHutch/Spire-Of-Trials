@@ -14,7 +14,7 @@ public class RewindableMono : MonoBehaviour, IRewindable
     }
 
     [Tooltip("How many seconds to buffer for rewind")]
-    [SerializeField] private float bufferDuration = 5f;
+    private float bufferDuration = 1000f;
     protected List<State> buffer = new List<State>();
 
     public virtual bool CanInstantRewind => false;

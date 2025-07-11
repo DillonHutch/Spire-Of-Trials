@@ -1,13 +1,11 @@
-
-// SkillMenuController.cs (updated with inspector reference and fallback)
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class SkillMenuController : MonoBehaviour
 {
     [Header("UI Setup")]
     [SerializeField] private GameObject menuPanel;
-    [SerializeField] private Image[] skillIcons;  // Assign in Inspector, size = 6
+    [SerializeField] private TextMeshProUGUI[] skillLabels;  // Assign in Inspector, size = 6
 
     [Header("References")]
     [Tooltip("Drag your FightController here (BattleUI object)")]
@@ -24,9 +22,9 @@ public class SkillMenuController : MonoBehaviour
     void Awake()
     {
         // cache count and validate
-        skillCount = (skillIcons != null) ? skillIcons.Length : 0;
+        skillCount = (skillLabels != null) ? skillLabels.Length : 0;
         if (skillCount == 0)
-            Debug.LogError("SkillMenuController: skillIcons array is empty! Set size=6 and assign each slot.");
+            Debug.LogError("SkillMenuController: skillLabels array is empty! Set size=6 and assign each slot.");
 
         CloseMenu();
     }
@@ -56,14 +54,17 @@ public class SkillMenuController : MonoBehaviour
     private void UpdateHighlights()
     {
         for (int i = 0; i < skillCount; i++)
-            skillIcons[i].color = (i == selectedIndex) ? highlightColor : normalColor;
+        {
+            skillLabels[i].color = (i == selectedIndex) ? highlightColor : normalColor;
+            // optionally make the selected label bold:
+            skillLabels[i].fontStyle = (i == selectedIndex) ? FontStyles.Bold : FontStyles.Normal;
+        }
     }
 
     private void ConfirmSelection()
     {
         CloseMenu();
 
-        // ensure we have a FightController
         if (fightController == null)
         {
             fightController = FindObjectOfType<FightController>();
@@ -91,4 +92,3 @@ public class SkillMenuController : MonoBehaviour
         menuPanel.SetActive(false);
     }
 }
-
