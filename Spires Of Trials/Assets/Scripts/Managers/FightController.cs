@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +17,17 @@ public class FightController : MonoBehaviour
     [SerializeField] private TimingController timingController;
     [SerializeField] private ArrowMiniGameController arrowMiniGame;
 
+    [Header("Skill 3 (Slow) Settings")]
+    [SerializeField] private float slowDuration = 15f;   // how long the slow lasts
+    [SerializeField] private float slowFactor = 0.5f;
+
+
+    [Header("Skill 4 (Reveal Next Hit)")]
+    [SerializeField] private float revealDuration = 30f;
+
+
     private int currentSkillIndex;
+    private int lastDamageTaken = 0;    // store last round’s damage
 
     private void Awake()
     {
@@ -30,6 +40,23 @@ public class FightController : MonoBehaviour
         // ensure the mini-game is hidden at start
         if (timingController != null)
             miniGamePanel.SetActive(false);
+
+        EventManager.Instance.StartListening<int>(
+    "takeDamageEvent", OnPlayerDamaged
+);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.StopListening<int>(
+            "takeDamageEvent", OnPlayerDamaged
+        );
+    }
+
+
+    private void OnPlayerDamaged(int damage)
+    {
+        lastDamageTaken = damage;
     }
 
     private void Start()
@@ -94,14 +121,64 @@ public class FightController : MonoBehaviour
         if (success)
         {
             Debug.Log($"Skill {currentSkillIndex} succeeded");
-            // TODO: implement each skill�s effect here
+            switch (currentSkillIndex)
+            {
+                case 0:
+                    // heal for last round’s damage
+                    EventManager.Instance.TriggerEvent("healDamageEvent", lastDamageTaken);
+                    // reset if you don’t want double‐heals
+                    lastDamageTaken = 0;
+                    break;
+                case 1:
+                    
+                    //TODO 
+                    break;
+                case 2:
+                    // start the slow effect
+                    StartCoroutine(ApplySlowToEnemies());
+                    break;
+                case 3:
+                    StartCoroutine(RevealNextHits());
+                    break;
+
+
+            }
         }
         else
         {
             Debug.Log($"Skill {currentSkillIndex} failed");
-            // TODO: handle failure penalties here
+            // … your existing failure logic …
         }
     }
+
+
+    private IEnumerator ApplySlowToEnemies()
+    {
+        // find all enemies
+        var enemies = FindObjectsOfType<EnemyParent>();
+        foreach (var e in enemies)
+            e.SetSlow(slowFactor);
+
+        yield return new WaitForSeconds(slowDuration);
+
+        foreach (var e in enemies)
+            e.ResetSpeed();
+    }
+
+
+    private IEnumerator RevealNextHits()
+    {
+        // find every live enemy
+        var enemies = FindObjectsOfType<EnemyParent>();
+        foreach (var e in enemies)
+            e.ShowNextHitIndicator(true);
+
+        yield return new WaitForSeconds(revealDuration);
+
+        foreach (var e in enemies)
+            e.ShowNextHitIndicator(false);
+    }
+
 
 
 }

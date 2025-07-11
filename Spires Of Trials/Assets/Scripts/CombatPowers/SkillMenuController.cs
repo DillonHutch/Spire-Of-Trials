@@ -81,7 +81,6 @@ public class SkillMenuController : MonoBehaviour
     {
         isOpen = true;
         menuPanel.SetActive(true);
-        Debug.Log("AM I OPEN??");
         selectedIndex = 0;
         UpdateHighlights();
     }

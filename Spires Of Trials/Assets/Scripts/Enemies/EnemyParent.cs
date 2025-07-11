@@ -113,6 +113,11 @@ public abstract class EnemyParent : MonoBehaviour
     protected List<EnemyAttackType> enemyAttackPattern = new List<EnemyAttackType>();
     protected int enemyPatternIndex = 0;
 
+    private float normalIntervalMin;
+    private float normalIntervalMax;
+    private float normalWindUpTime;
+    private bool isSlowed = false;
+
 
     public bool IsAttacking
     {
@@ -121,6 +126,11 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
     private bool parryWindowActive = false;
+
+
+    [Header("Next‐Hit Reveal UI")]
+    [SerializeField] private SpriteRenderer nextHitIndicator;
+    private bool revealNextActive = false;
 
 
     #endregion
@@ -138,6 +148,11 @@ public abstract class EnemyParent : MonoBehaviour
     protected virtual void Start()
     {
         StartCoroutine(MonitorColorReset());
+
+
+        normalIntervalMin = attackIntervalMin;
+        normalIntervalMax = attackIntervalMax;
+        normalWindUpTime = windUpTime;
 
         // Cache commonly used components
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -200,6 +215,46 @@ public abstract class EnemyParent : MonoBehaviour
 
         DefineEnemyAttackPattern();
 
+    }
+
+    // cache your sprites in one place
+    private Sprite GetSpriteFor(string atk)
+    {
+        switch (atk)
+        {
+            case "melee": return meleeSprite;
+            case "magic": return magicSprite;
+            case "range": return rangeSprite;
+            case "heavy": return heavySprite;
+            default: return null;
+        }
+    }
+
+
+    /// <summary>
+    /// Turn the small “next hit” icon on/off, and immediately update its sprite.
+    /// </summary>
+    public void ShowNextHitIndicator(bool show)
+    {
+        revealNextActive = show;
+        UpdateNextHitIcon();
+    }
+
+    /// <summary>
+    /// Recompute which attack is coming up next,
+    /// and set the little icon’s sprite+enabled state.
+    /// </summary>
+    private void UpdateNextHitIcon()
+    {
+        if (!revealNextActive || currentSequenceIndex + 1 >= attackSequence.Count)
+        {
+            nextHitIndicator.enabled = false;
+            return;
+        }
+
+        string next = attackSequence[currentSequenceIndex + 1];
+        nextHitIndicator.sprite = GetSpriteFor(next);
+        nextHitIndicator.enabled = (nextHitIndicator.sprite != null);
     }
 
 
@@ -805,6 +860,8 @@ public abstract class EnemyParent : MonoBehaviour
                 attackIndicatorRenderer.sprite = heavySprite;
                 break;
         }
+
+        UpdateNextHitIcon();
     }
 
     /// <summary>
@@ -1005,6 +1062,38 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
     #endregion
+
+
+    /// <summary>
+    /// slowFactor < 1.0 slows everything down (anim & attack cadence)
+    /// </summary>
+    public void SetSlow(float slowFactor)
+    {
+        if (isSlowed) return;
+        isSlowed = true;
+
+        // stretch out attack timing
+        attackIntervalMin = normalIntervalMin / slowFactor;
+        attackIntervalMax = normalIntervalMax / slowFactor;
+        windUpTime = normalWindUpTime / slowFactor;
+
+        // slow animator playback
+        if (animator != null)
+            animator.speed = slowFactor;
+    }
+
+    public void ResetSpeed()
+    {
+        if (!isSlowed) return;
+        isSlowed = false;
+
+        attackIntervalMin = normalIntervalMin;
+        attackIntervalMax = normalIntervalMax;
+        windUpTime = normalWindUpTime;
+
+        if (animator != null)
+            animator.speed = 1f;
+    }
 
 }
 
