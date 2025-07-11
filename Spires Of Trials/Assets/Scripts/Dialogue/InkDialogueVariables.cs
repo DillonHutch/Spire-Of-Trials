@@ -15,7 +15,7 @@ public class InkDialogueVariables
         {
             Ink.Runtime.Object value = story.variablesState.GetVariableWithName(name);
             variables.Add(name, value);
-             Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
+             //Debug.Log("Initialized global dialogue variable: " + name + " = " + value);
         }
     }
 
@@ -39,7 +39,7 @@ public class InkDialogueVariables
             return;
         }
         variables[name] = value;
-         Debug.Log("Updated dialogue variable: " + name + " = " + value);
+        // Debug.Log("Updated dialogue variable: " + name + " = " + value);
     }
 
     private void SyncVariablesToStory(Story story)

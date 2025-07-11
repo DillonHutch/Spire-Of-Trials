@@ -15,64 +15,50 @@ public class ArrowMiniGameController : MonoBehaviour
     [SerializeField] private Sprite leftSprite;
     [SerializeField] private Sprite rightSprite;
 
-    float defenceTime = 5f;
+    [SerializeField] private Animator animator;
 
     private List<KeyCode> sequence = new List<KeyCode>();
     private int currentIndex;
     private bool isRunning;
+    private int skillIndex;
+    private float defenceTime = 5f;
 
-
-    [SerializeField] private Animator animator;
-
-
-    //[Header("Mini-Game Rewards & Penalties")]
-    //[Tooltip("Seconds added to the fight timer on success")]
-    //[SerializeField] private float timeReward = 5f;
-    //[Tooltip("Seconds subtracted from the fight timer on failure")]
-    //[SerializeField] private float timePenalty = 5f;
-    //[Tooltip("Damage dealt to the player on failure (if you have a health system)")]
-    //[SerializeField] private int healthDamage = 5;
-
+    public void SetSkillIndex(int idx)
+    {
+        skillIndex = idx;
+    }
 
     public void StartSequence()
     {
         GenerateRandomSequence();
         DisplaySequence();
-        this.currentIndex = 0;
-        this.isRunning = true;
-        this.panel.SetActive(true);
+        currentIndex = 0;
+        isRunning = true;
+        panel.SetActive(true);
     }
 
-    private void Update()
+    void Update()
     {
-        if (!this.isRunning)
-        {
-            return;
-        }
+        if (!isRunning) return;
 
         if (Input.anyKeyDown)
         {
             KeyCode pressed = KeyCode.None;
-            if (Input.GetKeyDown(KeyCode.UpArrow)) { pressed = KeyCode.UpArrow; }
-            if (Input.GetKeyDown(KeyCode.DownArrow)) { pressed = KeyCode.DownArrow; }
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) { pressed = KeyCode.LeftArrow; }
-            if (Input.GetKeyDown(KeyCode.RightArrow)) { pressed = KeyCode.RightArrow; }
+            if (Input.GetKeyDown(KeyCode.UpArrow)) pressed = KeyCode.UpArrow;
+            if (Input.GetKeyDown(KeyCode.DownArrow)) pressed = KeyCode.DownArrow;
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) pressed = KeyCode.LeftArrow;
+            if (Input.GetKeyDown(KeyCode.RightArrow)) pressed = KeyCode.RightArrow;
 
             if (pressed != KeyCode.None)
-            {
                 EvaluateInput(pressed);
-            }
         }
     }
 
     private void EvaluateInput(KeyCode pressed)
     {
-        bool correct = (pressed == this.sequence[this.currentIndex]);
-
-        // feedback
-        this.arrowSlots[this.currentIndex].color = correct ? Color.green : Color.red;
-
-        this.currentIndex++;
+        bool correct = (pressed == sequence[currentIndex]);
+        arrowSlots[currentIndex].color = correct ? Color.green : Color.red;
+        currentIndex++;
 
         if (!correct)
         {
@@ -80,105 +66,56 @@ public class ArrowMiniGameController : MonoBehaviour
             return;
         }
 
-        if (this.currentIndex >= this.sequence.Count)
-        {
+        if (currentIndex >= sequence.Count)
             Succeed();
-        }
     }
 
     private void Succeed()
     {
-        Debug.Log("Arrow mini-game: SUCCESS!");
-
-        // 1) heal any damage from last round (as before)
-        PlayerHealth playerHealth = FindObjectOfType<PlayerHealth>();
-        if (playerHealth != null)
-        {
-            int damageToHeal = playerHealth.GetDamageTakenThisRound();
-            if (damageToHeal > 0)
-            {
-                EventManager.Instance.TriggerEvent("healDamageEvent", damageToHeal);
-            }
-        }
-
-        // 2) skip damage at end of this upcoming timer
-        TimingController.Instance.SkipNextDamageForThisRound();
-
-        EndSequence();
-
-        // 3) restart the fight timer (still 5s) and re-enter fight
-        //TimingController.Instance.StartTimer(defenceTime);
-        //TimingController.Instance.FightActive = true;
-        //EventManager.Instance.TriggerEvent("OnStartFight");
+        // Report success and play animation
+        FindObjectOfType<FightController>().ApplySkillEffect(true);
         animator.Play("fightEnded");
+        EndSequence();
     }
-
-
 
     private void Fail()
     {
-        Debug.Log("Arrow mini-game: FAILURE!");
-        EndSequence();
-
+        FindObjectOfType<FightController>().ApplySkillEffect(false);
+        // resume fight timer as before
         TimingController.Instance.StartTimer(defenceTime);
         EventManager.Instance.TriggerEvent("OnStartFight");
         animator.Play("closeMenu");
         TimingController.Instance.FightActive = true;
+        EndSequence();
     }
 
     private void EndSequence()
     {
-        this.isRunning = false;
-        this.panel.SetActive(false);
+        isRunning = false;
+        panel.SetActive(false);
         TimingController.Instance.StopCombatTimer();
-
-        // reset for next time
-        for (int i = 0; i < this.arrowSlots.Length; i++)
-        {
-            this.arrowSlots[i].color = Color.white;
-        }
+        for (int i = 0; i < arrowSlots.Length; i++)
+            arrowSlots[i].color = Color.white;
     }
 
     private void GenerateRandomSequence()
     {
-        this.sequence.Clear();
-        KeyCode[] options = new KeyCode[]
-        {
-            KeyCode.UpArrow,
-            KeyCode.DownArrow,
-            KeyCode.LeftArrow,
-            KeyCode.RightArrow
-        };
-
-        for (int i = 0; i < this.arrowSlots.Length; i++)
-        {
-            int index = UnityEngine.Random.Range(0, options.Length);
-            KeyCode choice = options[index];
-            this.sequence.Add(choice);
-        }
+        sequence.Clear();
+        KeyCode[] options = { KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.LeftArrow, KeyCode.RightArrow };
+        for (int i = 0; i < arrowSlots.Length; i++)
+            sequence.Add(options[Random.Range(0, options.Length)]);
     }
 
     private void DisplaySequence()
     {
-        for (int i = 0; i < this.sequence.Count; i++)
+        for (int i = 0; i < sequence.Count; i++)
         {
-            KeyCode kc = this.sequence[i];
-            Image slot = this.arrowSlots[i];
-
-            switch (kc)
+            switch (sequence[i])
             {
-                case KeyCode.UpArrow:
-                    slot.sprite = this.upSprite;
-                    break;
-                case KeyCode.DownArrow:
-                    slot.sprite = this.downSprite;
-                    break;
-                case KeyCode.LeftArrow:
-                    slot.sprite = this.leftSprite;
-                    break;
-                case KeyCode.RightArrow:
-                    slot.sprite = this.rightSprite;
-                    break;
+                case KeyCode.UpArrow: arrowSlots[i].sprite = upSprite; break;
+                case KeyCode.DownArrow: arrowSlots[i].sprite = downSprite; break;
+                case KeyCode.LeftArrow: arrowSlots[i].sprite = leftSprite; break;
+                case KeyCode.RightArrow: arrowSlots[i].sprite = rightSprite; break;
             }
         }
     }

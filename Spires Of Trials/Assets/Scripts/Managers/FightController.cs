@@ -10,11 +10,14 @@ public class FightController : MonoBehaviour
     [SerializeField] private Button runButton;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject miniGamePanel;
+    [SerializeField] private SkillMenuController skillMenu;
     BattleSceneController battleController;
 
     // Drag your TimingController (the one with OpenMiniGame()) here
     [SerializeField] private TimingController timingController;
     [SerializeField] private ArrowMiniGameController arrowMiniGame;
+
+    private int currentSkillIndex;
 
     private void Awake()
     {
@@ -56,16 +59,11 @@ public class FightController : MonoBehaviour
 
     private void OnSkillPressed()
     {
+        Debug.Log("OnSkillPressed called!");
         animator.Play("fightButtonClicked");
-        if (arrowMiniGame != null)
-        {
-            arrowMiniGame.StartSequence();
-        }
-        if (timingController != null)
-        {
-            timingController.StartCombatTimer();
-        }
+        skillMenu.OpenMenu();
     }
+
 
 
     private void OnRunPressed()
@@ -81,8 +79,29 @@ public class FightController : MonoBehaviour
         battleController.EndBattle();
     }
 
-   
 
+    public void OnSkillChosen(int index)
+    {
+        currentSkillIndex = index;
+        // pass it into the arrow mini-game
+        arrowMiniGame.SetSkillIndex(index);
+        arrowMiniGame.StartSequence();
+    }
+
+    // called by ArrowMiniGameController on success/failure
+    public void ApplySkillEffect(bool success)
+    {
+        if (success)
+        {
+            Debug.Log($"Skill {currentSkillIndex} succeeded");
+            // TODO: implement each skill’s effect here
+        }
+        else
+        {
+            Debug.Log($"Skill {currentSkillIndex} failed");
+            // TODO: handle failure penalties here
+        }
+    }
 
 
 }
