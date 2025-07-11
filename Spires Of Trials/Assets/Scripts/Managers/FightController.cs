@@ -26,6 +26,9 @@ public class FightController : MonoBehaviour
     [SerializeField] private float revealDuration = 30f;
 
 
+    [Header("Skill 5 (shield)")]
+    [HideInInspector] public int invincibleHits = 0;
+
     private int currentSkillIndex;
     private int lastDamageTaken = 0;    // store last round’s damage
 
@@ -139,6 +142,11 @@ public class FightController : MonoBehaviour
                     break;
                 case 3:
                     StartCoroutine(RevealNextHits());
+                    break;
+                case 4:
+                    // ← NEW: grant 3 free hits
+                    invincibleHits = 3;
+                    Debug.Log("Invincibility skill activated: 3 free hits remaining");
                     break;
 
 

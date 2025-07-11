@@ -597,7 +597,17 @@ public abstract class EnemyParent : MonoBehaviour
             else
             {
                 // failed to dodge, take damage
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                // determine damage based on invincibility charges
+                int damageAmount = 1;
+                var fc = FindObjectOfType<FightController>();
+                if (fc != null && fc.invincibleHits > 0)
+                {
+                    fc.invincibleHits--;
+                    damageAmount = 0;
+                    Debug.Log($"Invincible! Charges left: {fc.invincibleHits}");
+                }
+
+                EventManager.Instance.TriggerEvent("takeDamageEvent", damageAmount);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
@@ -610,7 +620,17 @@ public abstract class EnemyParent : MonoBehaviour
             }
             else
             {
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                // determine damage based on invincibility charges
+                int damageAmount = 1;
+                var fc = FindObjectOfType<FightController>();
+                if (fc != null && fc.invincibleHits > 0)
+                {
+                    fc.invincibleHits--;
+                    damageAmount = 0;
+                    Debug.Log($"Invincible! Charges left: {fc.invincibleHits}");
+                }
+
+                EventManager.Instance.TriggerEvent("takeDamageEvent", damageAmount);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
@@ -627,7 +647,17 @@ public abstract class EnemyParent : MonoBehaviour
             else
             {
                 // failed to crouch—take damage
-                EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
+                // determine damage based on invincibility charges
+                int damageAmount = 1;
+                var fc = FindObjectOfType<FightController>();
+                if (fc != null && fc.invincibleHits > 0)
+                {
+                    fc.invincibleHits--;
+                    damageAmount = 0;
+                    Debug.Log($"Invincible! Charges left: {fc.invincibleHits}");
+                }
+
+                EventManager.Instance.TriggerEvent("takeDamageEvent", damageAmount);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
