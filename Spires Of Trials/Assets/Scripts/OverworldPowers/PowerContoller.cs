@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 
 public enum PowerType
@@ -15,6 +16,8 @@ public class PowerController : MonoBehaviour
 {
 
     public static PowerController Instance { get; private set; }
+
+    [SerializeField] private TilemapCollider2D superSpeedCollider;
 
     // at the top of PowerController
     private PowerType[] powers = {
@@ -100,6 +103,9 @@ public class PowerController : MonoBehaviour
                 break;
             case PowerType.SuperSpeed:
                 playerMovement.SetSpeedMultiplier(superSpeedMultiplier);
+
+                if (superSpeedCollider != null)
+                    superSpeedCollider.enabled = false;
                 break;
             case PowerType.SlowTime:
                 // slow the whole game to half speed
@@ -132,6 +138,10 @@ public class PowerController : MonoBehaviour
                 break;
             case PowerType.SuperSpeed:
                 playerMovement.ResetSpeedMultiplier();
+
+
+                if (superSpeedCollider != null)
+                    superSpeedCollider.enabled = true;
                 break;
             case PowerType.SlowTime:
                 // back to normal time

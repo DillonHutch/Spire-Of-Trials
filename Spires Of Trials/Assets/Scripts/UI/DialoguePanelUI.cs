@@ -16,9 +16,9 @@ public class DialoguePanelUI : MonoBehaviour
 
     [SerializeField] private DialogueChoiceButton[] choiceButtons;
 
-
     [Header("Type-writer Settings")]
-    [SerializeField] private float typingSpeed = 0.04f;
+    private float typingSpeed = 0.04f;
+    private float defaultTypingSpeed;
     [SerializeField] private GameObject continueIcon;      // optional little arrow
     private Coroutine typingCoroutine;
 
@@ -36,6 +36,8 @@ public class DialoguePanelUI : MonoBehaviour
 
     private void Awake()
     {
+        defaultTypingSpeed = typingSpeed;
+
         contentParent.SetActive(false);
         ResetPanel();
 
@@ -56,6 +58,8 @@ public class DialoguePanelUI : MonoBehaviour
 
         EventManager.Instance.StartListening<string>("setDialogueAudio", SetCurrentAudioInfo);
 
+        EventManager.Instance.StartListening<float>("setTypingSpeed", OnSetTypingSpeed);
+
 
     }
 
@@ -67,6 +71,8 @@ public class DialoguePanelUI : MonoBehaviour
             => DisplayDialogue(data.dialogueLine, data.dialogueChoices));
 
         EventManager.Instance.StopListening<string>("setDialogueAudio", SetCurrentAudioInfo);
+
+        EventManager.Instance.StopListening<float>("setTypingSpeed", OnSetTypingSpeed);
     }
 
 
@@ -113,17 +119,22 @@ public class DialoguePanelUI : MonoBehaviour
 
     private void DialogueStarted()
     {
-
+        typingSpeed = defaultTypingSpeed;
         contentParent.SetActive(true);
     }
 
 
     private void DialogueFinished()
     {
-        contentParent.SetActive(false); 
+        contentParent.SetActive(false);
 
-
+        typingSpeed = defaultTypingSpeed;
         ResetPanel();
+    }
+
+    private void OnSetTypingSpeed(float newSpeed)
+    {
+        typingSpeed = newSpeed;
     }
 
     private void DisplayDialogue(string dialogueLine, List<Choice> dialogueChoices)

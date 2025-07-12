@@ -11,23 +11,42 @@
 
     
  = requirementsNotMet
- Help my friends at the beginning first then come talk to me! #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
+I'm hiding from my boss.
+
+He has a weird affinity for coins.
+
+Please due come back when you have helped him. 
+ 
+ 
+ 
  -> END
  
  = canStart
-Kill all enemies and then come and report back to me! #speaker:Dr. Green #portrait:dr_green_neutral #layout:left  #audio:animalcrossing #object:false
+ oh, will you please help me? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
+ 
+ You see I am the worst soldier to exist.
+ 
+ I don't want to kill anything...
+ 
+ But I need to return home.
+ 
+ Could you kill all the enemies?
+ 
+ If you do ill give you quite the reward.
 
 * [Yes]
     ~ StartQuest("KillEnemiesQuest")
-    Thats the spirit! #speaker:Dr. Green #portrait:dr_green_happy #layout:left  #audio:animalcrossing #object:false
+    Thank you kind friend.  #speaker:Dr. Green #portrait:dr_green_happy #layout:left  #audio:animalcrossing #object:false
     
 * [No]
-    You are a disgrace.  #speaker:Dr. Green #portrait:dr_green_sad #layout:left  #audio:animalcrossing #object:false
+    A fellow pacifist, who am I to judge.   #speaker:Dr. Green #portrait:dr_green_sad #layout:left  #audio:animalcrossing #object:false
 
 - -> END
  
  = inProgress
- How the killing going? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left  #audio:animalcrossing #object:false
+ Thank you for the help... #speaker:Dr. Green #portrait:dr_green_neutral #layout:left  #audio:animalcrossing #object:false
+ 
+ Gods I am so pathetic.
  -> END
  
  = canFinish

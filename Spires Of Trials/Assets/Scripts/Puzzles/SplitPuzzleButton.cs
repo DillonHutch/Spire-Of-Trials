@@ -30,9 +30,9 @@ public class SplitPuzzleButton : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (isPressed && (other.CompareTag("OverworldPlayer") || other.CompareTag("GhostPlayer")))
+        if (other.CompareTag(requiredTag))
         {
-            isPressed = false;
+            
             controller.UpdateSwitchState(switchIndex, false);
         }
     }

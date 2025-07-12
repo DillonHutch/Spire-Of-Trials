@@ -14,7 +14,7 @@ public class DoorTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.LogWarning("WHAT");
+       
         if (hasTriggered) return;
 
         if (string.IsNullOrEmpty(playerTag) || collision.CompareTag(playerTag))

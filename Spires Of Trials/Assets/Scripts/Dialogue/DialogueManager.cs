@@ -41,6 +41,10 @@ public class DialogueManager : MonoBehaviour
     private const string OBJECT_TAG = "object";
 
 
+    private const string SPEED_TAG = "speed";
+
+
+
 
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
@@ -262,6 +266,18 @@ public class DialogueManager : MonoBehaviour
                     if (tagvalue == "true") { isObject = false; } else { isObject = true; }
                     portraitFrame.SetActive(isObject);
                     break;
+                case SPEED_TAG:
+                    {
+                        if (float.TryParse(tagvalue, out var newSpeed))
+                        {
+                            EventManager.Instance.TriggerEvent("setTypingSpeed", newSpeed);
+                        }
+                        else
+                        {
+                            Debug.LogError($"Invalid speed value: {tagvalue}");
+                        }
+                        break;
+                    }
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;
