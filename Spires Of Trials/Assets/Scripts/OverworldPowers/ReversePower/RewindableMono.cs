@@ -19,10 +19,21 @@ public class RewindableMono : MonoBehaviour, IRewindable
 
     public virtual bool CanInstantRewind => false;
 
+    // RewindableMono.cs
     protected virtual void OnEnable()
     {
-        //TimeController.Instance.Register(this);
+        if (TimeController.Instance != null)
+            TimeController.Instance.Register(this);
     }
+
+    protected virtual void OnDisable()
+    {
+        if (TimeController.Instance != null)
+            TimeController.Instance.Unregister(this);
+    }
+
+    // You can leave the Register in Start as-is; Register() is idempotent.
+
 
 
     protected virtual void Start()
@@ -33,11 +44,7 @@ public class RewindableMono : MonoBehaviour, IRewindable
             Debug.LogError("No TimeController found in scene!", this);
     }
 
-    protected virtual void OnDisable()
-    {
-        if (TimeController.Instance != null)
-            TimeController.Instance.Unregister(this);
-    }
+
 
 
 

@@ -43,6 +43,8 @@ public class DialogueManager : MonoBehaviour
 
     private const string SPEED_TAG = "speed";
 
+    private const string FREQUENCY_TAG = "frequency";
+
 
 
 
@@ -278,6 +280,12 @@ public class DialogueManager : MonoBehaviour
                         }
                         break;
                     }
+                case FREQUENCY_TAG:
+                    if (int.TryParse(tagvalue, out var freq))
+                        EventManager.Instance.TriggerEvent("setDialogueFrequency", freq);
+                    else
+                        Debug.LogError($"Invalid frequency value: {tagvalue}");
+                    break;
                 default:
                     Debug.LogWarning("Tag came in but is not currently being handled: " + tag);
                     break;

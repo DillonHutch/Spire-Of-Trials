@@ -1,24 +1,23 @@
 === lamp ===
 
+#portrait:Default
+#audio:animalcrossinglow
+#object:true
 
- #portrait:Default 
-#audio:animalcrossinglow #object:true
+(You touch the torch.)
 
-(You touch the torch) 
-
-(It blushes, and touches you back)
+(It blushes... and touches you back.)
 
 -> END
 
-
 === otherLamp ===
 
+#portrait:Default
+#audio:animalcrossinglow
+#object:true
 
- #portrait:Default 
-#audio:animalcrossinglow #object:true
+(You touch the torch.)
 
-(You touch the torch) 
-
-(It blushes, and touches you back)
+(It blushes... and touches you back.)
 
 -> END

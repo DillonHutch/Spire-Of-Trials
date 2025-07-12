@@ -35,7 +35,7 @@ public class DialoguePanelUI : MonoBehaviour
     private bool skipRequested;
 
 
-
+    private int overrideFrequencyLevel = -1;
 
 
     private void Awake()
@@ -65,6 +65,8 @@ public class DialoguePanelUI : MonoBehaviour
         EventManager.Instance.StartListening<float>("setTypingSpeed", OnSetTypingSpeed);
 
 
+        EventManager.Instance.StartListening<int>("setDialogueFrequency", OnSetDialogueFrequency);
+
     }
 
     private void OnDisable()
@@ -77,6 +79,8 @@ public class DialoguePanelUI : MonoBehaviour
         EventManager.Instance.StopListening<string>("setDialogueAudio", SetCurrentAudioInfo);
 
         EventManager.Instance.StopListening<float>("setTypingSpeed", OnSetTypingSpeed);
+
+        EventManager.Instance.StopListening<int>("setDialogueFrequency", OnSetDialogueFrequency);
     }
 
     private void Update()
@@ -108,7 +112,12 @@ public class DialoguePanelUI : MonoBehaviour
     private void PlayDialogueSound(int charIndex, char c)
     {
         var clips = currentAudioInfo.dialogueTypingSoundClips;
-        if (charIndex % currentAudioInfo.frequencyLevel != 0) return;
+        // use override if set, otherwise fall back
+        int level = overrideFrequencyLevel >= 0
+                    ? overrideFrequencyLevel
+                    : currentAudioInfo.frequencyLevel;
+
+        if (charIndex % level != 0) return;
 
         // pick a clip
         int idx = makePredictable
@@ -136,10 +145,19 @@ public class DialoguePanelUI : MonoBehaviour
         inst.release();
     }
 
+    private void OnSetDialogueFrequency(int freq)
+    {
+        overrideFrequencyLevel = freq;
+    }
+
+
+
 
 
     private void DialogueStarted()
     {
+        // reset override for each new dialogue block
+        overrideFrequencyLevel = -1;
         typingSpeed = defaultTypingSpeed;
         contentParent.SetActive(true);
     }
