@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/RPGtestScreen.unity
+    guid: cfe7efc8cf43c41429f069db24c6ed70
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: c819c2e6bb45b6d46920bbabfbc472ea
   - enabled: 1
@@ -20,9 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sanctum.unity
     guid: fa8f9fb4bd2eba8448bc3bf3e3d93713
-  - enabled: 1
-    path: Assets/Scenes/RPGtestScreen.unity
-    guid: cfe7efc8cf43c41429f069db24c6ed70
   - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 35d0858243ec54f42b25d461e1aae347

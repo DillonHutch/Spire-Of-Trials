@@ -17,4 +17,4 @@ INCLUDE collect_coins_end_npc.ink
 INCLUDE Lamp.ink
 INCLUDE kill_enemies_end_npc.ink
 INCLUDE kill_enemies_start_npc.ink
-
+INCLUDE DeadMan.ink

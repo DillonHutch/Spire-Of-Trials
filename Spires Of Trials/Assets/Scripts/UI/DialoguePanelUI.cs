@@ -32,6 +32,10 @@ public class DialoguePanelUI : MonoBehaviour
 
     [SerializeField] private SineWaveText sineWaveText;
 
+    private bool skipRequested;
+
+
+
 
 
     private void Awake()
@@ -73,6 +77,23 @@ public class DialoguePanelUI : MonoBehaviour
         EventManager.Instance.StopListening<string>("setDialogueAudio", SetCurrentAudioInfo);
 
         EventManager.Instance.StopListening<float>("setTypingSpeed", OnSetTypingSpeed);
+    }
+
+    private void Update()
+    {
+        // If we’re mid-type, E should only skip
+        if (typingCoroutine != null)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+                skipRequested = true;
+        }
+        // If we’re not typing, E should only advance
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+                EventManager.Instance.TriggerEvent("continueDialogue");
+            // or whatever you call to move to the next line
+        }
     }
 
 
@@ -161,7 +182,7 @@ public class DialoguePanelUI : MonoBehaviour
 
     private IEnumerator TypeDialogue(string line, List<Choice> dialogueChoices)
     {
-        // prepare the text
+        skipRequested = false;
         dialogueText.text = line;
         dialogueText.maxVisibleCharacters = 0;
         continueIcon.SetActive(false);
@@ -170,45 +191,44 @@ public class DialoguePanelUI : MonoBehaviour
         bool isAddingRichTextTag = false;
         int totalVisible = 0;
 
-        foreach (char c in line)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                dialogueText.maxVisibleCharacters = line.Length;
-                EventManager.Instance.TriggerEvent("dialogueLineFinishedTyping");
-                break;
-            }
+        // mark that we’re typing
+        typingCoroutine = StartCoroutine(_TypeLetters());
 
-            if (c == '<' || isAddingRichTextTag)
-            {
-                isAddingRichTextTag = true;
-                if (c == '>')
-                    isAddingRichTextTag = false;
-            }
-            else
-            {
-                PlayDialogueSound(totalVisible, line[totalVisible]);
-                dialogueText.maxVisibleCharacters = ++totalVisible;
-                yield return new WaitForSeconds(typingSpeed);
-            }
+        yield return typingCoroutine;
 
-        }
-
-        // all text is now visible
+        // when _TypeLetters() finishes, we’re done:
         dialogueText.maxVisibleCharacters = line.Length;
-
-        // only show the continue-arrow if there are no choices
-        if (dialogueChoices.Count == 0)
-            continueIcon.SetActive(true);
-        else
-            continueIcon.SetActive(false);
-
-        // now show choices (if any)
+        continueIcon.SetActive(dialogueChoices.Count == 0);
         ShowChoices(dialogueChoices);
-
         EventManager.Instance.TriggerEvent("dialogueLineFinishedTyping");
 
         typingCoroutine = null;
+
+        // nested IEnumerator so Update() sees typingCoroutine != null until done
+        IEnumerator _TypeLetters()
+        {
+            foreach (char c in line)
+            {
+                if (skipRequested)
+                {
+                    EventManager.Instance.TriggerEvent("dialogueLineFinishedTyping");
+                    yield break;
+                }
+
+                if (c == '<' || isAddingRichTextTag)
+                {
+                    isAddingRichTextTag = true;
+                    if (c == '>')
+                        isAddingRichTextTag = false;
+                }
+                else
+                {
+                    PlayDialogueSound(totalVisible, line[totalVisible]);
+                    dialogueText.maxVisibleCharacters = ++totalVisible;
+                    yield return new WaitForSeconds(typingSpeed);
+                }
+            }
+        }
     }
 
     private void HideAllChoices()

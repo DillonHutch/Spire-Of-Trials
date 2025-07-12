@@ -177,7 +177,7 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     public void StartCombat(string enemyTag)
     {
-        ResetSpawner();
+       
         _combatEnemyTag = enemyTag;
 
         // pull settings (or default)
@@ -539,21 +539,6 @@ public class EnemySpawner : MonoBehaviour
             roundText.text = $"Round: {roundCounter}/{maxRounds}";
     }
 
-
-    public void ResetSpawner()
-    {
-     
-
-        // round and wave tracking
-        roundCounter = 0;
-        maxRounds = RoundManager.ROUND_NUMBER;
-
-        // clear out anything we’ve spawned
-        spawnedEnemies.Clear();
-
-        // forget whatever tag we were fighting
-        _combatEnemyTag = string.Empty;
-    }
 
 
     #endregion

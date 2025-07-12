@@ -11,10 +11,17 @@ public class SplitPuzzleButton : MonoBehaviour
     [Tooltip("Drag your PuzzleController here")]
     [SerializeField] private SplitPuzzleController controller;
 
+    Animator animator;
+
 
     string requiredTag = "OverworldPlayer";
 
     private bool isPressed = false;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -22,6 +29,7 @@ public class SplitPuzzleButton : MonoBehaviour
 
         if (other.CompareTag(requiredTag))
         {
+            animator.Play("PlateDown");
             Debug.Log($"[SwitchTrigger:{switchIndex}] Tag matched '{requiredTag}' → registering press");
             controller.UpdateSwitchState(switchIndex, true);
         }
@@ -32,7 +40,7 @@ public class SplitPuzzleButton : MonoBehaviour
     {
         if (other.CompareTag(requiredTag))
         {
-            
+            animator.Play("PlateUp");
             controller.UpdateSwitchState(switchIndex, false);
         }
     }
