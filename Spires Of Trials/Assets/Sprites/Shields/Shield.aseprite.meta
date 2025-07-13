@@ -123,14 +123,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Shield_Frame_0
     originalName: 
-    pivot: {x: 0.4945055, y: -0.29523808}
+    pivot: {x: 0.46875, y: -0.29523808}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 91
+      width: 96
       height: 105
     spriteID: 2d94fb4e2060ee140ae4d24e8bb09e01
     spriteBone: []
@@ -155,7 +155,7 @@ ScriptedImporter:
       cellRect:
         x: 43
         y: 31
-        width: 91
+        width: 96
         height: 105
       spriteId: 2d94fb4e2060ee140ae4d24e8bb09e01
     linkedCells: []
