@@ -35,6 +35,8 @@ TagManager:
   - Ladder
   - DamageFlash
   - GhostPlayer
+  - LivesPanel
+  - CombatMeter
   layers:
   - Default
   - TransparentFX

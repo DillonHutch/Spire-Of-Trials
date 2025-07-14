@@ -147,7 +147,7 @@ public class EventManager : MonoBehaviour
 
 
     public void ChangeInputEventContext(InputEventContext newContext)
-    { 
+    {
         this.inputEventContext = newContext;
     }
 
@@ -179,6 +179,38 @@ public class EventManager : MonoBehaviour
             thisEvent.DynamicInvoke(args); // Dynamically invoke with any arguments
         }
     }
+
+
+    // in EventManager:
+    public void StartListening<T1, T2>(string eventName, Action<T1, T2> listener)
+    {
+        if (eventDictionaryGeneral.TryGetValue(eventName, out Delegate existing))
+            eventDictionaryGeneral[eventName] = Delegate.Combine(existing, listener);
+        else
+            eventDictionaryGeneral.Add(eventName, listener);
+    }
+
+    public void StopListening<T1, T2>(string eventName, Action<T1, T2> listener)
+    {
+        if (eventDictionaryGeneral.TryGetValue(eventName, out Delegate existing))
+        {
+            Delegate updated = Delegate.Remove(existing, listener);
+            if (updated == null)
+                eventDictionaryGeneral.Remove(eventName);
+            else
+                eventDictionaryGeneral[eventName] = updated;
+        }
+    }
+
+    // 2) add this TriggerEvent overload (below your params-object[] version)
+    public void TriggerEvent<T1, T2>(string eventName, T1 arg1, T2 arg2)
+    {
+        if (eventDictionaryGeneral.TryGetValue(eventName, out Delegate del))
+        {
+            del.DynamicInvoke(arg1, arg2);
+        }
+    }
+
 
 
     #endregion

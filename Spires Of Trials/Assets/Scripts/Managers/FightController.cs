@@ -69,13 +69,12 @@ public class FightController : MonoBehaviour
 
     private void OnFightPressed()
     {
-        animator.Play("fightButtonClicked");
-        if (timingController != null)
-        {
-            miniGamePanel.SetActive(true);
-            timingController.StartCombatTimer();
-        }
+        animator.Play("closeMenu");
+
+        // start a fixed 10-second fight timer
+        timingController.StartTimer(10f);
     }
+
 
     private void OnItemPressed()
     {

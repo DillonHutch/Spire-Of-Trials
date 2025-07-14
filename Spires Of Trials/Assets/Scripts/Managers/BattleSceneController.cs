@@ -59,6 +59,8 @@ public class BattleSceneController : MonoBehaviour
             TimingController.Instance.ResetCombatTimer();
         }
         yield return StartCoroutine(screenFader.FadeIn());
+
+        EventManager.Instance.TriggerEvent("battleSceneLoaded");
     }
 
     public void EndBattle()
@@ -89,6 +91,8 @@ public class BattleSceneController : MonoBehaviour
 
         yield return StartCoroutine(screenFader.FadeIn());
         playerMovement.canMove = true;
+
+        EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
 
         int damage = Mathf.RoundToInt(TimingController.Instance.CombatTimer);
         EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
