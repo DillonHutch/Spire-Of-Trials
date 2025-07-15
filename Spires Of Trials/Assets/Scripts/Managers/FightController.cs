@@ -76,6 +76,15 @@ public class FightController : MonoBehaviour
 
 
     /// <summary>
+    /// Returns true if the player has at least ‘cost’ combo points.
+    /// </summary>
+    public bool CanPayComboCost(int cost)
+    {
+        return playerAttacker != null && playerAttacker.ComboCount >= cost;
+    }
+
+
+    /// <summary>
     /// Try to pay the combo cost. Returns true if you had enough points.
     /// </summary>
     public bool TryPayComboCost(int cost)
