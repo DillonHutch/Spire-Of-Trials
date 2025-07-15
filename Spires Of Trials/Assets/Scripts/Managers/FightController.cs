@@ -32,6 +32,9 @@ public class FightController : MonoBehaviour
     private int currentSkillIndex;
     private int lastDamageTaken = 0;    // store last round’s damage
 
+
+    private PlayerAttackingScript playerAttacker;
+
     private void Awake()
     {
         // wire up the inspector-assigned button
@@ -62,9 +65,22 @@ public class FightController : MonoBehaviour
         lastDamageTaken = damage;
     }
 
-    private void Start()
+    void Start()
     {
-        battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+        battleController = GameObject.FindGameObjectWithTag("BattleController")
+                               .GetComponent<BattleSceneController>();
+        playerAttacker = FindObjectOfType<PlayerAttackingScript>();
+        if (playerAttacker == null)
+            Debug.LogError("No PlayerAttackingScript found in scene");
+    }
+
+
+    /// <summary>
+    /// Try to pay the combo cost. Returns true if you had enough points.
+    /// </summary>
+    public bool TryPayComboCost(int cost)
+    {
+        return playerAttacker != null && playerAttacker.ConsumeCombo(cost);
     }
 
     private void OnFightPressed()

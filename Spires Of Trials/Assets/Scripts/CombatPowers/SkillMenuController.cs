@@ -19,6 +19,8 @@ public class SkillMenuController : MonoBehaviour
     private bool isOpen;
     private int skillCount;
 
+    const int SKILL_COST = 20;
+
     void Awake()
     {
         // cache count and validate
@@ -63,19 +65,29 @@ public class SkillMenuController : MonoBehaviour
 
     private void ConfirmSelection()
     {
-        CloseMenu();
-
-        if (fightController == null)
+        // if player can pay the cost, close menu and invoke the skill
+        if (fightController.TryPayComboCost(SKILL_COST))
         {
-            fightController = FindObjectOfType<FightController>();
+            CloseMenu();
+
             if (fightController == null)
             {
-                Debug.LogError("SkillMenuController: FightController not assigned or found!");
-                return;
+                fightController = FindObjectOfType<FightController>();
+                if (fightController == null)
+                {
+                    Debug.LogError("SkillMenuController: FightController not assigned or found!");
+                    return;
+                }
             }
-        }
 
-        fightController.OnSkillChosen(selectedIndex);
+            fightController.OnSkillChosen(selectedIndex);
+        }
+        else
+        {
+            // not enough combo points—do nothing
+            // optionally play an error sound or flash the UI
+            Debug.Log("Not enough combo points to use skill");
+        }
     }
 
     public void OpenMenu()

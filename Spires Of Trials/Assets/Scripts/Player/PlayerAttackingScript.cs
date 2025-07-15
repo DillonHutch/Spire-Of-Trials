@@ -77,6 +77,24 @@ public class PlayerAttackingScript : MonoBehaviour
     }
 
 
+    // at the top of the class, after your other fields
+    public int ComboCount => comboCount;
+
+    /// <summary>
+    /// Subtracts from comboCount and updates the UI.
+    /// </summary>
+    public bool ConsumeCombo(int amount)
+    {
+        if (comboCount < amount)
+            return false;
+        comboCount -= amount;
+        comboText.text = "Combo: " + comboCount;
+        // optionally reset color/font if you want
+        return true;
+    }
+
+
+
     #region UnityMethods
 
     /// <summary>
