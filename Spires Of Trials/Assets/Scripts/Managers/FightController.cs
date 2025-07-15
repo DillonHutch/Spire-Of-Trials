@@ -83,6 +83,16 @@ public class FightController : MonoBehaviour
         return playerAttacker != null && playerAttacker.ComboCount >= cost;
     }
 
+    /// <summary>
+    /// Returns from the skill‐select UI back to the main battle menu.
+    /// </summary>
+    public void ShowBattleMenu()
+    {
+        // plays your “open main menu” animation
+        animator.Play("fightEnded");
+    }
+
+
 
     /// <summary>
     /// Try to pay the combo cost. Returns true if you had enough points.

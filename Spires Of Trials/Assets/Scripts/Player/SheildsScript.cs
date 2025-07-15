@@ -10,9 +10,11 @@ public class SheildsScript : MonoBehaviour
 
     private Dictionary<Transform, Coroutine> activeRecoils = new Dictionary<Transform, Coroutine>();
 
-    
 
-     float warningOpacity = 0.75f;
+    private Dictionary<SpriteRenderer, Coroutine> flashCoroutines = new Dictionary<SpriteRenderer, Coroutine>();
+
+
+    float warningOpacity = 0.75f;
     public float flashTime = 0.2f;
 
 
@@ -115,83 +117,73 @@ public class SheildsScript : MonoBehaviour
     }
 
 
-    // ShieldsScript
-    public IEnumerator FlashAttackIndicator(SpriteRenderer attackSprite)
+    /// <summary>
+    /// Flash the sprite with semi‑opaque white (for parry).
+    /// </summary>
+    public void FlashAttackIndicator(SpriteRenderer sr)
     {
-        if (attackSprite == null) yield break;
-
-        // show it
-        attackSprite.gameObject.SetActive(true);
-        attackSprite.enabled = true;
-        Color originalColor = attackSprite.color;
-
-        // flash 3 times
-        for (int i = 0; i < 3; i++)
-        {
-            // semi‑opaque
-            attackSprite.color = new Color(
-                originalColor.r,
-                originalColor.g,
-                originalColor.b,
-                warningOpacity
-            );
-            yield return new WaitForSeconds(flashTime);
-
-            // back to normal
-            attackSprite.color = originalColor;
-            yield return new WaitForSeconds(flashTime);
-        }
-
-        // now hide it
-        attackSprite.color = originalColor;
-        attackSprite.enabled = false;
-        attackSprite.gameObject.SetActive(false);
+        if (sr == null) return;
+        Color original = sr.color;
+        Color flashColor = new Color(original.r, original.g, original.b, warningOpacity);
+        StartFlash(sr, flashColor, original);
     }
 
 
-    public IEnumerator FlashCrouchIndicator(SpriteRenderer attackSprite)
+    /// <summary>
+    /// Flash the sprite green (for crouch).
+    /// </summary>
+    public void FlashCrouchIndicator(SpriteRenderer sr)
     {
-        if (attackSprite == null) yield break;
-
-        attackSprite.gameObject.SetActive(true);
-        attackSprite.enabled = true;
-        Color originalColor = attackSprite.color;
-        Color greenFlash = new Color(0f, 1f, 0f, warningOpacity);
-
-        for (int i = 0; i < 3; i++)
-        {
-            attackSprite.color = greenFlash;
-            yield return new WaitForSeconds(flashTime);
-            attackSprite.color = originalColor;
-            yield return new WaitForSeconds(flashTime);
-        }
-
-        attackSprite.color = originalColor;
-        attackSprite.enabled = false;
-        attackSprite.gameObject.SetActive(false);
+        if (sr == null) return;
+        Color original = sr.color;
+        Color flashColor = new Color(0f, 1f, 0f, warningOpacity);
+        StartFlash(sr, flashColor, original);
     }
 
 
-    public IEnumerator FlashDodgeIndicator(SpriteRenderer attackSprite)
+    /// <summary>
+    /// Flash the sprite red (for dodge).
+    /// </summary>
+    public void FlashDodgeIndicator(SpriteRenderer sr)
     {
-        if (attackSprite == null) yield break;
+        if (sr == null) return;
+        Color original = sr.color;
+        Color flashColor = new Color(1f, 0f, 0f, warningOpacity);
+        StartFlash(sr, flashColor, original);
+    }
 
-        attackSprite.gameObject.SetActive(true);
-        attackSprite.enabled = true;
-        Color orig = attackSprite.color;
-        Color redFlash = new Color(1f, 0f, 0f, warningOpacity);
+
+    // stops any existing flash on sr, then starts a new one
+    private void StartFlash(SpriteRenderer sr, Color flashColor, Color originalColor)
+    {
+        if (flashCoroutines.TryGetValue(sr, out var existing))
+            StopCoroutine(existing);
+
+        var routine = StartCoroutine(FlashRoutine(sr, flashColor, originalColor));
+        flashCoroutines[sr] = routine;
+    }
+
+
+    private IEnumerator FlashRoutine(SpriteRenderer sr, Color flashColor, Color originalColor)
+    {
+        sr.gameObject.SetActive(true);
+        sr.enabled = true;
 
         for (int i = 0; i < 3; i++)
         {
-            attackSprite.color = redFlash;
+            sr.color = flashColor;
             yield return new WaitForSeconds(flashTime);
-            attackSprite.color = orig;
+
+            sr.color = originalColor;
             yield return new WaitForSeconds(flashTime);
         }
 
-        attackSprite.color = orig;
-        attackSprite.enabled = false;
-        attackSprite.gameObject.SetActive(false);
+        // restore and hide
+        sr.color = originalColor;
+        sr.enabled = false;
+        sr.gameObject.SetActive(false);
+
+        flashCoroutines.Remove(sr);
     }
 
 

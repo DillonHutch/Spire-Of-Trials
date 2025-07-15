@@ -39,16 +39,28 @@ public class SkillMenuController : MonoBehaviour
 
     void Update()
     {
-        if (!isOpen || skillCount == 0) return;
+        if (!isOpen || skillCount == 0)
+            return;
 
+        // ← Back out to main battle menu
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            CloseMenu();
+            fightController.ShowBattleMenu();
+            return;
+        }
+
+        // navigation
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) MoveSelection(1);
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) MoveSelection(-1);
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) MoveSelection(3);
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) MoveSelection(-3);
 
+        // confirm
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
             ConfirmSelection();
     }
+
 
     private void MoveSelection(int delta)
     {

@@ -487,6 +487,10 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual IEnumerator PerformAttack()
     {
+
+
+
+
         isAttacking = true;
 
         // pick this turn’s attack type
@@ -496,16 +500,24 @@ public abstract class EnemyParent : MonoBehaviour
         int attackPos = GetAttackPosition();
         SpriteRenderer atkSprite = GetAttackSprite(attackPos);
 
-        // — show correct warning flash —
+
+        // right after you get atkSprite and atkType:
         if (atkSprite != null)
         {
-            if (atkType == EnemyAttackType.Dodge)
-                flashCoroutine = StartCoroutine(shieldManager.FlashDodgeIndicator(atkSprite));
-            else if (atkType == EnemyAttackType.Parry)
-                flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(atkSprite));
-            else
-                flashCoroutine = StartCoroutine(shieldManager.FlashCrouchIndicator(atkSprite));
+            switch (atkType)
+            {
+                case EnemyAttackType.Dodge:
+                    shieldManager.FlashDodgeIndicator(atkSprite);
+                    break;
+                case EnemyAttackType.Parry:
+                    shieldManager.FlashAttackIndicator(atkSprite);
+                    break;
+                case EnemyAttackType.Crouch:
+                    shieldManager.FlashCrouchIndicator(atkSprite);
+                    break;
+            }
         }
+
 
 
         // determine current wind-up duration
@@ -562,12 +574,12 @@ public abstract class EnemyParent : MonoBehaviour
         };
     }
 
-    // EnemyParent.ShowAttackIndicator
-    protected IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
-    {
-        flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(attackSprite));
-        yield return null;
-    }
+    //// EnemyParent.ShowAttackIndicator
+    //protected IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
+    //{
+    //    flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(attackSprite));
+    //    yield return null;
+    //}
 
 
     /// <summary>
@@ -701,15 +713,6 @@ public abstract class EnemyParent : MonoBehaviour
         shieldManager?.ResetShieldPositions();
 
 
-        if (attackSprite != null)
-        {
-            attackSprite.enabled = false;
-            if (flashCoroutine != null)
-            {
-                StopCoroutine(flashCoroutine);
-                flashCoroutine = null;
-            }
-        }
     }
 
 
