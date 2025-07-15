@@ -10,6 +10,7 @@ public class SkillMenuController : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private TextMeshProUGUI[] skillLabels; // size = 6
     [SerializeField] private TextMeshProUGUI costLabel;     // single cost label
+    [SerializeField] private int[] skillCosts;
 
     [Header("References")]
     [SerializeField] private FightController fightController;
@@ -32,6 +33,8 @@ public class SkillMenuController : MonoBehaviour
         skillCount = skillLabels?.Length ?? 0;
         if (skillCount == 0)
             Debug.LogError("SkillMenuController: skillLabels is empty or null");
+        if (skillCosts == null || skillCosts.Length != skillCount)
+            Debug.LogError("SkillMenuController: skillCosts must be set and match skillLabels length");
         if (costLabel == null)
             Debug.LogError("SkillMenuController: costLabel not assigned");
         CloseMenu();
@@ -80,24 +83,23 @@ public class SkillMenuController : MonoBehaviour
 
     private void UpdateCostDisplay()
     {
-        // always show the same cost, but color it based on affordability
-        costLabel.text = SKILL_COST.ToString();
-        bool canPay = fightController.CanPayComboCost(SKILL_COST);
+        int cost = skillCosts[selectedIndex];
+        costLabel.text = cost.ToString();
+        bool canPay = fightController.CanPayComboCost(cost);
         costLabel.color = canPay ? canPayColor : cannotPayColor;
         costLabel.fontStyle = FontStyles.Bold;
     }
 
     private void ConfirmSelection()
     {
-        if (fightController.TryPayComboCost(SKILL_COST))
+        int cost = skillCosts[selectedIndex];
+        if (fightController.TryPayComboCost(cost))
         {
-            // you have enough points
             CloseMenu();
             fightController.OnSkillChosen(selectedIndex);
         }
         else
         {
-            // not enough → animate the single costLabel
             StartCoroutine(AnimateCostLabelError());
         }
     }

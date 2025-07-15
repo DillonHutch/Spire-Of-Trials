@@ -92,4 +92,15 @@ public class HealthManager : MonoBehaviour
         EventManager.Instance.TriggerEvent("OnLivesChanged", currentLives);
         EventManager.Instance.TriggerEvent("OnCombatMeterChanged", RemainingHits, MaxHitsPerCombat);
     }
+
+    public void RestoreHits(int amount)
+    {
+        // only heal at most what you've actually taken
+        int heal = Mathf.Min(amount, hitsThisCombat);
+        hitsThisCombat -= heal;
+        EventManager.Instance.TriggerEvent("OnCombatMeterChanged", RemainingHits, MaxHitsPerCombat);
+        Debug.Log($"Healed {heal} hits, meter is now at {RemainingHits}/{MaxHitsPerCombat}");
+    }
+
+
 }

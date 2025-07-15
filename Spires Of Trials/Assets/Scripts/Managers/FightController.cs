@@ -16,6 +16,7 @@ public class FightController : MonoBehaviour
     // Drag your TimingController (the one with OpenMiniGame()) here
     [SerializeField] private TimingController timingController;
     [SerializeField] private ArrowMiniGameController arrowMiniGame;
+    [SerializeField] private SpaceBarMiniGameController spaceBarMiniGame;
 
     [Header("Skill 3 (Slow) Settings")]
     [SerializeField] private float slowDuration = 15f;   // how long the slow lasts
@@ -35,6 +36,8 @@ public class FightController : MonoBehaviour
 
     private PlayerAttackingScript playerAttacker;
 
+    private int damageTakenThisFight;
+
     private void Awake()
     {
         // wire up the inspector-assigned button
@@ -46,6 +49,12 @@ public class FightController : MonoBehaviour
         // ensure the mini-game is hidden at start
         if (timingController != null)
             miniGamePanel.SetActive(false);
+
+
+        fightButton.onClick.AddListener(() => {
+            damageTakenThisFight = 0;
+            OnFightPressed();
+        });
 
         EventManager.Instance.StartListening<int>(
     "takeDamageEvent", OnPlayerDamaged
@@ -62,7 +71,7 @@ public class FightController : MonoBehaviour
 
     private void OnPlayerDamaged(int damage)
     {
-        lastDamageTaken = damage;
+        damageTakenThisFight += damage;
     }
 
     void Start()
@@ -147,10 +156,20 @@ public class FightController : MonoBehaviour
     public void OnSkillChosen(int index)
     {
         currentSkillIndex = index;
-        // pass it into the arrow mini-game
-        arrowMiniGame.SetSkillIndex(index);
-        arrowMiniGame.StartSequence();
+
+        if (index == 0)
+        {
+            // launch space‑bar mini‑game just like arrow's StartSequence()
+            spaceBarMiniGame.StartSequence();
+        }
+        else
+        {
+            arrowMiniGame.SetSkillIndex(index);
+            arrowMiniGame.StartSequence();
+        }
     }
+
+
 
     // called by ArrowMiniGameController on success/failure
     public void ApplySkillEffect(bool success)
@@ -161,9 +180,7 @@ public class FightController : MonoBehaviour
             switch (currentSkillIndex)
             {
                 case 0:
-                    // heal for last round’s damage
-                    EventManager.Instance.TriggerEvent("healDamageEvent", lastDamageTaken);
-                    // reset if you don’t want double‐heals
+                    HealthManager.Instance.RestoreHits(damageTakenThisFight);
                     lastDamageTaken = 0;
                     break;
                 case 1:
