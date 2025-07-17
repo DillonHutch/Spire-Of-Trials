@@ -68,6 +68,9 @@ public class PlayerAttackingScript : MonoBehaviour
 
     private bool isCrouching = false;
 
+
+    [SerializeField] private FightController fightController;
+
     #endregion
 
 
@@ -323,35 +326,46 @@ private void HandleAttackInputs()
     /// </summary>
     /// <param name="enemy">The enemy Transform to attack.</param>
     /// <param name="attackType">The type of attack being used.</param>
-    void AttackEnemy(Transform enemy, string attackType)
+    private void AttackEnemy(Transform enemy, string attackType)
     {
-        if (enemy != null)
-        {
-            foreach (Transform child in enemy)
-            {
-                // Try to get the enemy components
-                EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
-                MiniBoss miniBossComponent = child.GetComponent<MiniBoss>();
+        bool skip = fightController.skipNextHit;
 
-                // Deal damage if the enemy component exists
-                if (enemyComponent != null)
+        // 1 real hit...
+        foreach (Transform child in enemy)
+        {
+            EnemyParent enemyComponent = child.GetComponent<EnemyParent>();
+            if (enemyComponent != null)
+            {
+                enemyComponent.TakeDamage(attackType);
+                if (skip)
                 {
-                    enemyComponent.TakeDamage(attackType);
+                    enemyComponent.SkipPattern(1);
                 }
-                else if (miniBossComponent != null)
+            }
+            else
+            {
+                MiniBoss miniBossComponent = child.GetComponent<MiniBoss>();
+                if (miniBossComponent != null)
                 {
                     miniBossComponent.TakeDamage(attackType);
+                    if (skip)
+                    {
+                        miniBossComponent.SkipPattern(1);
+                    }
                 }
             }
         }
-    }
+
+      }
+
+
 
     /// <summary>
     /// Handles the player's attack based on the given attack type.
     /// Determines the enemy at the player's position and applies the correct attack.
     /// </summary>
     /// <param name="attackType">The type of attack (melee, range, magic, heavy).</param>
-     void Attack(string attackType)
+    void Attack(string attackType)
     {
         switch (attackType)
         {

@@ -17,6 +17,10 @@ public class FightController : MonoBehaviour
     [SerializeField] private TimingController timingController;
     [SerializeField] private ArrowMiniGameController arrowMiniGame;
     [SerializeField] private SpaceBarMiniGameController spaceBarMiniGame;
+    [SerializeField] private MashMiniGameController mashMiniGame;
+
+
+    [HideInInspector] public bool skipNextHit;
 
     [Header("Skill 3 (Slow) Settings")]
     [SerializeField] private float slowDuration = 15f;   // how long the slow lasts
@@ -37,6 +41,8 @@ public class FightController : MonoBehaviour
     private PlayerAttackingScript playerAttacker;
 
     private int damageTakenThisFight;
+
+
 
     private void Awake()
     {
@@ -156,16 +162,18 @@ public class FightController : MonoBehaviour
     public void OnSkillChosen(int index)
     {
         currentSkillIndex = index;
-
-        if (index == 0)
+        switch (index)
         {
-            // launch space‑bar mini‑game just like arrow's StartSequence()
-            spaceBarMiniGame.StartSequence();
-        }
-        else
-        {
-            arrowMiniGame.SetSkillIndex(index);
-            arrowMiniGame.StartSequence();
+            case 0:
+                spaceBarMiniGame.StartSequence();
+                break;
+            case 1:
+                mashMiniGame.StartSequence();
+                break;
+            default:
+                arrowMiniGame.SetSkillIndex(index);
+                arrowMiniGame.StartSequence();
+                break;
         }
     }
 
@@ -174,6 +182,10 @@ public class FightController : MonoBehaviour
     // called by ArrowMiniGameController on success/failure
     public void ApplySkillEffect(bool success)
     {
+
+
+        TimingController.Instance.StartTimer(5f);
+
         if (success)
         {
             Debug.Log($"Skill {currentSkillIndex} succeeded");
@@ -184,15 +196,19 @@ public class FightController : MonoBehaviour
                     lastDamageTaken = 0;
                     break;
                 case 1:
-                    
-                    //TODO 
+
+                    skipNextHit = true;
+
+                    foreach (var e in FindObjectsOfType<EnemyParent>())
+                        e.UpdateNextHitIcon();
                     break;
                 case 2:
                     // start the slow effect
                     StartCoroutine(ApplySlowToEnemies());
                     break;
                 case 3:
-                    StartCoroutine(RevealNextHits());
+                    int lookAhead = skipNextHit ? 2 : 1;
+                    StartCoroutine(RevealNextHits(lookAhead));
                     break;
                 case 4:
                     // ← NEW: grant 3 free hits
@@ -225,17 +241,16 @@ public class FightController : MonoBehaviour
     }
 
 
-    private IEnumerator RevealNextHits()
+    private IEnumerator RevealNextHits(int offset)
     {
-        // find every live enemy
         var enemies = FindObjectsOfType<EnemyParent>();
         foreach (var e in enemies)
-            e.ShowNextHitIndicator(true);
+            e.ShowNextHitIndicator(true, offset);
 
         yield return new WaitForSeconds(revealDuration);
 
         foreach (var e in enemies)
-            e.ShowNextHitIndicator(false);
+            e.ShowNextHitIndicator(false, offset);
     }
 
 

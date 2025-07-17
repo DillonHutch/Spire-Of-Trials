@@ -74,7 +74,7 @@ public class ArrowMiniGameController : MonoBehaviour
     {
         // Report success and play animation
         FindObjectOfType<FightController>().ApplySkillEffect(true);
-        animator.Play("fightEnded");
+        animator.Play("closeMenu");
         EndSequence();
     }
 

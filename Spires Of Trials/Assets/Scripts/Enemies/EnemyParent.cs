@@ -132,6 +132,8 @@ public abstract class EnemyParent : MonoBehaviour
     [SerializeField] private SpriteRenderer nextHitIndicator;
     private bool revealNextActive = false;
 
+    private int revealOffset = 1;
+
 
     #endregion
 
@@ -234,8 +236,9 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Turn the small “next hit” icon on/off, and immediately update its sprite.
     /// </summary>
-    public void ShowNextHitIndicator(bool show)
+    public void ShowNextHitIndicator(bool show, int offset = 1)
     {
+        revealOffset = offset;
         revealNextActive = show;
         UpdateNextHitIcon();
     }
@@ -244,18 +247,33 @@ public abstract class EnemyParent : MonoBehaviour
     /// Recompute which attack is coming up next,
     /// and set the little icon’s sprite+enabled state.
     /// </summary>
-    private void UpdateNextHitIcon()
+    // Change this signature from private → public
+    public void UpdateNextHitIcon()
     {
-        if (!revealNextActive || currentSequenceIndex + 1 >= attackSequence.Count)
+        // if we’re not in “reveal” mode, hide the icon
+        if (!revealNextActive)
         {
             nextHitIndicator.enabled = false;
             return;
         }
 
-        string next = attackSequence[currentSequenceIndex + 1];
+        // grab the current skipNextHit value
+        bool skip = FindObjectOfType<FightController>().skipNextHit;
+        int offset = skip ? 2 : 1;
+
+        // if we’d go past the end, hide
+        if (currentSequenceIndex + offset >= attackSequence.Count)
+        {
+            nextHitIndicator.enabled = false;
+            return;
+        }
+
+        // otherwise pick the sprite that many steps ahead
+        string next = attackSequence[currentSequenceIndex + offset];
         nextHitIndicator.sprite = GetSpriteFor(next);
         nextHitIndicator.enabled = (nextHitIndicator.sprite != null);
     }
+
 
 
     public void StartFight()
@@ -532,24 +550,24 @@ public abstract class EnemyParent : MonoBehaviour
 
         // only Parry attacks get the space-bar window
 
-            parryWindowActive = true;
-            float t = 0f;
-            TimingController.Instance.PauseTimer();
+        parryWindowActive = true;
+        float t = 0f;
+        TimingController.Instance.PauseTimer();
 
-            while (t < parryWindow)
+        while (t < parryWindow)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && !shieldManager.ParryInProgress)
             {
-                if (Input.GetKeyDown(KeyCode.Space) && !shieldManager.ParryInProgress)
-                {
-                    TimingController.Instance.AddTime(parryBonusTime);
-                    break;
-                }
-                t += Time.deltaTime;
-                yield return null;
+                TimingController.Instance.AddTime(parryBonusTime);
+                break;
             }
+            t += Time.deltaTime;
+            yield return null;
+        }
 
-            parryWindowActive = false;
-            TimingController.Instance.ResumeTimer();
-        
+        parryWindowActive = false;
+        TimingController.Instance.ResumeTimer();
+
 
         // resolve using the new overload
         ResolveAttack(attackPos, atkType);
@@ -558,6 +576,34 @@ public abstract class EnemyParent : MonoBehaviour
         CleanupAttack(atkSprite, attackPos);
         EnemyAttackQueue.AttackFinished(this);
     }
+
+
+    /// <summary>
+    /// Advance the attack‐sequence by the given number of steps.
+    /// If that jumps past the end, the enemy dies.
+    /// Otherwise immediately refreshes both the main indicator and the next‐hit icon (and health bar).
+    /// </summary>
+    public void SkipPattern(int steps)
+    {
+        currentSequenceIndex += steps;
+
+        // if we hit or pass the end of the sequence, kill the enemy
+        if (currentSequenceIndex >= attackSequence.Count)
+        {
+            Die();
+            return;
+        }
+
+        // refresh the attack indicator + next‐hit reveal
+        UpdateColor();                  // updates attackIndicatorRenderer + calls UpdateNextHitIcon()
+
+        // force the health bar to update right away (optional, since your Update loop does it too)
+        if (healthBar != null)
+            healthBar.value = attackSequence.Count - currentSequenceIndex;
+    }
+
+
+
 
 
     /// <summary>
@@ -573,14 +619,6 @@ public abstract class EnemyParent : MonoBehaviour
             _ => null
         };
     }
-
-    //// EnemyParent.ShowAttackIndicator
-    //protected IEnumerator ShowAttackIndicator(SpriteRenderer attackSprite)
-    //{
-    //    flashCoroutine = StartCoroutine(shieldManager.FlashAttackIndicator(attackSprite));
-    //    yield return null;
-    //}
-
 
     /// <summary>
     /// Sets the animation states for wind-up and attack.
