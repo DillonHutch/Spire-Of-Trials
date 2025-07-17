@@ -1,7 +1,22 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
+using UnityEngine.UI;
+
+
+
+[System.Serializable]
+public class EnemyDialogue
+{
+    [Tooltip("Must match the GameObject.tag (or some ID) on your enemy prefabs")]
+    public string enemyTag;
+    [Tooltip("One or more Ink JSON assets for this enemy")]
+    public TextAsset[] dialogues;
+}
+
 
 public class TimingController : MonoBehaviour
 {
@@ -16,7 +31,19 @@ public class TimingController : MonoBehaviour
     public void ResumeTimer() => timerPaused = false;
 
 
+    [Header("End‑of‑Round Dialogue Settings")]
+    [SerializeField, Range(0f, 1f)]
+    private float dialogueChance = 0.2f;
 
+    [SerializeField]
+    private EnemyDialogue[] enemyDialogues;
+
+    // runtime lookup
+    private Dictionary<string, TextAsset[]> dialogueMap;
+
+
+
+    [SerializeField] GameObject dialogueArrow;
 
 
     [Header("Moving Image")]
@@ -40,7 +67,7 @@ public class TimingController : MonoBehaviour
 
     [Header("Optional UI Feedback")]
     [Tooltip("If assigned, shows awarded time as MM:SS when you hit Space.")]
-    public TextMeshProUGUI awardedTimeText;
+    [SerializeField] private Slider timeSlider;
 
     [Header("Timer Events")]
     [Tooltip("Methods to run when the awarded timer expires.")]
@@ -136,17 +163,22 @@ public class TimingController : MonoBehaviour
 
     public void AddTime(float extraSeconds)
     {
-        // increase the clock
+        // bump the clock
         timeLeft += extraSeconds;
-        // update UI immediately
-        if (awardedTimeText != null)
-            awardedTimeText.text = FormatMMSS(timeLeft);
 
-        // restart the countdown so no partial-delta sneakily runs
+        // if we’re using the slider, extend it and refill it
+        if (timeSlider != null)
+        {
+            timeSlider.maxValue = timeLeft;
+            timeSlider.value = timeLeft;
+        }
+
+        // restart the countdown from the new total
         if (timerRoutine != null)
             StopCoroutine(timerRoutine);
         timerRoutine = StartCoroutine(TimerCoroutine(timeLeft));
     }
+
 
     public void StartCombatTimer()
     {
@@ -188,7 +220,14 @@ public class TimingController : MonoBehaviour
     {
         Instance = this;
         fightPanelUp = true;
-   
+
+
+
+        dialogueMap = new Dictionary<string, TextAsset[]>();
+        foreach (var ed in enemyDialogues)
+            if (ed.dialogues != null && ed.dialogues.Length > 0)
+                dialogueMap[ed.enemyTag] = ed.dialogues;
+
     }
 
     void Start()
@@ -251,17 +290,21 @@ public class TimingController : MonoBehaviour
         if (timerRoutine != null)
             StopCoroutine(timerRoutine);
 
-        // immediately show the correct UI (if you want)
-        if (awardedTimeText != null)
-            awardedTimeText.text = FormatMMSS(duration);
-
-        // start the fight!
-        FightActive = true;
-        EventManager.Instance.TriggerEvent("OnStartFight");
+        // set up the slider
+        if (timeSlider != null)
+        {
+            timeSlider.gameObject.SetActive(true);
+            timeSlider.minValue = 0f;
+            timeSlider.maxValue = duration;
+            timeSlider.value = duration;
+        }
 
         // begin the countdown
+        FightActive = true;
+        EventManager.Instance.TriggerEvent("OnStartFight");
         timerRoutine = StartCoroutine(TimerCoroutine(duration));
     }
+
 
 
     private void AwardTime()
@@ -297,27 +340,27 @@ public class TimingController : MonoBehaviour
 
     private IEnumerator TimerCoroutine(float duration)
     {
-        // remove any combatTimer += ... logic from here
         timeLeft = duration;
-        if (awardedTimeText != null)
-        {
-            awardedTimeText.text = FormatMMSS(timeLeft);
-        }
+
+        // (remove any awardedTimeText updates here)
+
         while (timeLeft > 0f)
         {
             if (!timerPaused)
             {
                 timeLeft -= Time.deltaTime;
-                if (awardedTimeText != null)
-                {
-                    awardedTimeText.text = FormatMMSS(Mathf.Max(timeLeft, 0f));
-                }
+
+                // update slider
+                if (timeSlider != null)
+                    timeSlider.value = Mathf.Max(timeLeft, 0f);
             }
             yield return null;
         }
+
         onTimerFinished?.Invoke();
         StartCoroutine(StopFightAfterAttacks());
     }
+
 
 
     /// <summary>
@@ -325,21 +368,19 @@ public class TimingController : MonoBehaviour
     /// </summary>
     private IEnumerator StopFightAfterAttacks()
     {
-        // grab everyone
-        var enemies = FindObjectsOfType<EnemyParent>();
+        // 1) stop any new attacks
+        EnemyParent[] enemies = FindObjectsOfType<EnemyParent>();
+        for (int i = 0; i < enemies.Length; i++)
+            enemies[i].StopFight();
 
-        // 1) stop them from ever scheduling new attacks
-        foreach (var e in enemies)
-            e.StopFight();
-
-        // 2) now wait just for any *in-flight* attacks to finish
+        // 2) wait until all in‑flight attacks finish
         bool anyAttacking;
         do
         {
             anyAttacking = false;
-            foreach (var e in enemies)
+            for (int i = 0; i < enemies.Length; i++)
             {
-                if (e.IsAttacking)
+                if (enemies[i].IsAttacking)
                 {
                     anyAttacking = true;
                     break;
@@ -349,26 +390,82 @@ public class TimingController : MonoBehaviour
         }
         while (anyAttacking);
 
-        // 3) fire your end‐of‐fight logic
+        // 3) if we’re doing an enemy quip this round…
+        if (Random.value < dialogueChance)
+        {
+            // gather survivors with a dialogue mapping
+            EnemyParent[] allEnemies = FindObjectsOfType<EnemyParent>();
+            List<EnemyParent> survivors = new List<EnemyParent>();
+            for (int i = 0; i < allEnemies.Length; i++)
+            {
+                string tag = allEnemies[i].gameObject.tag;
+                if (dialogueMap.ContainsKey(tag))
+                    survivors.Add(allEnemies[i]);
+            }
 
+            if (survivors.Count > 0)
+            {
+                // pick one
+                int chosenIndex = Random.Range(0, survivors.Count);
+                EnemyParent chosenEnemy = survivors[chosenIndex];
+
+                // pick one of its lines
+                TextAsset[] set = dialogueMap[chosenEnemy.gameObject.tag];
+                int dialogueIndex = Random.Range(0, set.Length);
+                TextAsset enemyInk = set[dialogueIndex];
+
+                // compute world→screen→localPoint as before…
+                Vector3 worldPos = chosenEnemy.transform.position + Vector3.up * 2f;
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+                var canvasRect = dialogueArrow.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+                var arrowRect = dialogueArrow.GetComponent<RectTransform>();
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    canvasRect, screenPos, Camera.main, out Vector2 localPoint);
+
+                // only move X
+                Vector2 currentAnchored = arrowRect.anchoredPosition;
+                arrowRect.anchoredPosition = new Vector2(localPoint.x, currentAnchored.y);
+
+                // a) play the “enemyTalking” animation
+                animator.Play("enemyTalking");
+                dialogueArrow.SetActive(true);
+
+                // b) fire up that Ink and wait *only* for the typewriter
+                BattleDialogueManager dm = BattleDialogueManager.GetInstance();
+                dm.EnterDialogueMode(enemyInk);
+                yield return new WaitUntil(() => dm.CanContinueToNextLine);
+                
+
+                // c) immediately replay your original story…
+                
+                // d) …and wait until that entire story is done
+                //yield return new WaitUntil(() => dm.dialogueIsPlaying == false);
+
+                yield return new WaitForSeconds(2f);
+
+                // small pause before popping back to combat
+                //animator.Play("fightEnded");
+                dm.ReplayOriginalDialogue();
+
+            }
+        }
+
+        // 4) now do your regular end‑of‑round resume
+        dialogueArrow.SetActive(false);
         FightActive = false;
         EventManager.Instance.TriggerEvent("OnStopFight");
         EndSkillPhase();
         StopCombatTimer();
         FightPanelUp = true;
+
         animator.Play("fightEnded");
 
-        // 4) (optional) damage survivors, etc.
-        EnemyParent[] survivors = FindObjectsOfType<EnemyParent>();
-        if (skipNextDamage == false && survivors.Length > 0)
-        {
-            int damage = Mathf.RoundToInt(lastAwardedDuration);
-            EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
-        }
 
-        // reset the flag
-        skipNextDamage = false;
     }
+
+
+
+
 
 
     private string FormatMMSS(float totalSeconds)

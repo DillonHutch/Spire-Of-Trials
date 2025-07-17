@@ -552,7 +552,7 @@ public abstract class EnemyParent : MonoBehaviour
 
         parryWindowActive = true;
         float t = 0f;
-        TimingController.Instance.PauseTimer();
+        //TimingController.Instance.PauseTimer();
 
         while (t < parryWindow)
         {
@@ -566,7 +566,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
 
         parryWindowActive = false;
-        TimingController.Instance.ResumeTimer();
+        //TimingController.Instance.ResumeTimer();
 
 
         // resolve using the new overload

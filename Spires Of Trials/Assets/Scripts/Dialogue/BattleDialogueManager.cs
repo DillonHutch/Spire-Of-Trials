@@ -32,6 +32,8 @@ public class BattleDialogueManager : MonoBehaviour
 
     private DialogueAudioInfoSO currentAudioInfo;
 
+    public bool CanContinueToNextLine => canContinueToNextLine;
+
 
 
 
@@ -80,6 +82,8 @@ public class BattleDialogueManager : MonoBehaviour
 
 
     private bool canContinueToNextLine = false;
+
+    private TextAsset originalInkJSON;
 
     private void Awake()
     {
@@ -171,6 +175,10 @@ public class BattleDialogueManager : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
+
+        if (originalInkJSON == null)
+            originalInkJSON = inkJSON;
+
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
@@ -181,11 +189,21 @@ public class BattleDialogueManager : MonoBehaviour
 
         displayNameText.text = "???";
         portraitAnimator.Play("default");
-        layoutAnimator.Play("right");
+        //layoutAnimator.Play("right");
         EventManager.Instance.TriggerEvent("setDialogueAudio", defaultAudioInfo.id);
 
         ContinueStory();
 
+    }
+
+
+    /// <summary>
+    /// Replay the original Ink file (if any).
+    /// </summary>
+    public void ReplayOriginalDialogue()
+    {
+        if (originalInkJSON != null)
+            EnterDialogueMode(originalInkJSON);
     }
 
     private IEnumerator ExitDialogueMode()
