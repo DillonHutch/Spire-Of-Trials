@@ -115,7 +115,6 @@ public class MiniBoss : EnemyParent
             }
 
             // rest phase
-            Debug.Log("MiniBoss is resting...");
             animator.SetTrigger("ReturnToIdle");
             
         }
@@ -212,8 +211,8 @@ public class MiniBoss : EnemyParent
             EnemyAttackType.Dodge,
             EnemyAttackType.Dodge,
             EnemyAttackType.Parry,
-            EnemyAttackType.Crouch,
-            EnemyAttackType.Crouch,
+            EnemyAttackType.Shield,
+            EnemyAttackType.Shield,
             EnemyAttackType.Parry,
         };
     }

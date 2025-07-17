@@ -301,6 +301,7 @@ public class TimingController : MonoBehaviour
 
         // begin the countdown
         FightActive = true;
+        fightPanelUp = false;
         EventManager.Instance.TriggerEvent("OnStartFight");
         timerRoutine = StartCoroutine(TimerCoroutine(duration));
     }
@@ -370,6 +371,7 @@ public class TimingController : MonoBehaviour
     {
         // 1) wrap up the fight
         FightActive = false;
+        fightPanelUp = true;
         EndSkillPhase();
         StopCombatTimer();
 

@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public enum EnemyAttackType
 {
-    Parry,   // player must block with shield/parry
+    Shield,   // player must block with shield/parry
     Dodge,   // player must move the dodge slider away
-    Crouch   // hold button down when enemy does a sweeping attack to the player 
+    Parry   // hold button down when enemy does a sweeping attack to the player 
 
 }
 
@@ -21,7 +21,7 @@ public abstract class EnemyParent : MonoBehaviour
     #region Fields
 
     [Header("Parry Settings")]
-     protected float parryWindow = 0.3f;  // length of the input window in seconds
+     protected float parryWindow = 0.5f;  // length of the input window in seconds
     [SerializeField] protected float parryBonusTime = 5f;    // seconds to add to your timer
 
 
@@ -305,9 +305,9 @@ public abstract class EnemyParent : MonoBehaviour
     {
 
         if (Input.GetKeyDown(KeyCode.Space)
-       && !parryWindowActive
-       && !shieldManager.ParryInProgress
-       && !TimingController.Instance.FightPanelUp)
+                && !parryWindowActive
+                && !shieldManager.ParryInProgress
+                && !TimingController.Instance.FightPanelUp)
         {
             shieldManager.TriggerGlobalParry();
         }
@@ -527,10 +527,10 @@ public abstract class EnemyParent : MonoBehaviour
                 case EnemyAttackType.Dodge:
                     shieldManager.FlashDodgeIndicator(atkSprite);
                     break;
-                case EnemyAttackType.Parry:
+                case EnemyAttackType.Shield:
                     shieldManager.FlashAttackIndicator(atkSprite);
                     break;
-                case EnemyAttackType.Crouch:
+                case EnemyAttackType.Parry:
                     shieldManager.FlashCrouchIndicator(atkSprite);
                     break;
             }
@@ -543,35 +543,34 @@ public abstract class EnemyParent : MonoBehaviour
             ? windUpTime = .25f   // half as long in Skill-Phase
             : windUpTime;         // normal otherwise
 
-        // wind-up
+        // WIND‑UP
         SetAnimationState("WindUp");
         WindUpSound();
         yield return new WaitForSeconds(windUpTime);
 
-        // only Parry attacks get the space-bar window
-
-        parryWindowActive = true;
-        float t = 0f;
-        //TimingController.Instance.PauseTimer();
-
-        while (t < parryWindow)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && !shieldManager.ParryInProgress)
+        // PARRY WINDOW
+        bool didParry = false;
+        
+        
+            parryWindowActive = true;
+            float t = 0f;
+            while (t < parryWindow)
             {
-                TimingController.Instance.AddTime(parryBonusTime);
-                break;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    // successful parry → bonus time, no shield movement
+                    //TimingController.Instance.AddTime(parryBonusTime);
+                    didParry = true;
+                    break;
+                }
+                t += Time.deltaTime;
+                yield return null;
             }
-            t += Time.deltaTime;
-            yield return null;
-        }
-
         parryWindowActive = false;
-        //TimingController.Instance.ResumeTimer();
+        
 
-
-        // resolve using the new overload
-        ResolveAttack(attackPos, atkType);
-
+        // RESOLVE ATTACK
+        ResolveAttack(attackPos, atkType, didParry);
         yield return new WaitForSeconds(0.2f);
         CleanupAttack(atkSprite, attackPos);
         EnemyAttackQueue.AttackFinished(this);
@@ -631,7 +630,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Determines whether the player dodged successfully and applies the appropriate effects.
     /// </summary>
-    protected void ResolveAttack(int attackPos, EnemyAttackType atkType)
+    protected void ResolveAttack(int attackPos, EnemyAttackType atkType, bool didParry)
     {
         int playerPos = Mathf.RoundToInt(dodgeSlider.value);
         bool shieldBusy = shieldManager.ParryInProgress;
@@ -639,31 +638,37 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (atkType == EnemyAttackType.Dodge)
         {
-            // success if the player is NOT standing in the attack position
-            if (playerPos != attackPos)
+            // if you parried, always succeed
+            if (didParry && playerPos == attackPos)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+            }
+            // otherwise succeed only if you moved out of the attack position
+            else if (playerPos != attackPos && !shieldBusy)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             }
             else
             {
-                // failed to dodge, take damage
-                // determine damage based on invincibility charges
+                // take damage
                 int damageAmount = 1;
                 var fc = FindObjectOfType<FightController>();
                 if (fc != null && fc.invincibleHits > 0)
                 {
                     fc.invincibleHits--;
                     damageAmount = 0;
-                    Debug.Log($"Invincible! Charges left: {fc.invincibleHits}");
                 }
-
                 EventManager.Instance.TriggerEvent("takeDamageEvent", damageAmount);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
-        else if(atkType == EnemyAttackType.Parry) // Parry attack
+        else if(atkType == EnemyAttackType.Shield) 
         {
-            if (playerPos == attackPos && !shieldBusy)
+            if (didParry && playerPos == attackPos)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+            }
+            else if(playerPos == attackPos && !shieldBusy)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
                 shieldManager?.TriggerShieldRecoil(attackPos, this);
@@ -684,29 +689,22 @@ public abstract class EnemyParent : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
-        else if(atkType == EnemyAttackType.Crouch)
+        else if (atkType == EnemyAttackType.Parry)
         {
-            // Did the player hold LeftShift at the moment of attack?
-            bool crouched = Input.GetKey(KeyCode.LeftShift);
-
-            if (crouched)
+            if (didParry && !shieldBusy && playerPos == attackPos) // only a Space‑parry will block
             {
-                // successful crouch—no damage
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             }
             else
             {
-                // failed to crouch—take damage
-                // determine damage based on invincibility charges
+                // take damage as before
                 int damageAmount = 1;
                 var fc = FindObjectOfType<FightController>();
                 if (fc != null && fc.invincibleHits > 0)
                 {
                     fc.invincibleHits--;
                     damageAmount = 0;
-                    Debug.Log($"Invincible! Charges left: {fc.invincibleHits}");
                 }
-
                 EventManager.Instance.TriggerEvent("takeDamageEvent", damageAmount);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
