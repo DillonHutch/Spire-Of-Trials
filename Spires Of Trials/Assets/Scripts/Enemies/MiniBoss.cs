@@ -212,8 +212,8 @@ public class MiniBoss : EnemyParent
             EnemyAttackType.Dodge,
             EnemyAttackType.Dodge,
             EnemyAttackType.Parry,
-            EnemyAttackType.Crouch,
-            EnemyAttackType.Crouch,
+            EnemyAttackType.Shield,
+            EnemyAttackType.Shield,
             EnemyAttackType.Parry,
         };
     }

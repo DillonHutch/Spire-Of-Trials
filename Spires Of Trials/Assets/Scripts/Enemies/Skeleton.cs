@@ -50,7 +50,7 @@ public class Skeleton : EnemyParent
         {
             EnemyAttackType.Dodge,
             EnemyAttackType.Parry,
-            EnemyAttackType.Crouch
+            EnemyAttackType.Shield
         };
     }
 
