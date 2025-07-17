@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -35,6 +35,9 @@ public class BattleDialogueManager : MonoBehaviour
     public bool CanContinueToNextLine => canContinueToNextLine;
 
 
+    // above your existing fields:
+    private Story originalStory;
+    private Dictionary<TextAsset, Story> quipStories = new Dictionary<TextAsset, Story>();
 
 
     private static BattleDialogueManager instance;
@@ -175,26 +178,52 @@ public class BattleDialogueManager : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
+        // on first call, stash the “original” story
+        if (originalStory == null)
+            originalStory = new Story(inkJSON.text);
 
-        if (originalInkJSON == null)
-            originalInkJSON = inkJSON;
-
-        currentStory = new Story(inkJSON.text);
+        // always resume the original story
+        currentStory = originalStory;
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-
-
         dialogueVariables.StartListening(currentStory);
-
-
-        displayNameText.text = "???";
-        portraitAnimator.Play("default");
-        //layoutAnimator.Play("right");
-        EventManager.Instance.TriggerEvent("setDialogueAudio", defaultAudioInfo.id);
-
         ContinueStory();
-
     }
+
+    public void EnterQuipMode(TextAsset quipJSON)
+    {
+        // reuse or create the quip story
+        if (!quipStories.TryGetValue(quipJSON, out Story quip))
+        {
+            quip = new Story(quipJSON.text);
+            quipStories[quipJSON] = quip;
+        }
+        currentStory = quip;
+        dialogueIsPlaying = true;
+        dialoguePanel.SetActive(true);
+        dialogueVariables.StartListening(currentStory);
+        ContinueStory();
+    }
+
+    /// <summary>
+    /// Switches back to the original story but does not auto–advance.
+    /// The player will have to hit your Continue button / key to go on.
+    /// </summary>
+    public void ResumeOriginalDialogue(bool autoContinue = false)
+    {
+        currentStory = originalStory;
+        // make sure the UI is in “waiting for input” state
+        canContinueToNextLine = true;
+        DisplayChoices();       // re‑enable your “press to continue” icon, etc.
+        continueIcon.SetActive(true);
+
+        if (autoContinue)
+            ContinueStory();
+    }
+
+
+
+
 
 
     /// <summary>

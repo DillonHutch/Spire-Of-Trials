@@ -3098,6 +3098,7 @@ MonoBehaviour:
   makePredictable: 1
   audioInfos:
   - {fileID: 11400000, guid: 5c5d0fb67671ca74589280f97ac54b21, type: 2}
+  - {fileID: 11400000, guid: c136e6592597bc04ebc5a7160a92492e, type: 2}
   dialoguePanel: {fileID: 2092247121}
   dialogueText: {fileID: 262250071}
   displayNameText: {fileID: 1083317556}
@@ -21565,20 +21566,52 @@ PrefabInstance:
       objectReference: {fileID: 682067955}
     - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
       propertyPath: enemyDialogues.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
       propertyPath: enemyDialogues.Array.data[0].enemyTag
       value: Skeleton
       objectReference: {fileID: 0}
     - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[1].enemyTag
+      value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[2].enemyTag
+      value: Knight
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
       propertyPath: enemyDialogues.Array.data[0].dialogues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[1].dialogues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[2].dialogues.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
       propertyPath: enemyDialogues.Array.data[0].dialogues.Array.data[0]
       value: 
       objectReference: {fileID: 4900000, guid: ce6b8b50bd1114f4d84b208ed313a975, type: 3}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[0].dialogues.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: ce6b8b50bd1114f4d84b208ed313a975, type: 3}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[1].dialogues.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 54b26581f12f71b49854e4f7dd2c7eb4, type: 3}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[2].dialogues.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: 2978b5cea4a7e9f47873a85f2beb44c0, type: 3}
+    - target: {fileID: 4451160392993291749, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
+      propertyPath: enemyDialogues.Array.data[2].dialogues.Array.data[1]
+      value: 
+      objectReference: {fileID: 4900000, guid: 2978b5cea4a7e9f47873a85f2beb44c0, type: 3}
     - target: {fileID: 8660956828851144086, guid: 8754ac53f407a8d40a240d0c13830f12, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.7006352

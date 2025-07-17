@@ -2,10 +2,10 @@
 
 === main ===
 
-The knight just needs a little bit more time. #audio:animalcrossinglow
+Balisar strikes a mighty pose #audio:animalcrossing
 
-“Death is not the end, just the start of a new beginning.” Those were her last words…
+Balisar looks like he is restraining himself #audio:animalcrossing
 
-Never meet your heroes!
+Balisar's emotions are getting the best of him #audio:animalcrossing
 
 -> main

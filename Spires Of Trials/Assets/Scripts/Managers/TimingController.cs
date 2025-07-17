@@ -368,100 +368,66 @@ public class TimingController : MonoBehaviour
     /// </summary>
     private IEnumerator StopFightAfterAttacks()
     {
-        // 1) stop any new attacks
-        EnemyParent[] enemies = FindObjectsOfType<EnemyParent>();
-        for (int i = 0; i < enemies.Length; i++)
-            enemies[i].StopFight();
+        // 1) wrap up the fight
+        FightActive = false;
+        EndSkillPhase();
+        StopCombatTimer();
 
-        // 2) wait until all in‑flight attacks finish
-        bool anyAttacking;
-        do
-        {
-            anyAttacking = false;
-            for (int i = 0; i < enemies.Length; i++)
-            {
-                if (enemies[i].IsAttacking)
-                {
-                    anyAttacking = true;
-                    break;
-                }
-            }
-            yield return null;
-        }
-        while (anyAttacking);
+        // immediately stop all enemies
+        foreach (var e in FindObjectsOfType<EnemyParent>())
+            e.StopFight();
 
-        // 3) if we’re doing an enemy quip this round…
+        // 2) maybe do a quip
         if (Random.value < dialogueChance)
         {
-            // gather survivors with a dialogue mapping
-            EnemyParent[] allEnemies = FindObjectsOfType<EnemyParent>();
-            List<EnemyParent> survivors = new List<EnemyParent>();
-            for (int i = 0; i < allEnemies.Length; i++)
-            {
-                string tag = allEnemies[i].gameObject.tag;
-                if (dialogueMap.ContainsKey(tag))
-                    survivors.Add(allEnemies[i]);
-            }
+            var survivors = FindObjectsOfType<EnemyParent>()
+                .Where(e => dialogueMap.ContainsKey(e.tag))
+                .ToList();
 
             if (survivors.Count > 0)
             {
-                // pick one
-                int chosenIndex = Random.Range(0, survivors.Count);
-                EnemyParent chosenEnemy = survivors[chosenIndex];
+                var chosen = survivors[Random.Range(0, survivors.Count)];
+                TextAsset[] quips = dialogueMap[chosen.tag];
+                TextAsset enemyInk = quips[Random.Range(0, quips.Length)];
 
-                // pick one of its lines
-                TextAsset[] set = dialogueMap[chosenEnemy.gameObject.tag];
-                int dialogueIndex = Random.Range(0, set.Length);
-                TextAsset enemyInk = set[dialogueIndex];
-
-                // compute world→screen→localPoint as before…
-                Vector3 worldPos = chosenEnemy.transform.position + Vector3.up * 2f;
+                // —— position the arrow over the chosen enemy ——
+                Vector3 worldPos = chosen.transform.position + Vector3.up * 2f;
                 Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-                var canvasRect = dialogueArrow.GetComponentInParent<Canvas>().GetComponent<RectTransform>();
+                var canvasRect = dialogueArrow.GetComponentInParent<Canvas>()
+                                          .GetComponent<RectTransform>();
                 var arrowRect = dialogueArrow.GetComponent<RectTransform>();
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
                     canvasRect, screenPos, Camera.main, out Vector2 localPoint);
-
                 // only move X
-                Vector2 currentAnchored = arrowRect.anchoredPosition;
-                arrowRect.anchoredPosition = new Vector2(localPoint.x, currentAnchored.y);
+                arrowRect.anchoredPosition = new Vector2(localPoint.x, arrowRect.anchoredPosition.y);
 
                 // a) play the “enemyTalking” animation
                 animator.Play("enemyTalking");
                 dialogueArrow.SetActive(true);
 
-                // b) fire up that Ink and wait *only* for the typewriter
-                BattleDialogueManager dm = BattleDialogueManager.GetInstance();
-                dm.EnterDialogueMode(enemyInk);
+                // b) fire up the enemy quip
+                var dm = BattleDialogueManager.GetInstance();
+                dm.EnterQuipMode(enemyInk);
                 yield return new WaitUntil(() => dm.CanContinueToNextLine);
-                
 
-                // c) immediately replay your original story…
-                
-                // d) …and wait until that entire story is done
-                //yield return new WaitUntil(() => dm.dialogueIsPlaying == false);
+                // pause, then swap back without auto‐advance
+                yield return new WaitForSeconds(2);
+                dm.ResumeOriginalDialogue(autoContinue: false);
 
-                yield return new WaitForSeconds(2f);
-
-                // small pause before popping back to combat
-                //animator.Play("fightEnded");
-                dm.ReplayOriginalDialogue();
-
+                // hide the arrow again
+                dialogueArrow.SetActive(false);
             }
         }
 
-        // 4) now do your regular end‑of‑round resume
-        dialogueArrow.SetActive(false);
-        FightActive = false;
+        // 3) fire the global stop‐fight event now that dialogue’s back
         EventManager.Instance.TriggerEvent("OnStopFight");
-        EndSkillPhase();
-        StopCombatTimer();
+
+        // 4) final UI wrap‐up
         FightPanelUp = true;
-
         animator.Play("fightEnded");
-
-
     }
+
+
 
 
 
