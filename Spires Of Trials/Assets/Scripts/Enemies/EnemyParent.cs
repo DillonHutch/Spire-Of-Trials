@@ -1111,7 +1111,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// Ensures the MiniBoss is correctly positioned within the spawn hierarchy.
     /// </summary>
     /// <param name="newParent">The new Transform parent.</param>
-    protected void SetNewParent(Transform newParent)
+    protected virtual void SetNewParent(Transform newParent)
     {
         if (newParent != null)
         {

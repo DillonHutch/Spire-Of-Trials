@@ -13,6 +13,10 @@ public class MiniBoss : EnemyParent
 
     BattleSceneController battleController;
 
+
+    // track whether we’re on left (0), center (1) or right (2)
+    private int currentSpawnIndex;
+
     #endregion
 
     #region UnityMethods
@@ -24,14 +28,29 @@ public class MiniBoss : EnemyParent
     protected override void Start()
     {
         // Call base Start() to ensure parent class logic runs first
-        base.Start(); 
+        base.Start();
 
 
 
         // Set a random spawn position as the new parent
-        SetNewParent(GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn));
+        Transform initialSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+        SetNewParent(initialSpawn);
+
+        // scale down if it’s the center spawn, otherwise reset to full size
+        transform.localScale = (initialSpawn == centerSpawn)
+            ? Vector3.one * 0.8f
+            : Vector3.one * 0.9f;
+
+
+
+        // Faster attack settings
+        attackIntervalMin = 0.4f;
+        attackIntervalMax = 0.6f;
+        windUpTime = 0.5f;
 
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
+
+        AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
 
 
     }
@@ -40,13 +59,24 @@ public class MiniBoss : EnemyParent
 
     #region OverrideRegions
 
+
+    protected override void SetNewParent(Transform newParent)
+    {
+        base.SetNewParent(newParent);
+
+        if (newParent == leftSpawn) currentSpawnIndex = 0;
+        else if (newParent == centerSpawn) currentSpawnIndex = 1;
+        else if (newParent == rightSpawn) currentSpawnIndex = 2;
+    }
+
+
     /// <summary>
     /// returns position of miniboss
     /// </summary>
     /// <returns></returns>
     protected override int GetAttackPosition()
     {
-        return Random.Range(0, 3);
+        return currentSpawnIndex;
     }
 
     /// <summary>
@@ -59,6 +89,7 @@ public class MiniBoss : EnemyParent
     /// Continuously loops and waits for a random interval before requesting an attack.
     /// Ensures each attack happens at a randomized interval within the given range.
     /// </summary>
+    // in AttackLoop()
     protected override IEnumerator AttackLoop()
     {
         while (true)
@@ -67,21 +98,29 @@ public class MiniBoss : EnemyParent
 
             for (int i = 0; i < attackBurstCount; i++)
             {
-                // Determine a random attack interval within the min/max range, rounded to one decimal place
-                float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;             
+                float waitTime = Mathf.Round(Random.Range(
+                    attackIntervalMin, attackIntervalMax
+                ) * 10f) / 10f;
                 yield return new WaitForSeconds(waitTime);
-                Transform randomSpawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
-                SetNewParent(randomSpawn);
-                yield return PerformAttack(); // Reuse parent attack logic with minor tweaks
-                
+
+                Transform spawn = GetRandomSpawn(leftSpawn, centerSpawn, rightSpawn);
+                SetNewParent(spawn);
+
+                // if it’s center (position 1) scale to 0.8, else back to 1
+                transform.localScale = (spawn == centerSpawn)
+                    ? Vector3.one * 0.8f
+                    : Vector3.one * 0.9f;
+
+                yield return PerformAttack();
             }
 
-            // **Rest Phase** - MiniBoss pauses after its attack burst
+            // rest phase
             Debug.Log("MiniBoss is resting...");
             animator.SetTrigger("ReturnToIdle");
-            yield return new WaitForSeconds(3f); // Punishment window
+            
         }
     }
+
 
 
     /// <summary>
@@ -169,6 +208,12 @@ public class MiniBoss : EnemyParent
         // e.g. two parry attacks, then a dodge, then repeat
         enemyAttackPattern = new List<EnemyAttackType>
         {
+            EnemyAttackType.Dodge,
+            EnemyAttackType.Dodge,
+            EnemyAttackType.Dodge,
+            EnemyAttackType.Parry,
+            EnemyAttackType.Crouch,
+            EnemyAttackType.Crouch,
             EnemyAttackType.Parry,
         };
     }

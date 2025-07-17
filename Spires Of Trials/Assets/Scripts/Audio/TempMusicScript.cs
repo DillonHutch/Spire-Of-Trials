@@ -23,7 +23,7 @@ public class TempMusicScript : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "Battle")
         {
 
-            AudioManager.instance.SetMusic(MusicEnum.Ruins);
+            //AudioManager.instance.SetMusic(MusicEnum.Ruins);
 
         }
         else if(SceneManager.GetActiveScene().name == "Garden")

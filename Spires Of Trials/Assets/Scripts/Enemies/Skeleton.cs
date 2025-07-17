@@ -6,6 +6,16 @@ using UnityEngine;
 /// </summary>
 public class Skeleton : EnemyParent
 {
+
+
+    protected override void Start()
+    {
+        base.Start();
+
+        AudioManager.instance.SetMusic(MusicEnum.Ruins);
+    }
+
+
     #region Override Methods
 
     /// <summary>

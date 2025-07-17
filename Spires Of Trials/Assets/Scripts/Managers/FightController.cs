@@ -122,7 +122,7 @@ public class FightController : MonoBehaviour
         animator.Play("closeMenu");
 
         // start a fixed 10-second fight timer
-        timingController.StartTimer(10f);
+        timingController.StartTimer(30f);
     }
 
 

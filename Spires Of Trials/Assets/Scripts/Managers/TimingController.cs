@@ -409,13 +409,17 @@ public class TimingController : MonoBehaviour
                 var dm = BattleDialogueManager.GetInstance();
                 dm.EnterQuipMode(enemyInk);
                 yield return new WaitUntil(() => dm.CanContinueToNextLine);
-
+                
                 // pause, then swap back without auto‐advance
                 yield return new WaitForSeconds(2);
                 dm.ResumeOriginalDialogue(autoContinue: false);
 
                 // hide the arrow again
+                
                 dialogueArrow.SetActive(false);
+                animator.Play("enemyTalkingEnd");
+
+                yield return new WaitForSeconds(.1f);
             }
         }
 
