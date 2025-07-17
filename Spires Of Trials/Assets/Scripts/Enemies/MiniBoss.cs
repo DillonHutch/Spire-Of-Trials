@@ -115,7 +115,6 @@ public class MiniBoss : EnemyParent
             }
 
             // rest phase
-            Debug.Log("MiniBoss is resting...");
             animator.SetTrigger("ReturnToIdle");
             
         }

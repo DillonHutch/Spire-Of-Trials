@@ -21,7 +21,7 @@ public abstract class EnemyParent : MonoBehaviour
     #region Fields
 
     [Header("Parry Settings")]
-     protected float parryWindow = 0.3f;  // length of the input window in seconds
+     protected float parryWindow = 0.5f;  // length of the input window in seconds
     [SerializeField] protected float parryBonusTime = 5f;    // seconds to add to your timer
 
 
@@ -559,20 +559,14 @@ public abstract class EnemyParent : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     // successful parry → bonus time, no shield movement
-                    TimingController.Instance.AddTime(parryBonusTime);
+                    //TimingController.Instance.AddTime(parryBonusTime);
                     didParry = true;
                     break;
                 }
                 t += Time.deltaTime;
                 yield return null;
             }
-            parryWindowActive = false;
-
-            if (!didParry)
-            {
-                // failed parry → punishment
-                shieldManager.TriggerGlobalParry();
-            }
+        parryWindowActive = false;
         
 
         // RESOLVE ATTACK
@@ -644,31 +638,37 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (atkType == EnemyAttackType.Dodge)
         {
-            // success if the player is NOT standing in the attack position
-            if (playerPos != attackPos)
+            // if you parried, always succeed
+            if (didParry && playerPos == attackPos)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+            }
+            // otherwise succeed only if you moved out of the attack position
+            else if (playerPos != attackPos && !shieldBusy)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             }
             else
             {
-                // failed to dodge, take damage
-                // determine damage based on invincibility charges
+                // take damage
                 int damageAmount = 1;
                 var fc = FindObjectOfType<FightController>();
                 if (fc != null && fc.invincibleHits > 0)
                 {
                     fc.invincibleHits--;
                     damageAmount = 0;
-                    Debug.Log($"Invincible! Charges left: {fc.invincibleHits}");
                 }
-
                 EventManager.Instance.TriggerEvent("takeDamageEvent", damageAmount);
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHit, transform.position);
             }
         }
         else if(atkType == EnemyAttackType.Shield) 
         {
-            if (playerPos == attackPos && !shieldBusy)
+            if (didParry && playerPos == attackPos)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
+            }
+            else if(playerPos == attackPos && !shieldBusy)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
                 shieldManager?.TriggerShieldRecoil(attackPos, this);
@@ -691,7 +691,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
         else if (atkType == EnemyAttackType.Parry)
         {
-            if (didParry) // only a Space‑parry will block
+            if (didParry && !shieldBusy && playerPos == attackPos) // only a Space‑parry will block
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.shieldWood, transform.position);
             }
