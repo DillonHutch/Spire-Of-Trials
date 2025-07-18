@@ -375,7 +375,6 @@ public class TimingController : MonoBehaviour
         EndSkillPhase();
         StopCombatTimer();
 
-        // immediately stop all enemies
         // wait until every enemy finishes its current attack
         yield return new WaitUntil(() =>
         {
@@ -383,69 +382,23 @@ public class TimingController : MonoBehaviour
             foreach (EnemyParent enemy in enemies)
             {
                 if (enemy.IsAttacking)
-                {
                     return false;
-                }
             }
             return true;
         });
 
-        // now stop all enemy loops and reset them
+        // stop all enemy loops and reset them
         foreach (EnemyParent enemy in FindObjectsOfType<EnemyParent>())
         {
             enemy.StopFight();
         }
 
-        // 2) maybe do a quip
-        if (Random.value < dialogueChance)
-        {
-            var survivors = FindObjectsOfType<EnemyParent>()
-                .Where(e => dialogueMap.ContainsKey(e.tag))
-                .ToList();
+        // quip logic removed – trigger quips manually by calling PlayQuip()
 
-            if (survivors.Count > 0)
-            {
-                var chosen = survivors[Random.Range(0, survivors.Count)];
-                TextAsset[] quips = dialogueMap[chosen.tag];
-                TextAsset enemyInk = quips[Random.Range(0, quips.Length)];
-
-                // —— position the arrow over the chosen enemy ——
-                Vector3 worldPos = chosen.transform.position + Vector3.up * 2f;
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-                var canvasRect = dialogueArrow.GetComponentInParent<Canvas>()
-                                          .GetComponent<RectTransform>();
-                var arrowRect = dialogueArrow.GetComponent<RectTransform>();
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    canvasRect, screenPos, Camera.main, out Vector2 localPoint);
-                // only move X
-                arrowRect.anchoredPosition = new Vector2(localPoint.x, arrowRect.anchoredPosition.y);
-
-                // a) play the “enemyTalking” animation
-                animator.Play("enemyTalking");
-                dialogueArrow.SetActive(true);
-
-                // b) fire up the enemy quip
-                var dm = BattleDialogueManager.GetInstance();
-                dm.EnterQuipMode(enemyInk);
-                yield return new WaitUntil(() => dm.CanContinueToNextLine);
-                
-                // pause, then swap back without auto‐advance
-                yield return new WaitForSeconds(2);
-                dm.ResumeOriginalDialogue(autoContinue: false);
-
-                // hide the arrow again
-                
-                dialogueArrow.SetActive(false);
-                animator.Play("enemyTalkingEnd");
-
-                yield return new WaitForSeconds(.1f);
-            }
-        }
-
-        // 3) fire the global stop‐fight event now that dialogue’s back
+        // 3) fire the global stop‑fight event
         EventManager.Instance.TriggerEvent("OnStopFight");
 
-        // 4) final UI wrap‐up
+        // 4) final UI wrap‑up
         FightPanelUp = true;
         animator.Play("fightEnded");
     }
@@ -453,6 +406,52 @@ public class TimingController : MonoBehaviour
 
 
 
+    public IEnumerator PlayQuip()
+    {
+        // 1) maybe skip entirely
+        if (Random.value >= dialogueChance)
+            yield break;
+
+        // 2) pick a random survivor that has a quip
+        var survivors = FindObjectsOfType<EnemyParent>()
+            .Where(e => dialogueMap.ContainsKey(e.tag))
+            .ToList();
+        if (survivors.Count == 0)
+            yield break;
+
+        var chosen = survivors[Random.Range(0, survivors.Count)];
+        TextAsset[] quips = dialogueMap[chosen.tag];
+        TextAsset enemyInk = quips[Random.Range(0, quips.Length)];
+
+        // 3) position the arrow over them (only X‑axis)
+        Vector3 worldPos = chosen.transform.position + Vector3.up * 2f;
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        var canvasRect = dialogueArrow.GetComponentInParent<Canvas>()
+                                     .GetComponent<RectTransform>();
+        var arrowRect = dialogueArrow.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect, screenPos, Camera.main, out Vector2 localPoint);
+        arrowRect.anchoredPosition = new Vector2(
+            localPoint.x, arrowRect.anchoredPosition.y);
+
+        // 4) show arrow + “talking” anim
+        animator.Play("enemyTalking");
+        dialogueArrow.SetActive(true);
+
+        // 5) fire the quip into your BattleDialogueManager
+        var dm = BattleDialogueManager.GetInstance();
+        dm.EnterQuipMode(enemyInk);
+        yield return new WaitUntil(() => dm.CanContinueToNextLine);
+
+        // 6) pause, then swap back
+        yield return new WaitForSeconds(2f);
+        dm.ResumeOriginalDialogue(autoContinue: false);
+
+        // 7) hide arrow + end anim
+        dialogueArrow.SetActive(false);
+        animator.Play("enemyTalkingEnd");
+        yield return new WaitForSeconds(0.1f);
+    }
 
 
 

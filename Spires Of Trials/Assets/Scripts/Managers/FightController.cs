@@ -46,8 +46,17 @@ public class FightController : MonoBehaviour
 
     private void Awake()
     {
-        // wire up the inspector-assigned button
-        fightButton.onClick.AddListener(OnFightPressed);
+        // remove the old fight listener
+        fightButton.onClick.RemoveAllListeners();
+
+        // add a new one that runs the quip then starts the fight
+        fightButton.onClick.AddListener(() =>
+        {
+            damageTakenThisFight = 0;
+            StartCoroutine(DoQuipThenFight());
+        });
+
+        // re‑wire your other buttons as before
         itemButton.onClick.AddListener(OnItemPressed);
         skillButton.onClick.AddListener(OnSkillPressed);
         runButton.onClick.AddListener(OnRunPressed);
@@ -56,11 +65,6 @@ public class FightController : MonoBehaviour
         if (timingController != null)
             miniGamePanel.SetActive(false);
 
-
-        fightButton.onClick.AddListener(() => {
-            damageTakenThisFight = 0;
-            OnFightPressed();
-        });
 
         EventManager.Instance.StartListening<int>(
     "takeDamageEvent", OnPlayerDamaged
@@ -117,13 +121,19 @@ public class FightController : MonoBehaviour
         return playerAttacker != null && playerAttacker.ConsumeCombo(cost);
     }
 
-    private void OnFightPressed()
+    // this coroutine runs the quip and only when it’s done starts the timer
+    private IEnumerator DoQuipThenFight()
     {
+        // play your “close menu” animation
         animator.Play("closeMenu");
 
-        // start a fixed 10-second fight timer
+        // wait for the quip dialogue to finish
+        yield return StartCoroutine(TimingController.Instance.PlayQuip());
+
+        // now start the fight timer
         timingController.StartTimer(30f);
     }
+
 
 
     private void OnItemPressed()
@@ -182,10 +192,16 @@ public class FightController : MonoBehaviour
     // called by ArrowMiniGameController on success/failure
     public void ApplySkillEffect(bool success)
     {
+        // launch the coroutine that does skill logic → quip → timer
+        StartCoroutine(ApplySkillRoutine(success));
+    }
 
+    private IEnumerator ApplySkillRoutine(bool success)
+    {
 
-        TimingController.Instance.StartTimer(5f);
+        animator.Play("closeMenu");
 
+        // a) run your existing success/failure logic
         if (success)
         {
             Debug.Log($"Skill {currentSkillIndex} succeeded");
@@ -196,14 +212,11 @@ public class FightController : MonoBehaviour
                     lastDamageTaken = 0;
                     break;
                 case 1:
-
                     skipNextHit = true;
-
                     foreach (var e in FindObjectsOfType<EnemyParent>())
                         e.UpdateNextHitIcon();
                     break;
                 case 2:
-                    // start the slow effect
                     StartCoroutine(ApplySlowToEnemies());
                     break;
                 case 3:
@@ -211,19 +224,25 @@ public class FightController : MonoBehaviour
                     StartCoroutine(RevealNextHits(lookAhead));
                     break;
                 case 4:
-                    // ← NEW: grant 3 free hits
                     invincibleHits = 3;
                     Debug.Log("Invincibility skill activated: 3 free hits remaining");
                     break;
-
-
             }
         }
         else
         {
             Debug.Log($"Skill {currentSkillIndex} failed");
-            // … your existing failure logic …
+            // ... your existing failure logic …
         }
+
+        // b) wait for the quip to finish
+        yield return StartCoroutine(TimingController.Instance.PlayQuip());
+
+        // c) only now start the short fight timer
+        timingController.StartTimer(5f);
+        //TimingController.Instance.StartTimer(defenceTime);
+        TimingController.Instance.FightActive = true;
+        
     }
 
 

@@ -83,10 +83,6 @@ public class SpaceBarMiniGameController : MonoBehaviour
         fightController.ApplySkillEffect(true);
 
         // resume timer & UI exactly like your arrow mini‑game does
-        //TimingController.Instance.StartTimer(defenceTime);
-        EventManager.Instance.TriggerEvent("OnStartFight");
-        animator.Play("closeMenu");
-        TimingController.Instance.FightActive = true;
 
         EndSequence();
     }
@@ -96,12 +92,7 @@ public class SpaceBarMiniGameController : MonoBehaviour
     private void Fail()
     {
         fightController.ApplySkillEffect(false);
-
-        // resume timer & UI exactly like arrow
-        TimingController.Instance.StartTimer(defenceTime);
-        EventManager.Instance.TriggerEvent("OnStartFight");
-        animator.Play("closeMenu");
-        TimingController.Instance.FightActive = true;
+   
 
         EndSequence();
     }
@@ -110,6 +101,6 @@ public class SpaceBarMiniGameController : MonoBehaviour
     {
         isRunning = false;
         panel.SetActive(false);
-        TimingController.Instance.StopCombatTimer();
+        //TimingController.Instance.StopCombatTimer();
     }
 }

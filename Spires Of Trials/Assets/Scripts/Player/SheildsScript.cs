@@ -31,11 +31,48 @@ public class SheildsScript : MonoBehaviour
     // Cache originals
     private Vector3 leftOrig, centerOrig, rightOrig;
 
+    private GameObject leftGO, centerGO, rightGO;
+
     void Awake()
     {
         leftOrig = leftShield.localPosition;
         centerOrig = centerShield.localPosition;
         rightOrig = rightShield.localPosition;
+
+        leftGO = leftShield.gameObject;
+        centerGO = centerShield.gameObject;
+        rightGO = rightShield.gameObject;
+
+
+        // hide them right away
+        SetShieldsActive(false);
+
+        // listen for the fight‑start and fight‑end events
+        EventManager.Instance.StartListening("OnStartFight", OnBattleStart);
+        EventManager.Instance.StartListening("OnStopFight", OnBattleEnd);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.Instance.StopListening("OnStartFight", OnBattleStart);
+        EventManager.Instance.StopListening("OnStopFight", OnBattleEnd);
+    }
+
+    private void OnBattleStart()
+    {
+        //SetShieldsActive(true);
+    }
+
+    private void OnBattleEnd()
+    {
+        SetShieldsActive(false);
+    }
+
+    private void SetShieldsActive(bool active)
+    {
+        leftGO.SetActive(active);
+        centerGO.SetActive(active);
+        rightGO.SetActive(active);
     }
 
     /// <summary>

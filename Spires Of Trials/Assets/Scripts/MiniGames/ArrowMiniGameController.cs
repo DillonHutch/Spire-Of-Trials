@@ -74,18 +74,14 @@ public class ArrowMiniGameController : MonoBehaviour
     {
         // Report success and play animation
         FindObjectOfType<FightController>().ApplySkillEffect(true);
-        animator.Play("closeMenu");
+
         EndSequence();
     }
 
     private void Fail()
     {
         FindObjectOfType<FightController>().ApplySkillEffect(false);
-        // resume fight timer as before
-        TimingController.Instance.StartTimer(defenceTime);
-        EventManager.Instance.TriggerEvent("OnStartFight");
-        animator.Play("closeMenu");
-        TimingController.Instance.FightActive = true;
+
         EndSequence();
     }
 

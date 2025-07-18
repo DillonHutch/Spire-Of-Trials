@@ -54,9 +54,6 @@ public class MashMiniGameController : MonoBehaviour
         panel.SetActive(false);
         bool success = mashSlider.value >= goal;
         FindObjectOfType<FightController>().ApplySkillEffect(success);
-        EventManager.Instance.TriggerEvent("OnStartFight");
-        animator.Play("closeMenu");
-        TimingController.Instance.FightActive = true;
         
     }
 
