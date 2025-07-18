@@ -444,7 +444,7 @@ public class TimingController : MonoBehaviour
         yield return new WaitUntil(() => dm.CanContinueToNextLine);
 
         // 6) pause, then swap back
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         dm.ResumeOriginalDialogue(autoContinue: false);
 
         // 7) hide arrow + end anim

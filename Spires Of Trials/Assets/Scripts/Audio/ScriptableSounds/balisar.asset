@@ -52,5 +52,5 @@ MonoBehaviour:
     Path: event:/SFX/Y
   stopAudioSource: 1
   frequencyLevel: 2
-  minPitch: 0.02
-  maxPitch: 0.1
+  minPitch: 0.3
+  maxPitch: 0.4

@@ -172,6 +172,7 @@ public class FightController : MonoBehaviour
     public void OnSkillChosen(int index)
     {
         currentSkillIndex = index;
+        animator.Play("minigameActive");
         switch (index)
         {
             case 0:
