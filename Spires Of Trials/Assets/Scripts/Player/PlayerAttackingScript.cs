@@ -156,11 +156,14 @@ public class PlayerAttackingScript : MonoBehaviour
     /// </summary>
     void Update()
     {
+
+        HandleDodgeMovement();
+
         if (!TimingController.Instance.FightActive)
             return;
 
         // 1) Always handle dodge movement & shield positioning
-        HandleDodgeMovement();
+      
 
         // 2) Check for crouch (Shift held)
         if (Input.GetKey(KeyCode.LeftShift))

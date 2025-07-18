@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class OverwordPlayer : MonoBehaviour
@@ -15,36 +15,31 @@ public class OverwordPlayer : MonoBehaviour
         _enemyLayer = LayerMask.NameToLayer("Enemy");
     }
 
+    // OverwordPlayer.cs
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == _enemyLayer)
         {
-
-            //Debug.Log($"[Overworld] Trigger hit: {other.name} (layer {other.gameObject.layer}, tag {other.tag})");
-
-            //if (other.gameObject.layer != _enemyLayer)
-            //{
-            //    Debug.Log("[Overworld] Not on Enemy layer, exiting");
-            //    return;
-            //}
-
-            //Debug.Log("[Overworld] Enemy layer OK, starting battle...");
-
-
-
-            // stash the enemy�s tag
+            // stash tag & random slot‑count
             BattleContext.PendingEnemyTag = other.tag;
-            
+            BattleContext.PendingEnemySlotCount = Random.Range(1, 4);
 
-            // load the battle
-            var bc = FindObjectOfType<BattleSceneController>();
-            if (bc != null)
-                bc.StartBattle();
+            // start battle
+            BattleSceneController battleControllerInstance
+                = FindObjectOfType<BattleSceneController>();
+            if (battleControllerInstance != null)
+            {
+                battleControllerInstance.StartBattle();
+            }
             else
+            {
                 Debug.LogError("No BattleSceneController found!");
-            battleController.objectsToDisable.Remove(other.gameObject);
-            Destroy(other.gameObject);
+            }
 
+            this.battleController.objectsToDisable.Remove(other.gameObject);
+            Destroy(other.gameObject);
         }
     }
+
+
 }

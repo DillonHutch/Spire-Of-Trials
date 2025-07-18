@@ -471,26 +471,22 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual IEnumerator AttackLoop()
     {
-        while (true)
+        // only run while the fight is actually active
+        while (TimingController.Instance.FightActive)
         {
-            // pick a base interval
-            float baseMin = attackIntervalMin;
-            float baseMax = attackIntervalMax;
-
-            // if skill phase, shrink intervals (e.g. twice as fast)
-            if (TimingController.Instance.SkillPhase)
-            {
-                baseMin = .1f;
-                baseMax = .1f;
-            }
-
-            float waitTime = Mathf.Round(Random.Range(baseMin, baseMax) * 10f) / 10f;
+            // pick a random interval
+            float waitTime = Mathf.Round(Random.Range(attackIntervalMin, attackIntervalMax) * 10f) / 10f;
             yield return new WaitForSeconds(waitTime);
+
+            // if we’ve been told the fight’s over, stop here
+            if (!TimingController.Instance.FightActive)
+                yield break;
 
             EnemyAttackQueue.RequestAttack(this);
             yield return new WaitForSeconds(waitTime);
         }
     }
+
 
     /// <summary>
     /// Starts the attack process by beginning the attack coroutine.

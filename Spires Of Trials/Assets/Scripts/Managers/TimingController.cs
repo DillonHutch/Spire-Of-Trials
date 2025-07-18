@@ -393,6 +393,8 @@ public class TimingController : MonoBehaviour
             enemy.StopFight();
         }
 
+        yield return new WaitForSeconds(0.5f); // optional delay for visual effect
+
         // quip logic removed – trigger quips manually by calling PlayQuip()
 
         // 3) fire the global stop‑fight event

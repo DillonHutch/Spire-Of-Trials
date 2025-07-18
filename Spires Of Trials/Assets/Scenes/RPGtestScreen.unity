@@ -92569,7 +92569,7 @@ GameObject:
   - component: {fileID: 1411769897}
   m_Layer: 8
   m_Name: BADNPC (2)
-  m_TagString: Knight
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92664,7 +92664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: 8c32f7194c82eba49a7dcea85148906d, type: 3}
+  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
 --- !u!1 &1414288669
 GameObject:
   m_ObjectHideFlags: 0

@@ -222,68 +222,78 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnRandomEnemies()
     {
-        bool anySpawned = false;
-        var candidates = enemyPrefabs
-            .Where(p => p.tag == _combatEnemyTag)
-            .ToList();
-
-        // pull the flags for this tag
         EnemyCombatSettings cfg = settingsByTag[_combatEnemyTag];
 
-        // build list of allowed indices
-        var allowedIndices = new List<int>();
+        // build list of valid slots
+        List<int> allowedIndices = new List<int>();
         if (cfg.spawnLeft) allowedIndices.Add(0);
         if (cfg.spawnCenter) allowedIndices.Add(1);
         if (cfg.spawnRight) allowedIndices.Add(2);
 
-        while (!anySpawned)
+        // how many to spawn?
+        int toSpawn = (BattleContext.PendingEnemySlotCount > 0)
+            ? BattleContext.PendingEnemySlotCount
+            : 1;
+        toSpawn = Mathf.Clamp(toSpawn, 1, allowedIndices.Count);
+
+        // pick N random distinct slots
+        List<int> shuffledSlots = allowedIndices
+            .OrderBy(i => Random.value)
+            .ToList();
+        List<int> chosenSlots = shuffledSlots
+            .Take(toSpawn)
+            .ToList();
+
+        foreach (int slotIndex in chosenSlots)
         {
-            foreach (int i in allowedIndices)
+            if (slotIndex >= spawnLocations.Count)
+                continue;
+
+            // choose prefab by tag
+            List<GameObject> candidates
+                = enemyPrefabs
+                    .Where(p => p.tag == _combatEnemyTag)
+                    .ToList();
+            GameObject prefabToSpawn
+                = (candidates.Count > 0)
+                    ? candidates[Random.Range(0, candidates.Count)]
+                    : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
+            Transform spawnPoint = spawnLocations[slotIndex].transform;
+            GameObject enemyInstance = Instantiate(
+                prefabToSpawn,
+                spawnPoint.position,
+                Quaternion.identity,
+                spawnPoint
+            );
+
+            // optional center‑scale tweak
+            if (slotIndex == 1)
+                enemyInstance.transform.localScale = Vector3.one * 0.8f;
+
+            // initialize attack sprites
+            EventManager.Instance.TriggerEvent(
+                "InitializeAttackSprites",
+                (leftFlash, centerFlash, rightFlash,
+                 leftShield, centerShield, rightShield)
+            );
+
+            // per‑type adjustments
+            switch (enemyInstance.tag)
             {
-                if (i >= spawnLocations.Count)
-                    continue;
-
-                if (Random.value <= spawnChance)
-                {
-                    var prefab = candidates.Count > 0
-                        ? candidates[Random.Range(0, candidates.Count)]
-                        : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-
-                    var spawnPoint = spawnLocations[i].transform;
-                    var enemy = Instantiate(prefab,
-                                            spawnPoint.position,
-                                            Quaternion.identity,
-                                            spawnPoint);
-
-                    // center‐scale tweak, if you still want it
-                    if (i == 1)
-                        enemy.transform.localScale = Vector3.one * 0.8f;
-
-                    // initialize attack sprites…
-                    EventManager.Instance.TriggerEvent(
-                      "InitializeAttackSprites",
-                      (leftFlash, centerFlash, rightFlash,
-                       leftShield, centerShield, rightShield)
-                    );
-
-                    // your per‐type position adjustments
-                    switch (enemy.tag)
-                    {
-                        case "Slime":
-                            AdjustSlimePosition(enemy, i);
-                            break;
-                            // … etc …
-                    }
-
-                    spawnedEnemies.Add(enemy);
-                    anySpawned = true;
+                case "Slime":
+                    AdjustSlimePosition(enemyInstance, slotIndex);
                     break;
-                }
+                    // … other cases …
             }
 
-            if (!anySpawned)
-                yield return null;
+            spawnedEnemies.Add(enemyInstance);
         }
+
+        // clear for next wave
+        BattleContext.PendingEnemySlotCount = 0;
+
+        yield return null;
     }
 
 
