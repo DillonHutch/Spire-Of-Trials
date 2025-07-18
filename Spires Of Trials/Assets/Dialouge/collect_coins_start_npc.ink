@@ -27,6 +27,8 @@ Haa...
 
 Me neither. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
 
+
+
 - Never mind that! I have a quest for you. I dropped 5 coins here in the woods. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false #speed:0.04
 
 My boss will <b><color=\#FF1E35>kill</color></b> me if I don’t bring them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
@@ -37,6 +39,7 @@ Could you see if you can try and get them? #speaker:Dr. Green #portrait:dr_green
 
 * [Yes]
     ~ StartQuest("CollectCoinsQuest")
+    ~ MoveNPCSequence("QuestGuardStart","right:3,up:1,left:3,down:1")
     Great! They kinda just appeared one day. #speaker:Dr. Green #portrait:dr_green_happy #layout:left #audio:animalcrossing #object:false
 
     If only you had the power to <b><color=\#FFFF00>GO BACK</color></b> in <b><color=\#C71585>TIME</color></b>... #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
