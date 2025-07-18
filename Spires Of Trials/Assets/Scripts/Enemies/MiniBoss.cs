@@ -44,9 +44,9 @@ public class MiniBoss : EnemyParent
 
 
         // Faster attack settings
-        attackIntervalMin = 0.4f;
-        attackIntervalMax = 0.6f;
-        windUpTime = 0.5f;
+        attackIntervalMin = 0.3f;
+        attackIntervalMax = 0.3f;
+        windUpTime = 0.4f;
 
         battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
 
@@ -76,7 +76,7 @@ public class MiniBoss : EnemyParent
     /// <returns></returns>
     protected override int GetAttackPosition()
     {
-        return currentSpawnIndex;
+        return Random.Range(0, 3); // 0 = left, 1 = center, 2 = right
     }
 
     /// <summary>

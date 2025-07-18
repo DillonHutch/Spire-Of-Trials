@@ -193,11 +193,26 @@ public class SheildsScript : MonoBehaviour
     // stops any existing flash on sr, then starts a new one
     private void StartFlash(SpriteRenderer sr, Color flashColor, Color originalColor)
     {
-        if (flashCoroutines.TryGetValue(sr, out var existing))
-            StopCoroutine(existing);
+        // 1) Cancel any existing flash on this sprite and clean it up
+        if (flashCoroutines.TryGetValue(sr, out var oldRoutine))
+        {
+            StopCoroutine(oldRoutine);
+            flashCoroutines.Remove(sr);
 
-        var routine = StartCoroutine(FlashRoutine(sr, flashColor, originalColor));
-        flashCoroutines[sr] = routine;
+            // immediately reset the sprite so it’s back to its original, hidden state
+            ResetFlashState(sr, originalColor);
+        }
+
+        // 2) Kick off the new flash and record its handle
+        var newRoutine = StartCoroutine(FlashRoutine(sr, flashColor, originalColor));
+        flashCoroutines[sr] = newRoutine;
+    }
+
+    private void ResetFlashState(SpriteRenderer sr, Color originalColor)
+    {
+        sr.color = originalColor;
+        sr.enabled = false;
+        sr.gameObject.SetActive(false);
     }
 
 
@@ -253,6 +268,12 @@ public class SheildsScript : MonoBehaviour
 
     private void OnDisable()
     {
+
+        foreach (var kv in flashCoroutines)
+            StopCoroutine(kv.Value);
+
+        flashCoroutines.Clear();
+
         // stop any ongoing recoil coroutines
         foreach (var recoiler in activeRecoils.Values)
             StopCoroutine(recoiler);
