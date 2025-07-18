@@ -376,8 +376,25 @@ public class TimingController : MonoBehaviour
         StopCombatTimer();
 
         // immediately stop all enemies
-        foreach (var e in FindObjectsOfType<EnemyParent>())
-            e.StopFight();
+        // wait until every enemy finishes its current attack
+        yield return new WaitUntil(() =>
+        {
+            EnemyParent[] enemies = FindObjectsOfType<EnemyParent>();
+            foreach (EnemyParent enemy in enemies)
+            {
+                if (enemy.IsAttacking)
+                {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        // now stop all enemy loops and reset them
+        foreach (EnemyParent enemy in FindObjectsOfType<EnemyParent>())
+        {
+            enemy.StopFight();
+        }
 
         // 2) maybe do a quip
         if (Random.value < dialogueChance)
