@@ -1,3 +1,23 @@
+
+=== collectCoinsCutscene ===
+
+
+Oh gods what do I do... #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
+
+My boss will <b><color=\#FF1E35>kill</color></b> me if I don’t bring them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
+
+I would do it, but these bushes are in the way.
+
+Hey you over there! Can you help me out?
+
+
+-> END
+
+
+
+
+
+
 === collectCoinsStart ===  
 {CollectCoinsQuestState :
     - "REQUIREMENTS_NOT_MET": -> requirementsNotMet
@@ -13,34 +33,16 @@ Come back when you are a higher level! #speaker:Dr. Green #portrait:dr_green_neu
 -> END
 
 = canStart
-Wait!? You saw that yellow exclamation point above my head!? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false 
 
-* [Yes]
-AHA! I knew I wasn't crazy! #speaker:Dr. Green #portrait:dr_green_happy #layout:left #audio:animalcrossing #object:false
+I dropped some coins and need to get them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
 
-Ever since I had this quest that I wanted someone to take, it appeared above my head.
-
-* [No]
-Oh. Haa... #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false #speed:0.1
-
-Haa...
-
-Me neither. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
-
-
-
-- Never mind that! I have a quest for you. I dropped 5 coins here in the woods. #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false #speed:0.04
-
-My boss will <b><color=\#FF1E35>kill</color></b> me if I don’t bring them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
-
-I would do it, but these bushes are in the way.
 
 Could you see if you can try and get them? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
 
 * [Yes]
     ~ StartQuest("CollectCoinsQuest")
     ~ MoveNPCSequence("QuestGuardStart","right:3,up:1,left:3,down:1")
-    Great! They kinda just appeared one day. #speaker:Dr. Green #portrait:dr_green_happy #layout:left #audio:animalcrossing #object:false
+    Great! We just need to get past these bushes. #speaker:Dr. Green #portrait:dr_green_happy #layout:left #audio:animalcrossing #object:false
 
     If only you had the power to <b><color=\#FFFF00>GO BACK</color></b> in <b><color=\#C71585>TIME</color></b>... #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
 
