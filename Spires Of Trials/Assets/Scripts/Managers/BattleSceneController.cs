@@ -11,7 +11,9 @@ public class BattleSceneController : MonoBehaviour
     [SerializeField] private ScreenFader screenFader;
     [SerializeField] private PlayerMovement playerMovement;
     private string _previousSceneName;
-   
+
+    public bool SuppressResume { get; set; } = false;
+
 
     private void Awake()
     {
@@ -43,7 +45,11 @@ public class BattleSceneController : MonoBehaviour
 
     private IEnumerator LoadBattleScene()
     {
+
+        
         yield return StartCoroutine(screenFader.FadeOut());
+
+       
 
         // only loop if we actually have items
         foreach (var go in objectsToDisable)
@@ -71,30 +77,30 @@ public class BattleSceneController : MonoBehaviour
 
     private IEnumerator EndBattleSequence()
     {
-
-
-
-
         yield return StartCoroutine(screenFader.FadeOut());
         yield return SceneManager.UnloadSceneAsync(battleSceneName);
 
-        // re-enable
+        // re‑enable world objects
         foreach (var go in objectsToDisable)
-            if (go != null)
-                go.SetActive(true);
+            if (go != null) go.SetActive(true);
 
-        Scene original = SceneManager.GetSceneByName(_previousSceneName);
+        var original = SceneManager.GetSceneByName(_previousSceneName);
         if (original.IsValid())
-        {
             SceneManager.SetActiveScene(original);
-        }
 
         yield return StartCoroutine(screenFader.FadeIn());
-        playerMovement.canMove = true;
 
+        // first let anyone (InkExternalFunctions, DialogueManager, etc.) hear "battleSceneUnLoaded"
         EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
 
-        int damage = Mathf.RoundToInt(TimingController.Instance.CombatTimer);
-        EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
+        // if this was NOT a dialogue‑driven fight, immediately resume control
+        if (!SuppressResume)
+        {
+            EventManager.Instance.TriggerEvent("StartPlayerMovement");
+            EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+        }
+
+        // clear it so next battle defaults to normal
+        SuppressResume = false;
     }
 }

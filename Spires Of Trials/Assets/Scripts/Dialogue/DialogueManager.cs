@@ -63,6 +63,8 @@ public class DialogueManager : MonoBehaviour
 
     private bool canContinueToNextLine = false;
 
+    private bool suppressResume = false;
+
     private void Awake()
     {
         story = new Story(inkJson.text);
@@ -97,6 +99,8 @@ public class DialogueManager : MonoBehaviour
         EventManager.Instance.StartListening<Quest>("questStateChange", QuestStateChange);
 
         EventManager.Instance.StartListening("dialogueLineFinishedTyping", OnLineFinishedTyping);
+
+        EventManager.Instance.StartListening("suppressDialogueResume", OnSuppressResume);
     }
 
     private void OnDisable()
@@ -111,6 +115,13 @@ public class DialogueManager : MonoBehaviour
         EventManager.Instance.StopListening<Quest>("questStateChange", QuestStateChange);
 
         EventManager.Instance.StopListening("dialogueLineFinishedTyping", OnLineFinishedTyping);
+
+        EventManager.Instance.StopListening("suppressDialogueResume", OnSuppressResume);
+    }
+
+    private void OnSuppressResume()
+    {
+        suppressResume = true;
     }
 
     private void QuestStateChange(Quest quest)
@@ -295,19 +306,20 @@ public class DialogueManager : MonoBehaviour
 
     private void ExitDialogue()
     {
-       
-        
-
         dialoguePlaying = false;
-
         EventManager.Instance.TriggerEvent("dialogueFinished");
 
-        EventManager.Instance.TriggerEvent("StartPlayerMovement");
+        // only resume movement/input if we were *not* told to suppress
+        if (!suppressResume)
+        {
+            EventManager.Instance.TriggerEvent("StartPlayerMovement");
+            EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+        }
 
-        EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+        // reset for next time
+        suppressResume = false;
 
         inkDialogueVariables.StopListening(story);
-
         story.ResetState();
     }
 

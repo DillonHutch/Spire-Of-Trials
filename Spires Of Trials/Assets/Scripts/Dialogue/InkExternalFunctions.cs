@@ -1,10 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
 
 public class InkExternalFunctions 
 {
+
+    private string _pendingPostCombatKnot;
 
     public void Bind(Story story)
     {
@@ -19,9 +21,9 @@ public class InkExternalFunctions
 
 
         story.BindExternalFunction(
-    "StartCombat",
-    (string enemyTag) => StartCombat(enemyTag)
-);
+        "StartCombat",
+        (string enemyTag, string postCombatKnot) => StartCombat(enemyTag, postCombatKnot)
+      );
 
     }
 
@@ -34,23 +36,46 @@ public class InkExternalFunctions
         story.UnbindExternalFunction("StartCombat");
     }
 
-    private void StartCombat(string enemyTag)
+    private void StartCombat(string enemyTag, string postCombatKnot)
     {
-        // set whatever BattleContext info you need
-        BattleContext.PendingEnemyTag = enemyTag;
 
-        if(enemyTag != "Knight")
-        {
-            BattleContext.PendingEnemySlotCount = Random.Range(1, 4);
-        }
-           
-        
-        // now kick off the battle
-        BattleSceneController bc = UnityEngine.Object.FindObjectOfType<BattleSceneController>();
+        EventManager.Instance.TriggerEvent("suppressDialogueResume");
+
+        // remember which enemy and knot to return to
+        BattleContext.PendingEnemyTag = enemyTag;
+        _pendingPostCombatKnot = postCombatKnot;
+
+        // tell the battle controller to suppress its automatic resume
+        var bc = UnityEngine.Object.FindObjectOfType<BattleSceneController>();
         if (bc != null)
+        {
+            bc.SuppressResume = true;
             bc.StartBattle();
+        }
         else
-            Debug.LogError("No BattleSceneController in scene to start combat");
+        {
+            Debug.LogError("No BattleSceneController in scene");
+        }
+
+        // when the battle unloads, we’ll handle coming back into Ink
+        EventManager.Instance.StartListening("battleSceneUnLoaded", OnCombatEnded);
+    }
+
+
+    private void OnCombatEnded()
+    {
+
+        EventManager.Instance.TriggerEvent("StopPlayerMovement");
+        EventManager.Instance.StopListening("battleSceneUnLoaded", OnCombatEnded);
+
+        if (!string.IsNullOrEmpty(_pendingPostCombatKnot))
+        {
+            // swap in the same Ink JSON you used for overworld
+            
+            EventManager.Instance.TriggerEvent("enterDialogue", _pendingPostCombatKnot);
+            
+            _pendingPostCombatKnot = null;
+        }
     }
 
 

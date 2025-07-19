@@ -54,11 +54,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (canMove && !wasCanMove)
-            inputLocked = true;
-        wasCanMove = canMove;
 
-        if (inputLocked)
+        if (!canMove)
         {
             if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
                 inputLocked = false;
