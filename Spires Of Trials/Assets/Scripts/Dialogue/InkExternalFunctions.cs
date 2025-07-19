@@ -17,6 +17,12 @@ public class InkExternalFunctions
             (string npcName, string seq) => MoveNPCSequence(npcName, seq)
         );
 
+
+        story.BindExternalFunction(
+    "StartCombat",
+    (string enemyTag) => StartCombat(enemyTag)
+);
+
     }
 
     public void Unbind(Story story)
@@ -25,7 +31,28 @@ public class InkExternalFunctions
         story.UnbindExternalFunction("AdvanceQuest");
         story.UnbindExternalFunction("FinishQuest");
         story.UnbindExternalFunction("MoveNPCSequence");
+        story.UnbindExternalFunction("StartCombat");
     }
+
+    private void StartCombat(string enemyTag)
+    {
+        // set whatever BattleContext info you need
+        BattleContext.PendingEnemyTag = enemyTag;
+
+        if(enemyTag != "Knight")
+        {
+            BattleContext.PendingEnemySlotCount = Random.Range(1, 4);
+        }
+           
+        
+        // now kick off the battle
+        BattleSceneController bc = UnityEngine.Object.FindObjectOfType<BattleSceneController>();
+        if (bc != null)
+            bc.StartBattle();
+        else
+            Debug.LogError("No BattleSceneController in scene to start combat");
+    }
+
 
 
     private void StartQuest(string questId)
@@ -44,70 +71,12 @@ public class InkExternalFunctions
     }
 
 
-
-    public void MoveNPCSequence(string npcName, string sequence)
+    private void MoveNPCSequence(string npcName, string sequence)
     {
-        GameObject go = GameObject.Find(npcName);
-        if (go == null)
-        {
-            Debug.LogWarning($"MoveNPCSequence: no GameObject named \"{npcName}\"");
-            return;
-        }
-
-        NPC mover = go.GetComponent<NPC>();
-        if (mover == null)
-        {
-            Debug.LogWarning($"MoveNPCSequence: \"{npcName}\" has no NPC component");
-            return;
-        }
-
-        List<MoveInstruction> moves = new List<MoveInstruction>();
-        string[] segments = sequence.Split(',');
-        foreach (string segment in segments)
-        {
-            string[] parts = segment.Split(':');
-            if (parts.Length != 2)
-                continue;
-
-            string dirToken = parts[0].Trim().ToLowerInvariant();
-            string distToken = parts[1].Trim();
-
-            float distValue;
-            if (!float.TryParse(distToken, out distValue))
-                continue;
-
-            Vector3 dir;
-            switch (dirToken)
-            {
-                case "up":
-                    dir = Vector3.up;
-                    break;
-                case "down":
-                    dir = Vector3.down;
-                    break;
-                case "left":
-                    dir = Vector3.left;
-                    break;
-                case "right":
-                    dir = Vector3.right;
-                    break;
-                default:
-                    dir = Vector3.zero;
-                    break;
-            }
-
-            if (dir == Vector3.zero)
-                continue;
-
-            moves.Add(new MoveInstruction(dir, distValue));
-        }
-
-        IEnumerator sequenceCoroutine = mover.MoveSequence(
-            moves,
-            onComplete: () => EventManager.Instance.TriggerEvent("moveFinished", npcName)
-        );
-        mover.StartCoroutine(sequenceCoroutine);
+        EventManager.Instance.TriggerEvent("moveNPCSequence", npcName, sequence); 
     }
+
+
 
 
 

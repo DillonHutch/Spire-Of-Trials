@@ -10,6 +10,8 @@ I would do it, but these bushes are in the way.
 
 Hey you over there! Can you help me out?
 
+//~ StartCombat("Knight")
+
 
 -> END
 

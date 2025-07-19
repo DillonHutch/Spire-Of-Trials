@@ -22,6 +22,9 @@ public class NPC : MonoBehaviour
     [Tooltip("World‑units per second")]
     [SerializeField] private float moveSpeed = 2f;
 
+ 
+
+
     // Blend‑tree parameter hashes
     private static readonly int MoveX = Animator.StringToHash("MoveX");
     private static readonly int MoveY = Animator.StringToHash("MoveY");

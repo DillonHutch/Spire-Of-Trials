@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Ink.Runtime;
 using Cinemachine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class MovementTrigger : MonoBehaviour
 {
@@ -23,6 +25,12 @@ public class MovementTrigger : MonoBehaviour
     [Tooltip("How much higher NPC cam priority should go above PlayerCam")]
     [SerializeField] private int camBoost = 10;
 
+
+    [SerializeField] private TextAsset inkJSON;
+
+
+
+
     private int _playerPriority;
     private int _npcDefaultPriority;
     private bool _triggered;
@@ -33,6 +41,8 @@ public class MovementTrigger : MonoBehaviour
         _playerPriority = playerCam.Priority;
         _npcDefaultPriority = npcCam.Priority;
     }
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -51,13 +61,15 @@ public class MovementTrigger : MonoBehaviour
         if (go != null)
         {
             npcCam.Follow = go.transform;
+            BattleContext.PendingInkJSON = inkJSON;
             //npcCam.LookAt = go.transform;
         }
         else Debug.LogWarning($"MovementTrigger: no GameObject named {npcName}");
 
         // 4) start the move+event sequence
-        var binder = new InkExternalFunctions();
-        binder.MoveNPCSequence(npcName, moveSequence);
+       
+
+        EventManager.Instance.TriggerEvent("moveNPCSequence", npcName, moveSequence);
         EventManager.Instance.StartListening<string>("moveFinished", OnMoveFinished);
     }
 
@@ -83,4 +95,9 @@ public class MovementTrigger : MonoBehaviour
         // DialogueManager will fire "StartPlayerMovement" automatically,
         // so you don't need to un‑freeze the player here.
     }
+
+
+    
+
+
 }

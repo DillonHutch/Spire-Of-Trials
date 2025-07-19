@@ -2,6 +2,7 @@ EXTERNAL StartQuest(questId)
 EXTERNAL AdvanceQuest(questId)
 EXTERNAL FinishQuest(questId)
 EXTERNAL MoveNPCSequence(npcName, sequence)
+EXTERNAL StartCombat(enemyTag)
 
 
 // quest names
