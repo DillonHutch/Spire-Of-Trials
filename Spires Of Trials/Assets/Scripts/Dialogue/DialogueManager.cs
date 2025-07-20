@@ -309,6 +309,8 @@ public class DialogueManager : MonoBehaviour
         dialoguePlaying = false;
         EventManager.Instance.TriggerEvent("dialogueFinished");
 
+        Debug.Log(suppressResume);
+
         // only resume movement/input if we were *not* told to suppress
         if (!suppressResume)
         {

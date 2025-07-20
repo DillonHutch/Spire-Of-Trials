@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class BattleSceneController : MonoBehaviour
 {
@@ -79,28 +80,40 @@ public class BattleSceneController : MonoBehaviour
     {
         yield return StartCoroutine(screenFader.FadeOut());
         yield return SceneManager.UnloadSceneAsync(battleSceneName);
-
-        // re‑enable world objects
         foreach (var go in objectsToDisable)
             if (go != null) go.SetActive(true);
-
         var original = SceneManager.GetSceneByName(_previousSceneName);
         if (original.IsValid())
             SceneManager.SetActiveScene(original);
-
         yield return StartCoroutine(screenFader.FadeIn());
 
-        // first let anyone (InkExternalFunctions, DialogueManager, etc.) hear "battleSceneUnLoaded"
+        // announce that combat is over
         EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
 
-        // if this was NOT a dialogue‑driven fight, immediately resume control
-        if (!SuppressResume)
+        // if this fight was driven by dialogue, defer resuming until after dialogue
+        if (SuppressResume)
         {
-            EventManager.Instance.TriggerEvent("StartPlayerMovement");
-            EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+            EventManager.Instance.StartListening("dialogueFinished", ResumeAfterDialogue);
+        }
+        else
+        {
+            ResumeControl();
         }
 
-        // clear it so next battle defaults to normal
+        // reset the flag for next time
         SuppressResume = false;
+    }
+
+    private void ResumeAfterDialogue()
+    {
+        // only run once, then drop the listener
+        EventManager.Instance.StopListening("dialogueFinished", ResumeAfterDialogue);
+        ResumeControl();
+    }
+
+    private void ResumeControl()
+    {
+        EventManager.Instance.TriggerEvent("StartPlayerMovement");
+        EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
     }
 }
