@@ -10737,7 +10737,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4038554030764264363, guid: 299a1c2d426483d4392d7a7a3f8850e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.6768265
+      value: 19.176826
       objectReference: {fileID: 0}
     - target: {fileID: 4038554030764264363, guid: 299a1c2d426483d4392d7a7a3f8850e1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29430,7 +29430,7 @@ Transform:
   m_GameObject: {fileID: 436225267}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 42, y: 12.5, z: 0}
+  m_LocalPosition: {x: 25.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -70955,7 +70955,7 @@ Transform:
   m_GameObject: {fileID: 888412533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.5, y: -25, z: -10}
+  m_LocalPosition: {x: -36.5, y: -5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75560,7 +75560,7 @@ Transform:
   m_GameObject: {fileID: 1276100000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -48.5, y: -25, z: 0}
+  m_LocalPosition: {x: -36.5, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -93845,7 +93845,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4019348150808362333, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: m_Name
-      value: TestCutScene (1)
+      value: TestCutScene
       objectReference: {fileID: 0}
     - target: {fileID: 6445316508286642065, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: npcCam
@@ -101850,7 +101850,7 @@ Transform:
   m_GameObject: {fileID: 2136754461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.187084, y: -20.918379, z: -10}
+  m_LocalPosition: {x: -36.5, y: -5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102197,7 +102197,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4019348150808362333, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: m_Name
-      value: TestCutScene
+      value: KnightTestCutScene
       objectReference: {fileID: 0}
     - target: {fileID: 6445316508286642065, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: npcCam
@@ -102221,11 +102221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7237635479913394673, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.814396
+      value: 13.314396
       objectReference: {fileID: 0}
     - target: {fileID: 7237635479913394673, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.476389
+      value: 19.976389
       objectReference: {fileID: 0}
     - target: {fileID: 7237635479913394673, guid: d758e2b5c10e55a43825fb15547392cb, type: 3}
       propertyPath: m_LocalPosition.z
