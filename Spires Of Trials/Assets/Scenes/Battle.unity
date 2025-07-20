@@ -18526,7 +18526,7 @@ MonoBehaviour:
   combatSettings:
   - enemyTag: Skeleton
     minRounds: 1
-    maxRounds: 1
+    maxRounds: 10
     spawnLeft: 1
     spawnCenter: 1
     spawnRight: 1
