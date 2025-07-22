@@ -1,6 +1,10 @@
 EXTERNAL StartQuest(questId)
 EXTERNAL AdvanceQuest(questId)
 EXTERNAL FinishQuest(questId)
+EXTERNAL MoveNPCSequence(npcName, sequence)
+EXTERNAL StartCombat(enemyTag, postCombatKnot)
+EXTERNAL FocusCam(targetName)
+EXTERNAL ResetCamera()
 
 
 // quest names
@@ -18,3 +22,4 @@ INCLUDE Lamp.ink
 INCLUDE kill_enemies_end_npc.ink
 INCLUDE kill_enemies_start_npc.ink
 INCLUDE DeadMan.ink
+INCLUDE KnightOverworldTest.ink

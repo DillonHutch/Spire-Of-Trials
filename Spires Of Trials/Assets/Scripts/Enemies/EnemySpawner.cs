@@ -21,6 +21,10 @@ public class EnemyCombatSettings
     public bool spawnRight = true;
 
 
+    [Header("Spawn Count Settings")]
+    public bool hasMultipleSpawns = false;
+
+
 }
 
 
@@ -37,7 +41,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private List<GameObject> spawnLocations; // List of possible enemy spawn locations
     [SerializeField] private List<GameObject> enemyPrefabs;   // List of enemy prefabs to spawn
-    [SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
+    //[SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
+
 
     BattleSceneController battleController;
 
@@ -230,11 +235,20 @@ public class EnemySpawner : MonoBehaviour
         if (cfg.spawnCenter) allowedIndices.Add(1);
         if (cfg.spawnRight) allowedIndices.Add(2);
 
-        // how many to spawn?
-        int toSpawn = (BattleContext.PendingEnemySlotCount > 0)
-            ? BattleContext.PendingEnemySlotCount
-            : 1;
-        toSpawn = Mathf.Clamp(toSpawn, 1, allowedIndices.Count);
+        int maxPossible = Mathf.Min(3, allowedIndices.Count);
+        int toSpawn;
+
+        if (cfg.hasMultipleSpawns)
+        {
+            if (BattleContext.PendingEnemySlotCount > 0)
+                toSpawn = Mathf.Clamp(BattleContext.PendingEnemySlotCount, 1, maxPossible);
+            else
+                toSpawn = Random.Range(1, maxPossible + 1);
+        }
+        else
+        {
+            toSpawn = 1;
+        }
 
         // pick N random distinct slots
         List<int> shuffledSlots = allowedIndices

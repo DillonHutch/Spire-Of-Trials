@@ -282,4 +282,19 @@ public class SheildsScript : MonoBehaviour
         ResetShieldPositions();
     }
 
+
+
+    public void CancelAllShieldEffects()
+    {
+
+        // stop any active flashes
+        foreach (var flash in flashCoroutines.Values)
+            StopCoroutine(flash);
+        flashCoroutines.Clear();
+
+        // reset positions and hide
+        ResetShieldPositions();
+        //SetShieldsActive(false);
+    }
+
 }

@@ -87,8 +87,7 @@ public class TimingController : MonoBehaviour
 
     private float lastAwardedDuration;
 
-    // whether to skip the next end-of-round damage
-    private bool skipNextDamage = false;
+
 
 
     private float combatTimer = 0f;
@@ -109,14 +108,6 @@ public class TimingController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI combatTimerText;
 
 
-    /// <summary>
-    /// Call this to prevent takeDamageEvent from firing
-    /// at the end of the upcoming fight round.
-    /// </summary>
-    public void SkipNextDamageForThisRound()
-    {
-        skipNextDamage = true;
-    }
 
     // call this at the very start of the battle
     public void ResetCombatTimer()

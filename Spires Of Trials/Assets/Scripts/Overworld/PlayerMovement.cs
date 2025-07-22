@@ -17,14 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Toggled by your BattleSceneController or dialogue system")]
     public bool canMove = true;
 
-    private bool inputLocked;
-    private bool wasCanMove;
-
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        wasCanMove = canMove;
-        inputLocked = false;
         anim = GetComponent<Animator>();
     }
 
@@ -43,25 +38,31 @@ public class PlayerMovement : MonoBehaviour
     private void StartMovement()
     {
         canMove = true;
-        inputLocked = true;
     }
 
     private void StopMovement()
     {
+        // disable further input
         canMove = false;
+
+        // clear our movement state
+        movement = Vector2.zero;
+        anim.SetFloat("MoveX", 0f);
+        anim.SetFloat("MoveY", 0f);
+
+        // halt any physics velocity
         rb.velocity = Vector2.zero;
+
+        // flush Unity’s input buffer so held keys don’t carry over
+        Input.ResetInputAxes();
     }
+
 
     void Update()
     {
-        if (canMove && !wasCanMove)
-            inputLocked = true;
-        wasCanMove = canMove;
 
-        if (inputLocked)
+        if (!canMove)
         {
-            if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
-                inputLocked = false;
 
             movement = Vector2.zero;
             return;

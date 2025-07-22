@@ -1,8 +1,10 @@
 ﻿// BattleSceneController.cs
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class BattleSceneController : MonoBehaviour
 {
@@ -11,7 +13,28 @@ public class BattleSceneController : MonoBehaviour
     [SerializeField] private ScreenFader screenFader;
     [SerializeField] private PlayerMovement playerMovement;
     private string _previousSceneName;
-   
+
+
+    private bool suppressResume = false;
+
+
+
+
+    private void OnEnable()
+    {
+        EventManager.Instance.StartListening("StartBattle", StartBattle);
+        EventManager.Instance.StartListening("EndBattle", EndBattle);
+        EventManager.Instance.StartListening("battleSceneControllerSupress", BattleSupress);
+    }
+
+
+    private void OnDisable()
+    {
+        EventManager.Instance.StopListening("StartBattle", StartBattle);
+        EventManager.Instance.StopListening("EndBattle", EndBattle);
+        EventManager.Instance.StopListening("battleSceneControllerSupress", BattleSupress);
+    }
+
 
     private void Awake()
     {
@@ -32,6 +55,12 @@ public class BattleSceneController : MonoBehaviour
     }
 
 
+    private void BattleSupress()
+    {
+        suppressResume = true;
+    }
+
+
     public void StartBattle()
     {
         
@@ -43,7 +72,11 @@ public class BattleSceneController : MonoBehaviour
 
     private IEnumerator LoadBattleScene()
     {
+
+        
         yield return StartCoroutine(screenFader.FadeOut());
+
+       
 
         // only loop if we actually have items
         foreach (var go in objectsToDisable)
@@ -71,30 +104,46 @@ public class BattleSceneController : MonoBehaviour
 
     private IEnumerator EndBattleSequence()
     {
-
-
-
-
         yield return StartCoroutine(screenFader.FadeOut());
         yield return SceneManager.UnloadSceneAsync(battleSceneName);
-
-        // re-enable
         foreach (var go in objectsToDisable)
-            if (go != null)
-                go.SetActive(true);
-
-        Scene original = SceneManager.GetSceneByName(_previousSceneName);
+            if (go != null) go.SetActive(true);
+        var original = SceneManager.GetSceneByName(_previousSceneName);
         if (original.IsValid())
-        {
             SceneManager.SetActiveScene(original);
+        yield return StartCoroutine(screenFader.FadeIn());
+
+        EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+
+        Debug.Log(suppressResume);
+
+        // if this fight was driven by dialogue, defer resuming until after dialogue
+        if (suppressResume)
+        {
+            EventManager.Instance.StartListening("dialogueFinished", ResumeAfterDialogue);
+        }
+        else
+        {
+            ResumeControl();
         }
 
-        yield return StartCoroutine(screenFader.FadeIn());
-        playerMovement.canMove = true;
+        // reset the flag for next time
+        suppressResume = false;
 
+        // announce that combat is over
         EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
+    }
 
-        int damage = Mathf.RoundToInt(TimingController.Instance.CombatTimer);
-        EventManager.Instance.TriggerEvent("takeDamageEvent", damage);
+    private void ResumeAfterDialogue()
+    {
+        // only run once, then drop the listener
+        EventManager.Instance.StopListening("dialogueFinished", ResumeAfterDialogue);
+        ResumeControl();
+    }
+
+    private void ResumeControl()
+    {
+        EventManager.Instance.TriggerEvent("StartPlayerMovement");
+        
     }
 }

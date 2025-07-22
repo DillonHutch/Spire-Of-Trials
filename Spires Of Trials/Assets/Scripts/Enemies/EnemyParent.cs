@@ -1054,6 +1054,8 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
+        shieldManager?.CancelAllShieldEffects();
+
         // Disable attack indicator before enemy is destroyed
         if (attackIndicatorRenderer != null)
         {
