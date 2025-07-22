@@ -44,7 +44,7 @@ public class TempMusicScript : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "RPGtestScreen")
         {
-            AudioManager.instance.SetMusic(MusicEnum.Title);
+            AudioManager.instance.SetMusic(MusicEnum.Forest);
         }
 
 

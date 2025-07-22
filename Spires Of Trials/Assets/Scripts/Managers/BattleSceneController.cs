@@ -130,6 +130,8 @@ public class BattleSceneController : MonoBehaviour
         // reset the flag for next time
         suppressResume = false;
 
+        AudioManager.instance.SetMusic(MusicEnum.Forest);
+
         // announce that combat is over
         EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
     }

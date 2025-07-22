@@ -12,6 +12,7 @@ public enum MusicEnum
     RuinsBoss = 5,
     GardenBoss = 6,
     FinalBoss = 7,
-    Death = 8
-   
+    Death = 8,
+    Forest = 9,
+
 }

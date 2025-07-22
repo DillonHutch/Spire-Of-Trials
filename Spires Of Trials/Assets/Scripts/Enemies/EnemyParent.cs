@@ -151,8 +151,16 @@ public abstract class EnemyParent : MonoBehaviour
     {
         StartCoroutine(MonitorColorReset());
 
+        if (this.gameObject.tag == "Knight")
+        {
+            AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
+        }
+        else
+        {
+            AudioManager.instance.SetMusic(MusicEnum.Ruins);
+        }
 
-        normalIntervalMin = attackIntervalMin;
+            normalIntervalMin = attackIntervalMin;
         normalIntervalMax = attackIntervalMax;
         normalWindUpTime = windUpTime;
 
