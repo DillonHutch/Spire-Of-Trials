@@ -25,7 +25,15 @@ public class InkExternalFunctions
         (string enemyTag, string postCombatKnot) => StartCombat(enemyTag, postCombatKnot)
       );
 
+
+        story.BindExternalFunction("FocusCam", (string targetName) => FocusCam(targetName));
+
+        story.BindExternalFunction("ResetCamera", () => ResetCamera());
+
     }
+
+
+
 
     public void Unbind(Story story)
     {
@@ -34,6 +42,22 @@ public class InkExternalFunctions
         story.UnbindExternalFunction("FinishQuest");
         story.UnbindExternalFunction("MoveNPCSequence");
         story.UnbindExternalFunction("StartCombat");
+        story.UnbindExternalFunction("FocusCam");
+        story.UnbindExternalFunction("ResetCamera");
+    }
+
+
+
+    private void FocusCam(string targetName)
+    {
+        // route it through your EventManager
+        EventManager.Instance.TriggerEvent("focusCamera", targetName);
+    }
+
+    private void ResetCamera()
+    {
+        // route it through your EventManager
+        EventManager.Instance.TriggerEvent("resetCamera");
     }
 
     private void StartCombat(string enemyTag, string postCombatKnot)
@@ -46,16 +70,13 @@ public class InkExternalFunctions
         _pendingPostCombatKnot = postCombatKnot;
 
         // tell the battle controller to suppress its automatic resume
-        var bc = UnityEngine.Object.FindObjectOfType<BattleSceneController>();
-        if (bc != null)
-        {
-            bc.SuppressResume = true;
-            bc.StartBattle();
-        }
-        else
-        {
-            Debug.LogError("No BattleSceneController in scene");
-        }
+   
+  
+      
+        EventManager.Instance.TriggerEvent("battleSceneControllerSupress");
+        EventManager.Instance.TriggerEvent("StartBattle");
+        
+    
 
         // when the battle unloads, we’ll handle coming back into Ink
         EventManager.Instance.StartListening("battleSceneUnLoaded", OnCombatEnded);

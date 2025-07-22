@@ -16,8 +16,6 @@ public class SpaceBarMiniGameController : MonoBehaviour
     private float zoneHeight = 0.3f;
     [SerializeField]
     private float fillSpeed = 1f;
-    [SerializeField]
-    private float defenceTime = 5f;
 
     private float zoneStart, zoneEnd;
     private bool isRunning;

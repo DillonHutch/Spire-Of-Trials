@@ -21,7 +21,6 @@ public class ArrowMiniGameController : MonoBehaviour
     private int currentIndex;
     private bool isRunning;
     private int skillIndex;
-    private float defenceTime = 5f;
 
     public void SetSkillIndex(int idx)
     {

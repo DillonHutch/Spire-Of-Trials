@@ -1,4 +1,5 @@
 ﻿// BattleSceneController.cs
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,26 @@ public class BattleSceneController : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     private string _previousSceneName;
 
-    public bool SuppressResume { get; set; } = false;
+
+    private bool suppressResume = false;
+
+
+
+
+    private void OnEnable()
+    {
+        EventManager.Instance.StartListening("StartBattle", StartBattle);
+        EventManager.Instance.StartListening("EndBattle", EndBattle);
+        EventManager.Instance.StartListening("battleSceneControllerSupress", BattleSupress);
+    }
+
+
+    private void OnDisable()
+    {
+        EventManager.Instance.StopListening("StartBattle", StartBattle);
+        EventManager.Instance.StopListening("EndBattle", EndBattle);
+        EventManager.Instance.StopListening("battleSceneControllerSupress", BattleSupress);
+    }
 
 
     private void Awake()
@@ -32,6 +52,12 @@ public class BattleSceneController : MonoBehaviour
             Debug.LogError("BattleSceneController: no ScreenFader found in scene!");
 
 
+    }
+
+
+    private void BattleSupress()
+    {
+        suppressResume = true;
     }
 
 
@@ -87,11 +113,12 @@ public class BattleSceneController : MonoBehaviour
             SceneManager.SetActiveScene(original);
         yield return StartCoroutine(screenFader.FadeIn());
 
-        // announce that combat is over
-        EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
+        EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+
+        Debug.Log(suppressResume);
 
         // if this fight was driven by dialogue, defer resuming until after dialogue
-        if (SuppressResume)
+        if (suppressResume)
         {
             EventManager.Instance.StartListening("dialogueFinished", ResumeAfterDialogue);
         }
@@ -101,7 +128,10 @@ public class BattleSceneController : MonoBehaviour
         }
 
         // reset the flag for next time
-        SuppressResume = false;
+        suppressResume = false;
+
+        // announce that combat is over
+        EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
     }
 
     private void ResumeAfterDialogue()
@@ -114,6 +144,6 @@ public class BattleSceneController : MonoBehaviour
     private void ResumeControl()
     {
         EventManager.Instance.TriggerEvent("StartPlayerMovement");
-        EventManager.Instance.ChangeInputEventContext(InputEventContext.DEFAULT);
+        
     }
 }

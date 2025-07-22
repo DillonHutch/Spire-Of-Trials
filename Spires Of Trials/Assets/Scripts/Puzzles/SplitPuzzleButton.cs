@@ -16,7 +16,6 @@ public class SplitPuzzleButton : MonoBehaviour
 
     string requiredTag = "OverworldPlayer";
 
-    private bool isPressed = false;
 
     private void Start()
     {

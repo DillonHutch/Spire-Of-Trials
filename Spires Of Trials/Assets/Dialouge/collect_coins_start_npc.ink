@@ -2,15 +2,14 @@
 === collectCoinsCutscene ===
 
 
-Oh gods what do I do... #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
+Oh gods what do we do... #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
 
-My boss will <b><color=\#FF1E35>kill</color></b> me if I don’t bring them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
+Our boss will <b><color=\#FF1E35>kill</color></b> us if I don’t bring those coins back. #speaker:Dr. Green #portrait:ms_yellow_sad #layout:right #audio:animalcrossingmid #object:false
 
-I would do it, but these bushes are in the way.
+I would do it, but these bushes are in the way. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
 
-Hey you over there! Can you help me out?
+Hey you over there! Can you help us out? #speaker:Dr. Green #portrait:ms_yellow_neutral #layout:right #audio:animalcrossingmid #object:false
 
-//~ StartCombat("Knight")
 
 
 -> END
@@ -31,19 +30,23 @@ Hey you over there! Can you help me out?
 }
 
 = requirementsNotMet
-Come back when you are a higher level! #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
+Come back when you are a higher level! #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false 
 -> END
 
 = canStart
 
-I dropped some coins and need to get them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
+~ FocusCam("CoinLook")
 
+We dropped some coins and need to get them back. #speaker:Dr. Green #portrait:dr_green_sad #layout:left #audio:animalcrossing #object:false
 
-Could you see if you can try and get them? #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false
+~ResetCamera()
+
+Could you see if you can try and get them? 
 
 * [Yes]
     ~ StartQuest("CollectCoinsQuest")
-    ~ MoveNPCSequence("QuestGuardStart","right:3,up:1,left:3,down:1")
+    ~ MoveNPCSequence("QuestGuardStart","up:1, down:1")
+    ~ MoveNPCSequence("QuestGuardEnd","up:1, down:1")
     Great! We just need to get past these bushes. #speaker:Dr. Green #portrait:dr_green_happy #layout:left #audio:animalcrossing #object:false
 
     If only you had the power to <b><color=\#FFFF00>GO BACK</color></b> in <b><color=\#C71585>TIME</color></b>... #speaker:Dr. Green #portrait:dr_green_neutral #layout:left #audio:animalcrossing #object:false

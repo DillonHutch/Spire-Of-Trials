@@ -43,7 +43,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<GameObject> enemyPrefabs;   // List of enemy prefabs to spawn
     //[SerializeField] private float spawnChance = 0.5f;        // Probability for each location to spawn an enemy
 
-    [SerializeField] private bool hasMultipleSpawns = false;
 
     BattleSceneController battleController;
 

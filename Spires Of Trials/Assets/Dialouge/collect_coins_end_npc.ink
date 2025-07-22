@@ -9,9 +9,9 @@
 -> END
 
 = default
-I NEED THOSE COINS NOW!!! #speaker:Dr. Green #portrait:ms_yellow_neutral #layout:right #audio:animalcrossinglow #object:false
+I told my pig headed friend to not leave a hole in the bag! #speaker:Dr. Green #portrait:ms_yellow_neutral #layout:right #audio:animalcrossinglow #object:false
 
-PLEASE TELL ME YOU HAVE THEM! #speaker:Dr. Green #portrait:ms_yellow_neutral #layout:right #audio:animalcrossinglow #object:false
+Please tell me you have the coins?! #speaker:Dr. Green #portrait:ms_yellow_neutral #layout:right #audio:animalcrossinglow #object:false
 
 * [Nope]
 THEN STOP WASTING MY TIME!
@@ -41,7 +41,7 @@ Those poor babies, all alone out there... #speaker:Dr. Green #portrait:ms_yellow
 
     OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
-    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOINS
+    OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOINS
 
     Thank you, brave adventurer! #speed:0.04
 

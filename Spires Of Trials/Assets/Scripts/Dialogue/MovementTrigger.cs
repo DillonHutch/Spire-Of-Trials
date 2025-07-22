@@ -1,103 +1,151 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Ink.Runtime;
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
+
+[Serializable]
+public struct NPCMovementEntry
+{
+    [Tooltip("Drag in the NPC GameObject to move")]
+    public GameObject npc;
+    [Tooltip("Move Sequence, e.g. \"right:2,left:1,up:1\"")]
+    public string moveSequence;
+}
 
 public class MovementTrigger : MonoBehaviour
 {
     [Header("What to move")]
-    [SerializeField] private string npcName;
-
-    [Header("Move Sequence (e.g. \"right:2,left:1,up:1\")")]
-    [SerializeField] private string moveSequence;
+    [SerializeField]
+    private List<NPCMovementEntry> movements;
 
     [Header("Cinemachine Cameras")]
-    [Tooltip("The Virtual Camera that normally follows the player")]
-    [SerializeField] private CinemachineVirtualCamera playerCam;
-    [Tooltip("A dedicated Virtual Camera for this NPC cutscene")]
-    [SerializeField] private CinemachineVirtualCamera npcCam;
+    [SerializeField]
+    private CinemachineVirtualCamera playerCam;
+    [SerializeField]
+    private CinemachineVirtualCamera npcCam;
+    [Tooltip("How much above playerCam priority")]
+    [SerializeField]
+    private int camBoost = 10;
+
+    [Header("Optional NPC Cam Focus Target")]
+    [Tooltip("If set, npcCam will Follow (and LookAt) this object")]
+    [SerializeField]
+    private GameObject npcCamTarget;
 
     [Header("After move, play this knot")]
-    [SerializeField] private string dialogueKnot;
-
-    // priority offsets
-    [Tooltip("How much higher NPC cam priority should go above PlayerCam")]
-    [SerializeField] private int camBoost = 10;
-
+    [SerializeField]
+    private string dialogueKnot;
 
     [SerializeField] private TextAsset inkJSON;
 
-
-
-
+    // runtime fields
+    private List<string> _pendingNPCNames;
     private int _playerPriority;
     private int _npcDefaultPriority;
     private bool _triggered;
 
+    // cache original vcam targets
+    private Transform _originalNpcCamFollow;
+
+
     private void Start()
     {
-        // cache their starting priorities
         _playerPriority = playerCam.Priority;
         _npcDefaultPriority = npcCam.Priority;
+
+        // store whatever the npcCam was following/looking at
+        _originalNpcCamFollow = npcCam.Follow;
+
     }
-
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_triggered) return;
-        if (!other.CompareTag("OverworldPlayer")) return;
+        if (_triggered || !other.CompareTag("OverworldPlayer"))
+            return;
         _triggered = true;
 
-        // 1) lock out player movement
+        if (inkJSON != null)
+            BattleContext.PendingInkJSON = inkJSON;
+
+        // 1) stop the player
         EventManager.Instance.TriggerEvent("StopPlayerMovement");
 
-        // 2) bump NPC cam up so Brain will blend to it
+        // 2) bump to NPC cam
         npcCam.Priority = _playerPriority + camBoost;
 
-        // 3) tell the NPC cam to follow/look at the NPC
-        var go = GameObject.Find(npcName);
-        if (go != null)
+        // 3) if you assigned a focus target, swap the vcam’s Follow/LookAt
+        if (npcCamTarget != null)
         {
-            npcCam.Follow = go.transform;
-            BattleContext.PendingInkJSON = inkJSON;
-            //npcCam.LookAt = go.transform;
+            npcCam.Follow = npcCamTarget.transform;
+
         }
-        else Debug.LogWarning($"MovementTrigger: no GameObject named {npcName}");
 
-        // 4) start the move+event sequence
-       
+        // 4) build list of names we expect to finish
+        _pendingNPCNames = movements
+            .Where(e => e.npc != null)
+            .Select(e => e.npc.name)
+            .ToList();
 
-        EventManager.Instance.TriggerEvent("moveNPCSequence", npcName, moveSequence);
-        EventManager.Instance.StartListening<string>("moveFinished", OnMoveFinished);
+        // 5) fire off moves
+        foreach (var entry in movements)
+        {
+            if (entry.npc == null)
+            {
+                Debug.LogWarning("MovementTrigger: an NPC slot is empty");
+                continue;
+            }
+            EventManager.Instance.TriggerEvent(
+                "moveNPCSequence",
+                entry.npc.name,
+                entry.moveSequence
+            );
+        }
+
+        // 6) listen for each finish
+        EventManager.Instance.StartListening<string>(
+            "moveFinished",
+            OnMoveFinished
+        );
     }
 
-    private void OnMoveFinished(string finishedNpc)
+    private void OnMoveFinished(string finishedNpcName)
     {
-        if (finishedNpc != npcName) return;
-        EventManager.Instance.StopListening<string>("moveFinished", OnMoveFinished);
+        if (!_pendingNPCNames.Contains(finishedNpcName))
+            return;
 
-        // kick off your Ink dialogue knot
+        _pendingNPCNames.Remove(finishedNpcName);
+        if (_pendingNPCNames.Count > 0)
+            return;
+
+        EventManager.Instance.StopListening<string>(
+            "moveFinished",
+            OnMoveFinished
+        );
+
+        // start dialogue
         EventManager.Instance.TriggerEvent("enterDialogue", dialogueKnot);
-
-        // when dialogue wraps, we'll switch back
-        EventManager.Instance.StartListening("dialogueFinished", OnDialogueFinished);
+        EventManager.Instance.StartListening(
+            "dialogueFinished",
+            OnDialogueFinished
+        );
     }
 
     private void OnDialogueFinished()
     {
-        EventManager.Instance.StopListening("dialogueFinished", OnDialogueFinished);
+        EventManager.Instance.StopListening(
+            "dialogueFinished",
+            OnDialogueFinished
+        );
 
-        // reset NPC cam priority so Brain blends back
+        // restore cam priority
         npcCam.Priority = _npcDefaultPriority;
 
-        // DialogueManager will fire "StartPlayerMovement" automatically,
-        // so you don't need to un‑freeze the player here.
+        // restore original Follow/LookAt
+        if (_originalNpcCamFollow != null)
+            npcCam.Follow = _originalNpcCamFollow;
+
+        // DialogueManager will automatically fire StartPlayerMovement
     }
-
-
-    
-
-
 }
