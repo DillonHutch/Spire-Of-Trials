@@ -135,6 +135,13 @@ public abstract class EnemyParent : MonoBehaviour
     private int revealOffset = 1;
 
 
+    [Header("Hit Effects")]
+    [SerializeField] private GameObject meleeHitEffect;
+    [SerializeField] private GameObject rangeHitEffect;
+    [SerializeField] private GameObject magicHitEffect;
+    [SerializeField] private GameObject heavyHitEffect;
+
+
     #endregion
 
     #region UnityMethods
@@ -217,7 +224,35 @@ public abstract class EnemyParent : MonoBehaviour
 
         DefineEnemyAttackPattern();
 
+        meleeHitEffect.SetActive(false);
+        rangeHitEffect.SetActive(false);
+        magicHitEffect.SetActive(false);
+        heavyHitEffect.SetActive(false);
+
     }
+
+
+    private IEnumerator ShowHitEffect(GameObject fx, float duration = 0.15f)
+    {
+        fx.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        fx.SetActive(false);
+    }
+
+
+    private GameObject GetHitEffect(string attackType)
+    {
+        switch (attackType)
+        {
+            case "melee": return meleeHitEffect;
+            case "range": return rangeHitEffect;
+            case "magic": return magicHitEffect;
+            case "heavy": return heavyHitEffect;
+            default: return null;
+        }
+    }
+
+
 
     // cache your sprites in one place
     private Sprite GetSpriteFor(string atk)
@@ -936,6 +971,11 @@ public abstract class EnemyParent : MonoBehaviour
     /// <param name="attackType">The type of attack the player used.</param>
     public virtual void TakeDamage(string attackType)
     {
+
+        GameObject fx = GetHitEffect(attackType);
+        if (fx != null)
+            StartCoroutine(ShowHitEffect(fx));
+
         PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
 
         int phaseSize = 4; // Each phase consists of 4 attacks
