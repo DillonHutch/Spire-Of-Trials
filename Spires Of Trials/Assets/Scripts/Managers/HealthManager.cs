@@ -16,7 +16,21 @@ public class HealthManager : MonoBehaviour
 
     public int CurrentLives => currentLives;
     public int RemainingHits => maxHitsPerCombat - hitsThisCombat;
-    public int MaxHitsPerCombat => maxHitsPerCombat;
+    public int MaxHitsPerCombat => maxHitsPerCombat;  
+
+    public int MaxLives => maxLives;
+
+    private void OnEnable()
+    {
+        EventManager.Instance.StartListening<int>("healDamageEvent", OnHealDamage);
+        EventManager.Instance.StartListening<int>("takeDamageEvent", OnTakeDamage);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.StopListening<int>("healDamageEvent", OnHealDamage);
+        EventManager.Instance.StopListening<int>("takeDamageEvent", OnTakeDamage);
+    }
 
     private void Awake()
     {
@@ -32,17 +46,29 @@ public class HealthManager : MonoBehaviour
         ResetLives();
         ResetCombatMeter();
 
-        EventManager.Instance.StartListening<int>("takeDamageEvent", OnTakeDamage);
+     
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         SyncUI();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            OnTakeDamage(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.M))
+        {
+            OnHealDamage(1);
+        }
     }
 
     private void OnDestroy()
     {
         if (Instance == this)
         {
-            EventManager.Instance.StopListening<int>("takeDamageEvent", OnTakeDamage);
+           
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
     }
@@ -74,6 +100,17 @@ public class HealthManager : MonoBehaviour
             EventManager.Instance.TriggerEvent("OnGameOver");
             // Optionally: SceneManager.LoadScene("GameOver");
         }
+    }
+
+
+    private void OnHealDamage(int healAmount)
+    {
+        if (healAmount <= 0 || currentLives >= maxLives)
+            return;
+          
+        currentLives = Mathf.Max(0, currentLives + 1);
+        EventManager.Instance.TriggerEvent("OnLivesChanged", currentLives);
+        
     }
 
     private void ResetCombatMeter()
