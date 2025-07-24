@@ -7,11 +7,14 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
 
 
-    [SerializeField] private string itemName;
+    public string itemName;
 
-    [SerializeField] private int quantity;
+    public int quantity;
 
-    [SerializeField] private Sprite sprite;
+    public Sprite sprite;
+
+    [TextArea]
+    public string itemDescription;
 
     private InventoryManager inventoryManager;
 
@@ -25,9 +28,17 @@ public class Item : MonoBehaviour
         if (collision.gameObject.CompareTag("OverworldPlayer"))
         {
             // Add the item to the inventory
-            inventoryManager.AddItem(itemName, quantity, sprite);
-            // Optionally, destroy the item after picking it up
-            Destroy(gameObject);
+            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
+            if (leftOverItems <= 0)
+            {
+                // If there are leftover items, you might want to handle them (e.g., spawn a new item)
+                Destroy(gameObject);
+            }
+            else
+            {
+                quantity = leftOverItems;
+            }
+
         }
     }
 
