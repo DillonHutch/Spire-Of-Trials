@@ -18,6 +18,8 @@ public class Item : MonoBehaviour
 
     private InventoryManager inventoryManager;
 
+    public ItemType itemType;
+
     void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
@@ -28,7 +30,7 @@ public class Item : MonoBehaviour
         if (collision.gameObject.CompareTag("OverworldPlayer"))
         {
             // Add the item to the inventory
-            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription);
+            int leftOverItems = inventoryManager.AddItem(itemName, quantity, sprite, itemDescription, itemType);
             if (leftOverItems <= 0)
             {
                 // If there are leftover items, you might want to handle them (e.g., spawn a new item)

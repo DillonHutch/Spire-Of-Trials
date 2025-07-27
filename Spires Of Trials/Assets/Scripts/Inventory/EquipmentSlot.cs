@@ -8,9 +8,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
 
+    [Header("Item Data")]   
     public string itemName;
     public int quantity;
     public Sprite itemSprite;
@@ -20,25 +21,30 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public ItemType itemType;
 
 
-
-    [SerializeField] private TMP_Text quantityText;
-
+    [Header("Item Slots")]
     [SerializeField] private Image itemImage;
-
     private InventoryManager inventoryManager;
+    private EquipmentSOLibrary equipmentSOLibrary;
 
 
-    public Image itemDescriptionImage;
-    public TMP_Text itemDescriptionNameText;
-    public TMP_Text itemDescriptionText;
+    [Header("Equipped Slots")]
+    [SerializeField] private EquippedSlot headSlot, chestSlot, armSlot, legSlot;
 
 
 
 
-
-    [SerializeField] private int maxNumberOfItems;
     public GameObject selectedShader;
     public bool thisItemSelected;
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        equipmentSOLibrary = GameObject.Find("InventoryCanvas").GetComponent<EquipmentSOLibrary>();
+    }
+
 
     public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType)
     {
@@ -69,25 +75,9 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         this.itemDescription = itemDescription;
 
         // Update QUANTITY
-        this.quantity += quantity;
-        if(this.quantity >= maxNumberOfItems)
-        {
-            quantityText.text = maxNumberOfItems.ToString();    
-            quantityText.enabled = true;
+        this.quantity = 1;
+        isFull = true;  
 
-            isFull = true;
-        
-        //return the leftover quantity
-        int extraItems = this.quantity - maxNumberOfItems;
-        this.quantity = maxNumberOfItems;
-        return extraItems;
-
-        }
-
-
-        //update quintity text
-        quantityText.text = this.quantity.ToString();
-        quantityText.enabled = true;
 
         return 0; // Return 0 if no leftover items
 
@@ -95,11 +85,11 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnLeftClick();
         }
-        else if(eventData.button == PointerEventData.InputButton.Right)
+        else if (eventData.button == PointerEventData.InputButton.Right)
         {
             // Handle right click
             OnRightClick();
@@ -109,48 +99,71 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     public void OnLeftClick()
     {
 
-        if(thisItemSelected)
+        if (isFull)
         {
-            bool usable = inventoryManager.UseItem(itemName);
-            if (usable)
+            if (thisItemSelected)
             {
-                this.quantity -= 1;
-                quantityText.text = this.quantity.ToString();
-                if (this.quantity <= 0)
-                {
-                    EmptySlot();
-                }
+                EquipGear();
+
+
             }
-     
+            else
+            {
+                // Handle left click logic here
+                inventoryManager.DeselectAllSlots();
+                selectedShader.SetActive(true);
+                thisItemSelected = true;
+                for (int i = 0; i < equipmentSOLibrary.equipmentSO.Length; i++)
+                {
+                    if (equipmentSOLibrary.equipmentSO[i].itemName == this.itemName)
+                    {
+                        equipmentSOLibrary.equipmentSO[i].PreviewEquipment();
+                        
+                    }
+                }
+
+            }
         }
         else
         {
-            // Handle left click logic here
+            GameObject.Find("StatManager").GetComponent<PlayerStats>().TurnOffPreviewStats();
             inventoryManager.DeselectAllSlots();
             selectedShader.SetActive(true);
             thisItemSelected = true;
-            itemDescriptionNameText.text = itemName;
-            itemDescriptionText.text = itemDescription;
-            itemDescriptionImage.sprite = itemSprite;
-            if (itemDescriptionImage.sprite == null)
-            {
-                itemDescriptionImage.sprite = emptySprite;
-            }
+        }
+
+        
+
+    }
+
+    private void EquipGear()
+    {
+        if(itemType == ItemType.Head)
+        {
+            headSlot.EquipGear(itemSprite, itemName, itemDescription);
+        }
+        else if (itemType == ItemType.Chest)
+        {
+            chestSlot.EquipGear(itemSprite, itemName, itemDescription);
+        }
+        else if (itemType == ItemType.Arms)
+        {
+            armSlot.EquipGear(itemSprite, itemName, itemDescription);
+        }
+        else if (itemType == ItemType.Legs)
+        {
+            legSlot.EquipGear(itemSprite, itemName, itemDescription);
         }
 
 
-
-
+        EmptySlot();
     }
 
     private void EmptySlot()
     {
-        quantityText.enabled = false;
         itemImage.sprite = emptySprite;
+        isFull = false;
 
-        itemDescriptionNameText.text = "";
-        itemDescriptionText.text = "";
-        itemDescriptionImage.sprite = emptySprite;
 
     }
 
@@ -160,7 +173,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         GameObject itemToDrop = new GameObject(itemName);
         Item newItem = itemToDrop.AddComponent<Item>();
         newItem.quantity = 1;
-        newItem.itemName = itemName;    
+        newItem.itemName = itemName;
         newItem.sprite = itemSprite;
         newItem.itemDescription = itemDescription;
 
@@ -175,7 +188,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
 
         this.quantity -= 1;
-        quantityText.text = this.quantity.ToString();
         if (this.quantity <= 0)
         {
             EmptySlot();
@@ -184,15 +196,5 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     }
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
