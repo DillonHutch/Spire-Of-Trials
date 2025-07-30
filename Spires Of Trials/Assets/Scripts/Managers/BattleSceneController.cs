@@ -75,8 +75,7 @@ public class BattleSceneController : MonoBehaviour
         
         _previousSceneName = SceneManager.GetActiveScene().name;
         playerMovement.canMove = false;
-        AudioManager.instance.PauseAndSaveCurrentMusic();
-
+        
         StartCoroutine(LoadBattleScene());
     }
 
@@ -146,8 +145,7 @@ public class BattleSceneController : MonoBehaviour
         // reset the flag for next time
         suppressResume = false;
 
-        AudioManager.instance.RestorePreviousMusic();
-
+        AudioManager.instance.SetMusic(MusicEnum.Forest);
 
         itemCanvas.worldCamera = mainCamera;
 
