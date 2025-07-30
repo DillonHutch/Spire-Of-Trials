@@ -43,6 +43,23 @@ public class FightController : MonoBehaviour
     private int damageTakenThisFight;
 
 
+    PlayerStats playerStats;
+
+    GameObject inventoryCanvas;
+
+    Transform consumablesMenu;
+
+    private void OnEnable()
+    {
+        EventManager.Instance.StartListening("openFightMenu", GoToFightMenu);
+
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.StopListening("openFightMenu", GoToFightMenu);
+    }
+
 
     private void Awake()
     {
@@ -91,6 +108,12 @@ public class FightController : MonoBehaviour
         playerAttacker = FindObjectOfType<PlayerAttackingScript>();
         if (playerAttacker == null)
             Debug.LogError("No PlayerAttackingScript found in scene");
+
+        playerStats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+
+        inventoryCanvas = GameObject.Find("InventoryCanvas");
+        consumablesMenu = inventoryCanvas.transform.Find("ConsumablesMenu");
+  
     }
 
 
@@ -130,20 +153,21 @@ public class FightController : MonoBehaviour
         // wait for the quip dialogue to finish
         yield return StartCoroutine(TimingController.Instance.PlayQuip());
 
+
+       
         // now start the fight timer
-        timingController.StartTimer(30f);
+        timingController.StartTimer(playerStats.attack);
     }
+
+
 
 
 
     private void OnItemPressed()
     {
-        animator.Play("fightButtonClicked");
-        if (timingController != null)
-        {
-            miniGamePanel.SetActive(true);
-            timingController.StartCombatTimer();
-        }
+        animator.Play("closeMenu");
+        consumablesMenu.gameObject.SetActive(true);
+
     }
 
     private void OnSkillPressed()
@@ -157,7 +181,7 @@ public class FightController : MonoBehaviour
 
     private void OnRunPressed()
     {
-        EventManager.Instance.TriggerEvent("takeDamageEvent", 50);
+        EventManager.Instance.TriggerEvent("takeDamageEvent", 10);
         // wait one frame so listeners still exist
         StartCoroutine(EndBattleNextFrame());
     }
@@ -193,11 +217,10 @@ public class FightController : MonoBehaviour
     // called by ArrowMiniGameController on success/failure
     public void ApplySkillEffect(bool success)
     {
-        // launch the coroutine that does skill logic → quip → timer
-        StartCoroutine(ApplySkillRoutine(success));
+        ApplySkillRoutine(success);
     }
 
-    private IEnumerator ApplySkillRoutine(bool success)
+    private void ApplySkillRoutine(bool success)
     {
 
         animator.Play("closeMenu");
@@ -236,14 +259,8 @@ public class FightController : MonoBehaviour
             // ... your existing failure logic …
         }
 
-        // b) wait for the quip to finish
-        yield return StartCoroutine(TimingController.Instance.PlayQuip());
+        animator.Play("fightEnded");
 
-        // c) only now start the short fight timer
-        timingController.StartTimer(5f);
-        //TimingController.Instance.StartTimer(defenceTime);
-        TimingController.Instance.FightActive = true;
-        
     }
 
 
@@ -271,6 +288,14 @@ public class FightController : MonoBehaviour
 
         foreach (var e in enemies)
             e.ShowNextHitIndicator(false, offset);
+    }
+
+    private void GoToFightMenu()
+    {
+        // plays your “open main menu” animation
+        consumablesMenu.gameObject.SetActive(false);
+        animator.Play("fightEnded");
+        
     }
 
 

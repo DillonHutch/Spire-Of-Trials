@@ -5063,7 +5063,7 @@ GameObject:
   - component: {fileID: 519420037}
   - component: {fileID: 519420038}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: BattleCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6626,6 +6626,7 @@ GameObject:
   - component: {fileID: 625328765}
   - component: {fileID: 625328764}
   - component: {fileID: 625328763}
+  - component: {fileID: 625328766}
   m_Layer: 5
   m_Name: DialogueCanvas
   m_TagString: Untagged
@@ -6716,6 +6717,18 @@ Canvas:
   m_SortingLayerID: 500979393
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!225 &625328766
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625328761}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &626232078
 GameObject:
   m_ObjectHideFlags: 0
@@ -7668,7 +7681,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4549775360189561559, guid: 8d5d76ace1e5f2e4981f3cfca344046e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 727346289}
   m_SourcePrefab: {fileID: 100100000, guid: 8d5d76ace1e5f2e4981f3cfca344046e, type: 3}
 --- !u!224 &727346286 stripped
 RectTransform:
@@ -7686,6 +7702,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &727346288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4549775360189561559, guid: 8d5d76ace1e5f2e4981f3cfca344046e, type: 3}
+  m_PrefabInstance: {fileID: 727346285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &727346289
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727346288}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &737204856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7954,7 +7987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &766080633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8582,6 +8615,7 @@ GameObject:
   - component: {fileID: 809801839}
   - component: {fileID: 809801838}
   - component: {fileID: 809801837}
+  - component: {fileID: 809801840}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8680,6 +8714,18 @@ Canvas:
   m_SortingLayerID: 500979393
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &809801840
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809801835}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &818239414
 GameObject:
   m_ObjectHideFlags: 0
@@ -8767,6 +8813,7 @@ GameObject:
   - component: {fileID: 824634969}
   - component: {fileID: 824634968}
   - component: {fileID: 824634967}
+  - component: {fileID: 824634970}
   m_Layer: 5
   m_Name: AttackCanvas
   m_TagString: Untagged
@@ -8861,6 +8908,18 @@ Canvas:
   m_SortingLayerID: 500979393
   m_SortingOrder: 12
   m_TargetDisplay: 0
+--- !u!225 &824634970
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824634965}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &828757742
 GameObject:
   m_ObjectHideFlags: 0
@@ -9518,6 +9577,7 @@ GameObject:
   - component: {fileID: 926190559}
   - component: {fileID: 926190558}
   - component: {fileID: 926190557}
+  - component: {fileID: 926190561}
   m_Layer: 5
   m_Name: BackgroundCanvas
   m_TagString: Untagged
@@ -9608,6 +9668,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &926190561
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926190556}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!4 &926764422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5088393225267183328, guid: 4e0c4e97f0b6ec944bcd6b9bbd14649a, type: 3}
@@ -10960,7 +11032,7 @@ MonoBehaviour:
   - {fileID: 600835825}
   - {fileID: 426140876}
   costLabel: {fileID: 1199548527}
-  skillCosts: 000000000000000000000000000000000000000032000000
+  skillCosts: 140000001e00000028000000320000003c00000032000000
   fightController: {fileID: 1359923501}
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -11408,6 +11480,7 @@ GameObject:
   - component: {fileID: 1136349226}
   - component: {fileID: 1136349225}
   - component: {fileID: 1136349224}
+  - component: {fileID: 1136349228}
   m_Layer: 5
   m_Name: HighlightCanvas
   m_TagString: Untagged
@@ -11497,6 +11570,18 @@ RectTransform:
   m_AnchoredPosition: {x: 1.2221016, y: 3.2395475}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &1136349228
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1136349223}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1136737822
 GameObject:
   m_ObjectHideFlags: 0
@@ -13461,7 +13546,6 @@ MonoBehaviour:
   zoneWidth: 0.3
   zoneHeight: 1
   fillSpeed: 1
-  defenceTime: 5
 --- !u!4 &1327790887
 Transform:
   m_ObjectHideFlags: 0
@@ -18521,7 +18605,6 @@ MonoBehaviour:
   - {fileID: 5956038672238996150, guid: 361a075d35116f24eb44adbad10a0ce1, type: 3}
   - {fileID: 4548580533598868436, guid: ecec639e469753a45a025df0423ce238, type: 3}
   - {fileID: 4726993917202153387, guid: 759bed371051d85418574b3da828bd02, type: 3}
-  hasMultipleSpawns: 0
   roundText: {fileID: 931438609}
   combatSettings:
   - enemyTag: Skeleton

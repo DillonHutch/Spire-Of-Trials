@@ -40,13 +40,25 @@ public class SkillMenuController : MonoBehaviour
         CloseMenu();
     }
 
+    private void Start()
+    {
+
+        PlayerStats playerStats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+
+        for(int i = 0; i < skillCosts.Length; i++)
+        {
+
+            skillCosts[i] = Mathf.RoundToInt(skillCosts[i] * playerStats.skillCost);
+        }   
+    }
+
     void Update()
     {
         if (!isOpen || skillCount == 0)
             return;
 
         // ← Back out to main battle menu
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Backspace) )
         {
             CloseMenu();
             fightController.ShowBattleMenu();

@@ -22,7 +22,7 @@ public abstract class EnemyParent : MonoBehaviour
 
     [Header("Parry Settings")]
      protected float parryWindow = 0.5f;  // length of the input window in seconds
-    [SerializeField] protected float parryBonusTime = 5f;    // seconds to add to your timer
+
 
 
 
@@ -45,9 +45,9 @@ public abstract class EnemyParent : MonoBehaviour
     protected float flashDuration = 0.2f;
 
     // Attack System
-     protected float attackIntervalMin = 1f;
+     protected float attackIntervalMin = 0f;
      protected float attackIntervalMax = 1f;
-     protected float windUpTime = 1f;
+     protected float windUpTime = .8f;
     public bool isAttacking = false;
     protected int enemyAttackPosition;
     protected List<string> attackSequence = new List<string>();
@@ -151,16 +151,15 @@ public abstract class EnemyParent : MonoBehaviour
     {
         StartCoroutine(MonitorColorReset());
 
-        if (this.gameObject.tag == "Knight")
-        {
-            AudioManager.instance.SetMusic(MusicEnum.RuinsBoss);
-        }
-        else
-        {
-            AudioManager.instance.SetMusic(MusicEnum.Ruins);
-        }
+       
 
-            normalIntervalMin = attackIntervalMin;
+
+        var theme = this.gameObject.tag == "Knight"
+                    ? MusicEnum.RuinsBoss
+                    : MusicEnum.Ruins;
+        AudioManager.instance.PlayNewMusicInstance(theme);
+
+        normalIntervalMin = attackIntervalMin;
         normalIntervalMax = attackIntervalMax;
         normalWindUpTime = windUpTime;
 

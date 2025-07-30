@@ -117,6 +117,10 @@ public class EquippedSlot : MonoBehaviour, IPointerClickHandler
         this.itemDescription = itemDescription;
 
         //update the display image  
+
+        Debug.Log("Equipping: " + itemSprite);
+       
+
         playerDisplayImage.sprite = itemSprite;
 
         //update player stats

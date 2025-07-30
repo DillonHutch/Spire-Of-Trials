@@ -9,7 +9,7 @@ public class HealthManager : MonoBehaviour
     [Header("Configure how many lives you start with")]
     [SerializeField] private int maxLives = 3;
     [Header("How many hits per combat before you lose a life")]
-    [SerializeField] private int maxHitsPerCombat = 10;
+    private int maxHitsPerCombat;
 
     private int currentLives;
     private int hitsThisCombat;
@@ -50,6 +50,12 @@ public class HealthManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         SyncUI();
+    }
+
+    private void Start()
+    {
+        PlayerStats playerStats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
+        maxHitsPerCombat = (int)playerStats.defense; // Assuming defense is the number of hits you can take before losing a life
     }
 
     private void Update()

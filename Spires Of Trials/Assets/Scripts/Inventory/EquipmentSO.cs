@@ -8,7 +8,7 @@ public class EquipmentSO : ScriptableObject
 {
 
     public string itemName;
-    public int attack, defense, skillCost, ability;
+    public float attack, defense, skillCost, ability;
 
 
     [SerializeField]
@@ -26,7 +26,7 @@ public class EquipmentSO : ScriptableObject
         PlayerStats playerStats = GameObject.Find("StatManager").GetComponent<PlayerStats>();   
         playerStats.attack += attack;
         playerStats.defense += defense;
-        playerStats.skillCost += skillCost;
+        playerStats.skillCost -= skillCost;
         playerStats.ability += ability;
 
        
@@ -41,7 +41,7 @@ public class EquipmentSO : ScriptableObject
         PlayerStats playerStats = GameObject.Find("StatManager").GetComponent<PlayerStats>();
         playerStats.attack -= attack;
         playerStats.defense -= defense;
-        playerStats.skillCost -= skillCost;
+        playerStats.skillCost += skillCost;
         playerStats.ability -= ability;
 
         playerStats.UpdateEquipmentStats();

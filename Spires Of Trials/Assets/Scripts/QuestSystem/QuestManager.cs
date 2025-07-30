@@ -15,7 +15,10 @@ public class QuestManager : MonoBehaviour
 
     private int currentPlayerLevel;
 
+    private InventoryManager inventoryManager;
 
+    [SerializeField]
+    Sprite sprite;
 
     private void Awake()
     {
@@ -54,7 +57,10 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        foreach(Quest quest in questMap.Values)
+
+        inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+
+        foreach (Quest quest in questMap.Values)
         {
 
             if(quest.state == QuestState.IN_PROGRESS)
@@ -146,8 +152,10 @@ public class QuestManager : MonoBehaviour
 
     private void ClaimRewards(Quest quest)
     {
-        EventManager.Instance.TriggerEvent("takeDamageEvent", quest.info.timeTaken);
-        Debug.Log("Quest Done");
+        //EventManager.Instance.TriggerEvent("takeDamageEvent", quest.info.timeTaken);
+        //Debug.Log("Quest Done");
+
+        int leftOverItems = inventoryManager.AddItem("Chest", 1, sprite, "This is a test chest peice!", ItemType.Chest);
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)

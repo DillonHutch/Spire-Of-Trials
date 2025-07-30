@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
 
-    public int attack, defense, skillCost, ability;
+    public float attack, defense, skillCost, ability;
 
     [SerializeField]    
     private TMP_Text attackText, defenseText, skillCostText, abilityText;
@@ -35,18 +35,20 @@ public class PlayerStats : MonoBehaviour
     {
         attackText.text = attack.ToString();
         defenseText.text = defense.ToString();
-        skillCostText.text = skillCost.ToString();
+        skillCostText.text = (( 1 - skillCost) * 100).ToString() + "%";
         abilityText.text = ability.ToString();
     }
 
-    public void previewEquipmentStats(int attack, int defense, int skillCost, int ability, Sprite itemSprite)
+    public void previewEquipmentStats(float attack, float defense, float skillCost, float ability, Sprite itemSprite)
     {
         
         attackPreText.text = attack.ToString();
         defensePreText.text = defense.ToString();
-        skillCostPreText.text = skillCost.ToString();
+        skillCostPreText.text = (skillCost * 100).ToString() + "%";
         abilityPreText.text = ability.ToString();
-       
+
+     
+
 
         previewImage.sprite = itemSprite;
 

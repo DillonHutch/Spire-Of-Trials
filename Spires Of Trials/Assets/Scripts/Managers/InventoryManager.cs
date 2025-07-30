@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +15,11 @@ public class InventoryManager : MonoBehaviour
     public ItemSlot[] itemSlot;
     public EquipmentSlot[] equipmentSlot;
     public EquippedSlot[] equippedSlot;
+    public ConsumableSlot[] consumableSlots;
 
     public ItemSO[] itemSOs;
+
+    public int quantity;
 
 
     // Start is called before the first frame update
@@ -94,58 +97,93 @@ public class InventoryManager : MonoBehaviour
 
 
 
-    public int AddItem(string itemName, int quantity, Sprite itemSprite, string itemDescription, ItemType itemType )
+    public int AddItem(
+     string itemName,
+     int quantity,
+     Sprite itemSprite,
+     string itemDescription,
+     ItemType itemType
+ )
     {
-
-        if(itemType == ItemType.Consumable || itemType == ItemType.QuestItem)
+        if (itemType == ItemType.Consumable)
         {
-            for (int i = 0; i < itemSlot.Length; i++)
+            int leftover = quantity;
+            int pairCount = Mathf.Min(itemSlot.Length, consumableSlots.Length);
+
+            // 1) First try to stack into existing stacks in both menus
+            for (int i = 0; i < pairCount && leftover > 0; i++)
             {
-                if (!itemSlot[i].isFull && itemSlot[i].itemName == itemName || itemSlot[i].quantity == 0)
+                bool canStackGeneral =
+                    itemSlot[i].itemName == itemName && !itemSlot[i].isFull;
+                bool canStackConsumable =
+                    consumableSlots[i].itemName == itemName && !consumableSlots[i].isFull;
+
+                if (canStackGeneral && canStackConsumable)
                 {
-                    int leftOverItems = itemSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
-                    if (leftOverItems > 0)
-                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
-
-
-                    return leftOverItems;
-
+                    // add to both, then take the worst‐case leftover
+                    int leftGen = itemSlot[i].AddItem(
+                        itemName, leftover, itemSprite, itemDescription, itemType
+                    );
+                    int leftCons = consumableSlots[i].AddItem(
+                        itemName, leftover, itemSprite, itemDescription, itemType
+                    );
+                    leftover = Mathf.Max(leftGen, leftCons);
                 }
             }
 
-            return quantity; // Return the quantity if no slot was available
+            // 2) Next fill into empty slots in both menus
+            for (int i = 0; i < pairCount && leftover > 0; i++)
+            {
+                bool emptyGen = itemSlot[i].quantity == 0;
+                bool emptyCons = consumableSlots[i].quantity == 0;
+
+                if (emptyGen && emptyCons)
+                {
+                    int leftGen = itemSlot[i].AddItem(
+                        itemName, leftover, itemSprite, itemDescription, itemType
+                    );
+                    int leftCons = consumableSlots[i].AddItem(
+                        itemName, leftover, itemSprite, itemDescription, itemType
+                    );
+                    leftover = Mathf.Max(leftGen, leftCons);
+                }
+            }
+
+            // 3) If you still have leftovers, you could recurse or just return them:
+            return leftover;
         }
         else
         {
+            // equipment logic stays the same...
             for (int i = 0; i < equipmentSlot.Length; i++)
             {
-                if (!equipmentSlot[i].isFull && equipmentSlot[i].itemName == itemName || equipmentSlot[i].quantity == 0)
+                if ((!equipmentSlot[i].isFull && equipmentSlot[i].itemName == itemName)
+                    || equipmentSlot[i].quantity == 0)
                 {
-                    int leftOverItems = equipmentSlot[i].AddItem(itemName, quantity, itemSprite, itemDescription, itemType);
-                    if (leftOverItems > 0)
-                        leftOverItems = AddItem(itemName, leftOverItems, itemSprite, itemDescription, itemType);
-
-
-                    return leftOverItems;
-
+                    int leftOver = equipmentSlot[i].AddItem(
+                        itemName, quantity, itemSprite, itemDescription, itemType
+                    );
+                    if (leftOver > 0)
+                        return AddItem(itemName, leftOver, itemSprite, itemDescription, itemType);
+                    return 0;
                 }
             }
-
-            return quantity; // Return the quantity if no slot was available
+            return quantity;
         }
-
-        
-
-
     }
+
+
+
+
+
 
 
     public void DeselectAllSlots()
     {
         for (int i = 0; i < itemSlot.Length; i++)
         {
-            equipmentSlot[i].selectedShader.SetActive(false);
-            equipmentSlot[i].thisItemSelected = false;
+            itemSlot[i].selectedShader.SetActive(false);
+            itemSlot[i].thisItemSelected = false;
         }
 
 
@@ -161,13 +199,68 @@ public class InventoryManager : MonoBehaviour
             equippedSlot[i].thisItemSelected = false;
         }
 
+        for (int i = 0; i < consumableSlots.Length; i++)
+        {
+            consumableSlots[i].selectedShader.SetActive(false);
+            consumableSlots[i].thisItemSelected = false;
+        }
+
     }
 
 
+    public void RemoveFromOtherSlots(string itemName, ConsumableSlot originSlot)
+    {
+        // remove one from the first matching ItemSlot
+        foreach (ItemSlot slot in itemSlot)
+        {
+            if (slot.itemName == itemName)
+            {
+                slot.RemoveOne();
+                break;
+            }
+        }
 
+        // remove one from the other ConsumableSlot (if any)
+        foreach (ConsumableSlot slot in consumableSlots)
+        {
+            if (slot != originSlot && slot.itemName == itemName)
+            {
+                slot.RemoveOne();
+                break;
+            }
+        }
+    }
+
+
+    // Called when you used from an ItemSlot
+    public void RemoveFromOtherSlots(string itemName, ItemSlot originSlot)
+    {
+        // remove one from the first matching ConsumableSlot
+        foreach (ConsumableSlot slot in consumableSlots)
+        {
+            if (slot.itemName == itemName)
+            {
+                slot.RemoveOne();
+                break;
+            }
+        }
+
+        // remove one from the other ItemSlot (if any)
+        foreach (ItemSlot slot in itemSlot)
+        {
+            if (slot != originSlot && slot.itemName == itemName)
+            {
+                slot.RemoveOne();
+                break;
+            }
+        }
+    }
 
 
 }
+
+
+
 
 
 

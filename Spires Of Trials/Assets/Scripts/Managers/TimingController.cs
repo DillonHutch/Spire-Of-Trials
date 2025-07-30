@@ -242,13 +242,6 @@ public class TimingController : MonoBehaviour
         if (movingImage != null)
             MoveImage();
 
-        // only award time on Space if the mini-game panel is still open
-        if (movingPanel.activeInHierarchy && Input.GetKeyDown(KeyCode.Space))
-        {
-            
-            AwardTime();
-            
-        }
             
     }
 
@@ -298,38 +291,6 @@ public class TimingController : MonoBehaviour
     }
 
 
-
-    private void AwardTime()
-    {
-        movingPanel.SetActive(false);
-        animator.Play("closeMenu");
-        foreach (var enemy in FindObjectsOfType<EnemyParent>())
-            enemy.StartFight();
-
-        // calculate awarded time
-        float norm = (movingImage.anchoredPosition.x + moveRange) / (2f * moveRange);
-        float awarded = Mathf.Lerp(minTimeAward, maxTimeAward, norm);
-
-        // 2) store it here
-        lastAwardedDuration = awarded;
-
-        // restart timer coroutine with awarded seconds
-        if (timerRoutine != null) StopCoroutine(timerRoutine);
-        timerRoutine = StartCoroutine(TimerCoroutine(awarded));
-
-        FightActive = true;
-        EventManager.Instance.TriggerEvent("OnStartFight");
-
-        StartCoroutine(ClearPanelUpNextFrame());
-    }
-
-    private IEnumerator ClearPanelUpNextFrame()
-    {
-        // wait one engine frame
-        yield return null;
-        FightPanelUp = false;
-    }
-
     private IEnumerator TimerCoroutine(float duration)
     {
         timeLeft = duration;
@@ -361,7 +322,7 @@ public class TimingController : MonoBehaviour
     private IEnumerator StopFightAfterAttacks()
     {
         // 1) wrap up the fight
-        FightActive = false;
+        
         fightPanelUp = true;
         EndSkillPhase();
         StopCombatTimer();
@@ -377,6 +338,8 @@ public class TimingController : MonoBehaviour
             }
             return true;
         });
+
+        FightActive = false;
 
         // stop all enemy loops and reset them
         foreach (EnemyParent enemy in FindObjectsOfType<EnemyParent>())

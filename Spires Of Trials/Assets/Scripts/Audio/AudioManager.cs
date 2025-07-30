@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
@@ -73,6 +73,10 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     public static AudioManager instance { get; private set; }
 
+    private EventInstance previousMusicInstance;
+    private float previousMusicParam;
+    private int previousTimelinePos;
+
     #endregion
 
     #region UnityMethods
@@ -141,6 +145,70 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region Music Control
+
+
+    /// <summary>
+    /// Pause the current music, grab its playhead and parameter value, and stash the instance.
+    /// </summary>
+    public void PauseAndSaveCurrentMusic()
+    {
+        if (!musicEventInstance.isValid())
+            return;
+
+        // save current time (ms) and current enum‑parameter
+        musicEventInstance.getTimelinePosition(out previousTimelinePos);
+        musicEventInstance.getParameterByName("Music", out previousMusicParam);
+
+        // pause it in place
+        musicEventInstance.setPaused(true);
+
+        // stash the instance for later
+        previousMusicInstance = musicEventInstance;
+    }
+
+    /// <summary>
+    /// Create a brand‑new EventInstance of your multi‑stem music event,
+    /// set its enum parameter, and start it from 0ms.
+    /// </summary>
+    public void PlayNewMusicInstance(MusicEnum newMusic)
+    {
+        // make a fresh copy of the same FMOD event
+        var fresh = RuntimeManager.CreateInstance(FMODEvents.instance.music);
+        eventInstances.Add(fresh);
+
+        // select the right stem
+        fresh.setParameterByName("Music", (float)newMusic);
+        fresh.start();
+
+        // swap over to this new instance
+        musicEventInstance = fresh;
+    }
+
+    /// <summary>
+    /// Tear down the fresh instance and resume the old one exactly where it was.
+    /// </summary>
+    public void RestorePreviousMusic()
+    {
+        // stop & release the “Ruins” instance
+        if (musicEventInstance.isValid())
+        {
+            musicEventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            musicEventInstance.release();
+        }
+
+        // put back the old instance
+        musicEventInstance = previousMusicInstance;
+        if (!musicEventInstance.isValid())
+            return;
+
+        // restore its enum‑parameter and time, then un‑pause
+        musicEventInstance.setParameterByName("Music", previousMusicParam);
+        musicEventInstance.setTimelinePosition(previousTimelinePos);
+        musicEventInstance.setPaused(false);
+    }
+
+
+
 
     /// <summary>
     /// Sets the music parameter in FMOD to switch between different tracks.

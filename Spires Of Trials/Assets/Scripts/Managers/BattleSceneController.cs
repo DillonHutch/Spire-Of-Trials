@@ -17,6 +17,15 @@ public class BattleSceneController : MonoBehaviour
 
     private bool suppressResume = false;
 
+    [SerializeField]
+    private Canvas itemCanvas;
+
+    [SerializeField]
+    private Camera mainCamera;
+
+
+    private Camera battleCamera;
+
 
 
 
@@ -66,7 +75,8 @@ public class BattleSceneController : MonoBehaviour
         
         _previousSceneName = SceneManager.GetActiveScene().name;
         playerMovement.canMove = false;
-        
+        AudioManager.instance.PauseAndSaveCurrentMusic();
+
         StartCoroutine(LoadBattleScene());
     }
 
@@ -74,6 +84,8 @@ public class BattleSceneController : MonoBehaviour
     {
 
         
+
+
         yield return StartCoroutine(screenFader.FadeOut());
 
        
@@ -93,7 +105,11 @@ public class BattleSceneController : MonoBehaviour
         }
         yield return StartCoroutine(screenFader.FadeIn());
 
-        EventManager.Instance.TriggerEvent("battleSceneLoaded");
+
+        battleCamera = GameObject.Find("BattleCamera").GetComponent<Camera>();
+        itemCanvas.worldCamera = battleCamera;
+
+        //EventManager.Instance.TriggerEvent("battleSceneLoaded");
     }
 
     public void EndBattle()
@@ -130,7 +146,10 @@ public class BattleSceneController : MonoBehaviour
         // reset the flag for next time
         suppressResume = false;
 
-        AudioManager.instance.SetMusic(MusicEnum.Forest);
+        AudioManager.instance.RestorePreviousMusic();
+
+
+        itemCanvas.worldCamera = mainCamera;
 
         // announce that combat is over
         EventManager.Instance.TriggerEvent("battleSceneUnLoaded");
