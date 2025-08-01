@@ -256,7 +256,7 @@ public class FightController : MonoBehaviour
         else
         {
             Debug.Log($"Skill {currentSkillIndex} failed");
-            // ... your existing failure logic …
+            //EventManager.Instance.TriggerEvent("takeDamageEvent", 1);
         }
 
         animator.Play("fightEnded");

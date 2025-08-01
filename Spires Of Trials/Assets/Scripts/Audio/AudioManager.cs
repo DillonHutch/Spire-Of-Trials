@@ -144,28 +144,6 @@ public class AudioManager : MonoBehaviour
     #region Music Control
 
 
-    /// <summary>
-    /// Pause the current music, grab its playhead and parameter value, and stash the instance.
-    /// </summary>
-    public void PauseAndSaveCurrentMusic()
-    {
-        if (!musicEventInstance.isValid())
-            return;
-
-        // save current time (ms) and current enum‑parameter
-        musicEventInstance.getTimelinePosition(out previousTimelinePos);
-        musicEventInstance.getParameterByName("Music", out previousMusicParam);
-
-        // pause it in place
-        musicEventInstance.setPaused(true);
-
-        // stash the instance for later
-        previousMusicInstance = musicEventInstance;
-    }
-
-
-
-
 
     /// <summary>
     /// Sets the music parameter in FMOD to switch between different tracks.

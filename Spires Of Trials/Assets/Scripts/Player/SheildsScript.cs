@@ -11,11 +11,11 @@ public class SheildsScript : MonoBehaviour
     private Dictionary<Transform, Coroutine> activeRecoils = new Dictionary<Transform, Coroutine>();
 
 
-    private Dictionary<SpriteRenderer, Coroutine> flashCoroutines = new Dictionary<SpriteRenderer, Coroutine>();
+    //private Dictionary<SpriteRenderer, Coroutine> flashCoroutines = new Dictionary<SpriteRenderer, Coroutine>();
 
 
     float warningOpacity = 0.75f;
-    public float flashTime = 0.2f;
+   // public float flashTime = 0.2f;
 
 
     [Header("Parry Motion Settings")]
@@ -153,93 +153,6 @@ public class SheildsScript : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Flash the sprite with semi‑opaque white (for parry).
-    /// </summary>
-    public void FlashAttackIndicator(SpriteRenderer sr)
-    {
-        if (sr == null) return;
-        Color original = sr.color;
-        Color flashColor = new Color(original.r, original.g, original.b, warningOpacity);
-        StartFlash(sr, flashColor, original);
-    }
-
-
-    /// <summary>
-    /// Flash the sprite green (for crouch).
-    /// </summary>
-    public void FlashCrouchIndicator(SpriteRenderer sr)
-    {
-        if (sr == null) return;
-        Color original = sr.color;
-        Color flashColor = new Color(0f, 1f, 0f, warningOpacity);
-        StartFlash(sr, flashColor, original);
-    }
-
-
-    /// <summary>
-    /// Flash the sprite red (for dodge).
-    /// </summary>
-    public void FlashDodgeIndicator(SpriteRenderer sr)
-    {
-        if (sr == null) return;
-        Color original = sr.color;
-        Color flashColor = new Color(1f, 0f, 0f, warningOpacity);
-        StartFlash(sr, flashColor, original);
-    }
-
-
-    // stops any existing flash on sr, then starts a new one
-    private void StartFlash(SpriteRenderer sr, Color flashColor, Color originalColor)
-    {
-        // 1) Cancel any existing flash on this sprite and clean it up
-        if (flashCoroutines.TryGetValue(sr, out var oldRoutine))
-        {
-            StopCoroutine(oldRoutine);
-            flashCoroutines.Remove(sr);
-
-            // immediately reset the sprite so it’s back to its original, hidden state
-            ResetFlashState(sr, originalColor);
-        }
-
-        // 2) Kick off the new flash and record its handle
-        var newRoutine = StartCoroutine(FlashRoutine(sr, flashColor, originalColor));
-        flashCoroutines[sr] = newRoutine;
-    }
-
-    private void ResetFlashState(SpriteRenderer sr, Color originalColor)
-    {
-        sr.color = originalColor;
-        sr.enabled = false;
-        sr.gameObject.SetActive(false);
-    }
-
-
-    private IEnumerator FlashRoutine(SpriteRenderer sr, Color flashColor, Color originalColor)
-    {
-        sr.gameObject.SetActive(true);
-        sr.enabled = true;
-
-        for (int i = 0; i < 3; i++)
-        {
-            sr.color = flashColor;
-            yield return new WaitForSeconds(flashTime);
-
-            sr.color = originalColor;
-            yield return new WaitForSeconds(flashTime);
-        }
-
-        // restore and hide
-        sr.color = originalColor;
-        sr.enabled = false;
-        sr.gameObject.SetActive(false);
-
-        flashCoroutines.Remove(sr);
-    }
-
-
-
     public void InitializeShields(Transform left, Transform center, Transform right)
     {
         leftShield = left;
@@ -265,14 +178,22 @@ public class SheildsScript : MonoBehaviour
         if (rightShield != null) rightShield.localPosition = new Vector3(11f, -9.92f, 0f);
     }
 
+    public void ShowIndicator(SpriteRenderer sr)
+    {
+        Debug.Log("Showing shield indicator: " + sr.name);
+        sr.gameObject.SetActive(true);
+    }
+    public void HideAllIndicators()
+    {
+        leftShield.gameObject.SetActive(false);
+        centerShield.gameObject.SetActive(false);
+        rightShield.gameObject.SetActive(false);
+    }
+
+
 
     private void OnDisable()
     {
-
-        foreach (var kv in flashCoroutines)
-            StopCoroutine(kv.Value);
-
-        flashCoroutines.Clear();
 
         // stop any ongoing recoil coroutines
         foreach (var recoiler in activeRecoils.Values)
@@ -287,14 +208,10 @@ public class SheildsScript : MonoBehaviour
     public void CancelAllShieldEffects()
     {
 
-        // stop any active flashes
-        foreach (var flash in flashCoroutines.Values)
-            StopCoroutine(flash);
-        flashCoroutines.Clear();
 
-        // reset positions and hide
+        //reset positions and hide
         ResetShieldPositions();
-        //SetShieldsActive(false);
+        SetShieldsActive(false);
     }
 
 }

@@ -31,6 +31,10 @@ public class EnemyAttackQueue : MonoBehaviour
     /// <param name="enemy">The enemy requesting to attack.</param>
     public static void RequestAttack(EnemyParent enemy)
     {
+
+        if (!TimingController.Instance.FightActive)
+            return;
+
         // Ensure the enemy is valid and active in the scene before adding to queue
         if (enemy == null || !enemy.gameObject.activeInHierarchy) return;
 
@@ -113,6 +117,14 @@ public class EnemyAttackQueue : MonoBehaviour
             TryStartNextAttack();
         }
     }
+
+
+    public static void ClearQueue()
+    {
+        attackQueue.Clear();
+        currentAttackingEnemy = null;
+    }
+
 
     #endregion
 }

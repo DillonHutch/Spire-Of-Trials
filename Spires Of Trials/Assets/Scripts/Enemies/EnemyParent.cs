@@ -53,6 +53,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected List<string> attackSequence = new List<string>();
     protected int currentSequenceIndex = 0;
     protected Coroutine attackCoroutine;
+    protected Coroutine performAttackCoroutine;
     protected int phaseSize = 4; // Default phase size, can be overridden by subclasses
 
 
@@ -133,6 +134,9 @@ public abstract class EnemyParent : MonoBehaviour
     private bool revealNextActive = false;
 
     private int revealOffset = 1;
+
+
+    //[SerializeField] private GameObject typeOfAttackIcon;
 
 
     #endregion
@@ -220,8 +224,8 @@ public abstract class EnemyParent : MonoBehaviour
 
         shieldManager = FindObjectOfType<SheildsScript>();
 
-        if (TimingController.Instance.FightActive)
-            StartFight();
+        //if (TimingController.Instance.FightActive)
+        //    StartFight();
 
         DefineEnemyAttackPattern();
 
@@ -294,14 +298,50 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
 
+    public void StartAttack()
+    {
+        performAttackCoroutine = StartCoroutine(PerformAttack());
+    }
+
+    // Replace your existing StopFight with this:
     public void StopFight()
     {
-        if(fightStarted)
+        if (!fightStarted) return;
+
+        // 2) Return to idle
+        animator.SetTrigger("ReturnToIdle");
+
+        fightStarted = false;
+
+        // 1) Stop both coroutines
+        if (attackCoroutine != null)
         {
-            fightStarted = false;
-            animator.SetTrigger("ReturnToIdle");
             StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
         }
+        if (performAttackCoroutine != null)
+        {
+            StopCoroutine(performAttackCoroutine);
+            performAttackCoroutine = null;
+        }
+
+    
+
+        // 3) Hide every indicator
+        if (attackIndicatorRenderer != null)
+            attackIndicatorRenderer.enabled = false;
+
+        if (nextHitIndicator != null)
+            nextHitIndicator.enabled = false;
+
+        // turn off any floating attack sprites
+        leftAttackSprite?.gameObject.SetActive(false);
+        centerAttackSprite?.gameObject.SetActive(false);
+        rightAttackSprite?.gameObject.SetActive(false);
+
+        // clear any UI highlights or shield cues
+        dodgeBarHighlighter?.ClearHighlight(GetAttackPosition());
+        shieldManager?.ResetShieldPositions();
     }
 
 
@@ -495,22 +535,17 @@ public abstract class EnemyParent : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// Starts the attack process by beginning the attack coroutine.
-    /// </summary>
-    public void StartAttack()
-    {
-        StartCoroutine(PerformAttack());
-    }
-
     /// <summary>
     /// Handles the entire attack sequence, including wind-up, attack execution, and attack resolution.
     /// </summary>
     protected virtual IEnumerator PerformAttack()
     {
 
-
+        if (!TimingController.Instance.FightActive)
+        {
+            EnemyAttackQueue.AttackFinished(this);
+            yield break;
+        }
 
 
         isAttacking = true;
@@ -529,13 +564,16 @@ public abstract class EnemyParent : MonoBehaviour
             switch (atkType)
             {
                 case EnemyAttackType.Dodge:
-                    shieldManager.FlashDodgeIndicator(atkSprite);
+                    shieldManager.ShowIndicator(atkSprite);
+
                     break;
                 case EnemyAttackType.Shield:
-                    shieldManager.FlashAttackIndicator(atkSprite);
+                    shieldManager.ShowIndicator(atkSprite);
+
                     break;
                 case EnemyAttackType.Parry:
-                    shieldManager.FlashCrouchIndicator(atkSprite);
+                    shieldManager.ShowIndicator(atkSprite);
+
                     break;
             }
         }
@@ -751,6 +789,8 @@ public abstract class EnemyParent : MonoBehaviour
         if (iconRenderer != null) iconRenderer.color = iconOriginalColor;
 
         shieldManager?.ResetShieldPositions();
+        attackSprite.gameObject.SetActive(false);
+
 
 
     }

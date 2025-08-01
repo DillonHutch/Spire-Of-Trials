@@ -311,7 +311,7 @@ public class TimingController : MonoBehaviour
         }
 
         onTimerFinished?.Invoke();
-        StartCoroutine(StopFightAfterAttacks());
+        StopFightAfterAttacks();
     }
 
 
@@ -319,45 +319,27 @@ public class TimingController : MonoBehaviour
     /// <summary>
     /// Waits until no enemy is in mid‐attack, then stops the fight.
     /// </summary>
-    private IEnumerator StopFightAfterAttacks()
+    private void StopFightAfterAttacks()
     {
         // 1) wrap up the fight
-        
         fightPanelUp = true;
         EndSkillPhase();
         StopCombatTimer();
 
-        // wait until every enemy finishes its current attack
-        yield return new WaitUntil(() =>
-        {
-            EnemyParent[] enemies = FindObjectsOfType<EnemyParent>();
-            foreach (EnemyParent enemy in enemies)
-            {
-                if (enemy.IsAttacking)
-                    return false;
-            }
-            return true;
-        });
-
+        // STOP the fight flag first
         FightActive = false;
 
-        // stop all enemy loops and reset them
+        // 2) clear out any pending attacks
+        EnemyAttackQueue.ClearQueue();
+
+        // 3) stop all enemy loops and reset them
         foreach (EnemyParent enemy in FindObjectsOfType<EnemyParent>())
-        {
             enemy.StopFight();
-        }
 
-        yield return new WaitForSeconds(0.5f); // optional delay for visual effect
-
-        // quip logic removed – trigger quips manually by calling PlayQuip()
-
-        // 3) fire the global stop‑fight event
         EventManager.Instance.TriggerEvent("OnStopFight");
-
-        // 4) final UI wrap‑up
-        FightPanelUp = true;
         animator.Play("fightEnded");
     }
+
 
 
 
@@ -391,6 +373,7 @@ public class TimingController : MonoBehaviour
             localPoint.x, arrowRect.anchoredPosition.y);
 
         // 4) show arrow + “talking” anim
+        animator.gameObject.SetActive(true);
         animator.Play("enemyTalking");
         dialogueArrow.SetActive(true);
 
@@ -405,6 +388,7 @@ public class TimingController : MonoBehaviour
 
         // 7) hide arrow + end anim
         dialogueArrow.SetActive(false);
+
         animator.Play("enemyTalkingEnd");
         yield return new WaitForSeconds(0.1f);
     }

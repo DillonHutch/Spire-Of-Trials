@@ -1,1 +1,1 @@
-﻿{"inkVersion":21,"root":[["^\"HAHAHA you have passed the test!\"","\n","^\"Next Line\"","\n",["done",{"#f":5,"#n":"g-0"}],null],"done",{"#f":1}],"listDefs":{}}
+﻿{"inkVersion":21,"root":[[{"->":"main"},["done",{"#f":5,"#n":"g-0"}],null],"done",{"main":["^\"<b><color=#FF1E35>Give us your time!</color></b>\"","\n","^\"<b><color=#FF1E35>You will fall at some point.</color></b>\"","\n",{"->":".^"},{"#f":1}],"#f":1}],"listDefs":{}}
