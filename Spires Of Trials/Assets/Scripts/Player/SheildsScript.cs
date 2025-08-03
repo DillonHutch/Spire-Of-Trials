@@ -173,9 +173,9 @@ public class SheildsScript : MonoBehaviour
 
     public void ResetShieldPositions()
     {
-        if (leftShield != null) leftShield.localPosition = new Vector3(-11f, -10f, 0f);
-        if (centerShield != null) centerShield.localPosition = new Vector3(0f, -10f, 0f);
-        if (rightShield != null) rightShield.localPosition = new Vector3(11f, -10f, 0f);
+        if (leftShield != null) leftShield.localPosition = new Vector3(-11f, -9.92f, 0f);
+        if (centerShield != null) centerShield.localPosition = new Vector3(0f, -9.92f, 0f);
+        if (rightShield != null) rightShield.localPosition = new Vector3(11f, -9.92f, 0f);
     }
 
     public void ShowIndicator(SpriteRenderer sr)

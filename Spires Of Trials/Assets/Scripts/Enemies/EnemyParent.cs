@@ -135,9 +135,6 @@ public abstract class EnemyParent : MonoBehaviour
 
     private int revealOffset = 1;
 
-    protected SpriteRenderer lastAttackSprite;
-
-
 
     //[SerializeField] private GameObject typeOfAttackIcon;
 
@@ -232,9 +229,6 @@ public abstract class EnemyParent : MonoBehaviour
 
         DefineEnemyAttackPattern();
 
-        if (TimingController.Instance.FightActive)
-            StartFight();
-
     }
 
     // cache your sprites in one place
@@ -312,20 +306,10 @@ public abstract class EnemyParent : MonoBehaviour
     // Replace your existing StopFight with this:
     public void StopFight()
     {
-        //if (!fightStarted) return;
+        if (!fightStarted) return;
 
         // 2) Return to idle
-
-
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-        // If we’re not already in the "ReturnToIdle" state, trigger it
-        if (!stateInfo.IsName("Idle"))
-        {
-            animator.SetTrigger("ReturnToIdle");
-        }
-
-
+        animator.SetTrigger("ReturnToIdle");
 
         fightStarted = false;
 
@@ -341,7 +325,11 @@ public abstract class EnemyParent : MonoBehaviour
             performAttackCoroutine = null;
         }
 
+    
 
+        // 3) Hide every indicator
+        if (attackIndicatorRenderer != null)
+            attackIndicatorRenderer.enabled = false;
 
         if (nextHitIndicator != null)
             nextHitIndicator.enabled = false;
@@ -457,6 +445,16 @@ public abstract class EnemyParent : MonoBehaviour
             StopCoroutine(flashCoroutine);
             flashCoroutine = null;
         }
+
+        // Ensure attack indicator visuals are hidden when the enemy is disabled
+        if (leftAttackSprite != null)
+            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
     }
 
     //protected virtual void OnDestroy()
@@ -543,14 +541,12 @@ public abstract class EnemyParent : MonoBehaviour
     protected virtual IEnumerator PerformAttack()
     {
 
-        if (!fightStarted || !TimingController.Instance.FightActive)
+        if (!TimingController.Instance.FightActive)
         {
             EnemyAttackQueue.AttackFinished(this);
             yield break;
         }
 
-
-       
 
         isAttacking = true;
 
@@ -559,23 +555,7 @@ public abstract class EnemyParent : MonoBehaviour
         enemyPatternIndex = (enemyPatternIndex + 1) % enemyAttackPattern.Count;
 
         int attackPos = GetAttackPosition();
-
-
-
-
-        // determine current wind-up duration
-        float currentWindUp = TimingController.Instance.SkillPhase
-            ? windUpTime = .25f   // half as long in Skill-Phase
-            : windUpTime;         // normal otherwise
-
-
-        // WIND‑UP
-        SetAnimationState("WindUp");
-
-
         SpriteRenderer atkSprite = GetAttackSprite(attackPos);
-
-        lastAttackSprite = atkSprite;
 
 
         // right after you get atkSprite and atkType:
@@ -598,6 +578,15 @@ public abstract class EnemyParent : MonoBehaviour
             }
         }
 
+
+
+        // determine current wind-up duration
+        float currentWindUp = TimingController.Instance.SkillPhase
+            ? windUpTime = .25f   // half as long in Skill-Phase
+            : windUpTime;         // normal otherwise
+
+        // WIND‑UP
+        SetAnimationState("WindUp");
         WindUpSound();
         yield return new WaitForSeconds(windUpTime);
 
@@ -793,8 +782,7 @@ public abstract class EnemyParent : MonoBehaviour
     protected void CleanupAttack(SpriteRenderer attackSprite, int attackPosition)
     {
         isAttacking = false;
-        animator.SetTrigger("ReturnToIdle");
-        
+        SetAnimationState("ReturnToIdle");
         dodgeBarHighlighter?.ClearHighlight(attackPosition);
 
         if (spriteRenderer != null) spriteRenderer.color = originalColor;
@@ -1114,13 +1102,23 @@ public abstract class EnemyParent : MonoBehaviour
 
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
-        StopFight();
+        shieldManager?.CancelAllShieldEffects();
 
         // Disable attack indicator before enemy is destroyed
         if (attackIndicatorRenderer != null)
         {
             attackIndicatorRenderer.enabled = false;
         }
+
+        // Hide attack sprites if they were in use
+        if (leftAttackSprite != null)
+            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
+
+        if (centerAttackSprite != null)
+            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
+
+        if (rightAttackSprite != null)
+            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
 
         // Destroy the health bar UI if it exists
         if (healthBar != null)
