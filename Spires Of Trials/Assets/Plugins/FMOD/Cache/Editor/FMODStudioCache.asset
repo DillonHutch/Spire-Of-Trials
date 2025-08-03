@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638894259016121916
+  lastModified: 638898278000000000
   FileSizes:
   - Name: Desktop
     Value: 21954880
@@ -359,7 +359,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638854236146681423
+  lastModified: 638898277920000000
   FileSizes:
   - Name: Desktop
     Value: 3606
@@ -676,7 +676,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638854236146658393
+  lastModified: 638898277920000000
   FileSizes:
   - Name: Desktop
     Value: 1486
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   - {fileID: -3343029927289553756}
   StringsBanks:
   - {fileID: -5900095959566737261}
-  cacheTime: 638894259016121916
+  cacheTime: 638898278040000000
   cacheVersion: 131618
 --- !u!114 &49807514505027848
 MonoBehaviour:
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638887274047568418
+  lastModified: 638898278040000000
   FileSizes:
   - Name: Desktop
     Value: 574176
@@ -1940,7 +1940,7 @@ MonoBehaviour:
   Path: ../FMOD/SpiralsFMOD/Build/Desktop/Ambiance.bank
   Name: Ambiance
   StudioPath: bank:/Ambiance
-  lastModified: 638757355488940190
+  lastModified: 638898277920000000
   FileSizes:
   - Name: Desktop
     Value: 1031872
