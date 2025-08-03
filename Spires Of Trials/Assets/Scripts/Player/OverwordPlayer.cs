@@ -15,28 +15,33 @@ public class OverwordPlayer : MonoBehaviour
         _enemyLayer = LayerMask.NameToLayer("Enemy");
     }
 
+
+
     // OverwordPlayer.cs
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == _enemyLayer)
         {
+
+            //Debug.Log($"OverwordPlayer collided with enemy: {other.name}");
             // stash tag & random slot‑count
             BattleContext.PendingEnemyTag = other.tag;
             BattleContext.PendingEnemySlotCount = Random.Range(1, 4);
 
             // start battle
-            BattleSceneController battleControllerInstance
-                = FindObjectOfType<BattleSceneController>();
-            if (battleControllerInstance != null)
+
+            if (battleController != null)
             {
-                battleControllerInstance.StartBattle();
+                battleController.StartBattle();
             }
             else
             {
                 Debug.LogError("No BattleSceneController found!");
             }
 
-            this.battleController.objectsToDisable.Remove(other.gameObject);
+            Debug.Log(other.name + " collided with OverwordPlayer, starting battle...");
+
+            battleController.objectsToDisable.Remove(other.gameObject);
             Destroy(other.gameObject);
         }
     }
