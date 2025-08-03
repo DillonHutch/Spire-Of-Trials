@@ -224,8 +224,8 @@ public abstract class EnemyParent : MonoBehaviour
 
         shieldManager = FindObjectOfType<SheildsScript>();
 
-        //if (TimingController.Instance.FightActive)
-        //    StartFight();
+        if (TimingController.Instance.FightActive)
+            StartFight();
 
         DefineEnemyAttackPattern();
 
@@ -308,8 +308,14 @@ public abstract class EnemyParent : MonoBehaviour
     {
         if (!fightStarted) return;
 
-        // 2) Return to idle
-        animator.SetTrigger("ReturnToIdle");
+        // Get the current state on layer 0
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // If we’re not already in the "ReturnToIdle" state, trigger it
+        if (!stateInfo.IsName("Idle"))
+        {
+            animator.SetTrigger("ReturnToIdle");
+        }
 
         fightStarted = false;
 
@@ -324,15 +330,6 @@ public abstract class EnemyParent : MonoBehaviour
             StopCoroutine(performAttackCoroutine);
             performAttackCoroutine = null;
         }
-
-    
-
-        // 3) Hide every indicator
-        if (attackIndicatorRenderer != null)
-            attackIndicatorRenderer.enabled = false;
-
-        if (nextHitIndicator != null)
-            nextHitIndicator.enabled = false;
 
         // turn off any floating attack sprites
         leftAttackSprite?.gameObject.SetActive(false);
@@ -446,15 +443,6 @@ public abstract class EnemyParent : MonoBehaviour
             flashCoroutine = null;
         }
 
-        // Ensure attack indicator visuals are hidden when the enemy is disabled
-        if (leftAttackSprite != null)
-            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-
-        if (centerAttackSprite != null)
-            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
-
-        if (rightAttackSprite != null)
-            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
     }
 
     //protected virtual void OnDestroy()
@@ -1109,16 +1097,6 @@ public abstract class EnemyParent : MonoBehaviour
         {
             attackIndicatorRenderer.enabled = false;
         }
-
-        // Hide attack sprites if they were in use
-        if (leftAttackSprite != null)
-            leftAttackSprite.color = new Color(leftAttackSprite.color.r, leftAttackSprite.color.g, leftAttackSprite.color.b, 0f);
-
-        if (centerAttackSprite != null)
-            centerAttackSprite.color = new Color(centerAttackSprite.color.r, centerAttackSprite.color.g, centerAttackSprite.color.b, 0f);
-
-        if (rightAttackSprite != null)
-            rightAttackSprite.color = new Color(rightAttackSprite.color.r, rightAttackSprite.color.g, rightAttackSprite.color.b, 0f);
 
         // Destroy the health bar UI if it exists
         if (healthBar != null)
