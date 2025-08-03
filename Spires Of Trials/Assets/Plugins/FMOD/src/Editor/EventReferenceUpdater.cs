@@ -9,6 +9,9 @@ using UnityEditor.Experimental.SceneManagement;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_INPUTSYSTEM_EXIST
+using UnityEngine.InputSystem;
+#endif
 
 namespace FMODUnity
 {
@@ -681,17 +684,50 @@ namespace FMODUnity
                 foreach (FieldInfo subObjectField in subObjectFields)
                 {
                     object value = subObjectField.GetValue(target);
-
-                    if (value != null && (subObjectField.FieldType.IsValueType || !parents.Contains(value)))
+                    if (value == null || (value is UnityEngine.Object && !(value as UnityEngine.Object)))
                     {
-                        if (value is System.Collections.IEnumerable)
+                        continue;
+                    }
+
+                    if (subObjectField.FieldType.IsValueType || !parents.Contains(value))
+                    {
+                        if (value is System.Collections.IEnumerable && !(value is string))
                         {
                             int index = 0;
-                            foreach (object item in value as System.Collections.IEnumerable)
+                            System.Collections.IEnumerator valueEnumerator = null;
+
+                            try
                             {
-                                foreach (Task t in GetGenericUpdateTasks(item, FieldPath(subObjectPath, subObjectField.Name, index), parents))
+                                valueEnumerator = (value as System.Collections.IEnumerable).GetEnumerator();
+                            }
+                            catch (Exception ex)
+                            {
+                                RuntimeUtils.DebugLogWarningFormat("[FMOD] Failed to get enumerator for value in field '{0}': {1}", subObjectField.Name, ex.Message);
+                                continue;
+                            }
+
+                            for (;;)
+                            {
+                                object item = null;
+                                try
                                 {
-                                    yield return t;
+                                    if (!valueEnumerator.MoveNext())
+                                    {
+                                        break;
+                                    }
+                                    item = valueEnumerator.Current;
+                                }
+                                catch (Exception)
+                                {
+                                    break;
+                                }
+                                if (item != null && !item.GetType().IsPrimitive && !parents.Contains(item)
+                                    && item.GetType().Namespace != "UnityEngine.InputSystem")
+                                {
+                                    foreach (Task t in GetGenericUpdateTasks(item, FieldPath(subObjectPath, subObjectField.Name, index), parents))
+                                    {
+                                        yield return t;
+                                    }
                                 }
                                 index++;
                             }
