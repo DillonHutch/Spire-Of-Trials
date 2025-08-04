@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Chest
   quantity: 1
-  sprite: {fileID: 2035001289, guid: c9d30d0905005ac41b047b53be184376, type: 3}
+  sprite: {fileID: -6948966406254460829, guid: a18a0eba391aa614e8b40f9f2dd68bb5, type: 3}
   itemDescription: This is a test chest peice!
   itemType: 4
 --- !u!1 &4147517049537074897

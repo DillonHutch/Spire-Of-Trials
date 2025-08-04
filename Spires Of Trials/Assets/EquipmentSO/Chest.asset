@@ -17,4 +17,4 @@ MonoBehaviour:
   defense: 5
   skillCost: 0.2
   ability: 5
-  itemSprite: {fileID: 2035001289, guid: c9d30d0905005ac41b047b53be184376, type: 3}
+  itemSprite: {fileID: -6948966406254460829, guid: a18a0eba391aa614e8b40f9f2dd68bb5, type: 3}

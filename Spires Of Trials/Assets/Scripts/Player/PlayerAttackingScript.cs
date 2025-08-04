@@ -231,25 +231,25 @@ private void HandleAttackInputs()
     if (Input.GetKeyDown(KeyCode.UpArrow) && heavyCooldownTimer <= 0f)
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.heavyAttack, transform.position);
-        Attack("heavy");
+        Attack("up");
         RegisterAttack();
     }
     if (Input.GetKeyDown(KeyCode.LeftArrow) && meleeCooldownTimer <= 0f)
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.meleeAttack, transform.position);
-        Attack("melee");
+        Attack("left");
         RegisterAttack();
     }
     if (Input.GetKeyDown(KeyCode.RightArrow) && rangeCooldownTimer <= 0f)
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.rangeAttack, transform.position);
-        Attack("range");
+        Attack("right");
         RegisterAttack();
     }
     if (Input.GetKeyDown(KeyCode.DownArrow) && magicCooldownTimer <= 0f)
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.magicAttack, transform.position);
-        Attack("magic");
+        Attack("down");
         RegisterAttack();
     }
 }
@@ -372,10 +372,10 @@ private void HandleAttackInputs()
     {
         switch (attackType)
         {
-            case "melee":
-            case "range":
-            case "magic":
-            case "heavy": // Supports heavy attack type
+            case "left":
+            case "right":
+            case "down":
+            case "up": // Supports heavy attack type
                 AttackEnemy(GetEnemyAtPosition(selectedPosition), attackType);
                 break;
             default:

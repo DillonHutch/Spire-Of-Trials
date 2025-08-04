@@ -58,12 +58,17 @@ public abstract class EnemyParent : MonoBehaviour
 
 
     // Attack Indicators
-    [SerializeField] protected GameObject attackIndicator; // Assign in Inspector (e.g., an empty GameObject with a SpriteRenderer)
+
+    [Header("Directional Attack Indicators")]
+    [SerializeField] private GameObject upIndicator;
+    [SerializeField] private GameObject downIndicator;
+    [SerializeField] private GameObject leftIndicator;
+    [SerializeField] private GameObject rightIndicator;
+
     [SerializeField] protected Sprite meleeSprite;
     [SerializeField] protected Sprite magicSprite;
     [SerializeField] protected Sprite rangeSprite;
     [SerializeField] protected Sprite heavySprite;
-    protected SpriteRenderer attackIndicatorRenderer;
 
     // Attack Sprites
     protected SpriteRenderer leftAttackSprite;
@@ -135,6 +140,9 @@ public abstract class EnemyParent : MonoBehaviour
 
     private int revealOffset = 1;
 
+    [SerializeField] private GameObject slashPrefab;
+
+
 
     //[SerializeField] private GameObject typeOfAttackIcon;
 
@@ -153,6 +161,9 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual void Start()
     {
+
+      
+
         StartCoroutine(MonitorColorReset());
 
         if (this.gameObject.tag == "Knight")
@@ -183,16 +194,7 @@ public abstract class EnemyParent : MonoBehaviour
         dodgeSlider = GameObject.FindGameObjectWithTag("DodgeSlider")?.GetComponent<Slider>();
         dodgeBarHighlighter = FindObjectOfType<DodgeBarHighlighter>();
 
-        // Assign attack indicator renderer (with error checking)
-        if (attackIndicator != null)
-        {
-            attackIndicatorRenderer = attackIndicator.GetComponent<SpriteRenderer>()
-                ?? throw new MissingComponentException($"SpriteRenderer missing on {attackIndicator.name}.");
-        }
-        else
-        {
-            Debug.LogError($"attackIndicator is not assigned for {gameObject.name}. Assign it in the Inspector.");
-        }
+ 
 
         // Assign icon renderer and store its original color
         iconRenderer = transform.childCount > 0 ? transform.GetChild(0).GetComponent<SpriteRenderer>() : null;
@@ -932,33 +934,32 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual void UpdateColor()
     {
-        // If the enemy has completed all attacks, do nothing
         if (currentSequenceIndex >= attackSequence.Count) return;
 
-        // Ensure the attack indicator renderer exists
-        if (attackIndicatorRenderer == null)
-        {
-            Debug.LogError($"{gameObject.name}: attackIndicatorRenderer is NULL. Ensure attackIndicator has a SpriteRenderer.");
-            return;
-        }
+        // disable all arrows
+        upIndicator.SetActive(false);
+        downIndicator.SetActive(false);
+        leftIndicator.SetActive(false);
+        rightIndicator.SetActive(false);
 
-        // Get the next attack type in the sequence
-        string nextAttack = attackSequence[currentSequenceIndex];
-
-        // Assign the appropriate sprite based on the attack type
-        switch (nextAttack)
+        // assume attackSequence now contains one of: "up","down","left","right"
+        string next = attackSequence[currentSequenceIndex];
+        switch (next)
         {
-            case "melee":
-                attackIndicatorRenderer.sprite = meleeSprite;
+            case "up":
+                upIndicator.SetActive(true);
                 break;
-            case "magic":
-                attackIndicatorRenderer.sprite = magicSprite;
+            case "down":
+                downIndicator.SetActive(true);
                 break;
-            case "range":
-                attackIndicatorRenderer.sprite = rangeSprite;
+            case "left":
+                leftIndicator.SetActive(true);
                 break;
-            case "heavy":
-                attackIndicatorRenderer.sprite = heavySprite;
+            case "right":
+                rightIndicator.SetActive(true);
+                break;
+            default:
+                Debug.LogWarning($"Unknown attack direction: {next}");
                 break;
         }
 
@@ -972,88 +973,103 @@ public abstract class EnemyParent : MonoBehaviour
     /// <param name="attackType">The type of attack the player used.</param>
     public virtual void TakeDamage(string attackType)
     {
-        PlayerAttackingScript player = FindObjectOfType<PlayerAttackingScript>(); // Find the player script
+        // 1) Determine the expected attack direction
+        if (currentSequenceIndex >= attackSequence.Count)
+            return; // already dead or invalid
 
-        int phaseSize = 4; // Each phase consists of 4 attacks
-        int totalPhases = attackSequence.Count / phaseSize;
-        int currentPhase = currentSequenceIndex / phaseSize; // Determine which phase the player is in
-        int phaseStartIndex = currentPhase * phaseSize; // Start of the current phase
-        int phaseEndIndex = phaseStartIndex + phaseSize; // End of the current phase
+        string expected = attackSequence[currentSequenceIndex];
 
-        // Check if the attack matches the expected sequence
-        if (currentSequenceIndex < attackSequence.Count && attackType == attackSequence[currentSequenceIndex])
+        // 2) Correct hit?
+        if (attackType == expected)
         {
+            // advance the sequence
             currentSequenceIndex++;
-            //Debug.Log($"MiniBoss hit correctly! Progress: {currentSequenceIndex}/{attackSequence.Count}");
 
+            // check for killing blow
+            bool isKillingBlow = currentSequenceIndex >= attackSequence.Count;
+            if (isKillingBlow)
+            {
+                // one slash → then destroy
+                StartCoroutine(PlaySlashThenDie(attackType));
+                return;
+            }
 
+            // non-lethal correct hit: spawn slash once
+            SpawnSlashOnce(attackType);
 
+            // your existing correct-hit logic:
             if (this.gameObject.tag == "Knight")
-            {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, this.transform.position);
-            }
-            if (this.gameObject.tag == "Collector")
-            {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.collectorDamage, this.transform.position);
-            }
-            // Flash red effect on hit
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.knightDamage, transform.position);
+            // … other tags …
+
             if (flashCoroutine != null)
-            {
                 StopCoroutine(flashCoroutine);
-            }
             flashCoroutine = StartCoroutine(FlashRed());
 
-
-            // Spawn damage particles
             if (damageParticlePrefab != null)
             {
-                GameObject particles = Instantiate(damageParticlePrefab, partOrgin.transform.position, Quaternion.identity);
-                Destroy(particles, 0.5f); // Cleanup after 0.5 sec
+                var particles = Instantiate(damageParticlePrefab, partOrgin.transform.position, Quaternion.identity);
+                Destroy(particles, 0.5f);
             }
 
-            // If phase is completed, move to the next phase
-            if (currentSequenceIndex >= phaseEndIndex)
-            {
-                //Debug.Log($"Phase {currentPhase + 1} completed!");
-            }
-
-            // If all phases are completed, the MiniBoss dies
-            if (currentSequenceIndex >= attackSequence.Count)
-            {
-                Die();
-            }
-            else
-            {
-                UpdateColor();
-            }
-
-
-            if (player != null)
-            {
-                EventManager.Instance.TriggerEvent("UpdateCombo", true);
-            }
+            UpdateColor();
+            EventManager.Instance.TriggerEvent("UpdateCombo", true);
         }
         else
         {
-            Debug.Log("MiniBoss hit incorrectly! Resetting current phase.");
-
-            // Reset only the current phase, not the entire sequence
-            currentSequenceIndex = phaseStartIndex;
+            // 3) Incorrect hit: reset current phase, no slash
+            int phaseStart = (currentSequenceIndex / phaseSize) * phaseSize;
+            currentSequenceIndex = phaseStart;
             UpdateColor();
-
-            // Notify the player of a failed hit
-            if (player != null)
-            {
-                EventManager.Instance.TriggerEvent("UpdateCombo", false);
-            }
+            EventManager.Instance.TriggerEvent("UpdateCombo", false);
         }
 
-        // Update the health bar based on attack sequence progress
+        // 4) Refresh health bar UI
         if (healthBar != null)
-        {
             healthBar.value = attackSequence.Count - currentSequenceIndex;
-        }
     }
+
+
+
+    private void SpawnSlashOnce(string attackType)
+    {
+        float zRot = attackType switch
+        {
+            "right" => 0f,
+            "down" => 270f,
+            "up" => 90f,
+            _ => 180f
+        };
+
+        // Instantiate slash prefab at enemy position
+        var slash = Instantiate(slashPrefab, transform.position + new Vector3(0, 2.5f, 0), Quaternion.Euler(0f, 0f, zRot));
+        var anim = slash.GetComponent<Animator>();
+        anim.SetTrigger("Slash");
+
+        // Auto-destroy the slash after its clip finishes
+        float clipLen = 0.5f;
+        foreach (var clip in anim.runtimeAnimatorController.animationClips)
+            if (clip.name == "Slash") { clipLen = clip.length; break; }
+        Destroy(slash, clipLen);
+    }
+
+    private IEnumerator PlaySlashThenDie(string attackType)
+    {
+        // Spawn and play one slash
+        SpawnSlashOnce(attackType);
+
+        // Wait for the slash animation to complete
+        float clipLen = 0.5f;
+        var anim = slashPrefab.GetComponent<Animator>();
+        foreach (var clip in anim.runtimeAnimatorController.animationClips)
+            if (clip.name == "Slash") { clipLen = clip.length; break; }
+        yield return new WaitForSeconds(clipLen);
+
+        // Finally destroy this enemy
+        Destroy(gameObject);
+    }
+
+
 
     /// <summary>
     /// Coroutine to briefly flash the enemy red when hit.
@@ -1081,6 +1097,9 @@ public abstract class EnemyParent : MonoBehaviour
     }
 
 
+
+
+
     /// <summary>
     /// Handles enemy death, including disabling UI elements, stopping effects, and destroying the object.
     /// </summary>
@@ -1092,11 +1111,6 @@ public abstract class EnemyParent : MonoBehaviour
 
         shieldManager?.CancelAllShieldEffects();
 
-        // Disable attack indicator before enemy is destroyed
-        if (attackIndicatorRenderer != null)
-        {
-            attackIndicatorRenderer.enabled = false;
-        }
 
         // Destroy the health bar UI if it exists
         if (healthBar != null)
@@ -1119,6 +1133,7 @@ public abstract class EnemyParent : MonoBehaviour
             EnemyAttackQueue.AttackFinished(this);
 
         ResourceManager.Instance.AddResource("enemiesKilled", 1);
+
 
         // Destroy the enemy game object
         Destroy(gameObject);
