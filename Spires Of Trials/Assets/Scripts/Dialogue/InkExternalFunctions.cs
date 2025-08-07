@@ -22,7 +22,7 @@ public class InkExternalFunctions
 
         story.BindExternalFunction(
         "StartCombat",
-        (string enemyTag, string postCombatKnot) => StartCombat(enemyTag, postCombatKnot)
+        (string[] enemyTags, string postCombatKnot) => StartCombat(enemyTags, postCombatKnot)
       );
 
 
@@ -60,13 +60,12 @@ public class InkExternalFunctions
         EventManager.Instance.TriggerEvent("resetCamera");
     }
 
-    private void StartCombat(string enemyTag, string postCombatKnot)
+    private void StartCombat(string[] enemyTags, string postCombatKnot)
     {
 
         EventManager.Instance.TriggerEvent("suppressDialogueResume");
 
-        // remember which enemy and knot to return to
-        BattleContext.PendingEnemyTag = enemyTag;
+        BattleContext.PendingEnemyTags = new List<string>(enemyTags);
         _pendingPostCombatKnot = postCombatKnot;
 
         // tell the battle controller to suppress its automatic resume

@@ -138,8 +138,8 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: SlimeAnim_Frame_0
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -158,8 +158,8 @@ ScriptedImporter:
     uvTransform: {x: 271, y: 4}
   - name: SlimeAnim_Frame_1
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -178,8 +178,8 @@ ScriptedImporter:
     uvTransform: {x: 362, y: 4}
   - name: SlimeAnim_Frame_2
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -198,8 +198,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 116}
   - name: SlimeAnim_Frame_3
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -218,8 +218,8 @@ ScriptedImporter:
     uvTransform: {x: 95, y: 116}
   - name: SlimeAnim_Frame_4
     originalName: 
-    pivot: {x: -0.14285715, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -238,8 +238,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 398}
   - name: SlimeAnim_Frame_5
     originalName: 
-    pivot: {x: -0.14285715, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -258,8 +258,8 @@ ScriptedImporter:
     uvTransform: {x: 96, y: 398}
   - name: SlimeAnim_Frame_6
     originalName: 
-    pivot: {x: -0.14285715, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -278,8 +278,8 @@ ScriptedImporter:
     uvTransform: {x: 188, y: 398}
   - name: SlimeAnim_Frame_7
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -298,8 +298,8 @@ ScriptedImporter:
     uvTransform: {x: 186, y: 116}
   - name: SlimeAnim_Frame_8
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -318,8 +318,8 @@ ScriptedImporter:
     uvTransform: {x: 277, y: 116}
   - name: SlimeAnim_Frame_9
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -338,8 +338,8 @@ ScriptedImporter:
     uvTransform: {x: 368, y: 116}
   - name: SlimeAnim_Frame_10
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -358,8 +358,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 210}
   - name: SlimeAnim_Frame_11
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -378,8 +378,8 @@ ScriptedImporter:
     uvTransform: {x: 95, y: 210}
   - name: SlimeAnim_Frame_12
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -398,8 +398,8 @@ ScriptedImporter:
     uvTransform: {x: 186, y: 210}
   - name: SlimeAnim_Frame_13
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -418,8 +418,8 @@ ScriptedImporter:
     uvTransform: {x: 277, y: 210}
   - name: SlimeAnim_Frame_14
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -438,8 +438,8 @@ ScriptedImporter:
     uvTransform: {x: 368, y: 210}
   - name: SlimeAnim_Frame_15
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -458,8 +458,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 304}
   - name: SlimeAnim_Frame_16
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -478,8 +478,8 @@ ScriptedImporter:
     uvTransform: {x: 95, y: 304}
   - name: SlimeAnim_Frame_17
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -498,8 +498,8 @@ ScriptedImporter:
     uvTransform: {x: 186, y: 304}
   - name: SlimeAnim_Frame_18
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -518,8 +518,8 @@ ScriptedImporter:
     uvTransform: {x: 277, y: 304}
   - name: SlimeAnim_Frame_19
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -538,8 +538,8 @@ ScriptedImporter:
     uvTransform: {x: 368, y: 304}
   - name: SlimeAnim_Frame_20
     originalName: 
-    pivot: {x: -0.15662645, y: 0}
-    alignment: 9
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -558,7 +558,7 @@ ScriptedImporter:
     uvTransform: {x: 180, y: 4}
   - name: SlimeAnim_Frame_21
     originalName: 
-    pivot: {x: 0.42857146, y: 0}
+    pivot: {x: 0.75, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:

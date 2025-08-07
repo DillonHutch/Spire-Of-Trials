@@ -20,8 +20,8 @@ public class OverwordPlayer : MonoBehaviour
     {
         if (other.gameObject.layer == _enemyLayer)
         {
-            // stash tag & random slot‑count
-            BattleContext.PendingEnemyTag = other.tag;
+            
+            
             BattleContext.PendingEnemySlotCount = Random.Range(1, 4);
 
             // start battle

@@ -145,30 +145,22 @@ public class EnemySpawner : MonoBehaviour
     /// Ensures that spawn locations, enemy prefabs, and the MiniBoss prefab are assigned.
     /// Initializes the round UI and starts the enemy spawn cycle.
     /// </summary>
+    // EnemySpawner.cs (Start method only)
     private void Start()
     {
-        
-        if(battleController == null)
-        {
-            battleController = GameObject.FindGameObjectWithTag("BattleController").GetComponent<BattleSceneController>();
-        }
-        else
-        {
-            Debug.Log("WTF");
-        }
-        
+        if (battleController == null)
+            battleController = GameObject.FindGameObjectWithTag("BattleController")
+                                       .GetComponent<BattleSceneController>();
 
-        // if we came here with a pending tag, immediately kick off combat
-        if (!string.IsNullOrEmpty(BattleContext.PendingEnemyTag))
+        // if we have any pending tags, kick off combat immediately
+        if (BattleContext.PendingEnemyTags.Count > 0)
         {
-            StartCombat(BattleContext.PendingEnemyTag);
-            BattleContext.PendingEnemyTag = null;
+            StartCombat(BattleContext.PendingEnemyTags[0]);
         }
 
-        // now wire up UI & controller as before
         roundText = GetComponentInChildren<TextMeshProUGUI>();
-        
     }
+
 
 
 
@@ -220,6 +212,9 @@ public class EnemySpawner : MonoBehaviour
         }
 
         // all waves are done—exit combat
+        // 5) cleanup
+        BattleContext.PendingEnemySlotCount = 0;
+        BattleContext.PendingEnemyTags.Clear();
         battleController.EndBattle();
     }
 
@@ -227,88 +222,89 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnRandomEnemies()
     {
-        EnemyCombatSettings cfg = settingsByTag[_combatEnemyTag];
-
-        // build list of valid slots
-        List<int> allowedIndices = new List<int>();
-        if (cfg.spawnLeft) allowedIndices.Add(0);
-        if (cfg.spawnCenter) allowedIndices.Add(1);
-        if (cfg.spawnRight) allowedIndices.Add(2);
-
-        int maxPossible = Mathf.Min(3, allowedIndices.Count);
+        // 1) Determine how many enemies to spawn
         int toSpawn;
-
-        if (cfg.hasMultipleSpawns)
+        if (BattleContext.PendingEnemyTags.Count > 0)
         {
-            if (BattleContext.PendingEnemySlotCount > 0)
-                toSpawn = Mathf.Clamp(BattleContext.PendingEnemySlotCount, 1, maxPossible);
-            else
-                toSpawn = Random.Range(1, maxPossible + 1);
+            // if PendingEnemyTags is non‐empty, we’ll use that count—or clamp it if you want fewer slots:
+            toSpawn = BattleContext.PendingEnemyTags.Count;
+        }
+        else if (settingsByTag.TryGetValue(_combatEnemyTag, out var defaultCfg) && defaultCfg.hasMultipleSpawns)
+        {
+            int maxPossible = new[] { defaultCfg.spawnLeft, defaultCfg.spawnCenter, defaultCfg.spawnRight }
+                .Count(b => b);
+            toSpawn = BattleContext.PendingEnemySlotCount > 0
+                ? Mathf.Clamp(BattleContext.PendingEnemySlotCount, 1, maxPossible)
+                : Random.Range(1, maxPossible + 1);
         }
         else
         {
             toSpawn = 1;
         }
 
-        // pick N random distinct slots
-        List<int> shuffledSlots = allowedIndices
-            .OrderBy(i => Random.value)
-            .ToList();
-        List<int> chosenSlots = shuffledSlots
-            .Take(toSpawn)
-            .ToList();
+        // 2) Maintain a list of available slots (0=Left, 1=Center, 2=Right)
+        var availableSlots = new List<int> { 0, 1, 2 };
 
-        foreach (int slotIndex in chosenSlots)
+        for (int i = 0; i < toSpawn; i++)
         {
-            if (slotIndex >= spawnLocations.Count)
+            // 3) Pick a random tag
+            string tag = BattleContext.PendingEnemyTags.Count > 0
+                ? BattleContext.PendingEnemyTags[Random.Range(0, BattleContext.PendingEnemyTags.Count)]
+                : _combatEnemyTag;
+
+            // 4) Lookup its settings
+            if (!settingsByTag.TryGetValue(tag, out var cfg))
+            {
+                Debug.LogWarning($"No EnemyCombatSettings for '{tag}', skipping spawn");
                 continue;
+            }
 
-            // choose prefab by tag
-            List<GameObject> candidates
-                = enemyPrefabs
-                    .Where(p => p.tag == _combatEnemyTag)
-                    .ToList();
-            GameObject prefabToSpawn
-                = (candidates.Count > 0)
-                    ? candidates[Random.Range(0, candidates.Count)]
-                    : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+            // 5) Build allowed slots for this tag
+            var allowed = new List<int>();
+            if (cfg.spawnLeft) allowed.Add(0);
+            if (cfg.spawnCenter) allowed.Add(1);
+            if (cfg.spawnRight) allowed.Add(2);
 
-            Transform spawnPoint = spawnLocations[slotIndex].transform;
-            GameObject enemyInstance = Instantiate(
-                prefabToSpawn,
-                spawnPoint.position,
-                Quaternion.identity,
-                spawnPoint
-            );
+            // 6) Choose a slot that’s both allowed and still free (or just allowed if none free)
+            var pickable = allowed.Intersect(availableSlots).ToList();
+            if (pickable.Count == 0) pickable = allowed;
+            int slot = pickable[Random.Range(0, pickable.Count)];
+            availableSlots.Remove(slot);
 
-            // optional center‑scale tweak
-            if (slotIndex == 1)
-                enemyInstance.transform.localScale = Vector3.one * 0.8f;
+            // 7) Find and instantiate your prefab
+            var candidates = enemyPrefabs.Where(p => p.tag == tag).ToList();
+            var prefab = candidates.Count > 0
+                ? candidates[Random.Range(0, candidates.Count)]
+                : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 
-            // initialize attack sprites
+            var spawnPoint = spawnLocations[slot].transform;
+            var instance = Instantiate(prefab, spawnPoint.position, Quaternion.identity, spawnPoint);
+            spawnedEnemies.Add(instance);
+
+            if (slot == 1)
+                instance.transform.localScale = Vector3.one * 0.8f;
+
+            // 8) Trigger sprite & shield setup as before
             EventManager.Instance.TriggerEvent(
                 "InitializeAttackSprites",
                 (leftFlash, centerFlash, rightFlash,
                  leftShield, centerShield, rightShield)
             );
 
-            // per‑type adjustments
-            switch (enemyInstance.tag)
+            // 9) Any per‐type adjustments…
+            switch (tag)
             {
-                case "Slime":
-                    AdjustSlimePosition(enemyInstance, slotIndex);
-                    break;
-                    // … other cases …
+                case "Slime": AdjustSlimePosition(instance, slot); break;
+                case "Serpent": AdjustSerpantPosition(instance, slot); break;
+                    // etc…
             }
-
-            spawnedEnemies.Add(enemyInstance);
         }
-
-        // clear for next wave
-        BattleContext.PendingEnemySlotCount = 0;
 
         yield return null;
     }
+
+
+
 
 
 
@@ -502,39 +498,13 @@ public class EnemySpawner : MonoBehaviour
     /// <param name="spawnIndex">The spawn position index.</param>
     private void AdjustSlimePosition(GameObject spawnedEnemy, int spawnIndex)
     {
-        Vector3 spawnLocation = spawnedEnemy.transform.position;
-        spawnLocation.x -= 3.5f; // Offset slime spawn position
-
-        spawnedEnemy.transform.position = spawnLocation;
 
         if (spawnIndex == 0) // If spawning in the leftmost position
         {
             spriteRenderer = spawnedEnemy.GetComponent<SpriteRenderer>();
             spriteRenderer.flipX = true; // Flip the sprite
 
-            spawnLocation.x += 7f; // Adjust slime position further
-            spawnedEnemy.transform.position = spawnLocation;
 
-            if (spawnedEnemy.transform.childCount > 0)
-            {
-                Transform childIcon = spawnedEnemy.transform.GetChild(0);
-                Transform childPartOrgin = spawnedEnemy.transform.GetChild(1);
-
-                // Adjust the positions of child elements
-                childIcon.localPosition = new Vector3(-3.5f, 0.62f, 0);
-                childPartOrgin.localPosition = new Vector3(-3.5f, 2.5f, 0);
-            }
-
-            // Adjust the Canvas position for Slime enemies
-            Canvas slimeCanvas = spawnedEnemy.GetComponentInChildren<Canvas>();
-            if (slimeCanvas != null)
-            {
-                RectTransform canvasTransform = slimeCanvas.GetComponent<RectTransform>();
-                if (canvasTransform != null)
-                {
-                    canvasTransform.localPosition = new Vector3(1913.19f, canvasTransform.localPosition.y, 0);
-                }
-            }
         }
     }
 

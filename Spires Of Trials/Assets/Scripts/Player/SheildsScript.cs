@@ -183,6 +183,9 @@ public class SheildsScript : MonoBehaviour
         Debug.Log("Showing shield indicator: " + sr.name);
         sr.gameObject.SetActive(true);
     }
+
+
+
     public void HideAllIndicators()
     {
         leftShield.gameObject.SetActive(false);

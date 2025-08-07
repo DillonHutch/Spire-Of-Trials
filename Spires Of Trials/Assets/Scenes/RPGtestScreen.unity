@@ -954,7 +954,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1 &44812303
 GameObject:
   m_ObjectHideFlags: 0
@@ -32338,7 +32339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1 &391912877
 GameObject:
   m_ObjectHideFlags: 0
@@ -34322,7 +34324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1001 &469550874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78977,7 +78980,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1 &895533192
 GameObject:
   m_ObjectHideFlags: 0
@@ -79055,7 +79059,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!4 &895533196
 Transform:
   m_ObjectHideFlags: 0
@@ -82654,7 +82659,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!114 &1077148814 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5970268575401691821, guid: 0936fa967ad856f41a2a491bde4d187f, type: 3}
@@ -87158,7 +87164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1001 &1290703114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106067,6 +106074,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
   inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  enemyTagsList:
+  - Skeleton
+  - Slime
 --- !u!1 &1414288669
 GameObject:
   m_ObjectHideFlags: 0
@@ -108861,7 +108871,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1001 &1556793383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110470,7 +110481,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!224 &1639098603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3321894561407063122, guid: 0bc2ded946dd8384ea7bde95490eff01, type: 3}
@@ -113475,7 +113487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: 99b441d4457ba7749be23f5be90d635b, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!1 &1811441732
 GameObject:
   m_ObjectHideFlags: 0
@@ -113569,7 +113582,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 1077148814}
-  inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
+  inkJSON: {fileID: 0}
+  enemyTagsList: []
 --- !u!4 &1811441736
 Transform:
   m_ObjectHideFlags: 0

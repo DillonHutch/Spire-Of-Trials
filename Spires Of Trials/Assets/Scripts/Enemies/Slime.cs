@@ -30,7 +30,7 @@ public class Slime : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "heavy", "magic", "melee", "range" };
+        attackSequence = new List<string> { "up", "down", "left", "right" };
     }
 
     protected override void DefineEnemyAttackPattern()
@@ -38,7 +38,7 @@ public class Slime : EnemyParent
         // e.g. two parry attacks, then a dodge, then repeat
         enemyAttackPattern = new List<EnemyAttackType>
         {
-            EnemyAttackType.Parry,
+            EnemyAttackType.Shield,
         };
     }
 

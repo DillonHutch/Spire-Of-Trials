@@ -1,10 +1,12 @@
 // BattleContext.cs
 
+using System.Collections.Generic;
 using UnityEngine;
 public static class BattleContext
 {
-    // Will be set by the Overworld and read in Battle
-    public static string PendingEnemyTag;
+
     public static TextAsset PendingInkJSON;
     public static int PendingEnemySlotCount;
+
+    public static List<string> PendingEnemyTags = new List<string>();
 }

@@ -1042,13 +1042,13 @@ public abstract class EnemyParent : MonoBehaviour
         };
 
         // Instantiate slash prefab at enemy position
-        var slash = Instantiate(slashPrefab, transform.position + new Vector3(0, 2.5f, 0), Quaternion.Euler(0f, 0f, zRot));
-        var anim = slash.GetComponent<Animator>();
-        anim.SetTrigger("Slash");
+        GameObject slash = Instantiate(slashPrefab, transform.position + new Vector3(0, 2.5f, 0), Quaternion.Euler(0f, 0f, zRot));
+        Animator slashAnimator = slash.GetComponent<Animator>();
+        slashAnimator.Play("Slash");
 
         // Auto-destroy the slash after its clip finishes
         float clipLen = 0.5f;
-        foreach (var clip in anim.runtimeAnimatorController.animationClips)
+        foreach (var clip in slashAnimator.runtimeAnimatorController.animationClips)
             if (clip.name == "Slash") { clipLen = clip.length; break; }
         Destroy(slash, clipLen);
     }
@@ -1107,6 +1107,11 @@ public abstract class EnemyParent : MonoBehaviour
     {
         //Debug.Log($"{gameObject.name} died!");
 
+
+        EnemyAttackQueue.AttackFinished(this);
+
+        EnemyAttackQueue.RemoveEnemy(this);
+
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
 
         shieldManager?.CancelAllShieldEffects();
@@ -1129,8 +1134,6 @@ public abstract class EnemyParent : MonoBehaviour
             flashCoroutine = null;
         }
 
-        if (isAttacking)
-            EnemyAttackQueue.AttackFinished(this);
 
         ResourceManager.Instance.AddResource("enemiesKilled", 1);
 

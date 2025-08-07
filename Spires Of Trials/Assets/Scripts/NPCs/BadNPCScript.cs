@@ -10,6 +10,7 @@ public class BadNPCScript : MonoBehaviour
     [SerializeField] BattleSceneController battleController;
     [Header("Which Ink file to play when I get touched?")]
     [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private List<string> enemyTagsList;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class BadNPCScript : MonoBehaviour
             return;
 
         // stash the JSON so the dialogue runner can pick it up
+        BattleContext.PendingEnemyTags = new List<string>(enemyTagsList);
         BattleContext.PendingInkJSON = inkJSON;
     }
 
