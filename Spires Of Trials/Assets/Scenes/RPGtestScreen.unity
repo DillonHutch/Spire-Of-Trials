@@ -953,9 +953,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1 &44812303
 GameObject:
   m_ObjectHideFlags: 0
@@ -32338,9 +32339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1 &391912877
 GameObject:
   m_ObjectHideFlags: 0
@@ -34323,9 +34325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1001 &469550874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78670,7 +78673,7 @@ Transform:
   m_GameObject: {fileID: 888412533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.5, y: -16, z: -10}
+  m_LocalPosition: {x: -32.8, y: -14.400001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78979,9 +78982,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1 &895533192
 GameObject:
   m_ObjectHideFlags: 0
@@ -79058,9 +79062,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!4 &895533196
 Transform:
   m_ObjectHideFlags: 0
@@ -82658,9 +82663,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!114 &1077148814 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5970268575401691821, guid: 0936fa967ad856f41a2a491bde4d187f, type: 3}
@@ -86828,7 +86834,7 @@ Transform:
   m_GameObject: {fileID: 1276100000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.5, y: -16, z: 0}
+  m_LocalPosition: {x: -32.8, y: -14.400001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87163,9 +87169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1001 &1290703114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106072,11 +106079,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
   enemyTagsList:
   - Skeleton
   - Slime
+  - Goblin
+  hasMultipleSpawns: 1
+  quipChance: 0.5
 --- !u!1 &1414288669
 GameObject:
   m_ObjectHideFlags: 0
@@ -108870,9 +108879,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1001 &1556793383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -110480,9 +110490,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!224 &1639098603 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3321894561407063122, guid: 0bc2ded946dd8384ea7bde95490eff01, type: 3}
@@ -113486,9 +113497,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!1 &1811441732
 GameObject:
   m_ObjectHideFlags: 0
@@ -113581,9 +113593,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94598f6eb0bb8f4bb7d57c006879c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleController: {fileID: 1077148814}
   inkJSON: {fileID: 0}
   enemyTagsList: []
+  hasMultipleSpawns: 0
+  quipChance: 0.2
 --- !u!4 &1811441736
 Transform:
   m_ObjectHideFlags: 0
@@ -120858,7 +120871,7 @@ Transform:
   m_GameObject: {fileID: 2136754461}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.5, y: -16, z: -10}
+  m_LocalPosition: {x: -32.8, y: -14.400001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

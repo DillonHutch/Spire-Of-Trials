@@ -131,7 +131,7 @@ public class MiniBoss : EnemyParent
         attackSequence = new List<string>
     {
 
-            "melee"
+            "up", "left", "down", "right",
 
     //     // Original 6
     //"melee", "magic", "range", "heavy",

@@ -9,8 +9,31 @@ using FMODUnity;
 using FMOD.Studio;
 using System.Text.RegularExpressions;
 
+
+
+[System.Serializable]
+public class EnemyDialogue
+{
+    [Tooltip("Must match the GameObject.tag on your enemy prefabs")]
+    public string enemyTag;
+    [Tooltip("One or more Ink JSON assets for this enemy")]
+    public TextAsset[] dialogues;
+}
+
 public class BattleDialogueManager : MonoBehaviour
 {
+
+
+    [Header("End-of-Round Dialogue Settings")]
+    [SerializeField, Range(0f, 1f)]
+    private float dialogueChance = 0.2f;
+
+    [SerializeField]
+    private EnemyDialogue[] enemyDialogues;
+
+    // built at Awake
+    private Dictionary<string, TextAsset[]> dialogueMap;
+
 
     [Header("Params")]
     [SerializeField] private float typingSpeed = 0.04f;
@@ -102,6 +125,12 @@ public class BattleDialogueManager : MonoBehaviour
         dialogueVariables = new DialogueVariables(loadGlobalsJSON);
 
         currentAudioInfo = defaultAudioInfo;
+
+
+        dialogueMap = new Dictionary<string, TextAsset[]>();
+        foreach (var ed in enemyDialogues)
+            if (ed.dialogues != null && ed.dialogues.Length > 0)
+                dialogueMap[ed.enemyTag] = ed.dialogues;
 
     }
 
@@ -402,7 +431,22 @@ public class BattleDialogueManager : MonoBehaviour
         }
     }
 
+    public bool HasQuips(string tag)
+    {
+        return dialogueMap.ContainsKey(tag);
+    }
 
+    public TextAsset GetRandomQuip(string tag)
+    {
+        TextAsset[] quips = dialogueMap[tag];
+        int index = Random.Range(0, quips.Length);
+        return quips[index];
+    }
+
+    public float DialogueChance
+    {
+        get { return dialogueChance; }
+    }
 
     private void HandleTags(List<string> currentTags)
     {

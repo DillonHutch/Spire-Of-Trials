@@ -1,36 +1,37 @@
-using Ink.Parsed;
-using System.Collections;
+﻿// BadNPCScript.cs
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BadNPCScript : MonoBehaviour
 {
-
-    [SerializeField] BattleSceneController battleController;
     [Header("Which Ink file to play when I get touched?")]
     [SerializeField] private TextAsset inkJSON;
     [SerializeField] private List<string> enemyTagsList;
 
+    [Header("Spawn Count Settings")]
+    [SerializeField] private bool hasMultipleSpawns = false;
+
+    [Header("Quip Settings")]
+    [Tooltip("Chance that an enemy will quip at end of round (0–1)")]
+    [SerializeField, Range(0f, 1f)] private float quipChance = 0.2f;
+
+    private BattleSceneController battleController;
+
     private void Start()
     {
-        if (battleController == null)
-            battleController = FindObjectOfType<BattleSceneController>();
-
-        // Make sure this NPC disappears when battle starts
+        battleController = battleController ?? FindObjectOfType<BattleSceneController>();
         battleController.objectsToDisable.Add(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("OverworldPlayer"))
-            return;
+        if (!collision.CompareTag("OverworldPlayer")) return;
 
-        // stash the JSON so the dialogue runner can pick it up
         BattleContext.PendingEnemyTags = new List<string>(enemyTagsList);
         BattleContext.PendingInkJSON = inkJSON;
+        BattleContext.PendingHasMultipleSpawns = hasMultipleSpawns;
+
+        // ← push the NPC’s desired quip‐chance into the context
+        BattleContext.PendingQuipChance = quipChance;
     }
-
-
-
 }

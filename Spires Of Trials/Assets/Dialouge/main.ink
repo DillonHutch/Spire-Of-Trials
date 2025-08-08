@@ -2,7 +2,7 @@ EXTERNAL StartQuest(questId)
 EXTERNAL AdvanceQuest(questId)
 EXTERNAL FinishQuest(questId)
 EXTERNAL MoveNPCSequence(npcName, sequence)
-EXTERNAL StartCombat(enemyTag, postCombatKnot)
+EXTERNAL StartCombat(enemyTags, hasMultipleSpawns, quipChance, postCombatKnot)
 EXTERNAL FocusCam(targetName)
 EXTERNAL ResetCamera()
 

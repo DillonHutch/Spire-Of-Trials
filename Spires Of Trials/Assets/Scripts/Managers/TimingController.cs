@@ -8,15 +8,6 @@ using UnityEngine.UI;
 
 
 
-[System.Serializable]
-public class EnemyDialogue
-{
-    [Tooltip("Must match the GameObject.tag (or some ID) on your enemy prefabs")]
-    public string enemyTag;
-    [Tooltip("One or more Ink JSON assets for this enemy")]
-    public TextAsset[] dialogues;
-}
-
 
 public class TimingController : MonoBehaviour
 {
@@ -31,15 +22,6 @@ public class TimingController : MonoBehaviour
     public void ResumeTimer() => timerPaused = false;
 
 
-    [Header("End‑of‑Round Dialogue Settings")]
-    [SerializeField, Range(0f, 1f)]
-    private float dialogueChance = 0.2f;
-
-    [SerializeField]
-    private EnemyDialogue[] enemyDialogues;
-
-    // runtime lookup
-    private Dictionary<string, TextAsset[]> dialogueMap;
 
 
 
@@ -213,12 +195,6 @@ public class TimingController : MonoBehaviour
         fightPanelUp = true;
 
 
-
-        dialogueMap = new Dictionary<string, TextAsset[]>();
-        foreach (var ed in enemyDialogues)
-            if (ed.dialogues != null && ed.dialogues.Length > 0)
-                dialogueMap[ed.enemyTag] = ed.dialogues;
-
     }
 
     void Start()
@@ -346,29 +322,42 @@ public class TimingController : MonoBehaviour
 
     public IEnumerator PlayQuip()
     {
+        BattleDialogueManager bdm = BattleDialogueManager.GetInstance();
+
         // 1) maybe skip entirely
-        if (Random.value >= dialogueChance)
+        if (Random.value >= BattleContext.PendingQuipChance)
             yield break;
 
-        // 2) pick a random survivor that has a quip
-        var survivors = FindObjectsOfType<EnemyParent>()
-            .Where(e => dialogueMap.ContainsKey(e.tag))
-            .ToList();
-        if (survivors.Count == 0)
+        // 2) pick from enemies that have quips
+        EnemyParent[] allEnemies = FindObjectsOfType<EnemyParent>();
+        List<EnemyParent> survivorsWithQuips = new List<EnemyParent>();
+        for (int i = 0; i < allEnemies.Length; i++)
+        {
+            EnemyParent e = allEnemies[i];
+            if (bdm.HasQuips(e.tag))
+            {
+                survivorsWithQuips.Add(e);
+            }
+        }
+
+        if (survivorsWithQuips.Count == 0)
+        {
             yield break;
+        }
 
-        var chosen = survivors[Random.Range(0, survivors.Count)];
-        TextAsset[] quips = dialogueMap[chosen.tag];
-        TextAsset enemyInk = quips[Random.Range(0, quips.Length)];
+        int chosenIndex = Random.Range(0, survivorsWithQuips.Count);
+        EnemyParent chosen = survivorsWithQuips[chosenIndex];
+        TextAsset enemyInk = bdm.GetRandomQuip(chosen.tag);
 
-        // 3) position the arrow over them (only X‑axis)
+        // 3) position the arrow (unchanged) …
         Vector3 worldPos = chosen.transform.position + Vector3.up * 2f;
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        var canvasRect = dialogueArrow.GetComponentInParent<Canvas>()
-                                     .GetComponent<RectTransform>();
-        var arrowRect = dialogueArrow.GetComponent<RectTransform>();
+        RectTransform canvasRect = dialogueArrow.GetComponentInParent<Canvas>()
+                                                 .GetComponent<RectTransform>();
+        RectTransform arrowRect = dialogueArrow.GetComponent<RectTransform>();
+        Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRect, screenPos, Camera.main, out Vector2 localPoint);
+            canvasRect, screenPos, Camera.main, out localPoint);
         arrowRect.anchoredPosition = new Vector2(
             localPoint.x, arrowRect.anchoredPosition.y);
 
@@ -377,8 +366,8 @@ public class TimingController : MonoBehaviour
         animator.Play("enemyTalking");
         dialogueArrow.SetActive(true);
 
-        // 5) fire the quip into your BattleDialogueManager
-        var dm = BattleDialogueManager.GetInstance();
+        // 5) fire into BattleDialogueManager
+        BattleDialogueManager dm = BattleDialogueManager.GetInstance();
         dm.EnterQuipMode(enemyInk);
         yield return new WaitUntil(() => dm.CanContinueToNextLine);
 
@@ -388,10 +377,11 @@ public class TimingController : MonoBehaviour
 
         // 7) hide arrow + end anim
         dialogueArrow.SetActive(false);
-
         animator.Play("enemyTalkingEnd");
         yield return new WaitForSeconds(0.1f);
     }
+
+
 
 
 

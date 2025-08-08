@@ -538,6 +538,9 @@ public abstract class EnemyParent : MonoBehaviour
         }
 
 
+
+       
+
         isAttacking = true;
 
         // pick this turn’s attack type
@@ -546,6 +549,16 @@ public abstract class EnemyParent : MonoBehaviour
 
         int attackPos = GetAttackPosition();
         SpriteRenderer atkSprite = GetAttackSprite(attackPos);
+
+
+        if (this.gameObject.tag == "Goblin" && attackPos == 2)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if( this.gameObject.tag == "Goblin" && attackPos == 0)
+        {
+            spriteRenderer.flipX = false;
+        }
 
 
         // right after you get atkSprite and atkType:
@@ -1066,7 +1079,7 @@ public abstract class EnemyParent : MonoBehaviour
         yield return new WaitForSeconds(clipLen);
 
         // Finally destroy this enemy
-        Destroy(gameObject);
+        Die();
     }
 
 
@@ -1105,42 +1118,34 @@ public abstract class EnemyParent : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-        //Debug.Log($"{gameObject.name} died!");
+        // hide only this enemy’s attack indicator
+        SpriteRenderer atkSprite = GetAttackSprite(GetAttackPosition());
+        if (atkSprite != null)
+            atkSprite.gameObject.SetActive(false);
 
-
-        EnemyAttackQueue.AttackFinished(this);
-
-        EnemyAttackQueue.RemoveEnemy(this);
-
+        // existing cleanup logic
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
-
         shieldManager?.CancelAllShieldEffects();
 
-
-        // Destroy the health bar UI if it exists
         if (healthBar != null)
             Destroy(this.healthBar.gameObject);
 
-        // Ensure dodge bar highlight is cleared before destruction
         if (dodgeBarHighlighter != null)
-        {
             dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
-        }
 
-        // Stop any running flash effect coroutine
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
             flashCoroutine = null;
         }
 
+        if (isAttacking)
+            EnemyAttackQueue.AttackFinished(this);
 
         ResourceManager.Instance.AddResource("enemiesKilled", 1);
-
-
-        // Destroy the enemy game object
         Destroy(gameObject);
     }
+
 
     #endregion
 

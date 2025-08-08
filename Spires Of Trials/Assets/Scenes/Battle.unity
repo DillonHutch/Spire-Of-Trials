@@ -3157,6 +3157,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b2c172f4cbffa47956435eb2ecac53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueChance: 1
+  enemyDialogues:
+  - enemyTag: Knight
+    dialogues:
+    - {fileID: 4900000, guid: 2978b5cea4a7e9f47873a85f2beb44c0, type: 3}
+  - enemyTag: Slime
+    dialogues:
+    - {fileID: 4900000, guid: 54b26581f12f71b49854e4f7dd2c7eb4, type: 3}
+  - enemyTag: Skeleton
+    dialogues:
+    - {fileID: 4900000, guid: ce6b8b50bd1114f4d84b208ed313a975, type: 3}
+  - enemyTag: Goblin
+    dialogues:
+    - {fileID: 4900000, guid: bfcb7b2fe031cd547b08f7c896ad06c7, type: 3}
   typingSpeed: 0.04
   continueIcon: {fileID: 1071619182}
   loadGlobalsJSON: {fileID: 4900000, guid: a5df2622d444b5b4cb38267eb2e327ee, type: 3}
@@ -18612,21 +18626,24 @@ MonoBehaviour:
     spawnLeft: 1
     spawnCenter: 1
     spawnRight: 1
-    hasMultipleSpawns: 1
   - enemyTag: Slime
     minRounds: 1
     maxRounds: 1
     spawnLeft: 1
     spawnCenter: 0
     spawnRight: 1
-    hasMultipleSpawns: 1
+  - enemyTag: Goblin
+    minRounds: 1
+    maxRounds: 1
+    spawnLeft: 0
+    spawnCenter: 1
+    spawnRight: 0
   - enemyTag: Knight
     minRounds: 1
     maxRounds: 1
     spawnLeft: 1
     spawnCenter: 1
     spawnRight: 1
-    hasMultipleSpawns: 0
   leftFlash: {fileID: 426548162}
   centerFlash: {fileID: 1586507125}
   rightFlash: {fileID: 232741246}

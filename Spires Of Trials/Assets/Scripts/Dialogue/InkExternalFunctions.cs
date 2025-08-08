@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Ink.Runtime;
+using System.Linq;
 
 public class InkExternalFunctions 
 {
@@ -19,11 +20,11 @@ public class InkExternalFunctions
             (string npcName, string seq) => MoveNPCSequence(npcName, seq)
         );
 
-
         story.BindExternalFunction(
         "StartCombat",
-        (string[] enemyTags, string postCombatKnot) => StartCombat(enemyTags, postCombatKnot)
-      );
+        (InkList enemyTags, bool hasMultipleSpawns, float quipChance, string postCombatKnot)
+          => StartCombat(enemyTags, hasMultipleSpawns, quipChance, postCombatKnot)
+                          );
 
 
         story.BindExternalFunction("FocusCam", (string targetName) => FocusCam(targetName));
@@ -60,26 +61,25 @@ public class InkExternalFunctions
         EventManager.Instance.TriggerEvent("resetCamera");
     }
 
-    private void StartCombat(string[] enemyTags, string postCombatKnot)
+    private void StartCombat(InkList enemyTags, bool hasMultipleSpawns, float quipChance, string postCombatKnot)
     {
-
-        EventManager.Instance.TriggerEvent("suppressDialogueResume");
-
-        BattleContext.PendingEnemyTags = new List<string>(enemyTags);
+        // convert to string[] by accessing the Key of each KeyValuePair, which is of type InkListItem
+        var tags = enemyTags.ToList().Select(e => e.Key.itemName).ToArray();
+        // put into your BattleContext, etc.
+        BattleContext.PendingEnemyTags = new List<string>(tags);
+        BattleContext.PendingHasMultipleSpawns = hasMultipleSpawns;
+        BattleContext.PendingQuipChance = quipChance;
         _pendingPostCombatKnot = postCombatKnot;
 
-        // tell the battle controller to suppress its automatic resume
-   
-  
-      
+        // 3) suppress ink auto-resume and fire off your battle events
+        EventManager.Instance.TriggerEvent("suppressDialogueResume");
         EventManager.Instance.TriggerEvent("battleSceneControllerSupress");
         EventManager.Instance.TriggerEvent("StartBattle");
-        
-    
 
-        // when the battle unloads, we’ll handle coming back into Ink
+        // 4) once the battle unloading event fires, we’ll pop back into Ink
         EventManager.Instance.StartListening("battleSceneUnLoaded", OnCombatEnded);
     }
+
 
 
     private void OnCombatEnded()

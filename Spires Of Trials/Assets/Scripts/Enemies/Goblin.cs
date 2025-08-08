@@ -30,7 +30,7 @@ public class Goblin : EnemyParent
     /// </summary>
     protected override void DefineAttackSequence()
     {
-        attackSequence = new List<string> { "magic", "melee", "magic", "heavy" };
+        attackSequence = new List<string> { "down", "left", "down", "up" };
     }
 
 
@@ -39,7 +39,7 @@ public class Goblin : EnemyParent
         // e.g. two parry attacks, then a dodge, then repeat
         enemyAttackPattern = new List<EnemyAttackType>
         {
-            EnemyAttackType.Parry,
+            EnemyAttackType.Dodge,
         };
     }
 

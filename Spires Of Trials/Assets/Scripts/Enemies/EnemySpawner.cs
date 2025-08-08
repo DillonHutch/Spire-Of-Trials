@@ -21,10 +21,6 @@ public class EnemyCombatSettings
     public bool spawnRight = true;
 
 
-    [Header("Spawn Count Settings")]
-    public bool hasMultipleSpawns = false;
-
-
 }
 
 
@@ -222,61 +218,62 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnRandomEnemies()
     {
-        // 1) Determine how many enemies to spawn
         int toSpawn;
+
         if (BattleContext.PendingEnemyTags.Count > 0)
         {
-            // if PendingEnemyTags is non‐empty, we’ll use that count—or clamp it if you want fewer slots:
-            toSpawn = BattleContext.PendingEnemyTags.Count;
-        }
-        else if (settingsByTag.TryGetValue(_combatEnemyTag, out var defaultCfg) && defaultCfg.hasMultipleSpawns)
-        {
-            int maxPossible = new[] { defaultCfg.spawnLeft, defaultCfg.spawnCenter, defaultCfg.spawnRight }
-                .Count(b => b);
-            toSpawn = BattleContext.PendingEnemySlotCount > 0
-                ? Mathf.Clamp(BattleContext.PendingEnemySlotCount, 1, maxPossible)
-                : Random.Range(1, maxPossible + 1);
+            // Use the NPC’s multiple-spawn flag
+            if (BattleContext.PendingHasMultipleSpawns)
+            {
+                // figure out how many slots this tag supports
+                var cfg = settingsByTag[_combatEnemyTag];
+                int maxSlots = new[] { cfg.spawnLeft, cfg.spawnCenter, cfg.spawnRight }
+                    .Count(b => b);
+                toSpawn = BattleContext.PendingEnemySlotCount > 0
+                    ? Mathf.Clamp(BattleContext.PendingEnemySlotCount, 1, maxSlots)
+                    : Random.Range(1, maxSlots + 1);
+            }
+            else
+            {
+                // one enemy per tag in the list
+                toSpawn = BattleContext.PendingEnemyTags.Count;
+            }
         }
         else
         {
+            // no scripted tags? always spawn exactly one of the default tag
             toSpawn = 1;
         }
 
-        // 2) Maintain a list of available slots (0=Left, 1=Center, 2=Right)
+        // now loop and instantiate 'toSpawn' enemies as before
         var availableSlots = new List<int> { 0, 1, 2 };
-
         for (int i = 0; i < toSpawn; i++)
         {
-            // 3) Pick a random tag
             string tag = BattleContext.PendingEnemyTags.Count > 0
                 ? BattleContext.PendingEnemyTags[Random.Range(0, BattleContext.PendingEnemyTags.Count)]
                 : _combatEnemyTag;
 
-            // 4) Lookup its settings
             if (!settingsByTag.TryGetValue(tag, out var cfg))
             {
                 Debug.LogWarning($"No EnemyCombatSettings for '{tag}', skipping spawn");
                 continue;
             }
 
-            // 5) Build allowed slots for this tag
+            // pick a free slot respecting cfg.spawnLeft/Center/Right
             var allowed = new List<int>();
             if (cfg.spawnLeft) allowed.Add(0);
             if (cfg.spawnCenter) allowed.Add(1);
             if (cfg.spawnRight) allowed.Add(2);
-
-            // 6) Choose a slot that’s both allowed and still free (or just allowed if none free)
             var pickable = allowed.Intersect(availableSlots).ToList();
             if (pickable.Count == 0) pickable = allowed;
             int slot = pickable[Random.Range(0, pickable.Count)];
             availableSlots.Remove(slot);
 
-            // 7) Find and instantiate your prefab
+            // instantiate prefab
             var candidates = enemyPrefabs.Where(p => p.tag == tag).ToList();
             var prefab = candidates.Count > 0
                 ? candidates[Random.Range(0, candidates.Count)]
                 : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-
             var spawnPoint = spawnLocations[slot].transform;
             var instance = Instantiate(prefab, spawnPoint.position, Quaternion.identity, spawnPoint);
             spawnedEnemies.Add(instance);
@@ -284,29 +281,23 @@ public class EnemySpawner : MonoBehaviour
             if (slot == 1)
                 instance.transform.localScale = Vector3.one * 0.8f;
 
-            // 8) Trigger sprite & shield setup as before
             EventManager.Instance.TriggerEvent(
                 "InitializeAttackSprites",
                 (leftFlash, centerFlash, rightFlash,
                  leftShield, centerShield, rightShield)
             );
 
-            // 9) Any per‐type adjustments…
+            // any per-type adjustments...
             switch (tag)
             {
                 case "Slime": AdjustSlimePosition(instance, slot); break;
                 case "Serpent": AdjustSerpantPosition(instance, slot); break;
-                    // etc…
+                    // etc.
             }
         }
 
         yield return null;
     }
-
-
-
-
-
 
 
 
