@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SheildsScript : MonoBehaviour
@@ -10,13 +11,7 @@ public class SheildsScript : MonoBehaviour
 
     private Dictionary<Transform, Coroutine> activeRecoils = new Dictionary<Transform, Coroutine>();
 
-
-    //private Dictionary<SpriteRenderer, Coroutine> flashCoroutines = new Dictionary<SpriteRenderer, Coroutine>();
-
-
     float warningOpacity = 0.75f;
-   // public float flashTime = 0.2f;
-
 
     [Header("Parry Motion Settings")]
     [Tooltip("How high the shields pop up when you parry.")]
@@ -33,6 +28,9 @@ public class SheildsScript : MonoBehaviour
 
     private GameObject leftGO, centerGO, rightGO;
 
+    private readonly Dictionary<SpriteRenderer, EnemyParent> indicatorOwners =
+        new Dictionary<SpriteRenderer, EnemyParent>();
+
     void Awake()
     {
         leftOrig = leftShield.localPosition;
@@ -43,11 +41,10 @@ public class SheildsScript : MonoBehaviour
         centerGO = centerShield.gameObject;
         rightGO = rightShield.gameObject;
 
-
         // hide them right away
         SetShieldsActive(false);
 
-        // listen for the fight‑start and fight‑end events
+        // listen for the fight-start and fight-end events
         EventManager.Instance.StartListening("OnStartFight", OnBattleStart);
         EventManager.Instance.StartListening("OnStopFight", OnBattleEnd);
     }
@@ -133,7 +130,6 @@ public class SheildsScript : MonoBehaviour
         }
     }
 
-
     private IEnumerator ShieldRecoil(Transform shield)
     {
         // capture original local pos
@@ -162,13 +158,13 @@ public class SheildsScript : MonoBehaviour
 
     private Transform GetShieldByPosition(int position)
     {
-        return position switch
+        switch (position)
         {
-            0 => leftShield,
-            1 => centerShield,
-            2 => rightShield,
-            _ => null
-        };
+            case 0: return leftShield;
+            case 1: return centerShield;
+            case 2: return rightShield;
+            default: return null;
+        }
     }
 
     public void ResetShieldPositions()
@@ -178,13 +174,38 @@ public class SheildsScript : MonoBehaviour
         if (rightShield != null) rightShield.localPosition = new Vector3(11f, -10f, 0f);
     }
 
-    public void ShowIndicator(SpriteRenderer sr)
+    public void ShowIndicator(SpriteRenderer sr, EnemyParent owner)
     {
-        Debug.Log("Showing shield indicator: " + sr.name);
+        if (sr == null) return;
+        indicatorOwners[sr] = owner;       // record owner
         sr.gameObject.SetActive(true);
     }
 
+    // Hide a specific indicator only if this enemy owns it
+    public void HideIndicatorForOwner(EnemyParent owner, SpriteRenderer sr)
+    {
+        if (sr == null) return;
+        if (indicatorOwners.TryGetValue(sr, out EnemyParent currentOwner) && currentOwner == owner)
+        {
+            sr.gameObject.SetActive(false);
+            indicatorOwners.Remove(sr);
+        }
+    }
 
+    // Hide any indicators this enemy owns, without touching others
+    public void HideAllOwnedIndicators(EnemyParent owner)
+    {
+        List<SpriteRenderer> toClear = indicatorOwners
+            .Where(kv => kv.Value == owner)
+            .Select(kv => kv.Key)
+            .ToList();
+
+        foreach (SpriteRenderer sr in toClear)
+        {
+            if (sr != null) sr.gameObject.SetActive(false);
+            indicatorOwners.Remove(sr);
+        }
+    }
 
     public void HideAllIndicators()
     {
@@ -193,28 +214,28 @@ public class SheildsScript : MonoBehaviour
         rightShield.gameObject.SetActive(false);
     }
 
-
-
     private void OnDisable()
     {
-
         // stop any ongoing recoil coroutines
-        foreach (var recoiler in activeRecoils.Values)
+        foreach (Coroutine recoiler in activeRecoils.Values)
             StopCoroutine(recoiler);
 
         activeRecoils.Clear();
         ResetShieldPositions();
+
+        // indicators may be shared; do not blanket disable them here
+        // just forget ownership so destroyed objects don't linger in the map
+        List<SpriteRenderer> nullKeys = indicatorOwners.Keys.Where(sr => sr == null).ToList();
+        foreach (SpriteRenderer k in nullKeys)
+        {
+            indicatorOwners.Remove(k);
+        }
     }
-
-
 
     public void CancelAllShieldEffects()
     {
-
-
         //reset positions and hide
         ResetShieldPositions();
         SetShieldsActive(false);
     }
-
 }

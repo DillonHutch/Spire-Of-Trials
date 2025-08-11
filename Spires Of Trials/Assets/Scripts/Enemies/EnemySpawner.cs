@@ -222,60 +222,67 @@ public class EnemySpawner : MonoBehaviour
 
         if (BattleContext.PendingEnemyTags.Count > 0)
         {
-            // Use the NPC’s multiple-spawn flag
             if (BattleContext.PendingHasMultipleSpawns)
             {
-                // figure out how many slots this tag supports
-                var cfg = settingsByTag[_combatEnemyTag];
-                int maxSlots = new[] { cfg.spawnLeft, cfg.spawnCenter, cfg.spawnRight }
-                    .Count(b => b);
+                EnemyCombatSettings cfg = settingsByTag[_combatEnemyTag];
+                int maxSlots = new[] { cfg.spawnLeft, cfg.spawnCenter, cfg.spawnRight }.Count(b => b);
                 toSpawn = BattleContext.PendingEnemySlotCount > 0
                     ? Mathf.Clamp(BattleContext.PendingEnemySlotCount, 1, maxSlots)
                     : Random.Range(1, maxSlots + 1);
             }
             else
             {
-                // one enemy per tag in the list
                 toSpawn = BattleContext.PendingEnemyTags.Count;
             }
         }
         else
         {
-            // no scripted tags? always spawn exactly one of the default tag
             toSpawn = 1;
         }
 
-        // now loop and instantiate 'toSpawn' enemies as before
-        var availableSlots = new List<int> { 0, 1, 2 };
+        // never try to place more than there are free slots
+        List<int> availableSlots = new List<int> { 0, 1, 2 };
+        toSpawn = Mathf.Min(toSpawn, availableSlots.Count);
+
         for (int i = 0; i < toSpawn; i++)
         {
+            // pick a tag
             string tag = BattleContext.PendingEnemyTags.Count > 0
                 ? BattleContext.PendingEnemyTags[Random.Range(0, BattleContext.PendingEnemyTags.Count)]
                 : _combatEnemyTag;
 
-            if (!settingsByTag.TryGetValue(tag, out var cfg))
+            if (!settingsByTag.TryGetValue(tag, out EnemyCombatSettings cfg))
             {
                 Debug.LogWarning($"No EnemyCombatSettings for '{tag}', skipping spawn");
                 continue;
             }
 
-            // pick a free slot respecting cfg.spawnLeft/Center/Right
-            var allowed = new List<int>();
+            // compute free, allowed slots
+            List<int> allowed = new List<int>();
             if (cfg.spawnLeft) allowed.Add(0);
             if (cfg.spawnCenter) allowed.Add(1);
             if (cfg.spawnRight) allowed.Add(2);
-            var pickable = allowed.Intersect(availableSlots).ToList();
-            if (pickable.Count == 0) pickable = allowed;
+
+            List<int> pickable = allowed.Intersect(availableSlots).ToList();
+
+            // if none are free that this tag can use, skip this spawn
+            if (pickable.Count == 0)
+            {
+                Debug.Log($"No free allowed slot for tag '{tag}'. Skipping this spawn.");
+                continue;
+            }
+
             int slot = pickable[Random.Range(0, pickable.Count)];
             availableSlots.Remove(slot);
 
             // instantiate prefab
-            var candidates = enemyPrefabs.Where(p => p.tag == tag).ToList();
-            var prefab = candidates.Count > 0
+            List<GameObject> candidates = enemyPrefabs.Where(p => p.tag == tag).ToList();
+            GameObject prefab = candidates.Count > 0
                 ? candidates[Random.Range(0, candidates.Count)]
                 : enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-            var spawnPoint = spawnLocations[slot].transform;
-            var instance = Instantiate(prefab, spawnPoint.position, Quaternion.identity, spawnPoint);
+
+            Transform spawnPoint = spawnLocations[slot].transform;
+            GameObject instance = Instantiate(prefab, spawnPoint.position, Quaternion.identity, spawnPoint);
             spawnedEnemies.Add(instance);
 
             if (slot == 1)
@@ -283,21 +290,20 @@ public class EnemySpawner : MonoBehaviour
 
             EventManager.Instance.TriggerEvent(
                 "InitializeAttackSprites",
-                (leftFlash, centerFlash, rightFlash,
-                 leftShield, centerShield, rightShield)
+                (leftFlash, centerFlash, rightFlash, leftShield, centerShield, rightShield)
             );
 
-            // any per-type adjustments...
             switch (tag)
             {
                 case "Slime": AdjustSlimePosition(instance, slot); break;
                 case "Serpent": AdjustSerpantPosition(instance, slot); break;
-                    // etc.
             }
         }
 
         yield return null;
     }
+
+
 
 
 

@@ -313,6 +313,8 @@ public abstract class EnemyParent : MonoBehaviour
         // Get the current state on layer 0
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
+        Debug.Log(stateInfo.ToString());
+
         // If we’re not already in the "ReturnToIdle" state, trigger it
         if (!stateInfo.IsName("Idle"))
         {
@@ -427,23 +429,7 @@ public abstract class EnemyParent : MonoBehaviour
         }
 
 
-
-        // Stop the attack coroutine if it is running
-        if (attackCoroutine != null)
-            StopCoroutine(attackCoroutine);
-
-        // Ensure the dodge bar highlight is cleared when the enemy is disabled
-        if (dodgeBarHighlighter != null)
-        {
-            dodgeBarHighlighter.ClearHighlight(GetAttackPosition());
-        }
-
-        // Ensure attack indicator flash coroutine is stopped
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
+        Die();
 
     }
 
@@ -567,16 +553,9 @@ public abstract class EnemyParent : MonoBehaviour
             switch (atkType)
             {
                 case EnemyAttackType.Dodge:
-                    shieldManager.ShowIndicator(atkSprite);
-
-                    break;
                 case EnemyAttackType.Shield:
-                    shieldManager.ShowIndicator(atkSprite);
-
-                    break;
                 case EnemyAttackType.Parry:
-                    shieldManager.ShowIndicator(atkSprite);
-
+                    shieldManager.ShowIndicator(atkSprite, this); // pass owner
                     break;
             }
         }
@@ -782,6 +761,7 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Cleans up the attack sequence, removing visuals and resetting state.
     /// </summary>
+    // EnemyParent.CleanupAttack(...)
     protected void CleanupAttack(SpriteRenderer attackSprite, int attackPosition)
     {
         isAttacking = false;
@@ -792,11 +772,12 @@ public abstract class EnemyParent : MonoBehaviour
         if (iconRenderer != null) iconRenderer.color = iconOriginalColor;
 
         shieldManager?.ResetShieldPositions();
-        attackSprite.gameObject.SetActive(false);
 
-
-
+        // Hide only if this enemy owned the indicator
+        if (attackSprite != null)
+            shieldManager?.HideIndicatorForOwner(this, attackSprite);
     }
+
 
 
     /// <summary>
@@ -1116,14 +1097,17 @@ public abstract class EnemyParent : MonoBehaviour
     /// <summary>
     /// Handles enemy death, including disabling UI elements, stopping effects, and destroying the object.
     /// </summary>
+    // EnemyParent.Die()
     protected virtual void Die()
     {
-        // hide only this enemy’s attack indicator
-        SpriteRenderer atkSprite = GetAttackSprite(GetAttackPosition());
-        if (atkSprite != null)
-            atkSprite.gameObject.SetActive(false);
+        // Hide any indicators this enemy owns, leave others untouched
+        shieldManager?.HideAllOwnedIndicators(this);
 
         // existing cleanup logic
+        SpriteRenderer atkSprite = GetAttackSprite(GetAttackPosition());
+        if (atkSprite != null)
+            shieldManager?.HideIndicatorForOwner(this, atkSprite);
+
         if (attackCoroutine != null) StopCoroutine(attackCoroutine);
         shieldManager?.CancelAllShieldEffects();
 
@@ -1145,6 +1129,7 @@ public abstract class EnemyParent : MonoBehaviour
         ResourceManager.Instance.AddResource("enemiesKilled", 1);
         Destroy(gameObject);
     }
+
 
 
     #endregion
