@@ -1,0 +1,391 @@
+fileFormatVersion: 2
+guid: 53250e25560f0d549be2105aff5013f5
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Armor1_TorsoDown_Frame_0
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.7333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 14
+      height: 15
+    spriteID: 135f1d864b84e904cadcc5909d61a817
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Armor1_TorsoDown_Frame_1
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.7333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 27
+      width: 14
+      height: 15
+    spriteID: 5e0bd9c500179364383d2047da19f298
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 27}
+  - name: Armor1_TorsoDown_Frame_2
+    originalName: 
+    pivot: {x: 0.53846157, y: -1.7333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 50
+      width: 13
+      height: 15
+    spriteID: 194cfccae31d59e48bb11d4a7eb26187
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 50}
+  - name: Armor1_TorsoDown_Frame_3
+    originalName: 
+    pivot: {x: 0.53846157, y: -1.6666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 73
+      width: 13
+      height: 15
+    spriteID: 7b2d8f908e84943469a5fa6ab9d7e778
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 73}
+  - name: Armor1_TorsoDown_Frame_4
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.7333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 50
+      width: 14
+      height: 15
+    spriteID: 36bc05b027cb3e144bb9e399b4102b25
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 50}
+  - name: Armor1_TorsoDown_Frame_5
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.7333335}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 73
+      width: 14
+      height: 15
+    spriteID: fea3b251698c9b84eb7817c0dbefbdef
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 73}
+  - name: Armor1_TorsoDown_Frame_6
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.6666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 96
+      width: 14
+      height: 15
+    spriteID: 424b8335714d7cd4ba1e957306d7d036
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 96}
+  - name: Armor1_TorsoDown_Frame_7
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.6000001}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 4
+      width: 14
+      height: 15
+    spriteID: a23f5508a26f2e048b28b77f97da5040
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 4}
+  - name: Armor1_TorsoDown_Frame_8
+    originalName: 
+    pivot: {x: 0.50000006, y: -1.6000001}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 27
+      width: 14
+      height: 15
+    spriteID: bf1a549d2d063694386e51e100cf4c72
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 27}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1609744112
+    name: Armor1_TorsoDown
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Armor1_TorsoDown_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 33
+        y: 26
+        width: 14
+        height: 15
+      spriteId: 135f1d864b84e904cadcc5909d61a817
+    - name: Armor1_TorsoDown_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 33
+        y: 26
+        width: 14
+        height: 15
+      spriteId: 5e0bd9c500179364383d2047da19f298
+    - name: Armor1_TorsoDown_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 33
+        y: 26
+        width: 13
+        height: 15
+      spriteId: 194cfccae31d59e48bb11d4a7eb26187
+    - name: Armor1_TorsoDown_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 33
+        y: 25
+        width: 13
+        height: 15
+      spriteId: 7b2d8f908e84943469a5fa6ab9d7e778
+    - name: Armor1_TorsoDown_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 33
+        y: 26
+        width: 14
+        height: 15
+      spriteId: 36bc05b027cb3e144bb9e399b4102b25
+    - name: Armor1_TorsoDown_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 33
+        y: 26
+        width: 14
+        height: 15
+      spriteId: fea3b251698c9b84eb7817c0dbefbdef
+    - name: Armor1_TorsoDown_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 33
+        y: 25
+        width: 14
+        height: 15
+      spriteId: 424b8335714d7cd4ba1e957306d7d036
+    - name: Armor1_TorsoDown_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 33
+        y: 24
+        width: 14
+        height: 15
+      spriteId: a23f5508a26f2e048b28b77f97da5040
+    - name: Armor1_TorsoDown_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 33
+        y: 24
+        width: 14
+        height: 15
+      spriteId: bf1a549d2d063694386e51e100cf4c72
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 80, y: 64}

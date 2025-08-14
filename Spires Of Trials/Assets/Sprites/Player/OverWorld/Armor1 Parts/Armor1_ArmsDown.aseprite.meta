@@ -1,0 +1,391 @@
+fileFormatVersion: 2
+guid: 403ec8b728719374e9df19a6405e1a1b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Armor1_ArmsDown_Frame_0
+    originalName: 
+    pivot: {x: 0.50000006, y: -2.25}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 29
+      y: 4
+      width: 18
+      height: 12
+    spriteID: 66a9e8fcdc6c0804296e29dcf2df9231
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 29, y: 4}
+  - name: Armor1_ArmsDown_Frame_1
+    originalName: 
+    pivot: {x: 0.52941185, y: -1.7857144}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 17
+      height: 14
+    spriteID: 3c2b4727e05848d47a6320383effafa4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Armor1_ArmsDown_Frame_2
+    originalName: 
+    pivot: {x: 0.5333333, y: -2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 48
+      width: 15
+      height: 13
+    spriteID: ec585ff360fa9364384e4d34c276c94e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 48}
+  - name: Armor1_ArmsDown_Frame_3
+    originalName: 
+    pivot: {x: 0.49999997, y: -2.5454545}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 90
+      width: 16
+      height: 11
+    spriteID: 58ad0cfbe4c13a34c90c52af1a931915
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 90}
+  - name: Armor1_ArmsDown_Frame_4
+    originalName: 
+    pivot: {x: 0.50000006, y: -3.3333333}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 29
+      y: 44
+      width: 18
+      height: 9
+    spriteID: 4d7a204a79d78c44199fba2b4a4c33c3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 29, y: 44}
+  - name: Armor1_ArmsDown_Frame_5
+    originalName: 
+    pivot: {x: 0.49999997, y: -2.5454545}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 109
+      width: 16
+      height: 11
+    spriteID: e9e4008bc7c4c694ca770747e25bcbd9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 109}
+  - name: Armor1_ArmsDown_Frame_6
+    originalName: 
+    pivot: {x: 0.4666667, y: -2}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 69
+      width: 15
+      height: 13
+    spriteID: fd177d93f0a0c754098fcbad7af5198c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 69}
+  - name: Armor1_ArmsDown_Frame_7
+    originalName: 
+    pivot: {x: 0.47058824, y: -1.7857144}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 26
+      width: 17
+      height: 14
+    spriteID: a1f1f8ca5ace3ae4f9ba580b58c6bb58
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 26}
+  - name: Armor1_ArmsDown_Frame_8
+    originalName: 
+    pivot: {x: 0.50000006, y: -2.25}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 29
+      y: 24
+      width: 18
+      height: 12
+    spriteID: 748849cf1a33a7b42b0da79dba5829b6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 29, y: 24}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1656000566
+    name: Armor1_ArmsDown
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Armor1_ArmsDown_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 31
+        y: 27
+        width: 18
+        height: 12
+      spriteId: 66a9e8fcdc6c0804296e29dcf2df9231
+    - name: Armor1_ArmsDown_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 31
+        y: 25
+        width: 17
+        height: 14
+      spriteId: 3c2b4727e05848d47a6320383effafa4
+    - name: Armor1_ArmsDown_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 32
+        y: 26
+        width: 15
+        height: 13
+      spriteId: ec585ff360fa9364384e4d34c276c94e
+    - name: Armor1_ArmsDown_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 32
+        y: 28
+        width: 16
+        height: 11
+      spriteId: 58ad0cfbe4c13a34c90c52af1a931915
+    - name: Armor1_ArmsDown_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 31
+        y: 30
+        width: 18
+        height: 9
+      spriteId: 4d7a204a79d78c44199fba2b4a4c33c3
+    - name: Armor1_ArmsDown_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 32
+        y: 28
+        width: 16
+        height: 11
+      spriteId: e9e4008bc7c4c694ca770747e25bcbd9
+    - name: Armor1_ArmsDown_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 33
+        y: 26
+        width: 15
+        height: 13
+      spriteId: fd177d93f0a0c754098fcbad7af5198c
+    - name: Armor1_ArmsDown_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 32
+        y: 25
+        width: 17
+        height: 14
+      spriteId: a1f1f8ca5ace3ae4f9ba580b58c6bb58
+    - name: Armor1_ArmsDown_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 31
+        y: 27
+        width: 18
+        height: 12
+      spriteId: 748849cf1a33a7b42b0da79dba5829b6
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 80, y: 64}
