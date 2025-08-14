@@ -236,6 +236,6 @@ public class SheildsScript : MonoBehaviour
     {
         //reset positions and hide
         ResetShieldPositions();
-        SetShieldsActive(false);
+        //SetShieldsActive(false);
     }
 }
