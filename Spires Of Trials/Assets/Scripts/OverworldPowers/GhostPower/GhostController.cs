@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class GhostController : MonoBehaviour
 {
     [Tooltip("Seconds of history to record")]
@@ -31,7 +31,7 @@ public class GhostController : MonoBehaviour
 
     void Start()
     {
-        playerAnim = GetComponent<Animator>();
+        playerAnim = GetComponentInChildren<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
 
         ghostInstance = Instantiate(ghostPrefab);

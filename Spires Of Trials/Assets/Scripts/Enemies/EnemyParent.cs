@@ -547,18 +547,38 @@ public abstract class EnemyParent : MonoBehaviour
         }
 
 
-        // right after you get atkSprite and atkType:
+
         if (atkSprite != null)
         {
             switch (atkType)
             {
                 case EnemyAttackType.Dodge:
+                    {
+                        Color c = Color.red;
+                       // c.a = .8f; // full opacity
+                        atkSprite.color = c;
+                        shieldManager.ShowIndicator(atkSprite, this);
+                        break;
+                    }
                 case EnemyAttackType.Shield:
+                    {
+                        Color c = Color.blue;
+                        //c.a = .8f;
+                        atkSprite.color = c;
+                        shieldManager.ShowIndicator(atkSprite, this);
+                        break;
+                    }
                 case EnemyAttackType.Parry:
-                    shieldManager.ShowIndicator(atkSprite, this); // pass owner
-                    break;
+                    {
+                        Color c = atkSprite.color;
+                       // c.a = .8f; // or whatever alpha you want
+                        atkSprite.color = c;
+                        shieldManager.ShowIndicator(atkSprite, this);
+                        break;
+                    }
             }
         }
+
 
 
 

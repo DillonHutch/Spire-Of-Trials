@@ -155,7 +155,7 @@ public class QuestManager : MonoBehaviour
         //EventManager.Instance.TriggerEvent("takeDamageEvent", quest.info.timeTaken);
         //Debug.Log("Quest Done");
 
-        int leftOverItems = inventoryManager.AddItem("Chest", 1, sprite, "This is a test chest peice!", ItemType.Chest);
+        int leftOverItems = inventoryManager.AddItem("Health Potion", 1, sprite, "This is a test chest peice!", ItemType.Chest);
     }
 
     private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
