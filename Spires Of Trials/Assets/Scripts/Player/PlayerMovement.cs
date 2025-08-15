@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
 
-    private Animator anim;
+    [SerializeField] private Animator[] anims;
 
     [Tooltip("Toggled by your BattleSceneController or dialogue system")]
     public bool canMove = true;
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        
     }
 
     void OnEnable()
@@ -47,8 +47,16 @@ public class PlayerMovement : MonoBehaviour
 
         // clear our movement state
         movement = Vector2.zero;
-        anim.SetFloat("MoveX", 0f);
-        anim.SetFloat("MoveY", 0f);
+
+        foreach (Animator anim in anims)
+        {
+            if (anim != null)
+            {
+                // reset animation parameters
+                anim.SetFloat("MoveX", 0f);
+                anim.SetFloat("MoveY", 0f);
+            }
+        }
 
         // halt any physics velocity
         rb.velocity = Vector2.zero;
@@ -72,8 +80,23 @@ public class PlayerMovement : MonoBehaviour
         float my = canMove ? Input.GetAxisRaw("Vertical") : 0f;
         movement = new Vector2(mx, my).normalized;
 
-        anim.SetFloat("MoveX", movement.x);
-        anim.SetFloat("MoveY", movement.y);
+        foreach (Animator anim in anims)
+        {
+            if (anim == null) continue;
+            // set animation parameters based on movement
+            anim.SetFloat("MoveX", movement.x);
+            anim.SetFloat("MoveY", movement.y);
+            // handle idle state
+            if (movement.sqrMagnitude < 0.01f)
+            {
+                anim.SetBool("IsIdle", true);
+            }
+            else
+            {
+                anim.SetBool("IsIdle", false);
+            }
+        }
+
     }
 
     void FixedUpdate()

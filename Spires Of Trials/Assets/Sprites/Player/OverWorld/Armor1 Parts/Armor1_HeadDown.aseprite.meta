@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: 63e47dede8e9a154f92f1bbde90693a4
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: Down
+    second: {fileID: 7400000, guid: 00bbfa1c1b370d348acfe267fc67ddd7, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -35,7 +40,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 16
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +102,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638908607051424781
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,8 +128,8 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Armor1_HeadDown_Frame_0
     originalName: 
-    pivot: {x: 0.49999997, y: -2.25}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -143,8 +148,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Armor1_HeadDown_Frame_1
     originalName: 
-    pivot: {x: 0.49999997, y: -2.25}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -163,8 +168,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 28}
   - name: Armor1_HeadDown_Frame_2
     originalName: 
-    pivot: {x: 0.49999997, y: -2.1875}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -183,8 +188,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 52}
   - name: Armor1_HeadDown_Frame_3
     originalName: 
-    pivot: {x: 0.49999997, y: -2.1875}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -203,8 +208,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 76}
   - name: Armor1_HeadDown_Frame_4
     originalName: 
-    pivot: {x: 0.49999997, y: -2.25}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -223,8 +228,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 100}
   - name: Armor1_HeadDown_Frame_5
     originalName: 
-    pivot: {x: 0.49999997, y: -2.25}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -243,8 +248,8 @@ ScriptedImporter:
     uvTransform: {x: 28, y: 4}
   - name: Armor1_HeadDown_Frame_6
     originalName: 
-    pivot: {x: 0.49999997, y: -2.1875}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -263,8 +268,8 @@ ScriptedImporter:
     uvTransform: {x: 28, y: 28}
   - name: Armor1_HeadDown_Frame_7
     originalName: 
-    pivot: {x: 0.49999997, y: -2.125}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -283,8 +288,8 @@ ScriptedImporter:
     uvTransform: {x: 28, y: 52}
   - name: Armor1_HeadDown_Frame_8
     originalName: 
-    pivot: {x: 0.49999997, y: -2.1875}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -384,7 +389,43 @@ ScriptedImporter:
       spriteId: bcd960cf9db811a42a2c68cd107db3e6
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 

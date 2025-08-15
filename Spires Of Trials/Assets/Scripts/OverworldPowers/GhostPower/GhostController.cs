@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Animator))]
+
 public class GhostController : MonoBehaviour
 {
     [Tooltip("Seconds of history to record")]

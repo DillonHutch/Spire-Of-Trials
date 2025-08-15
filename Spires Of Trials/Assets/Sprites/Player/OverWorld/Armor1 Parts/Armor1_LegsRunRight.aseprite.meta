@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: bd15bbd1634dd9b4b81e0a41c510a784
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: RunRight
+    second: {fileID: 7400000, guid: 36acfcaeb9133de4b987a22a31dbd664, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -35,7 +40,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 100
+    spritePixelsToUnits: 16
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +102,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638908555679715987
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,8 +128,8 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Armor1_LegsRunRight_Frame_0
     originalName: 
-    pivot: {x: 0.6153846, y: -1.4545455}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -143,8 +148,8 @@ ScriptedImporter:
     uvTransform: {x: 29, y: 4}
   - name: Armor1_LegsRunRight_Frame_1
     originalName: 
-    pivot: {x: 0.6470588, y: -1.3333334}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -163,8 +168,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Armor1_LegsRunRight_Frame_2
     originalName: 
-    pivot: {x: 0.52941185, y: -1.3333334}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -183,8 +188,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 24}
   - name: Armor1_LegsRunRight_Frame_3
     originalName: 
-    pivot: {x: 0.625, y: -1.4545455}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -203,8 +208,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 64}
   - name: Armor1_LegsRunRight_Frame_4
     originalName: 
-    pivot: {x: 0.7272727, y: -1.4545455}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -223,8 +228,8 @@ ScriptedImporter:
     uvTransform: {x: 29, y: 23}
   - name: Armor1_LegsRunRight_Frame_5
     originalName: 
-    pivot: {x: 0.6923078, y: -1.3333334}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -243,8 +248,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 102}
   - name: Armor1_LegsRunRight_Frame_6
     originalName: 
-    pivot: {x: 0.625, y: -1.6363637}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -263,8 +268,8 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 83}
   - name: Armor1_LegsRunRight_Frame_7
     originalName: 
-    pivot: {x: 0.6666667, y: -1.3333334}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -356,7 +361,43 @@ ScriptedImporter:
       spriteId: d68e79bf6d2e1774aa8ec1e5af49a9b7
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
